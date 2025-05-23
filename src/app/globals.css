@@ -39,3 +39,8 @@ body {
   color: var(--textColor);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+::selection {
+  background-color: var(--background); /* amarillo */
+  color: var(--buttonColor); /* gris oscuro */
+}
