@@ -44,3 +44,26 @@ body {
   background-color: var(--background); /* amarillo */
   color: var(--buttonColor); /* gris oscuro */
 }
+
+
+@keyframes scrollDown {
+  0% { transform: translateY(-120%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(120%); opacity: 0; }
+}
+
+@keyframes scrollUp {
+  0% { transform: translateY(120%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120%); opacity: 0; }
+}
+
+.scroll-down {
+  animation: scrollDown 6s linear infinite;
+}
+
+.scroll-up {
+  animation: scrollUp 6s linear infinite;
+}
