@@ -2,39 +2,45 @@ import React from 'react'
 
 export const Information = () => {
     return (
-        <section className=' p-np mt-12 flex'>
-            <div className='w-[75%]'>
-                <h1 className='text-2xl xl:text-2xl font-semibold'>Azariel Moreno</h1>
-                <h2 className='text-xl xl:text-xl font-medium'>Full-Stack Developer</h2>
-                <div className='font-light text-sm xl:text-lg mt-3'>
-                    <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind |</p>
-                    <p> GitHub | APIs | Axios | Shadcn | Motion | TypeScript |</p>
-                    <p>Express | Nextjs | Nodejs |</p>
+        <section className="grid grid-rows-[auto_auto] gap-5 mt-12 p-np">
+
+            <div className="grid lg:grid-cols-4">
+
+                <div className="col-span-3 border border-white rounded-xl">
+                    <h1 className="text-2xl xl:text-2xl font-semibold">Azariel Moreno</h1>
+                    <h2 className="text-xl xl:text-xl font-medium">Full-Stack Developer</h2>
+                    <div className="font-light text-sm xl:text-lg mt-5">
+                        <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind |</p>
+                        <p>GitHub | APIs | Axios | Shadcn | Motion | TypeScript |</p>
+                        <p>Express | Nextjs | Nodejs |</p>
+                    </div>
+                    <div className="flex gap-5 items-center text-sm lg:text-lg mt-5">
+                        <p>Argentina</p>
+                        <p className="text-buttonColor  font-semibold">+54 9 2236979758</p>
+                    </div>
+                    <p className="font-bold text-buttonColor text-sm lg:text-lg mt-3">10 Páginas realizadas</p>
                 </div>
-                <div className='flex gap-5 mt-2'>
-                    <p>Argentina</p>
-                    <p className='text-buttonColor font-semibold'>+54 9 2236979758</p>
+
+                <div className="border border-white rounded-xl text-sm xl:text-base text-gray-800 mt-3 md:mt-0">
+                    <h2 className="text-sm md:text-lg font-bold text-buttonColor mb-1">Experiencia</h2>
+                    <ul className="list-inside  flex flex-row md:flex-col font-bold gap-x-3 flex-wrap text-sm md:text-lg">
+                        <li>Independiente</li>
+                        <li className=''>No Country</li>
+                        <li className=''>Proyectos</li>
+                    </ul>
                 </div>
-                <div>
-                    <p className='font-bold text-buttonColor mt-2'>10 Paginas realizadas</p>
-                </div>
-                <button className='border-2 p-1 px-3 rounded-full font-bold bg-buttonColor text-foreground tracking-wider mt-2'>
-                    Contactame
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row w-full ">
+                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider w-full lg:w-auto">
+                    Mas sobre mí
                 </button>
-                <button className='border-2 p-1 px-3 rounded-full font-bold bg-buttonColor text-foreground tracking-wider mt-2 ml-3'>
+                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider w-full lg:w-auto">
                     Descargar CV
                 </button>
-                <button className='border-2 p-1 px-3 rounded-full font-bold bg-buttonColor text-foreground tracking-wider mt-2 ml-3'>
-                    Más sobre mi
+                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider col-span-2 w-full lg:col-span-1 lg:w-auto">
+                    Conáctame
                 </button>
-            </div>
-            <div className="text-sm xl:text-base text-gray-800 font-light">
-                <h2 className="text-base font-semibold text-buttonColor mb-1 ">Experiencia</h2>
-                <ul className="list-disc list-inside space-y-1">
-                    <li>Independiente</li>
-                    <li>No Country</li>
-                    <li>Proyectos</li>
-                </ul>
             </div>
         </section>
     )
