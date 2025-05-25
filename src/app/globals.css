@@ -7,6 +7,7 @@
   --textColor: #191919;        /* Color de texto */
   --buttonColor: #0A66C2;      /* Botones primarios */
   
+  
   /* Fuentes */
   --font-geist-sans: 'Geist Sans', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
@@ -66,4 +67,8 @@ body {
 
 .scroll-up {
   animation: scrollUp 6s linear infinite;
+}
+
+.p-np {
+    padding: 26px;
 }
