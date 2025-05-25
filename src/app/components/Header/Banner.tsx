@@ -165,7 +165,7 @@ export const Banner = () => {
                 ))}
 
               {/* Enlaces a redes sociales */}
-                <div className="xl:w-[23%] h-[80%] absolute bottom-2 xl:bottom-5 right-22 lg:right-0 flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
+                <div className="xl:w-[16%] h-[80%] absolute bottom-2 xl:bottom-5 right-22 lg:right-0 flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
                     <a
                         href="https://www.linkedin.com/in/azariel-moreno-4267ba254"
                         target="_blank"
