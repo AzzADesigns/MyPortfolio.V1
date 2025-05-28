@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../ui/Button'
 
 export const Information = () => {
     return (
@@ -31,17 +32,18 @@ export const Information = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row w-full ">
-                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider w-full lg:w-auto">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row bg-red-300 w-full sm:w-90  md:w-full ">
+                <Button>
                     Mas sobre mí
-                </button>
-                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider w-full lg:w-auto">
+                </Button>
+                <Button>
                     Descargar CV
-                </button>
-                <button className="border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider col-span-2 w-full lg:col-span-1 lg:w-auto">
+                </Button>
+                <Button extraClass='col-span-2  xl:col-span-1'>
                     Conáctame
-                </button>
+                </Button>
             </div>
         </section>
     )
 }
+//lg:col-span-1 lg:w-auto

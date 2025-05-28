@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Header from "./components/Header/Header";
-import Card from "./components/shared/Card";
+import Card from "./components/ui/Card";
 
 
 
