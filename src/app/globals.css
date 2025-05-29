@@ -72,3 +72,16 @@ body {
 .p-np {
     padding: 26px;
 }
+
+@media (min-width: 458px) and (max-width: 639px) {
+    .w-narrow-range {
+        
+        width: 70%;
+        max-width: 520px;
+        margin-left: 0;
+        margin-right: auto;
+    }
+    .ml-narrow-range {
+        margin-left: 10rem;
+    }
+}
