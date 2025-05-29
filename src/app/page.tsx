@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <div className="bg-background text-textColor min-h-screen selection font-[family-name:var(--font-geist-sans)] flex flex-col items-center ">
             <nav className="w-full h-12 bg-foreground mb-3"></nav>
-            <header className="w-full flex flex-col sm:max-w-127 md:max-w-[800px] lg:max-w-7xl xl:max-w-full md:flex-row justify-center gap-5 p-4">
+            <header className="w-full flex flex-col max-w-lg sm:max-w-127 md:max-w-[800px] lg:max-w-7xl xl:max-w-full md:flex-row justify-center gap-5 p-4">
                 <Card extraClass="lg:w-[43%] max-w-4xl">
                     <Header/>
                     <div className=" w-24 lg:w-[170px] overflow-hidden rounded-full lg:h-[170px] z-50 absolute top-47 lg:top-24 left-3 lg:left-8 border-4 border-foreground">
