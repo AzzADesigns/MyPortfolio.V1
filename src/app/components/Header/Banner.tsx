@@ -61,7 +61,7 @@ const codeLines = [
 
 const images = [
     { src: "/form1.svg", alt: "forma1", width: 200, height: 200, className: "absolute w-7 hidden 2xl:flex  bottom-3 lg:w-40  lg:left-[-1] lg:top-0" },
-    { src: "/form2.svg", alt: "forma2", width: 120, height: 120, className: "absolute w-7 hidden 2xl:flex  bottom-3 lg:w-38 lg:bottom-[-1] lg:left-145" },
+    { src: "/form2.svg", alt: "forma2", width: 120, height: 120, className: "absolute w-7 hidden 2xl:flex  bottom-3 lg:w-38 lg:bottom-[-1] lg:left-110" },
     { src: "/form2.svg", alt: "forma2", width: 150, height: 150, className: "absolute w-7 hidden 2xl:flex  bottom-3 lg:w-52 lg:bottom-[-1] lg:right-0" },
     { src: "/form2.svg", alt: "forma2", width: 150, height: 150, className: "absolute w-7 hidden 2xl:flex  bottom-3 lg:w-42 lg:top-[-1] lg:right-15 scale-y-[-1] scale-x-[-1]" },
 ];
@@ -110,7 +110,7 @@ export const Banner = () => {
 
     return (
         <section className="bg-[#03091E] h-59 lg:h-52 rounded-t-3xl relative overflow-hidden">
-            <div className="h-52 w-96 p-4 rounded ml-21 xl:ml-45 2xl:ml-90 text-xs text-white font-mono flex">
+            <div className="h-52 w-96 p-4 rounded ml-21 ml-narrow-range sm:ml-52 xl:ml-50 2xl:ml-70 text-xs text-white font-mono flex">
               {/* Números de línea */}
                 <div className="text-gray-500 text-right pr-4 select-none">
                     {codeLines.map((_, i) => (
@@ -131,23 +131,23 @@ export const Banner = () => {
                 </pre>
 
               {/* Columna de íconos desplazándose hacia abajo */}
-                <div className="absolute left-2  2xl:left-55 top-0 h-full overflow-hidden">
+                <div className="absolute left-2 sm:left-10  2xl:left-40 top-0 h-full overflow-hidden">
                     <div className="scroll-down flex flex-col items-center gap-6 z-40">
-                        <Image src="/react.svg" alt="React" width={45} height={45} className='w-8 xl:w-12'/>
-                        <Image src="/ts.svg" alt="TypeScript" width={40} height={40} className='w-7 xl:w-10'/>
-                        <Image src="/shadcn.svg" alt="Node.js" width={40} height={40} className='w-7 xl:w-10'/>
-                        <Image src="/tailwind.svg" alt="Node.js" width={40} height={40} className='w-7 xl:w-10'/>
+                        <Image src="/react.svg" alt="React" width={45} height={45} className='w-8 2xl:w-10'/>
+                        <Image src="/ts.svg" alt="TypeScript" width={40} height={40} className='w-7 2xl:w-8'/>
+                        <Image src="/shadcn.svg" alt="Node.js" width={40} height={40} className='w-7 2xl:w-8'/>
+                        <Image src="/tailwind.svg" alt="Node.js" width={40} height={40} className='w-7 2xl:w-8'/>
                         
                     </div>
                 </div>
 
               {/* Columna de íconos desplazándose hacia arriba */}
-                <div className="absolute left-15 xl:left-25 2xl:left-75 bottom-0 h-full overflow-hidden z-40">
+                <div className="absolute left-15 sm:ml-20 xl:left-15 2xl:left-40 bottom-0 h-full overflow-hidden z-40">
                     <div className="scroll-up flex flex-col items-center gap-6">
-                        <Image src="/nodejs.svg" alt="Node.js" width={40} height={40} className='w-7 xl:w-10'/>
-                        <Image src="/nextjs.svg" alt="Next.js" width={40} height={40} className='w-7 xl:w-10'/>
-                        <Image src="/express.svg" alt="Express" width={40} height={40} className='w-7 xl:w-10'/>
-                        <Image src="/postrgres.svg" alt="PostgreSQL" width={40} height={60} className='w-7 xl:w-10'/>
+                        <Image src="/nodejs.svg" alt="Node.js" width={40} height={40} className='w-7 2xl:w-8'/>
+                        <Image src="/nextjs.svg" alt="Next.js" width={40} height={40} className='w-7 2xl:w-8'/>
+                        <Image src="/express.svg" alt="Express" width={40} height={40} className='w-7 2xl:w-8'/>
+                        <Image src="/postrgres.svg" alt="PostgreSQL" width={40} height={60} className='w-7 2xl:w-8'/>
                         
                     </div>
                 </div>
@@ -165,7 +165,7 @@ export const Banner = () => {
                 ))}
 
               {/* Enlaces a redes sociales */}
-                <div className="xl:w-[16%] h-[80%] absolute bottom-2 xl:bottom-5 right-18 lg:right-0 xl:right-5 2xl-right-0 flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
+                <div className="xl:w-[16%] h-[80%] absolute bottom-2 xl:bottom-5 right-18  xl:right-5 2xl-right-0 flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
                     <a
                         href="https://www.linkedin.com/in/azariel-moreno-4267ba254"
                         target="_blank"
