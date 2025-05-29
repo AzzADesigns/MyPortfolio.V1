@@ -5,7 +5,7 @@ export const Information = () => {
     return (
         <section className="grid grid-rows-[auto_auto] gap-5 mt-12 p-np">
 
-            <div className="grid lg:grid-cols-4">
+            <div className="grid xl:grid-cols-4">
 
                 <div className="col-span-3 border border-white rounded-xl">
                     <h1 className="text-2xl xl:text-2xl font-semibold">Azariel Moreno</h1>
@@ -22,9 +22,9 @@ export const Information = () => {
                     <p className="font-bold text-buttonColor text-sm lg:text-lg mt-3">10 Páginas realizadas</p>
                 </div>
 
-                <div className="border border-white rounded-xl text-sm xl:text-base text-gray-800 mt-3 md:mt-0">
+                <div className="border border-white rounded-xl text-sm xl:ml-5  text-gray-800 mt-3 md:mt-0">
                     <h2 className="text-sm md:text-lg font-bold text-buttonColor mb-1">Experiencia</h2>
-                    <ul className="list-inside  flex flex-row md:flex-col font-bold gap-x-3 flex-wrap text-sm md:text-lg">
+                    <ul className="list-inside  flex flex-row md:flex-col font-bold gap-x-3 flex-wrap text-sm 2xl:text-lg">
                         <li>Independiente</li>
                         <li className=''>No Country</li>
                         <li className=''>Proyectos</li>
@@ -32,7 +32,7 @@ export const Information = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row bg-red-300 w-full sm:w-90  md:w-full ">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row w-full   w-narrow-range   sm:w-90  lg:w-full ">
                 <Button>
                     Mas sobre mí
                 </Button>
