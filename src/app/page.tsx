@@ -15,7 +15,7 @@ export default function Home() {
                     <Header/>
                     <div className=" w-24 lg:w-[170px]  overflow-hidden rounded-full lg:h-[170px] z-50 absolute top-47 lg:top-24 left-3 lg:left-8 border-4 transition-all duration-300 border-foreground">
                         <Image
-                            src="/perfil.jfif"
+                            src="/perfil.png"
                             alt="Imagen de perfil"
                             width={170}
                             height={170}

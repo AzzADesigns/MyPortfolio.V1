@@ -30,7 +30,7 @@ export default function RootLayout({
                 className={`scroll-smooth ${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--background)] text-[var(--textColor)]`}
             >
                 <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
-                {children}
+                    {children}
                 </ThemeProvider>
             </body>
         </html>
