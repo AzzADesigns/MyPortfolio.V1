@@ -1,5 +1,6 @@
 import React from 'react'
-import Button from '../ui/Button'
+import Button from '../../ui/Button'
+import { Title } from '../../ui/Title'
 
 export const Information = () => {
     return (
@@ -8,7 +9,7 @@ export const Information = () => {
             <div className="grid xl:grid-cols-4">
 
                 <div className="col-span-3 border border-white rounded-xl">
-                    <h1 className="text-2xl xl:text-2xl font-semibold">Azariel Moreno</h1>
+                    <Title>Azariel Moreno</Title>
                     <h2 className="text-xl xl:text-xl font-medium">Full-Stack Developer</h2>
                     <div className="font-light text-sm xl:text-lg mt-5">
                         <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind |</p>
