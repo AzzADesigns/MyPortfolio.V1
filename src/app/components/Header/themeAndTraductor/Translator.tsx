@@ -1,15 +1,15 @@
-import React from 'react'
-import Button from '../../ui/Button'
-import { Title } from '../../ui/Title'
+import React from 'react';
+import Button from '../../ui/Button';
+import { Title } from '../../ui/Title';
 
 export const Translator = () => {
     return (
-        <div className='flex max-w-64 flex-col justify-center items-center'>
-            <Title>Idiomas</Title>
-            <div className='flex items-center mt-4 w-full justify-between'>
-                <Button>Ingles</Button>
+        <div className='flex flex-col items-center justify-center w-full'>
+            <Title extraClass="hidden md:flex mb-2">Idiomas</Title>
+            <div className='flex w-full justify-center gap-3'>
+                <Button>English</Button>
                 <Button>Español</Button>
             </div>
         </div>
-    )
-}
+    );
+};
