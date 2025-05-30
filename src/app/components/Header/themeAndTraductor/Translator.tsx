@@ -4,7 +4,7 @@ import { Title } from '../../ui/Title'
 
 export const Translator = () => {
     return (
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex max-w-64 flex-col justify-center items-center'>
             <Title>Idiomas</Title>
             <div className='flex items-center mt-4 w-full justify-between'>
                 <Button>Ingles</Button>
