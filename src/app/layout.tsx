@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import {ThemeProvider} from "next-themes"
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,11 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="scroll-smooth">
+        <html lang="en" className="scroll-smooth" suppressContentEditableWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--background)] text-[var(--textColor)]`}
-            >
-                {children}
+                >
+                    <ThemeProvider attribute="class" enableSystem defaultTheme="system">{children}</ThemeProvider>
             </body>
         </html>
     );
