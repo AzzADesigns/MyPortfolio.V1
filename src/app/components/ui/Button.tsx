@@ -11,7 +11,7 @@ interface ButtonProps{
 export default function Button({ children, extraClass }: ButtonProps) {
     return (
         <button className={clsx(
-            'border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-foreground tracking-wider ',
+            'border-2 px-4 py-1 rounded-full text-xs xl:text-base font-bold bg-buttonColor text-background hover:bg-foreground hover:text-buttonColor transition-all hover:border-buttonColor cursor-pointer tracking-wider ',
             extraClass
         )}>
             {children}
