@@ -166,12 +166,12 @@ export const Banner = () => {
                 ))}
 
               {/* Enlaces a redes sociales */}
-                <div className="xl:w-[16%] h-[80%] absolute bottom-2 xl:bottom-5 right-18  xl:right-5 2xl-right-0 flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
+                <div className="xl:w-[16%] h-[80%] absolute bottom-2 xl:bottom-5 right-18  xl:right-5  flex xl:flex-col xl:justify-center items-end xl:items-start pl-6 gap-5">
                     <a
                         href="https://www.linkedin.com/in/azariel-moreno-4267ba254"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-400 xl:text-[15px] 2xl:text-lg hover:scale-105 transition-all"
+                        className="text-blue-400 xl:text-[15px] 2xl:text-md hover:scale-105 transition-all"
                     >
                         Linkedin
                     </a>
@@ -180,7 +180,7 @@ export const Banner = () => {
                         href="https://github.com/azariel-moreno"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="2xl:text-lg xl:text-[15px] hover:scale-105 transition-all"
+                        className="2xl:text-md xl:text-[15px] hover:scale-105 transition-all"
                     >
                         Github
                     </a>
