@@ -11,21 +11,21 @@ export const Information = () => {
                 <div className="col-span-3 rounded-xl">
                     <Title>Azariel Moreno</Title>
                     <h2 className="text-xl xl:text-xl font-medium">Full-Stack Developer</h2>
-                    <div className="font-light text-sm xl:text-lg mt-5">
+                    <div className="font-light text-md xl:text-lg mt-5">
                         <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind |</p>
                         <p>GitHub | APIs | Axios | Shadcn | Motion | TypeScript |</p>
                         <p>Express | Nextjs | Nodejs |</p>
                     </div>
-                    <div className="flex gap-5 items-center text-sm lg:text-lg mt-5">
+                    <div className="flex gap-5 items-center text-md lg:text-lg mt-5">
                         <p>Argentina</p>
                         <p className="text-buttonColor  font-semibold">+54 9 2236979758</p>
                     </div>
-                    <p className="font-bold text-buttonColor text-sm lg:text-lg mt-3">10 Páginas realizadas</p>
+                    <p className="font-bold text-buttonColor text-md lg:text-lg mt-3">10 Páginas realizadas</p>
                 </div>
 
-                <div className="rounded-xl text-sm xl:ml-5  text-gray-800 mt-3 md:mt-0">
+                <div className="rounded-xl text-md xl:ml-5 col-span-3 md:col-span-1 text-gray-800 mt-3 md:mt-0">
                     <h2 className="text-sm md:text-lg font-bold text-buttonColor mb-1">Experiencia</h2>
-                    <ul className="list-inside text-textColor flex flex-row md:flex-col font-bold gap-x-3 flex-wrap text-sm 2xl:text-lg">
+                    <ul className="list-inside text-textColor flex flex-row xl:flex-col font-bold gap-x-3 flex-wrap  text-md 2xl:text-lg">
                         <li>Independiente</li>
                         <li className=''>No Country</li>
                         <li className=''>Proyectos</li>
