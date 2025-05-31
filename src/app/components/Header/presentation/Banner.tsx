@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import { FaReact } from "react-icons/fa";
 
 const codeLines = [
     [
@@ -133,7 +134,7 @@ export const Banner = () => {
               {/* Columna de íconos desplazándose hacia abajo */}
                 <div className="absolute left-2 sm:left-10  2xl:left-40 top-0 h-full overflow-hidden">
                     <div className="scroll-down flex flex-col items-center gap-6 z-40">
-                        <Image src="/react.svg" alt="React" width={45} height={45} className='w-8 2xl:w-10'/>
+                        <FaReact className='w-8 h-8 2xl:w-10 2xl:h-10 text-[#61DAFB]'/>
                         <Image src="/ts.svg" alt="TypeScript" width={40} height={40} className='w-7 2xl:w-8'/>
                         <Image src="/shadcn.svg" alt="Node.js" width={40} height={40} className='w-7 2xl:w-8'/>
                         <Image src="/tailwind.svg" alt="Node.js" width={40} height={40} className='w-7 2xl:w-8'/>
