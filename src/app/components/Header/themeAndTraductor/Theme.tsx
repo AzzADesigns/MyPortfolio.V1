@@ -26,7 +26,7 @@ export const Theme: React.FC = () => {
             <Title extraClass="hidden md:flex">Tema</Title>
             <div
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className="relative w-20 h-9 md:h-10 flex items-center select-none justify-between rounded-full shadow-2xl border-2 border-buttonColor cursor-pointer transition-colors duration-300 bg-foreground"
+                className="relative w-20 h-8 md:h-10 flex items-center select-none justify-between rounded-full shadow-2xl border-2 border-buttonColor cursor-pointer transition-colors duration-300 bg-foreground"
             >
                 <div className="absolute left-2 z-10">
                     <FaMoon className="w-5 h-5 text-buttonColor" />
@@ -36,7 +36,7 @@ export const Theme: React.FC = () => {
                 </div>
 
                 <div
-                    className={`absolute w-7 md:w-8 h-7 md:h-8 left-0.5 right-0.5 bg-buttonColor z-50 rounded-full shadow-md transition-transform duration-300 ${
+                    className={`absolute w-7 md:w-8 h-6 md:h-8 left-0.5 right-0.5 bg-buttonColor z-50 rounded-full shadow-md transition-transform duration-300 ${
                         isDark ? 'translate-x-10' : 'translate-x-0'
                     }`}
                 />
