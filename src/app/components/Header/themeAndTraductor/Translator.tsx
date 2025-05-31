@@ -13,7 +13,7 @@ export const Translator = () => {
             </div>
             <Button extraClass='   p-0.5 px-2 flex md:hidden '>
                 <HiOutlineTranslate className='text-background text-xl'/>
-                <p className='text-background'>traducir</p>
+                <p className='text-background ml-2'>traducir</p>
             </Button>
         </div>
     );
