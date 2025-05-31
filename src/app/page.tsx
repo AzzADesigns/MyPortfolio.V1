@@ -15,7 +15,7 @@ export default function Home() {
                     <div className="order-2 flex flex-col gap-5 md:order-1 ">
                         <Them_Trans/>
 
-                        <Card extraClass="lg:absolute md:top-65 lg:top-77 transition-all duration-300 p-5 flex flex-wrap md:w-72 text-md flex justify-center">
+                        <Card extraClass="lg:absolute md:top-65 lg:top-77 transition-all duration-300 p-5 flex flex-wrap md:w-50 lg:w-72 text-md flex justify-center">
                             <Title>Acerca de</Title>
                             <p className="mt-5">
                                 Con <span className="text-buttonColor font-semibold">tres años de formación</span>, 
@@ -47,7 +47,7 @@ export default function Home() {
                 </header>
 
                 <main className="flex flex-wrap mb-50 justify-center gap-5 mt-5">
-                    <Card extraClass="w-full lg:w-[43%] min-h-[300px] md:w-[71%] md:mr-55 lg:mr-5">
+                    <Card extraClass="w-full lg:w-[43%] min-h-[300px] md:w-[70%] md:mr-55 lg:mr-5">
 
                     </Card>
                 </main>
