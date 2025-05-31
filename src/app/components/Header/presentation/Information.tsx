@@ -25,7 +25,7 @@ export const Information = () => {
 
                 <div className="rounded-xl text-md xl:ml-5 col-span-3 md:col-span-1 text-gray-800 mt-3 md:mt-0">
                     <h2 className="text-sm md:text-lg font-bold text-buttonColor mb-1">Experiencia</h2>
-                    <ul className="list-inside text-textColor flex flex-row xl:flex-col font-bold gap-x-3 flex-wrap  text-md 2xl:text-lg">
+                    <ul className="list-inside text-textColor flex flex-row xl:flex-col  gap-x-3 flex-wrap  text-md 2xl:text-md">
                         <li>Independiente</li>
                         <li className=''>No Country</li>
                         <li className=''>Proyectos</li>
@@ -41,7 +41,7 @@ export const Information = () => {
                     Descargar CV
                 </Button>
                 <Button extraClass='col-span-2  xl:col-span-1'>
-                    Conáctame
+                    Contáctame
                 </Button>
             </div>
         </section>
