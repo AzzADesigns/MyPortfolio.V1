@@ -8,13 +8,11 @@ export const Information = () => {
 
             <div className="grid xl:grid-cols-4">
 
-                <div className="col-span-3 rounded-xl">
+                <div className="col-span-3 md:mt-2 rounded-xl">
                     <Title>Azariel Moreno</Title>
                     <h2 className="text-xl xl:text-xl font-medium">Full-Stack Developer</h2>
-                    <div className="font-light text-md xl:text-lg mt-5">
-                        <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind |</p>
-                        <p>GitHub | APIs | Axios | Shadcn | Motion | TypeScript |</p>
-                        <p>Express | Nextjs | Nodejs |</p>
+                    <div className="font-light text-md xl:text-lg mt-5 w-[70%] md:w-[80%] xl:w-[86%] 2xl:w-[90%]">
+                        <p>React | SQL | Figma | Diseño UX/UI | Research | Tailwind | GitHub | APIs | Axios | Shadcn | Motion | TypeScript | Express | Nextjs | Nodejs |</p>
                     </div>
                     <div className="flex gap-5 items-center text-md lg:text-lg mt-5">
                         <p>Argentina</p>
