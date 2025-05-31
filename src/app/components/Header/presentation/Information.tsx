@@ -35,7 +35,7 @@ export const Information = () => {
 
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row w-full  w-narrow-range   sm:w-90  lg:w-full ">
                 <Button>
-                    Mas sobre mí
+                    Ver Proyectos
                 </Button>
                 <Button>
                     Descargar CV
