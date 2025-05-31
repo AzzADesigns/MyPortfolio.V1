@@ -12,7 +12,7 @@ interface ButtonProps{
 export default function Button({ children, extraClass, onClick  }: ButtonProps) {
     return (
         <button onClick={onClick} className={clsx(
-            'border-2 border-foreground hover:border-buttonColor   px-2.5 py-1 rounded-full text-md xl:text-base bg-buttonColor text-buttonText hover:bg-foreground hover:text-buttonColor transition-all cursor-pointer tracking-wider ',
+            "border-2 border-foreground hover:border-buttonColor px-2.5 py-1 rounded-full text-sm  bg-buttonColor text-buttonText hover:bg-foreground hover:text-buttonColor transition-all cursor-pointer tracking-wider",
             extraClass
         )}>
             {children}

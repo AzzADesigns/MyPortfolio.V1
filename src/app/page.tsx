@@ -8,28 +8,50 @@ import { Them_Trans } from "./components/Header/themeAndTraductor/Them_Trans";
 
 export default function Home() {
     return (
-        <div className="bg-background text-textColor transition-all duration-500  min-h-screen selection font-[family-name:var(--font-geist-sans)] flex flex-col items-center ">
-            <header className="w-full mt-12 flex md:flex-row-reverse flex-col max-w-lg  sm:max-w-127 md:max-w-[800px] lg:max-w-7xl xl:max-w-full justify-center gap-5 p-4">
-                <Them_Trans/>
-                <Card extraClass="lg:w-[43%] max-w-4xl ">
-                    <Header/>
-                    <div className=" w-24 lg:w-[170px]  overflow-hidden rounded-full lg:h-[170px] z-50 absolute top-47 lg:top-24 left-3 lg:left-8 border-4 transition-all duration-300 border-foreground">
-                        <Image
-                            src="/perfil.png"
-                            alt="Imagen de perfil"
-                            width={170}
-                            height={170}
-                            className="rounded-full w-24 lg:w-170  hover:scale-110 transition-transform duration-300"
-                        />
+        <div className="bg-background text-textColor  overflow-x-hidden overflow-y-auto transition-all duration-500  min-h-screen selection font-[family-name:var(--font-geist-sans)] flex flex-col items-center ">
+            <div className="w-full max-w-lg sm:max-w-127 md:max-w-[800px] lg:max-w-7xl xl:max-w-full px-4">
+                <header className="mt-12 flex md:flex-row-reverse flex-col justify-center gap-5">
+                    <div className="relative order-2 flex flex-col gap-5 md:order-1 ">
+                        <Them_Trans/>
+                        <Card extraClass="h-[60%]  p-5 flex flex-wrap md:w-16 text-sm flex justify-center">
+                            <p>
+                                Con <span className="text-buttonColor font-semibold">tres años de formación</span>, 
+                                que incluyen <span className="text-buttonColor font-semibold">un año de experiencia 
+                                práctica</span>, me he especializado en 
+                                <span className="text-buttonColor font-semibold">UX/UI utilizando Atomic Design</span>. 
+                                He participado en <span className="text-buttonColor font-semibold">simulaciones laborales</span>, 
+                                colaborando en <span className="text-buttonColor font-semibold">equipos de hasta seis personas</span>. 
+                                Además, he desarrollado <span className="text-buttonColor font-semibold">proyectos por encargo</span>. 
+                                Sumado a mis conocimientos en <span className="text-buttonColor font-semibold">back-end</span>, 
+                                estoy preparado para integrarme a un 
+                                <span className="text-buttonColor font-semibold">equipo profesional</span>.
+                            </p>
+                        </Card>
                     </div>
-                </Card>
-            </header>
-            <main>
+                    <Card extraClass="lg:w-[43%] xl:max-h-[655px] max-w-4xl order-1 md:order-2">
+                        <Header/>
+                        <div className=" w-24 lg:w-[170px] overflow-hidden rounded-full lg:h-[170px] z-50 absolute top-47 lg:top-24 left-3 lg:left-8 border-4 transition-all duration-300 border-foreground">
+                            <Image
+                                src="/perfil.png"
+                                alt="Imagen de perfil"
+                                width={170}
+                                height={170}
+                                className="rounded-full w-24 lg:w-170  hover:scale-110 transition-transform duration-300"
+                            />
+                        </div>
+                    </Card>
+                </header>
 
-            </main>
-            <footer>
-                
-            </footer>
+                <main className="flex flex-wrap mb-50 justify-center gap-5 mt-5">
+                    <Card extraClass="w-full lg:w-[43%] min-h-[300px] md:w-[71%] md:mr-55">
+
+                    </Card>
+                </main>
+                <footer>
+                    
+                </footer>
+
+            </div>
         </div>
     );
 }
