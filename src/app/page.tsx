@@ -3,7 +3,7 @@ import Header from "./components/Header/presentation/Header";
 import Card from "./components/ui/Card";
 import { Them_Trans } from "./components/Header/themeAndTraductor/Them_Trans";
 import { Title } from "./components/ui/Title";
-import { FeaturedProject } from "./components/body/FeaturedProject";
+import { FeaturedProject } from "./components/body/featured/FeaturedProject";
 
 export default function Home() {
     return (

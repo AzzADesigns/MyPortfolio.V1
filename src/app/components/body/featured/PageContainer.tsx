@@ -1,6 +1,7 @@
 import Image from "next/image";
-import TitelPage from "./TitlePage";
-import TechStack from "./TechStack";
+import TitelPage from "../../ui/TitlePage";
+import TechStack from "../../ui/TechStack";
+import Deploy from "../../ui/Deploy";
 import { ReactNode } from "react";
 
 interface PageContainerProps {
@@ -9,6 +10,7 @@ interface PageContainerProps {
     technologies: { name: string; icon?: ReactNode }[];
     imageSrc: string;
     imageAlt: string;
+    deployUrl?: string;
 }
 
 export default function PageContainer({ 
@@ -16,7 +18,8 @@ export default function PageContainer({
     description, 
     technologies, 
     imageSrc, 
-    imageAlt 
+    imageAlt,
+    deployUrl = "https://in-audio.vercel.app"
 }: PageContainerProps) {
     return (
         <section className="flex flex-col md:flex-row gap-5">
@@ -31,7 +34,10 @@ export default function PageContainer({
             </figure>
             <article className="md:w-1/2">
                 <header className="flex flex-col gap-2">
-                    <TitelPage title={title} />
+                    <div className="flex items-center justify-between">
+                        <TitelPage title={title} />
+                        <Deploy url={deployUrl} />
+                    </div>
                     <TechStack technologies={technologies} />
                 </header>
                 <div className="h-30 mt-2 pr-2 overflow-y-auto custom-scrollbar">
