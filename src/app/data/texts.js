@@ -8,6 +8,7 @@ export const projectTexts = {
             { "name": "Express" },
             { "name": "MongoDB" }
         ],
-        "image": "/in-audio.png"
+        "image": "/in-audio.png",
+        "deployUrl": "https://in-audio.vercel.app"
     }
 }
