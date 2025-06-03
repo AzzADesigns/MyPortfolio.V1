@@ -2,87 +2,126 @@
 
 /* 🌞 Modo claro */
 :root {
-  --background: #F4F2EE;
-  --foreground: #FBFBFB;
-  --textColor: #191919;
-  --buttonColor: #0A66C2;
-  --buttonText:#F4F2EE;
+    --background: #f4f2ee;
+    --foreground: #fbfbfb;
+    --textColor: #191919;
+    --buttonColor: #0a66c2;
+    --buttonText: #f4f2ee;
 
-  --font-geist-sans: 'Geist Sans', sans-serif;
-  --font-geist-mono: 'Geist Mono', monospace;
+    --font-geist-sans: "Geist Sans", sans-serif;
+    --font-geist-mono: "Geist Mono", monospace;
 }
 
 /* 🌙 Modo oscuro (activado por clase .dark con next-themes) */
 .dark {
-  --background: #1a1a1a;
-  --foreground: #2c2c2c;
-  --textColor: #f5f5f5;
-  --buttonColor: #3b82f6;
-  --buttonText:#F4F2EE;
+    --background: #1a1a1a;
+    --foreground: #2c2c2c;
+    --textColor: #f5f5f5;
+    --buttonColor: #3b82f6;
+    --buttonText: #f4f2ee;
 }
 
 /* ✅ Exponer variables para Tailwind */
 @theme inline {
-  /* Colores */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-textColor: var(--textColor);
-  --color-buttonColor: var(--buttonColor);
-  --color-buttonText:var(--buttonText);
+    /* Colores */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-textColor: var(--textColor);
+    --color-buttonColor: var(--buttonColor);
+    --color-buttonText: var(--buttonText);
 
-  /* Tipografías */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    /* Tipografías */
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--textColor);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--textColor);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background-color: var(--background);
-  color: var(--buttonColor);
+    background-color: var(--background);
+    color: var(--buttonColor);
+}
+
+/* Scrollbar personalizado */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--buttonColor);
+    border-radius: 20px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--buttonColor);
+    opacity: 0.8;
 }
 
 /* Animaciones */
 @keyframes scrollDown {
-  0% { transform: translateY(-120%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(120%); opacity: 0; }
+    0% {
+        transform: translateY(-120%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(120%);
+        opacity: 0;
+    }
 }
 
 @keyframes scrollUp {
-  0% { transform: translateY(120%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-120%); opacity: 0; }
+    0% {
+        transform: translateY(120%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120%);
+        opacity: 0;
+    }
 }
 
 .scroll-down {
-  animation: scrollDown 6s linear infinite;
+    animation: scrollDown 6s linear infinite;
 }
 
 .scroll-up {
-  animation: scrollUp 6s linear infinite;
+    animation: scrollUp 6s linear infinite;
 }
 
 /* Utilidades personalizadas */
 .p-np {
-  padding: 26px;
+    padding: 26px;
 }
 
 @media (min-width: 458px) and (max-width: 639px) {
-  .w-narrow-range {
-    width: 70%;
-    max-width: 520px;
-    margin-left: 0;
-    margin-right: auto;
-  }
+    .w-narrow-range {
+        width: 70%;
+        max-width: 520px;
+        margin-left: 0;
+        margin-right: auto;
+    }
 
-  .ml-narrow-range {
-    margin-left: 10rem;
-  }
+    .ml-narrow-range {
+        margin-left: 10rem;
+    }
 }
