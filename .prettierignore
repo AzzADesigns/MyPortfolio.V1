@@ -1,0 +1,11 @@
+# Directorios
+node_modules
+.next
+out
+build
+dist
+
+# Archivos
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

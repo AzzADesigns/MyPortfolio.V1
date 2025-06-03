@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import {ThemeProvider} from "next-themes"
+import { ThemeProvider } from "next-themes";
 
 import "./globals.css";
 
@@ -21,9 +21,7 @@ export const metadata: Metadata = {
     description: "Landing page profesional desarrollada en Next.js",
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body
