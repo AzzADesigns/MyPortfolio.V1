@@ -20,6 +20,7 @@ export function FeaturedProject() {
                     imageSrc={inAudioData.image}
                     imageAlt={inAudioData.title}
                     deployUrl={inAudioData.deployUrl}
+                    extraclass="flex-row"
                 />
             </Card>
         </div>
