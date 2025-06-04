@@ -11,6 +11,7 @@ interface PageContainerProps {
     imageSrc: string;
     imageAlt: string;
     deployUrl?: string;
+    extraclass?: string;
 }
 
 export default function PageContainer({ 
@@ -19,20 +20,21 @@ export default function PageContainer({
     technologies, 
     imageSrc, 
     imageAlt,
-    deployUrl = "https://in-audio.vercel.app"
+    deployUrl,
+    extraclass,
 }: PageContainerProps) {
     return (
-        <section className="flex flex-col md:flex-row gap-5">
+        <section className={`flex flex-col md:${extraclass} gap-5`}>
             <figure className="md:w-1/2">
                 <Image
                     src={imageSrc}
                     alt={imageAlt}
                     width={500}
                     height={300}
-                    className="w-full object-cover rounded-md"
+                    className="w-full h-49 lg:h-58 xl:h-49 object-cover rounded-md"
                 />
             </figure>
-            <article className="md:w-1/2">
+            <article className="md:w-1/2 ">
                 <header className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                         <TitelPage title={title} />
@@ -40,7 +42,7 @@ export default function PageContainer({
                     </div>
                     <TechStack technologies={technologies} />
                 </header>
-                <div className="h-30 mt-2 pr-2 overflow-y-auto custom-scrollbar">
+                <div className="md:h-20 2xl:h-30 mt-2 pr-2 overflow-y-auto custom-scrollbar">
                     <p>
                         <span className="text-buttonColor font-semibold">{title}</span> {description}
                     </p>

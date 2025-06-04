@@ -4,11 +4,13 @@ import Card from "./components/ui/Card";
 import { Them_Trans } from "./components/Header/themeAndTraductor/Them_Trans";
 import { Title } from "./components/ui/Title";
 import { FeaturedProject } from "./components/body/featured/FeaturedProject";
+import MoreProjects from "./components/body/more-projects/MoreProjects";
 
 export default function Home() {
+
     return (
-        <div className="flex flex-col items-center min-h-screen bg-background text-textColor overflow-x-hidden overflow-y-auto transition-all duration-500 font-[family-name:var(--font-geist-sans)] selection">
-            <div className="w-full lg:mr-70 max-w-lg sm:max-w-127 md:max-w-[800px] lg:max-w-7xl xl:max-w-full px-4">
+        <div className="flex flex-col items-center  min-h-screen bg-background text-textColor overflow-x-hidden overflow-y-auto transition-all duration-500 font-[family-name:var(--font-geist-sans)] selection">
+            <div className="w-full lg:mr-70 max-w-lg sm:max-w-127 md:max-w-[800px] lg:max-w-7xl max px-4">
                 <header className="mt-12 flex md:flex-row-reverse flex-col justify-center gap-5">
                     <div className="order-2 flex flex-col gap-5 md:order-1 ">
                         <Them_Trans />
@@ -67,9 +69,14 @@ export default function Home() {
                     </Card>
                 </header>
 
-                <main className="flex flex-col w-[43%] ml-132 mt-5 gap-5">
-                    <FeaturedProject />
-                    <Card extraClass="p-np"></Card>
+                <main className="w-full flex flex-col justify-center transition-all duration-300  mt-5 items-center">
+                    <div className="w-full flex md:w-[72%] md:mr-55  lg:w-[43%] lg:mr-5 ">
+                        <FeaturedProject />
+
+                    </div>
+                    <div className="w-full flex md:w-[72%] md:mr-55  lg:w-[43%] lg:mr-5 mt-5 ">
+                        <MoreProjects />
+                    </div>
                 </main>
                 <footer></footer>
             </div>

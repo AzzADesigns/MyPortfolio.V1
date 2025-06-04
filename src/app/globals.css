@@ -113,6 +113,9 @@ body {
     padding: 26px;
 }
 
+.max {
+  max-width: 2125px;
+}
 @media (min-width: 458px) and (max-width: 639px) {
     .w-narrow-range {
         width: 70%;
