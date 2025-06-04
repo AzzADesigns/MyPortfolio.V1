@@ -20,3 +20,4 @@ export default function Button({ children, extraClass, onClick }: ButtonProps) {
         </button>
     );
 }
+
