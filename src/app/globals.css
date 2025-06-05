@@ -128,3 +128,14 @@ body {
         margin-left: 10rem;
     }
 }
+
+/* Ocultar scrollbar para Chrome, Safari y Opera */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ocultar scrollbar para IE, Edge y Firefox */
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* IE y Edge */
+    scrollbar-width: none;  /* Firefox */
+}
