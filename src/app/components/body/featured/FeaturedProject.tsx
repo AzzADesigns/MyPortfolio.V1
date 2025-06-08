@@ -8,7 +8,7 @@ export function FeaturedProject() {
     
     return (
         <div>
-            <Card extraClass="p-np">
+            <Card extraClass="p-np h-105">
                 <div>
                     <Title extraClass="mb-5">Destacado</Title>
                     
@@ -20,7 +20,10 @@ export function FeaturedProject() {
                     imageSrc={inAudioData.image}
                     imageAlt={inAudioData.title}
                     deployUrl={inAudioData.deployUrl}
-                    extraclass="flex-row"
+                    extraclass="flex-row "
+                    widthIfo="w-100"
+                    widthImage="xl:h-77 "
+                    heigthImage='h-80'
                 />
             </Card>
         </div>
