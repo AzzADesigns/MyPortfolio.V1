@@ -32,7 +32,7 @@ export default function Home() {
                     </header>
 
                     <main className="w-full flex flex-col gap-5 justify-center transition-all duration-300  mt-5 items-center">
-                        <Card extraClass="p-np">
+                        <Card extraClass="p-np w-full lg:w-[92%] xl:w-full">
                             <Title>Acerca de</Title>
                             <AboutMe/>
                         </Card>
