@@ -8,7 +8,7 @@ interface TechBadgeProps {
 
 export default function TechBadge({ name, icon, extraClass = "" }: TechBadgeProps) {
     return (
-        <div className={`flex items-center gap-1 px-2 py-1 text-sm bg-foreground rounded-md ${extraClass}`}>
+        <div className={`flex items-center   py-1 p-2 text-sm bg-background  rounded-md ${extraClass}`}>
             {icon && <span className="text-buttonColor">{icon}</span>}
             <span>{name}</span>
         </div>

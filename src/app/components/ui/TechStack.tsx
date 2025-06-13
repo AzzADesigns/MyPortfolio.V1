@@ -11,7 +11,7 @@ interface TechStackProps {
 
 export default function TechStack({ technologies, extraClass = "" }: TechStackProps) {
     return (
-        <div className={`flex flex-wrap gap-2 ${extraClass}`}>
+        <div className={`flex flex-wrap gap-3 ${extraClass}`}>
             {technologies.map((tech, index) => (
                 <TechBadge 
                     key={index} 

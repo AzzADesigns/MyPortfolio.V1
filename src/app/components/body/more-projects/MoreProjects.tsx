@@ -1,86 +1,53 @@
-"use client"
+'use client'
 
-import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import Card from '../../ui/Card';
 import { Title } from '../../ui/Title';
 import TitelPage from '../../ui/TitlePage';
-import PageContainer from '../featured/PageContainer';
-import { projectTexts } from "../../../data/texts";
-import CarouselButton from '../../ui/CarouselButton';
+import TechStack from '../../ui/TechStack';
+import Deploy from '../../ui/Deploy';
 
-interface Project {
-    title: string;
-    description: string;
-    technologies: { name: string; icon?: React.ReactNode }[];
-    image: string;
-    deployUrl: string;
-}
+import { projectTexts } from '@/app/data/texts';
 
 export const MoreProjects = () => {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const carouselRef = useRef<HTMLDivElement>(null);
-    
-    useEffect(() => {
-        const projectArray = Object.values(projectTexts);
-        setProjects(projectArray as unknown as Project[]);
-    }, []);
-    
-    const scrollLeft = () => {
-        if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-        }
-    };
-    
-    const scrollRight = () => {
-        if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-        }
-    };
-
     return (
-        <Card extraClass="w-full p-np">
-            <Title>Más Proyectos</Title>
-
-            <div className="mt-4 grid relative gap-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex w-full absolute top-[50%] justify-between gap-2">
-                        <CarouselButton 
-                            direction="left" 
-                            onClick={scrollLeft} 
-                            ariaLabel="Anterior proyecto" 
-                        />
-                        <CarouselButton 
-                            direction="right" 
-                            onClick={scrollRight} 
-                            ariaLabel="Siguiente proyecto" 
-                        />
-                    </div>
-                </div>
-
-                <div 
-                    ref={carouselRef}
-                    className="flex gap-10  overflow-x-auto w-full px-2 scroll-smooth hide-scrollbar"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                >
-                    {projects.map((project, index) => (
+        <div>
+            <Card extraClass="w-full flex flex-col gap-10">
+                <Title extraClass='p-np'>Más Proyectos</Title>
+                <div className="flex flex-col justify-center items-center gap-6">
+                    {Object.values(projectTexts).map((project, index) => (
                         <div
                             key={index}
-                            className="w-[400px] mb-5  border-2 border-background shadow-xl p-5 rounded-lg flex-shrink-0"
+                            className="flex w-[42vh] rounded-xl flex-col gap-5 p-np md:w-full border-background"
                         >
-                            <PageContainer
-                                title={project.title}
-                                description={project.description}
-                                technologies={project.technologies}
-                                imageSrc={project.image}
-                                imageAlt={project.title}
-                                deployUrl={project.deployUrl}
-                                extraclass="flex-col w-180"
-                            />
+                            <figure className='rounded-2xl'>
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    width={500}
+                                    height={300}
+                                    className="h-80 w-280 object-cover rounded-2xl"
+                                />
+                            </figure>
+                            <article className="w-full p-np">
+                                <header className="flex flex-col gap-2">
+                                    <div className="flex  items-center justify-between">
+                                        <TitelPage title={project.title} />
+                                        <Deploy url={project.deployUrl} />
+                                    </div>
+                                    <TechStack technologies={project.technologies} />
+                                </header>
+                                <div className="md:h-20 2xl:h-50 mt-2 pr-2 overflow-y-auto custom-scrollbar">
+                                    <p>
+                                        <span className="text-buttonColor font-semibold">{project.title}</span> {project.description}
+                                    </p>
+                                </div>
+                            </article>
                         </div>
                     ))}
                 </div>
-            </div>
-        </Card>
+            </Card>
+        </div>
     );
 };
 
