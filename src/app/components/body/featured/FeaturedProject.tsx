@@ -22,7 +22,7 @@ export function FeaturedProject() {
             <div className="w-full md:w-1/2 flex flex-col justify-between">
                 <div>
                     <Title extraClass="text-2xl font-bold mb-3">{featureProject.title}</Title>
-                    <p className="text-gray-300 mb-4">{featureProject.description}</p>
+                    <p className="text-textColor mb-4">{featureProject.description}</p>
                 </div>
                 <div>
                     <TechStack technologies={featureProject.technologies} extraClass="mb-4" />
