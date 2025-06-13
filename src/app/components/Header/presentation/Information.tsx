@@ -4,7 +4,7 @@ import { Title } from "../../ui/Title";
 
 export const Information = () => {
     return (
-        <section className="grid grid-rows-[auto_auto]  gap-5 mt-12 p-np">
+        <section className="grid grid-rows-[auto_auto] gap-5 mt-12 p-np">
             <div className="grid xl:grid-cols-4">
                 <div className="col-span-3 md:mt-2 rounded-xl">
                     <Title>Azariel Moreno</Title>
