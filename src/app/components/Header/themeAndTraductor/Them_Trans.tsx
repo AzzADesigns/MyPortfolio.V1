@@ -6,16 +6,14 @@ import { Translator } from "./Translator";
 
 export const Them_Trans = () => {
     return (
-        <div className="fixed w-full 2xl:right-100 xl:w-70 xl:top-12">
-            <Card
-                extraClass={
-                    "w-full  h-14 rounded-t-none md:rounded-t-3xl md:h-60 px-4 md:px-0 justify-between md:justify-center flex transition-all duration-300 flex-row md:flex-col items-center md:gap-5"
-                }
+        <div className="fixed  w-full z-50 left-0 xl:left-[63%] 2xl:left-[64.3%] xl:w-70 xl:top-11">
+            <div
+                className="xl:w-83   bg-foreground rounded-t-none md:rounded-2xl h-15 xl:h-60 px-4 md:px-0 justify-between md:justify-center flex transition-all duration-300 flex-row xl:flex-col items-center md:gap-5"    
             >
                 <Translator />
-                <div className="h-2 hidden md:flex w-[95%] rounded-full bg-background"></div>
+                <div className="h-2 hidden xl:flex w-[95%] rounded-full bg-background"></div>
                 <Theme />
-            </Card>
+            </div>
         </div>
     );
 };

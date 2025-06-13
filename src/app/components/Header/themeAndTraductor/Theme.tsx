@@ -15,13 +15,12 @@ export const Theme: React.FC = () => {
     const isDark = theme === "dark";
 
     if (!mounted) {
-        // Placeholder del mismo tamaño (evita "saltos" visuales)
         return <div className="flex flex-col justify-center items-center gap-3 w-27 h-21" />;
     }
 
     return (
         <div className="flex flex-col justify-center items-center gap-3">
-            <Title extraClass="hidden md:flex">Tema</Title>
+            <Title extraClass="hidden xl:flex">Tema</Title>
             <div
                 onClick={() => setTheme(isDark ? "light" : "dark")}
                 className="relative w-20 h-8 md:h-10 flex items-center hover:scale-105 select-none justify-between rounded-full shadow-2xl border-2 border-buttonColor cursor-pointer transition-colors duration-300 bg-foreground"

@@ -11,12 +11,13 @@ export default function Home() {
 
     return (
         <div className="flex flex-col items-center  min-h-screen bg-background text-textColor overflow-x-hidden overflow-y-auto transition-all duration-500 font-[family-name:var(--font-geist-sans)] selection">
-            <div className="flex flex-col items-center xl:items-start  xl:mr-52 xl:w-[47%]">
+            <div className="flex flex-col items-center xl:items-start w-[500px] md:w-[85%]   xl:mr-52 xl:w-[47%]">
                 <div className="">
                     <Them_Trans />
+
                 </div>
-                <div className="w-[90%] flex flex-col">
-                    <header className="mt-12 flex md:flex-row flex-col justify-center">
+                <div className="w-[45vh] md:w-full flex flex-col mt-6">
+                    
                         <Card extraClass="">
                             <Header />
                             <div className="absolute z-40 w-24 lg:w-[170px] lg:h-[170px] overflow-hidden rounded-full top-47 lg:top-24 left-3 lg:left-8 border-4 border-foreground transition-all duration-300">
@@ -29,19 +30,19 @@ export default function Home() {
                                 />
                             </div>
                         </Card>
-                    </header>
+                    
 
-                    <main className="w-full flex flex-col gap-5 justify-center transition-all duration-300  mt-5 items-center">
-                        <Card extraClass="p-np w-full lg:w-[92%] xl:w-full">
+                    <main className="w-full flex flex-col gap-5 justify-center transition-all duration-300  mt-5 ">
+                        <Card extraClass="p-np">
                             <Title>Acerca de</Title>
                             <AboutMe/>
                         </Card>
-                        <div className="">
+                        <Card>
                             <FeaturedProject />
-                        </div>
-                        <div className="">
+                        </Card>
+                        <Card>
                             <MoreProjects />
-                        </div>
+                        </Card>
                     </main>
 
                 </div>
