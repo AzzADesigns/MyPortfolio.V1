@@ -10,13 +10,13 @@ import AboutMe from "./components/ui/AboutMe";
 export default function Home() {
 
     return (
-        <div className="flex flex-col items-center  min-h-screen bg-background text-textColor overflow-x-hidden overflow-y-auto transition-all duration-500 font-[family-name:var(--font-geist-sans)] selection">
+        <div className="flex flex-col items-center max-w-[1900px]   min-h-screen bg-background text-textColor overflow-x-hidden overflow-y-auto transition-all duration-500 font-[family-name:var(--font-geist-sans)] selection">
             <div className="flex flex-col items-center xl:items-start w-[500px] md:w-[85%]   xl:mr-52 xl:w-[47%]">
-                <div className="">
+                <div className="fixed  w-full z-50 left-0 xl:left-[67%]   2xl:left-[1225px]  xl:w-70 xl:top-25">
                     <Them_Trans />
 
                 </div>
-                <div className="w-[45vh] md:w-full flex flex-col mt-6">
+                <div className="w-[45vh] md:w-full flex md:items-center 2xl:items-start flex-col mt-25 xl:top-20">
                     
                         <Card extraClass="">
                             <Header />
@@ -32,7 +32,7 @@ export default function Home() {
                         </Card>
                     
 
-                    <main className="w-full flex flex-col gap-5 justify-center transition-all duration-300  mt-5 ">
+                    <main className="w-full flex flex-col gap-5 justify-center md:items-center 2xl:items-start transition-all duration-300  mt-5 ">
                         <Card extraClass="p-np">
                             <Title>Acerca de</Title>
                             <AboutMe/>
