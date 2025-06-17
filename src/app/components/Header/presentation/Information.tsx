@@ -36,7 +36,7 @@ export const Information = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 w-full w-narrow-range sm:w-90 lg:w-full lg:flex lg:flex-row">
+            <div className="grid grid-cols-2 gap-4  w-narrow-range w-full  lg:w-full lg:flex lg:flex-row">
                 <Button>Ver Proyectos</Button>
                 <Button>Descargar CV</Button>
                 <Button extraClass="col-span-2  xl:col-span-1">Contáctame</Button>

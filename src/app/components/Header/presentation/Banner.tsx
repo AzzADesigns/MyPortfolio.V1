@@ -137,14 +137,14 @@ export const Banner = () => {
         <section className="bg-[#03091E] h-59 lg:h-52 rounded-t-3xl relative overflow-hidden">
             <div className="flex h-52 w-96  p-4 ml-21 ml-narrow-range sm:ml-52 xl:ml-50 2xl:ml-70 text-xs text-white font-mono rounded">
                 {/* Números de línea  seguir cambiando left para lg*/}
-                <div className="text-gray-500 absolute left-31 md:left-53 lg:left-78 text-right pr-4 select-none">
+                <div className="text-gray-500 absolute left-27 md:left-53 lg:left-78 xl:left-60 2xl:left-73 text-right pr-4 select-none">
                     {codeLines.map((_, i) => (
                         <div key={i}>{i + 1}</div>
                     ))}
                 </div>
 
                 {/* Código animado con colores  seguir cambiando left para lg*/}
-                <pre className="overflow-x-auto absolute left-38 md:left-60 lg:left-85">
+                <pre className="overflow-x-auto absolute left-33 md:left-60 lg:left-85 xl:left-67 2xl:left-80">
                     <code>
                         {displayedLines.map((line, i) => (
                             <div
@@ -158,7 +158,7 @@ export const Banner = () => {
                 </pre>
 
                 {/* Columna de íconos desplazándose hacia abajo  seguir cambiando left para lg*/}
-                <div className="absolute left-2  2xl:left-40 top-0 h-full overflow-hidden">
+                <div className="absolute left-2 lg:left-11  2xl:left-56 top-0 h-full overflow-hidden">
                     <div className="scroll-down flex flex-col items-center gap-6 z-40">
                         <FaReact className="w-8 h-8 2xl:w-10 2xl:h-10 text-[#61DAFB]" />
                         <Image
@@ -186,7 +186,7 @@ export const Banner = () => {
                 </div>
 
                 {/* Columna de íconos desplazándose hacia arriba seguir cambiando left para lg */}
-                <div className="absolute left-20 z-40">
+                <div className="absolute lg:left-40 left-15  z-40">
                     <div className="scroll-up flex flex-col items-center gap-6">
                         <Image
                             src="/nodejs.svg"
