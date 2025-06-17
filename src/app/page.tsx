@@ -28,6 +28,9 @@ export default function Home() {
                                     height={170}
                                     className="w-24 lg:w-170 rounded-full transition-transform duration-300 hover:scale-110"
                                 />
+                                <div className="glass-glow">
+
+                                </div>
                             </div>
                         </Card>
                     
