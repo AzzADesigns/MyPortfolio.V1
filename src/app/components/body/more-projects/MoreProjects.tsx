@@ -12,13 +12,13 @@ import { projectTexts } from '@/app/data/texts';
 export const MoreProjects = () => {
     return (
         <div>
-            <Card extraClass="w-full flex flex-col gap-10">
+            <Card extraClass="w-full flex flex-col ">
                 <Title extraClass='p-np'>Más Proyectos</Title>
-                <div className="flex flex-col justify-center items-center gap-6">
+                <div className="flex flex-col justify-center items-center">
                     {Object.values(projectTexts).map((project, index) => (
                         <div
                             key={index}
-                            className="flex w-[42vh] rounded-xl flex-col gap-5 p-np md:w-full border-background"
+                            className="flex  rounded-xl flex-col gap-5 p-np md:w-full border-background"
                         >
                             <figure className='rounded-2xl'>
                                 <Image
@@ -29,7 +29,7 @@ export const MoreProjects = () => {
                                     className="h-80 w-280 object-cover rounded-2xl"
                                 />
                             </figure>
-                            <article className="w-full p-np">
+                            <article className="w-full">
                                 <header className="flex flex-col gap-2">
                                     <div className="flex  items-center justify-between">
                                         <TitelPage title={project.title} />
