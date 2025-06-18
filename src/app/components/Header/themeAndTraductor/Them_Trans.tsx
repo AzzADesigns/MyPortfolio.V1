@@ -22,7 +22,7 @@ export const Them_Trans = () => {
                 
                 duration: 0.2,
                 ease: "power3.out",
-                delay: 0.20, // Coordina con el card/image
+                delay: 0.20, 
             }
         );
     }, []);
