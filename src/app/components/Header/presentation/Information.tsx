@@ -42,7 +42,7 @@ export const Information = () => {
                 opacity: 0,
                 y: 10,
                 delay: 0.6,
-                duration: 0.5,
+                duration: 0.2,
                 ease: "power2.out",
             });
 
@@ -51,14 +51,14 @@ export const Information = () => {
                 x: 20,
                 opacity: 0,
                 delay: 0.5,
-                duration: 0.5,
+                duration: 0.2,
                 ease: "power2.out",
             });
 
             gsap.from(".info-exp li", {
                 x: 20,
                 opacity: 0,
-                duration: 0.5,
+                duration: 0.3,
                 ease: "power2.out",
                 stagger: 0.15,
                 delay: 0.6,
@@ -69,7 +69,7 @@ export const Information = () => {
                 opacity: 0,
                 y: 20,
                 stagger: 0.08,
-                duration: 0.6,
+                duration: 0.4,
                 ease: "power2.out",
             });
             
@@ -77,7 +77,7 @@ export const Information = () => {
             gsap.from(".button-wrapper", {
                 opacity: 0,
                 y: 25,
-                duration: 0.6,
+                duration: 0.15,
                 ease: "back.out(1.7)",
                 stagger: 0.15,
                 delay: 0.5,
