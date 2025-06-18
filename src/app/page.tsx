@@ -73,7 +73,7 @@ export default function Home() {
                 duration: 0.9,
                 ease: "power3.out",
             },
-            "-=0.1" // entra un poco antes de que termine la anterior para más fluidez
+            "-=0.1" 
         );
     }, []);
 
@@ -90,7 +90,7 @@ export default function Home() {
                         <div
                             ref={profileRef}
                             className="absolute z-40 w-24 lg:w-[170px] lg:h-[170px] overflow-hidden rounded-full top-47 lg:top-24 left-3 lg:left-8 border-4 border-foreground transition-all duration-300 profile-img-wrapper"
-                            style={{ opacity: 0 }} // 👈 necesario para evitar que aparezca de golpe antes de GSAP
+                            style={{ opacity: 0 }}
                         >
                             <Image
                                 src="/perfil.png"
