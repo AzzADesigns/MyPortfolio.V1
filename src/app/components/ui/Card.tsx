@@ -6,15 +6,15 @@ interface CardProps {
     style?: CSSProperties;
 }
 
-const Card = forwardRef<HTMLElement, CardProps>(({ children, extraClass, style }, ref) => {
+const Card = forwardRef<HTMLDivElement, CardProps>(({ children, extraClass, style }, ref) => {
     return (
-        <section
+        <div
             ref={ref}
             style={style}
             className={`relative min-w-[100px] max-w-[805px] break-words box-border transition-all duration-300 border-none bg-foreground rounded-3xl border-2 border-gray-200 shadow-xs flex flex-col ${extraClass}`}
         >
             {children}
-        </section>
+        </div>
     );
 });
 
