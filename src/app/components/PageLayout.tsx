@@ -72,7 +72,7 @@ export default function Home() {
                         </Card>
                     </main>
 
-                    <footer ref={lazyFooterRef} className=" w-full 2xl:w-[90%]  flex justify-center xl:ml-0 mb-10">
+                    <footer ref={lazyFooterRef} className=" w-full  flex justify-center xl:ml-0 mb-10">
                         {shouldRenderFooter && (
                             <Card extraClass='w-full'>
                                 <Footer />

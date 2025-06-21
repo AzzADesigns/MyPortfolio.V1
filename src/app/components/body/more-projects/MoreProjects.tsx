@@ -12,10 +12,13 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { useVideoModal } from '@/app/hooks/useVideoModal';
+import { VideoModal } from '../../ui/VideoModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const MoreProjects = () => {
+    const { selectedVideo, openVideo, closeVideo } = useVideoModal();
     const projectRefs = useRef<HTMLDivElement[]>([]);
     const titleRef = useRef<HTMLDivElement>(null);
 
@@ -67,55 +70,55 @@ export const MoreProjects = () => {
 
     return (
         <div>
+            <VideoModal videoUrl={selectedVideo} onClose={closeVideo} />
+
             <Card extraClass="w-full flex flex-col pb-10 ">
                 <div ref={titleRef}>
                     <Title extraClass='p-np mt-5'>Más Proyectos</Title>
                 </div>
                 <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
-                    {Object.values(projectTexts).slice(1).map((project, index) => {
-
-                        return (
-                            <div
-                                key={index}
-                                ref={el => {
-                                    if (el) projectRefs.current[index] = el;
-                                }}
-                                className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
-                            >
-
-                                <div className="relative">
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        width={500}
-                                        height={300}
-                                        className="h-80 w-280 object-cover rounded-2xl cursor-pointer"
-                                    />
-                                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-2xl transition-all duration-100" />
+                    {Object.values(projectTexts).slice(1).map((project, index) => (
+                        <div
+                            key={index}
+                            ref={el => {
+                                if (el) projectRefs.current[index] = el;
+                            }}
+                            className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
+                        >
+                            <div className="relative group cursor-pointer" onClick={() => openVideo(project.video)}>
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    width={500}
+                                    height={300}
+                                    className="h-80 w-280 object-cover rounded-2xl group-hover:brightness-75 transition"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-white text-5xl opacity-0 group-hover:opacity-100 transition duration-300">&#9658;</span>
                                 </div>
-
-                                <article className="w-full">
-                                    <header className="flex flex-col gap-2 pr-1">
-                                        <div className="flex items-center justify-between">
-                                            <TitelPage title={project.title} />
-                                            {project.link && (
-                                                <Deploy
-                                                    url={project.link.url}
-                                                    type={project.link.type}
-                                                />
-                                            )}
-                                        </div>
-                                        <TechStack technologies={project.technologies} />
-                                    </header>
-                                    <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
-                                        <p>
-                                            <span className="text-buttonColor font-semibold">{project.title}</span> {project.description}
-                                        </p>
-                                    </div>
-                                </article>
                             </div>
-                        );
-                    })}
+
+                            <article className="w-full">
+                                <header className="flex flex-col gap-2 pr-1">
+                                    <div className="flex items-center justify-between">
+                                        <TitelPage title={project.title} />
+                                        {project.link && (
+                                            <Deploy
+                                                url={project.link.url}
+                                                type={project.link.type}
+                                            />
+                                        )}
+                                    </div>
+                                    <TechStack technologies={project.technologies} />
+                                </header>
+                                <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
+                                    <p>
+                                        <span className="text-buttonColor font-semibold">{project.title}</span> {project.description}
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+                    ))}
                 </div>
             </Card>
         </div>

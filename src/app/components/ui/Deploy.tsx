@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface DeployProps {
     url: string;
-    type: "deploy" | "repo";
+    type: string;
     extraClass?: string;
 }
 

@@ -186,7 +186,7 @@ export const Banner = () => {
                         Linkedin
                     </a>
                     <a
-                        href="https://github.com/azariel-moreno"
+                        href="https://github.com/AzzADesigns"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="2xl:text-md xl:text-[15px] hover:scale-105 transition-all"
