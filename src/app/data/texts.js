@@ -14,7 +14,10 @@ export const projectTexts = {
       { "name": "Express" }
     ],
     "image": "/in-audio.png",
-    "deployUrl": "https://in-audio.netlify.app/"
+    "link": {
+      "type": "deploy",
+      "url": "https://in-audio.netlify.app/"
+    }
   },
   "Urbania": {
     "title": "Urbania",
@@ -32,7 +35,10 @@ export const projectTexts = {
       { "name": "Express" }
     ],
     "image": "/Urbania.png",
-    "deployUrl": "https://s21-14-n-webapp-urbania.onrender.com/"
+    "link": {
+      "type": "deploy",
+      "url": "https://s21-14-n-webapp-urbania.onrender.com/"
+    }
   },
   "WordRank": {
     "title": "WordRank",
@@ -48,7 +54,10 @@ export const projectTexts = {
       { "name": "Motion" }
     ],
     "image": "/wordrank.png",
-    "deployUrl": "https://in-audio.netlify.app/"
+    "link": {
+      "type": "deploy",
+      "url": "https://in-audio.netlify.app/"
+    }
   },
   "HuellitasEnCasa": {
     "title": "Huellitas En Casa",
@@ -64,7 +73,10 @@ export const projectTexts = {
       { "name": "Java" }
     ],
     "image": "/HuellitasEnCasa.png",
-    "deployUrl": "https://github.com/No-Country-simulation/c21-38-n-java-react"
+    "link": {
+      "type": "repo",
+      "url": "https://github.com/No-Country-simulation/c21-38-n-java-react"
+    }
   },
   "ClassRun": {
     "title": "ClassRun",
@@ -85,7 +97,10 @@ export const projectTexts = {
       { "name": "Express" }
     ],
     "image": "/ClassRun.png",
-    "deployUrl": "https://github.com/No-Country-simulation/s20-03-webapp"
+    "link": {
+      "type": "repo",
+      "url": "https://github.com/No-Country-simulation/s20-03-webapp"
+    }
   },
   "CodigoDelMar": {
     "title": "Codigo Del Mar",
@@ -101,6 +116,9 @@ export const projectTexts = {
       { "name": "Motion" }
     ],
     "image": "/CodigoMar.png",
-    "deployUrl": "https://cdelmar.netlify.app/"
+    "link": {
+      "type": "deploy",
+      "url": "https://cdelmar.netlify.app/"
+    }
   }
 };

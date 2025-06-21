@@ -8,7 +8,7 @@ import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
 
 import { projectTexts } from '@/app/data/texts';
-import {useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -18,12 +18,11 @@ gsap.registerPlugin(ScrollTrigger);
 export const MoreProjects = () => {
     const projectRefs = useRef<HTMLDivElement[]>([]);
     const titleRef = useRef<HTMLDivElement>(null);
-    
 
     useGSAP(() => {
         const timer = setTimeout(() => {
             if (titleRef.current) {
-                gsap.fromTo(titleRef.current, 
+                gsap.fromTo(titleRef.current,
                     { opacity: 0, y: 30 },
                     {
                         opacity: 1,
@@ -75,7 +74,6 @@ export const MoreProjects = () => {
                 <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
                     {Object.values(projectTexts).slice(1).map((project, index) => {
 
-
                         return (
                             <div
                                 key={index}
@@ -84,10 +82,8 @@ export const MoreProjects = () => {
                                 }}
                                 className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
                             >
-                                
-                                <div
-                                    className="relative"
-                                >
+
+                                <div className="relative">
                                     <Image
                                         src={project.image}
                                         alt={project.title}
@@ -95,21 +91,23 @@ export const MoreProjects = () => {
                                         height={300}
                                         className="h-80 w-280 object-cover rounded-2xl cursor-pointer"
                                     />
-                                    <div
-                                        className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-2xl transition-all duration-100"
-
-                                    />
+                                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-2xl transition-all duration-100" />
                                 </div>
-                                
+
                                 <article className="w-full">
                                     <header className="flex flex-col gap-2 pr-1">
                                         <div className="flex items-center justify-between">
                                             <TitelPage title={project.title} />
-                                            <Deploy url={project.deployUrl} />
+                                            {project.link && (
+                                                <Deploy
+                                                    url={project.link.url}
+                                                    type={project.link.type}
+                                                />
+                                            )}
                                         </div>
                                         <TechStack technologies={project.technologies} />
                                     </header>
-                                    <div className="  border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
+                                    <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
                                         <p>
                                             <span className="text-buttonColor font-semibold">{project.title}</span> {project.description}
                                         </p>

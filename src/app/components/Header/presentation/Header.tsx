@@ -7,7 +7,11 @@ import { Banner } from "./Banner";
 import { Information } from "./Information";
 import Card from "../../ui/Card";
 
-export default function Header() {
+interface HeaderProps {
+    featuredRef: React.RefObject<HTMLDivElement>;
+}
+
+export default function Header({ featuredRef }: HeaderProps) {
     const containerRef = useRef(null);
 
     useGSAP(() => {
@@ -30,7 +34,7 @@ export default function Header() {
         <div ref={containerRef}>
             <Card extraClass=" ">
                 <Banner />
-                <Information />
+                <Information featuredRef={featuredRef} />
             </Card>
         </div>
     );

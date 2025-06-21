@@ -2,10 +2,13 @@ import Link from "next/link";
 
 interface DeployProps {
     url: string;
+    type: "deploy" | "repo";
     extraClass?: string;
 }
 
-export default function Deploy({ url, extraClass = "" }: DeployProps) {
+export default function Deploy({ url, type, extraClass = "" }: DeployProps) {
+    const label = type === "deploy" ? "Deploy" : "Repo";
+
     return (
         <Link 
             href={url} 
@@ -14,12 +17,8 @@ export default function Deploy({ url, extraClass = "" }: DeployProps) {
             className={`flex items-center gap-1 text-buttonColor hover:underline ${extraClass}`}
         >
             <span>🔗</span>
-            <span>Deploy</span>
+            <span>{label}</span>
         </Link>
     );
 }
-
-
-
-
 
