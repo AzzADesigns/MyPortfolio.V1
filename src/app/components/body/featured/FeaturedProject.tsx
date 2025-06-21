@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Card from "../../ui/Card";
 import { Title } from "../../ui/Title";
-import { projectTexts } from "../../../data/texts";
+
 import Image from "next/image";
 import TechStack from "../../ui/TechStack";
 import Deploy from "../../ui/Deploy";
 import Tilt from 'react-parallax-tilt';
+import { projectTexts } from "@/app/data/texts";
 
 export function FeaturedProject() {
     const featureProject = Object.values(projectTexts)[0];
@@ -30,7 +31,6 @@ export function FeaturedProject() {
                 className="w-full md:w-1/2"
                 gyroscope={true}
             >
-                {/* Div interno para manejar el mouseMove */}
                 <div
                     className="relative xl:h-[402px] 2xl:h-[360px] h-[300px] group overflow-hidden rounded-2xl"
                     onMouseMove={handleMouseMove}
@@ -41,7 +41,7 @@ export function FeaturedProject() {
                         fill
                         className="object-cover rounded-2xl cursor-pointer"
                     />
-                    
+
                     <div
                         className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-2xl transition-all duration-100"
                         style={{
@@ -58,7 +58,13 @@ export function FeaturedProject() {
                 </div>
                 <div>
                     <TechStack technologies={featureProject.technologies} extraClass="mb-4" />
-                    <Deploy url={featureProject.deployUrl} extraClass="text-base" />
+                    {featureProject.link && (
+                        <Deploy
+                            url={featureProject.link.url}
+                            type={featureProject.link.type}
+                            extraClass="text-base"
+                        />
+                    )}
                 </div>
             </div>
         </Card>

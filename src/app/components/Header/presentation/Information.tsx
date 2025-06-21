@@ -4,16 +4,31 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Button from "../../ui/Button";
 import { Title } from "../../ui/Title";
+import { useDownloadCV } from "./hooks/useDownloadCV";
+import { useWhatsApp } from "./hooks/useWhastApp";
 
 gsap.registerPlugin(useGSAP);
 
-export const Information = () => {
+interface InformationProps {
+    featuredRef: React.RefObject<HTMLDivElement>;
+}
+
+export const Information = ({ featuredRef }: InformationProps) => {
     const infoRef = useRef<HTMLDivElement>(null);
+    const { download } = useDownloadCV();
+    const { contact } = useWhatsApp('5492236979758', 'Hola Azariel, vi tu portfolio y quiero contactarte');
+
+    const scrollToProjects = () => {
+        featuredRef.current?.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    };
 
     const techStack = [
         "React", "SQL", "Figma", "Diseño UX/UI", "Research", "Tailwind",
         "GitHub", "APIs", "Axios", "Shadcn", "Motion", "TypeScript",
-        "Express", "Nextjs", "Nodejs"
+        "Express", "Nextjs", "Nodejs", "React Hook From", "Gsap"
     ];
 
     useGSAP(() => {
@@ -130,9 +145,9 @@ export const Information = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4  w-narrow-range w-full  xl:w-full lg:flex lg:flex-row">
-                <Button extraClass="button-wrapper ">Ver Proyectos</Button>
-                <Button extraClass="button-wrapper ">Descargar CV</Button>
-                <Button extraClass="col-span-2 button-wrapper   xl:col-span-1">Contáctame</Button>
+                <Button onClick={scrollToProjects}  extraClass="button-wrapper ">Ver Proyectos</Button>
+                <Button onClick={download}  extraClass="button-wrapper ">Descargar CV</Button>
+                <Button onClick={() => contact()} extraClass="col-span-2 button-wrapper   xl:col-span-1">Contáctame</Button>
             </div>
         </section>
     );

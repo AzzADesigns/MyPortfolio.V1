@@ -15,9 +15,14 @@ import Footer from './footer/Footer';
 import { useGSAPHomeAnimation } from '../hooks/useGSAPHomeAnimation';
 import { useLazyMoreProjects } from '../hooks/useLazyMoreProjects';
 
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLazyFooter } from '../hooks/useLazyFooter';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const LazyMoreProjects = dynamic(() => import('./body/more-projects/MoreProjects'), {
-    loading: () => <p className="text-center">Cargando proyectos...</p>,
-    ssr: false,
+    ssr: false
 });
 
 export default function Home() {
@@ -25,14 +30,17 @@ export default function Home() {
     const cardRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLDivElement>(null);
     const featuredRef = useRef<HTMLDivElement>(null);
-    const footerRef = useRef<HTMLDivElement>(null);
 
-    // Lazy loading para proyectos y footer
+
     const { ref: moreProjectsRef, shouldRender } = useLazyMoreProjects();
-    const { ref: footerInViewRef, shouldRender: shouldRenderFooter } = useLazyMoreProjects();
+    const { ref: lazyFooterRef, shouldRender: shouldRenderFooter } = useLazyFooter();
+    const scrollToProjects = () => {
+        featuredRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
-    // GSAP animaciones
-    useGSAPHomeAnimation(cardRef, profileRef, aboutRef, featuredRef, footerRef);
+    useGSAPHomeAnimation(cardRef, profileRef, aboutRef, featuredRef);
+
+
 
     return (
         <div className="flex flex-col overflow-x-hidden items-center max-w-[1900px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
@@ -41,15 +49,15 @@ export default function Home() {
                     <Them_Trans />
                 </div>
 
-                <div className="w-[45vh] md:w-full flex md:items-center 2xl:items-start flex-col mt-25 xl:mt-10 xl:top-20">
+                <div className="w-[45vh] md:w-full flex gap-5 md:items-center 2xl:items-start flex-col mt-25 xl:mt-10 xl:top-20">
                     <header>
                         <Card extraClass="" ref={cardRef} style={{ opacity: 0 }}>
-                            <Header />
+                            <Header featuredRef={featuredRef} />
                             <ProfileImage ref={profileRef} />
                         </Card>
                     </header>
 
-                    <main className="w-full overflow-visible flex flex-col gap-3.5 justify-center md:items-center 2xl:items-start transition-all duration-300 mt-5">
+                    <main className="w-full overflow-visible flex flex-col gap-3.5 justify-center md:items-center 2xl:items-start transition-all duration-300 ">
                         <Card extraClass="p-np" ref={aboutRef} style={{ opacity: 0 }}>
                             <Title>Acerca de</Title>
                             <AboutMe />
@@ -64,9 +72,9 @@ export default function Home() {
                         </Card>
                     </main>
 
-                    <footer className="w-full mt-8 mb-10" ref={footerInViewRef}>
+                    <footer ref={lazyFooterRef} className=" w-full 2xl:w-[90%]  flex justify-center xl:ml-0 mb-10">
                         {shouldRenderFooter && (
-                            <Card ref={footerRef}>
+                            <Card extraClass='w-full'>
                                 <Footer />
                             </Card>
                         )}
