@@ -10,7 +10,8 @@ export function useGSAPHomeAnimation(
     cardRef: RefObject<HTMLDivElement | null>,
     profileRef: RefObject<HTMLDivElement | null>,
     aboutRef: RefObject<HTMLDivElement | null>,
-    featuredRef: RefObject<HTMLDivElement | null>
+    featuredRef: RefObject<HTMLDivElement | null>,
+    footerRef: RefObject<HTMLDivElement | null>
 ) {
     useGSAP(() => {
         const tl = gsap.timeline();
@@ -86,6 +87,28 @@ export function useGSAPHomeAnimation(
                     scrollTrigger: {
                         trigger: featuredRef.current,
                         start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    },
+                }
+            );
+        }
+        if (footerRef.current) {
+            gsap.fromTo(
+                footerRef.current,
+                {
+                    opacity: 0,
+                    y: 40,
+                    filter: "blur(6px)",
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: footerRef.current,
+                        start: "top 90%",
                         toggleActions: "play none none reverse",
                     },
                 }

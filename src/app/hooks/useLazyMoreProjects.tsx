@@ -1,4 +1,3 @@
-// hooks/useLazyMoreProjects.tsx
 'use client';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
