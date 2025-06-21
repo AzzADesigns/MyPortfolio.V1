@@ -1,3 +1,5 @@
+import { textsPage } from '../../data/texts';
+
 export default function AboutMe(){
     return(
         <p className="mt-5">

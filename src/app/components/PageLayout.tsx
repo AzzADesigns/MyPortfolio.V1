@@ -14,6 +14,7 @@ import Footer from './footer/Footer';
 
 import { useGSAPHomeAnimation } from '../hooks/useGSAPHomeAnimation';
 import { useLazyMoreProjects } from '../hooks/useLazyMoreProjects';
+import { textsPage } from '../data/texts';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -59,7 +60,7 @@ export default function Home() {
 
                     <main className="w-full overflow-visible flex flex-col gap-3.5 justify-center md:items-center 2xl:items-start transition-all duration-300 ">
                         <Card extraClass="p-np" ref={aboutRef} style={{ opacity: 0 }}>
-                            <Title>Acerca de</Title>
+                            <Title>{textsPage.textAbout}</Title>
                             <AboutMe />
                         </Card>
 
@@ -72,7 +73,7 @@ export default function Home() {
                         </Card>
                     </main>
 
-                    <footer ref={lazyFooterRef} className=" w-full  flex justify-center xl:ml-0 mb-10">
+                    <footer ref={lazyFooterRef} className=" w-full 2xl:w-[90%]  flex justify-center xl:ml-0 mb-10">
                         {shouldRenderFooter && (
                             <Card extraClass='w-full'>
                                 <Footer />

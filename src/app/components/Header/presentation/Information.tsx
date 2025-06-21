@@ -6,6 +6,7 @@ import Button from "../../ui/Button";
 import { Title } from "../../ui/Title";
 import { useDownloadCV } from "./hooks/useDownloadCV";
 import { useWhatsApp } from "./hooks/useWhastApp";
+import { textsPage } from "../../../data/texts";
 
 gsap.registerPlugin(useGSAP);
 
@@ -123,31 +124,31 @@ export const Information = ({ featuredRef }: InformationProps) => {
                     </div>
 
                     <div className="flex items-center gap-5 mt-5 text-md lg:text-lg">
-                        <p className="info-location">Argentina</p>
+                        <p className="info-location">{textsPage.textCountry}</p>
                         <p className="text-buttonColor font-semibold info-location">+54 9 2236979758</p>
                     </div>
 
                     <p className="font-bold text-buttonColor text-md lg:text-lg mt-3 info-pages">
-                        10 Páginas realizadas
+                        {textsPage.textPagesraliced}
                     </p>
                 </div>
 
                 <div className="col-span-3 md:col-span-1 mt-3 md:mt-0 xl:ml-5 text-md text-gray-800 rounded-xl info-exp">
                     <h2 className="text-sm md:text-lg font-bold text-buttonColor mb-1">
-                        Experiencia
+                        {textsPage.textExperience}
                     </h2>
                     <ul className="flex flex-row xl:flex-col flex-wrap gap-x-3 text-md 2xl:text-md text-textColor list-inside">
-                        <li>Independiente</li>
-                        <li>No Country</li>
-                        <li>Proyectos</li>
+                        <li>{textsPage.textExp1}</li>
+                        <li>{textsPage.textExp2}</li>
+                        <li>{textsPage.textExp3}</li>
                     </ul>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4  w-narrow-range w-full  xl:w-full lg:flex lg:flex-row">
-                <Button onClick={scrollToProjects}  extraClass="button-wrapper ">Ver Proyectos</Button>
-                <Button onClick={download}  extraClass="button-wrapper ">Descargar CV</Button>
-                <Button onClick={() => contact()} extraClass="col-span-2 button-wrapper   xl:col-span-1">Contáctame</Button>
+                <Button onClick={scrollToProjects}  extraClass="button-wrapper ">{textsPage.textButtonProject}</Button>
+                <Button onClick={download}  extraClass="button-wrapper ">{textsPage.textButtonCv}</Button>
+                <Button onClick={() => contact()} extraClass="col-span-2 button-wrapper   xl:col-span-1">{textsPage.textButtonContact}</Button>
             </div>
         </section>
     );
