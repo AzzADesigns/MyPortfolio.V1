@@ -8,7 +8,7 @@ import { Information } from "./Information";
 import Card from "../../ui/Card";
 
 interface HeaderProps {
-    featuredRef: React.RefObject<HTMLDivElement>;
+    featuredRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export default function Header({ featuredRef }: HeaderProps) {
