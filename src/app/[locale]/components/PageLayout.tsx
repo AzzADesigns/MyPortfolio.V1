@@ -36,9 +36,9 @@ export default function Home() {
 
     const { ref: moreProjectsRef, shouldRender } = useLazyMoreProjects();
     const { ref: lazyFooterRef, shouldRender: shouldRenderFooter } = useLazyFooter();
-    const scrollToProjects = () => {
-        featuredRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
+    
+    
+    
 
     useGSAPHomeAnimation(cardRef, profileRef, aboutRef, featuredRef);
 
