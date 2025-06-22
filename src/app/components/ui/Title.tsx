@@ -1,8 +1,10 @@
+import React, { ReactNode } from "react";
 
-
-
-export const Title = ({children="string"}) => {
-    return (
-        <h2 className="text-2xl  font-semibold">{children}</h2>
-    )
+interface TitleProps {
+    extraClass?: string;
+    children: ReactNode;
 }
+
+export const Title: React.FC<TitleProps> = ({ extraClass = "", children }) => {
+    return <h2 className={`text-2xl ${extraClass} font-semibold`}>{children}</h2>;
+};
