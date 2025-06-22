@@ -6,7 +6,7 @@ import Button from "../../ui/Button";
 import { Title } from "../../ui/Title";
 import { useDownloadCV } from "./hooks/useDownloadCV";
 import { useWhatsApp } from "./hooks/useWhastApp";
-import { textsPage } from "../../../data/texts";
+import { textsPage } from "../../data/texts"
 
 gsap.registerPlugin(useGSAP);
 

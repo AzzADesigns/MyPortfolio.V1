@@ -1,6 +1,6 @@
 'use client';
 
-import PageLayout from './components/PageLayout';
+import PageLayout from './[locale]/components/PageLayout';
 
 export default function Home() {
     return (

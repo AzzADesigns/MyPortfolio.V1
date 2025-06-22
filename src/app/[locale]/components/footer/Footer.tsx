@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
-import { textsPage } from "../../data/texts";
+import { textsPage } from "../data/texts"
 
 export default function Footer() {
     const links = [
