@@ -13,17 +13,12 @@ import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
 import { Carousel } from '../../ui/Carousel';
 
-import { useLazyMoreProjects } from '../../hooks/useLazyMoreProjects';
-
 gsap.registerPlugin(ScrollTrigger);
 
 export const MoreProjects = () => {
     const t = useTranslations();
     const projectRefs = useRef<HTMLDivElement[]>([]);
     const titleRef = useRef<HTMLDivElement>(null);
-
-
-    const { ref: lazyRef, shouldRender } = useLazyMoreProjects();
 
     const projectKeys = Object.keys(t.raw('projectTexts')).slice(1);
 
@@ -73,64 +68,60 @@ export const MoreProjects = () => {
             clearTimeout(timer);
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
-    }, [shouldRender]);
+    }, []);
 
     return (
-        <div ref={lazyRef}>
-            {shouldRender && (
-                <Card extraClass="w-full flex flex-col pb-10">
-                    <div ref={titleRef}>
-                        <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
-                    </div>
+        <Card extraClass="w-full flex flex-col pb-10">
+            <div ref={titleRef}>
+                <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
+            </div>
 
-                    <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
-                        {projectKeys.map((key, index) => {
-                            const project = t.raw(`projectTexts.${key}`);
+            <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
+                {projectKeys.map((key, index) => {
+                    const project = t.raw(`projectTexts.${key}`);
 
-                            return (
-                                <div
-                                    key={index}
-                                    ref={el => {
-                                        if (el) projectRefs.current[index] = el;
-                                    }}
-                                    className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
-                                >
-                                    <div className="relative m-auto">
-                                        <Carousel slides={project.image} />
+                    return (
+                        <div
+                            key={index}
+                            ref={el => {
+                                if (el) projectRefs.current[index] = el;
+                            }}
+                            className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
+                        >
+                            <div className="relative m-auto">
+                                <Carousel slides={project.image} />
+                            </div>
+
+                            <article className="w-full">
+                                <header className="flex flex-col gap-2 pr-1">
+                                    <div className="flex items-center justify-between">
+                                        <TitelPage title={project.title} />
+                                        {project.link && (
+                                            <Deploy
+                                                url={project.link.url}
+                                                type={project.link.type}
+                                            />
+                                        )}
                                     </div>
+                                    <TechStack technologies={project.technologies} />
+                                </header>
 
-                                    <article className="w-full">
-                                        <header className="flex flex-col gap-2 pr-1">
-                                            <div className="flex items-center justify-between">
-                                                <TitelPage title={project.title} />
-                                                {project.link && (
-                                                    <Deploy
-                                                        url={project.link.url}
-                                                        type={project.link.type}
-                                                    />
-                                                )}
-                                            </div>
-                                            <TechStack technologies={project.technologies} />
-                                        </header>
-
-                                        <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
-                                            <p>
-                                                <span className="text-buttonColor font-semibold">
-                                                    {project.title}
-                                                </span>{' '}
-                                                {project.description.map((text: string, i: number) => (
-                                                    <span key={i}>{text}</span>
-                                                ))}
-                                            </p>
-                                        </div>
-                                    </article>
+                                <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
+                                    <p>
+                                        <span className="text-buttonColor font-semibold">
+                                            {project.title}
+                                        </span>{' '}
+                                        {project.description.map((text: string, i: number) => (
+                                            <span key={i}>{text}</span>
+                                        ))}
+                                    </p>
                                 </div>
-                            );
-                        })}
-                    </div>
-                </Card>
-            )}
-        </div>
+                            </article>
+                        </div>
+                    );
+                })}
+            </div>
+        </Card>
     );
 };
 
