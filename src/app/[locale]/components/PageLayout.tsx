@@ -12,13 +12,16 @@ import AboutMe from './ui/AboutMe';
 import { ProfileImage } from './ui/ProfileImage';
 import Footer from './footer/Footer';
 
-import { useGSAPHomeAnimation } from '../hooks/useGSAPHomeAnimation';
-import { useLazyMoreProjects } from '../hooks/useLazyMoreProjects';
-import { textsPage } from '../data/texts';
+
+
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLazyFooter } from '../hooks/useLazyFooter';
+import { useLazyMoreProjects } from './hooks/useLazyMoreProjects';
+import { useLazyFooter } from './hooks/useLazyFooter';
+import { useGSAPHomeAnimation } from './hooks/useGSAPHomeAnimation';
+import { textsPage } from './data/texts';
+
 
 gsap.registerPlugin(ScrollTrigger);
 

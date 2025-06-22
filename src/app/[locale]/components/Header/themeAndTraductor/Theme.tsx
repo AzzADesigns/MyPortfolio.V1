@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { useTheme } from "next-themes";
 import { Title } from "../../ui/Title";
-import { textsPage } from "../../../data/texts";
+import { textsPage } from "../../data/texts"
 
 export const Theme: React.FC = () => {
     const { theme, setTheme } = useTheme();

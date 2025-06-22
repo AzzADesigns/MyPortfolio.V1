@@ -7,7 +7,7 @@ import TitelPage from '../../ui/TitlePage';
 import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
 
-import { projectTexts, textsPage } from '@/app/data/texts';
+import { projectTexts, textsPage } from "../../data/texts";
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

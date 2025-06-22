@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../ui/Button";
 import { Title } from "../../ui/Title";
 import { HiOutlineTranslate } from "react-icons/hi";
-import { textsPage } from "../../../data/texts";
+import { textsPage } from "../../data/texts"
 
 export const Translator = () => {
     return (

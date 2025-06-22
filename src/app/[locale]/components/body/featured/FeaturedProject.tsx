@@ -7,7 +7,7 @@ import { Title } from "../../ui/Title";
 import TechStack from "../../ui/TechStack";
 import Deploy from "../../ui/Deploy";
 import Tilt from 'react-parallax-tilt';
-import { projectTexts } from "@/app/data/texts";
+import { projectTexts } from "../../data/texts";
 import { Carousel } from "../../ui/Carousel";
 
 export function FeaturedProject() {
