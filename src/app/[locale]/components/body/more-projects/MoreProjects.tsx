@@ -1,39 +1,42 @@
-'use client'
+'use client';
 
-import Image from 'next/image';
+import { useRef } from 'react';
+import { useTranslations } from 'next-intl';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
 import Card from '../../ui/Card';
 import { Title } from '../../ui/Title';
 import TitelPage from '../../ui/TitlePage';
 import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
-
-import { projectTexts, textsPage } from '@/app/data/texts';
-import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
 import { Carousel } from '../../ui/Carousel';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const MoreProjects = () => {
+    const t = useTranslations();
     const projectRefs = useRef<HTMLDivElement[]>([]);
     const titleRef = useRef<HTMLDivElement>(null);
+
+    const projectKeys = Object.keys(t.raw('projectTexts')).slice(1);
 
     useGSAP(() => {
         const timer = setTimeout(() => {
             if (titleRef.current) {
-                gsap.fromTo(titleRef.current,
+                gsap.fromTo(
+                    titleRef.current,
                     { opacity: 0, y: 30 },
                     {
                         opacity: 1,
                         y: 0,
                         duration: 0.8,
-                        ease: "power2.out",
+                        ease: 'power2.out',
                         scrollTrigger: {
                             trigger: titleRef.current,
-                            start: "top 85%",
-                            toggleActions: "play none none reverse"
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
                         }
                     }
                 );
@@ -41,18 +44,19 @@ export const MoreProjects = () => {
 
             projectRefs.current.forEach((ref) => {
                 if (ref) {
-                    gsap.fromTo(ref,
+                    gsap.fromTo(
+                        ref,
                         { opacity: 0, y: 60, scale: 0.9 },
                         {
                             opacity: 1,
                             y: 0,
                             scale: 1,
                             duration: 0.7,
-                            ease: "power2.out",
+                            ease: 'power2.out',
                             scrollTrigger: {
                                 trigger: ref,
-                                start: "top 80%",
-                                toggleActions: "play none none reverse"
+                                start: 'top 80%',
+                                toggleActions: 'play none none reverse'
                             }
                         }
                     );
@@ -67,15 +71,16 @@ export const MoreProjects = () => {
     }, []);
 
     return (
-        <div>
-            
+        <Card extraClass="w-full flex flex-col pb-10">
+            <div ref={titleRef}>
+                <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
+            </div>
 
-            <Card extraClass="w-full flex flex-col pb-10 ">
-                <div ref={titleRef}>
-                    <Title extraClass='p-np mt-5'>{textsPage.textMoreProjects}</Title>
-                </div>
-                <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
-                    {Object.values(projectTexts).slice(1).map((project, index) => (
+            <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
+                {projectKeys.map((key, index) => {
+                    const project = t.raw(`projectTexts.${key}`);
+
+                    return (
                         <div
                             key={index}
                             ref={el => {
@@ -83,7 +88,7 @@ export const MoreProjects = () => {
                             }}
                             className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
                         >
-                            <div className="relative  m-auto">
+                            <div className="relative m-auto">
                                 <Carousel slides={project.image} />
                             </div>
 
@@ -100,17 +105,23 @@ export const MoreProjects = () => {
                                     </div>
                                     <TechStack technologies={project.technologies} />
                                 </header>
+
                                 <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
                                     <p>
-                                        <span className="text-buttonColor font-semibold">{project.title}</span> {project.description}
+                                        <span className="text-buttonColor font-semibold">
+                                            {project.title}
+                                        </span>{' '}
+                                        {project.description.map((text: string, i: number) => (
+                                            <span key={i}>{text}</span>
+                                        ))}
                                     </p>
                                 </div>
                             </article>
                         </div>
-                    ))}
-                </div>
-            </Card>
-        </div>
+                    );
+                })}
+            </div>
+        </Card>
     );
 };
 
