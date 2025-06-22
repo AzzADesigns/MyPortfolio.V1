@@ -98,7 +98,7 @@ export const Information = ({ featuredRef }: InformationProps) => {
                 ease: "back.out(1.7)",
                 stagger: 0.15,
                 delay: 0.5,
-                clearProps: "all" // Asegura que no queden propiedades residuales
+                clearProps: "all" 
             });
         }, infoRef);
 
