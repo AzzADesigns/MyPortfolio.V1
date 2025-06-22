@@ -2,20 +2,21 @@
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
-import { textsPage } from "../../data/texts";
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+    const t = useTranslations('textsPage');
     const links = [
         {
-            label: textsPage.textMyLikendin,
+            label: t('textMyLikendin'),
             href: "https://linkedin.com/in/azariel-moreno-4267ba254/",
         },
         {
-            label: textsPage.textMyGithub,
+            label: t('textMyGithub'),
             href: "https://github.com/AzzADesigns",
         },
         {
-            label: textsPage.textRepo,
+            label: t('textRepo'),
             href: "https://github.com/AzzADesigns/MyPortfolio.V1",
         },
     ];
@@ -67,7 +68,7 @@ export default function Footer() {
                     ref={toastRef}
                     className="absolute left-[20%] top-[90%] bg-buttonColor text-white px-3 py-1 rounded shadow-lg text-xs xl:text-sm pointer-events-none"
                 >
-                    {textsPage.textCopied}
+                    {t('textCopied')}
                 </div>
             )}
 
