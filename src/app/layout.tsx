@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale} from 'next-intl/server';
 
 import "./globals.css";
 
@@ -21,14 +23,18 @@ export const metadata: Metadata = {
     description: "Landing page profesional desarrollada en Next.js",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const locale = await getLocale();
+
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang={locale} suppressHydrationWarning>
             <body
                 className={`scroll-smooth ${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--background)] text-[var(--textColor)]`}
             >
                 <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
-                    {children}
+                    <NextIntlClientProvider>
+                        {children}
+                    </NextIntlClientProvider>
                 </ThemeProvider>
             </body>
         </html>

@@ -3,15 +3,15 @@
 import { useState } from "react";
 import Card from "../../ui/Card";
 import { Title } from "../../ui/Title";
+import { useTranslations } from 'next-intl';
 
 import TechStack from "../../ui/TechStack";
 import Deploy from "../../ui/Deploy";
 import Tilt from 'react-parallax-tilt';
-import { projectTexts } from "../../data/texts";
 import { Carousel } from "../../ui/Carousel";
 
 export function FeaturedProject() {
-    const featureProject = Object.values(projectTexts)[0];
+    const t = useTranslations('projectTexts.inAudio'); // Ajusta esto según el proyecto destacado que quieras mostrar
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -22,10 +22,7 @@ export function FeaturedProject() {
         });
     };
 
-    // Asegura que siempre sea un array
-    const slides = Array.isArray(featureProject.image)
-        ? featureProject.image
-        : Array(5).fill(featureProject.image); // repite 5 veces si es string
+    const slides = t.raw('image'); // Esto asume que la key 'image' es un array en tu archivo de traducciones
 
     return (
         <Card extraClass="w-full p-6 flex flex-col md:flex-row gap-6">
@@ -41,7 +38,6 @@ export function FeaturedProject() {
                     onMouseMove={handleMouseMove}
                 >
                     <Carousel slides={slides} />
-
                     <div
                         className="absolute top-0 left-0 w-full h-[360px] pointer-events-none rounded-2xl transition-all duration-100"
                         style={{
@@ -53,15 +49,17 @@ export function FeaturedProject() {
 
             <div className="w-full md:w-1/2 flex flex-col justify-between">
                 <div>
-                    <Title extraClass="text-2xl font-bold mb-3">{featureProject.title}</Title>
-                    <p className="text-textColor mb-4">{featureProject.description}</p>
+                    <Title extraClass="text-2xl font-bold mb-3">{t('title')}</Title>
+                    {t.raw('description').map((paragraph: string, index: number) => (
+                        <p className="text-textColor mb-2" key={index}>{paragraph}</p>
+                    ))}
                 </div>
                 <div>
-                    <TechStack technologies={featureProject.technologies} extraClass="mb-4" />
-                    {featureProject.link && (
+                    <TechStack technologies={t.raw('technologies')} extraClass="mb-4" />
+                    {t('link.url') && (
                         <Deploy
-                            url={featureProject.link.url}
-                            type={featureProject.link.type}
+                            url={t('link.url')}
+                            type={t('link.type')}
                             extraClass="text-base"
                         />
                     )}
