@@ -11,7 +11,7 @@ import { useWhatsApp } from "./hooks/useWhastApp";
 gsap.registerPlugin(useGSAP);
 
 interface InformationProps {
-    featuredRef: React.RefObject<HTMLDivElement>;
+    featuredRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const Information = ({ featuredRef }: InformationProps) => {
