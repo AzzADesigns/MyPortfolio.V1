@@ -2,31 +2,32 @@
 
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 
 import Header from './Header/presentation/Header';
 import Card from './ui/Card';
 import { Them_Trans } from './Header/themeAndTraductor/Them_Trans';
 import { Title } from './ui/Title';
 import { FeaturedProject } from './body/featured/FeaturedProject';
-import AboutMe from './ui/AboutMe';
 import { ProfileImage } from './ui/ProfileImage';
 import Footer from './footer/Footer';
 
-import { useGSAPHomeAnimation } from '../hooks/useGSAPHomeAnimation';
-import { useLazyMoreProjects } from '../hooks/useLazyMoreProjects';
-import { textsPage } from '../data/texts';
-
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLazyFooter } from '../hooks/useLazyFooter';
+import { useLazyMoreProjects } from './hooks/useLazyMoreProjects';
+import { useLazyFooter } from './hooks/useLazyFooter';
+import { useGSAPHomeAnimation } from './hooks/useGSAPHomeAnimation';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LazyMoreProjects = dynamic(() => import('./body/more-projects/MoreProjects'), {
-    ssr: false
-});
+const LazyMoreProjects = dynamic(
+    () => import('./body/more-projects/MoreProjects').then(mod => mod.MoreProjects),
+    { ssr: false }
+);
 
 export default function Home() {
+    const t = useTranslations('textsPage');
     const profileRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLDivElement>(null);
@@ -60,8 +61,8 @@ export default function Home() {
 
                     <main className="w-full overflow-visible flex flex-col gap-3.5 justify-center md:items-center 2xl:items-start transition-all duration-300 ">
                         <Card extraClass="p-np" ref={aboutRef} style={{ opacity: 0 }}>
-                            <Title>{textsPage.textAbout}</Title>
-                            <AboutMe />
+                            <Title>{t('textAbout')}</Title>
+                            <p className='mt-3 text-textColor'>{t('textAboutme')}</p>
                         </Card>
 
                         <Card ref={featuredRef} extraClass="mt-1.5" style={{ opacity: 0 }}>
