@@ -19,7 +19,8 @@
         "textRepo": "My Portfolio Repository",
         "textCopied": "Email copied!",
         "textActualProject": "Actual Projects",
-        "textbuttonviewMore": "View More"
+        "textbuttonviewMore": "View More",
+        "textSwipe":"Swipe to see more"
     },
     "actualProjects": [
         {
