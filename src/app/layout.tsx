@@ -19,8 +19,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Mi Portfolio",
-    description: "Landing page profesional desarrollada en Next.js",
+    title: "AzzaDesigns",
+    description: "Portafolio",
+    icons: {
+        icon: "/logo.jpg",
+        shortcut: "/logo.jpg",       
+        apple: "/apple-touch-icon.png", 
+    },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
