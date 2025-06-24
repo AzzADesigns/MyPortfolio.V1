@@ -19,7 +19,8 @@
         "textRepo": "Repositorio de Mi Portfolio",
         "textCopied": "¡Correo copiado!",
         "textActualProject": "Proyectos actuales",
-        "textbuttonviewMore":"Ver Mas"
+        "textbuttonviewMore":"Ver Mas",
+        "textSwipe":"Desliza para ver más"
     },
     "actualProjects": [
         
