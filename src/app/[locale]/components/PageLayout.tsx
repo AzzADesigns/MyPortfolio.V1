@@ -75,7 +75,7 @@ export default function Home() {
                             <p className='mt-3 text-textColor'>{t('textAboutme')}</p>
                         </Card>
 
-                        <div className='  2xl:hidden -mt-3 flex justify-center lg:w-full w-full'>
+                        <div className='  2xl:hidden -mt-3 mb-2 flex justify-center lg:w-full w-full'>
                             <ActualPojects ref={actualProjectsRef}/>
                         </div>
 
