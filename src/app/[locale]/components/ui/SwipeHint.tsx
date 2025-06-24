@@ -20,7 +20,7 @@ export const SwipeHint: React.FC = () => {
 
     return (
         <div className="lg:hidden absolute bottom-4 left-1/2 z-40 transform -translate-x-1/2 text-white/90 flex flex-col items-center pointer-events-none">
-            <div ref={handRef} className="text-2xl ">
+            <div ref={handRef} className="text-2xl ml-12">
                 <FaHandPointer className='text-white/90'/>
             </div>
             <span className="text-xs mt-1 ">Desliza para ver más</span>

@@ -12,7 +12,7 @@ import { Carousel } from "../../ui/Carousel";
 import { SwipeHint } from "../../ui/SwipeHint";
 
 export function FeaturedProject() {
-    const t = useTranslations('projectTexts.inAudio'); // Ajusta esto según el proyecto destacado que quieras mostrar
+    const t = useTranslations('projectTexts.inAudio');
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -23,7 +23,7 @@ export function FeaturedProject() {
         });
     };
 
-    const slides = t.raw('image'); // Esto asume que la key 'image' es un array en tu archivo de traducciones
+    const slides = t.raw('image');
 
     return (
         <Card extraClass="w-full p-6 flex flex-col md:flex-row gap-6">

@@ -1,4 +1,3 @@
-// hooks/useGSAPHomeAnimation.ts
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { RefObject } from "react";
@@ -10,7 +9,8 @@ export function useGSAPHomeAnimation(
     cardRef: RefObject<HTMLDivElement | null>,
     profileRef: RefObject<HTMLDivElement | null>,
     aboutRef: RefObject<HTMLDivElement | null>,
-    featuredRef: RefObject<HTMLDivElement | null>
+    featuredRef: RefObject<HTMLDivElement | null>,
+    actualProjectsRef: RefObject<HTMLDivElement | null>
 ) {
     useGSAP(() => {
         const tl = gsap.timeline();
@@ -86,6 +86,30 @@ export function useGSAPHomeAnimation(
                     scrollTrigger: {
                         trigger: featuredRef.current,
                         start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    },
+                }
+            );
+        }
+        if (actualProjectsRef.current) {
+            gsap.fromTo(
+                actualProjectsRef.current,
+                {
+                    opacity: 0,
+                    y: 30,
+                    scale: 0.96,
+                    filter: "blur(4px)",
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 0.6,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: actualProjectsRef.current,
+                        start: "top 90%",
                         toggleActions: "play none none reverse",
                     },
                 }

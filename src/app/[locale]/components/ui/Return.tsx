@@ -3,9 +3,13 @@ import Button from './Button'
 import { FaArrowUp } from "react-icons/fa";
 
 export const Return = () => {
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
     return (
-        <Button>
-            <FaArrowUp className='h-10 w-15 '/>
+        <Button onClick={scrollToTop}>
+            <FaArrowUp className='h-5 w-15 '/>
         </Button>
     )
 }
