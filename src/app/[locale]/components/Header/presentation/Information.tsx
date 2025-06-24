@@ -113,7 +113,7 @@ export const Information = ({ featuredRef }: InformationProps) => {
                     <h2 className="text-xl xl:text-xl font-medium info-title">Full-Stack Developer</h2>
 
                     <div
-                        className="mt-5 font-light text-md xl:text-lg w-[70%] md:w-[80%] xl:w-[86%] 2xl:w-[90%]"
+                        className="mt-5 font-light text-md xl:text-lg w-full md:w-[80%] xl:w-[86%] 2xl:w-[90%]"
                     >
                         <p className="flex flex-wrap gap-x-1">
                             {techStack.map((tech, i) => (

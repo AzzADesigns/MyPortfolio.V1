@@ -6,17 +6,20 @@ import { useTranslations } from 'next-intl';
 
 import Header from './Header/presentation/Header';
 import Card from './ui/Card';
-import { Them_Trans } from './Header/themeAndTraductor/Them_Trans';
+import { Them_Trans } from './Header/themeAndTraductor/Them_Trans_Up';
 import { Title } from './ui/Title';
 import { FeaturedProject } from './body/featured/FeaturedProject';
 import { ProfileImage } from './ui/ProfileImage';
 import Footer from './footer/Footer';
+
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLazyMoreProjects } from './hooks/useLazyMoreProjects';
 import { useLazyFooter } from './hooks/useLazyFooter';
 import { useGSAPHomeAnimation } from './hooks/useGSAPHomeAnimation';
+import { ActualPojects } from './body/actualProjects/ActualPojects';
+import NewDivActualP from './ui/NewivActualP';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,6 +35,7 @@ export default function Home() {
     const cardRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLDivElement>(null);
     const featuredRef = useRef<HTMLDivElement>(null);
+    const actualProjectsRef = useRef<HTMLDivElement>(null);
 
 
     const { ref: moreProjectsRef, shouldRender } = useLazyMoreProjects();
@@ -40,30 +44,39 @@ export default function Home() {
     
     
 
-    useGSAPHomeAnimation(cardRef, profileRef, aboutRef, featuredRef);
+    useGSAPHomeAnimation(cardRef, profileRef, aboutRef, featuredRef, actualProjectsRef);
 
 
 
     return (
         <div className="flex flex-col overflow-x-hidden items-center max-w-[1900px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
             <div className="flex flex-col h-full items-center xl:items-start w-[500px] md:w-[85%] xl:mr-52 xl:w-[47%]">
-                <div className="fixed w-full z-50 left-0 xl:left-[67%] 2xl:left-[1225px] xl:w-70 xl:top-10">
+                <section className="fixed w-full z-50 left-0 xl:left-[67%] 2xl:left-[1225px] xl:w-70 xl:top-10">
                     <Them_Trans />
-                </div>
+                    <div className='hidden xl:block'>
+                        <NewDivActualP/>
+                    </div>
 
-                <div className="w-[45vh] md:w-full flex gap-5 md:items-center 2xl:items-start flex-col mt-25 xl:mt-10 xl:top-20">
+                </section>
+
+                <section className="w-[45vh] md:w-full flex gap-5 md:items-center 2xl:items-start flex-col mt-25 xl:mt-10 xl:top-20">
                     <header>
                         <Card extraClass="" ref={cardRef} style={{ opacity: 0 }}>
                             <Header featuredRef={featuredRef} />
                             <ProfileImage ref={profileRef} />
+                            
                         </Card>
                     </header>
-
                     <main className="w-full overflow-visible flex flex-col gap-3.5 justify-center md:items-center 2xl:items-start transition-all duration-300 ">
+
                         <Card extraClass="p-np" ref={aboutRef} style={{ opacity: 0 }}>
                             <Title>{t('textAbout')}</Title>
                             <p className='mt-3 text-textColor'>{t('textAboutme')}</p>
                         </Card>
+
+                        <div className='w-full overflow-visible flex  flex-col justify-center md:items-center 2xl:items-start transition-all duration-300  xl:hidden -mt-3'>
+                            <ActualPojects ref={actualProjectsRef}/>
+                        </div>
 
                         <Card ref={featuredRef} extraClass="mt-1.5" style={{ opacity: 0 }}>
                             <FeaturedProject />
@@ -81,7 +94,7 @@ export default function Home() {
                             </Card>
                         )}
                     </footer>
-                </div>
+                </section>
             </div>
         </div>
     );
