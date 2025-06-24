@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { useTranslations } from 'next-intl';
+import Image from "next/image";
 
 export default function Footer() {
     const t = useTranslations('textsPage');
@@ -94,8 +95,14 @@ export default function Footer() {
             </div>
 
             <div className="w-[40%] flex justify-center md:mb-3 items-center">
-                <div className="text-xs p-2 bg-background rounded-2xl flex justify-center items-center h-[50%] md:w-50 xl:text-2xl text-textColor mt-5">
-                    AzzAD
+                <div className="text-xs p-2 rounded-2xl flex justify-center items-center   xl:text-2xl text-textColor mt-5">
+                    <Image 
+                        src="/logo.jpg"
+                        alt="logo"
+                        width={100}
+                        height={100}
+                        className="object-cover w-full rounded-full shadow-2xl mb-6 xl:mb-0"
+                    />
                 </div>
             </div>
         </section>

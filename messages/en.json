@@ -1,175 +1,236 @@
 {
-  "textsPage": {
-    "textIdiom": "Languages",
-    "textTheme": "Theme",
-    "textCountry": "Argentina",
-    "textPagesraliced": "10 Pages Completed",
-    "textButtonProject": "View Projects",
-    "textButtonCv": "Download CV",
-    "textButtonContact": "Contact Me",
-    "textExperience": "Experience",
-    "textExp1": "Freelance",
-    "textExp2": "No Country",
-    "textExp3": "Projects",
-    "textAbout": "About",
-    "textMoreProjects": "More Projects",
-    "textAboutme": "With three years of training, including one year of practical experience, I have specialized in UX/UI using Atomic Design. I have participated in job simulations, collaborating in teams of up to six people. In addition, I have developed commissioned projects. Along with my back-end knowledge, I am ready to join a professional team.",
-    "textMyLikendin": "My Linkedin",
-    "textMyGithub": "My Github",
-    "textRepo": "My Portfolio Repository",
-    "textCopied": "Email copied!"
-  },
-  "projectTexts": {
-    "inAudio": {
-      "title": "In-Audio",
-      "description": [
-        "This is a project currently in the first of four planned stages.",
-        " Its current functionality is to provide uninterrupted music by retrieving songs from the Jamendo API through a custom backend.",
-        " This backend handles both the reception and distribution of information to the front-end, as well as the secure storage of the API key."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Motion" },
-        { "name": "Node.js" },
-        { "name": "Express" }
-      ],
-      "image": [
-        "/in-audio.png",
-        "/in-audio.png",
-        "/in-audio.png",
-        "/in-audio.png",
-        "/in-audio.png",
-        "/in-audio.png"
-      ],
-      "link": {
-        "type": "deploy",
-        "url": "https://in-audio.netlify.app/"
-      }
+    "textsPage": {
+        "textIdiom": "Languages",
+        "textTheme": "Theme",
+        "textCountry": "Argentina",
+        "textPagesraliced": "10 Pages Created",
+        "textButtonProject": "View Projects",
+        "textButtonCv": "Download CV",
+        "textButtonContact": "Contact Me",
+        "textExperience": "Experience",
+        "textExp1": "Freelance",
+        "textExp2": "No Country",
+        "textExp3": "Projects",
+        "textAbout": "About",
+        "textMoreProjects": "More Projects",
+        "textAboutme": "With three years of training, including one year of hands-on experience, I have specialized in UX/UI using Atomic Design. I have participated in job simulations, collaborating in teams of up to six people. In addition, I have worked on commissioned projects. Combined with my back-end knowledge, I am ready to join a professional team.",
+        "textMyLikendin": "My LinkedIn",
+        "textMyGithub": "My GitHub",
+        "textRepo": "My Portfolio Repository",
+        "textCopied": "Email copied!",
+        "textActualProject": "Actual Projects",
+        "textbuttonviewMore": "View More"
     },
-    "Urbania": {
-      "title": "Urbania",
-      "description": [
-        "is a project developed during my last job simulation at No-Country.",
-        " I worked as a Front-End developer and also as a team leader, coordinating tasks, promoting efficient componentization, and improving the application's overall performance.",
-        " I collaborated with the UX/UI designer by suggesting visual adjustments that enhanced the user experience.",
-        " I also implemented animations using Framer Motion, achieving a more attractive and fluid interface."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Motion" },
-        { "name": "Node.js" },
-        { "name": "Express" }
-      ],
-      "image": [
-        "/Urbania.png",
-        "/Urbania.png",
-        "/Urbania.png",
-        "/Urbania.png"
-      ],
-      "link": {
-        "type": "deploy",
-        "url": "https://s21-14-n-webapp-urbania.onrender.com/"
-      }
-    },
-    "WordRank": {
-      "title": "WordRank",
-      "description": [
-        ", an application I developed after finishing my first job simulation at No-Country.",
-        " I felt the need to strengthen my skills in API consumption, so I approached this project as a personal challenge.",
-        " The platform allows users to search, filter, and sort countries through a public API, showing a dynamic result counter and detailed views by country, including navigation between neighboring countries.",
-        " I implemented lazy loading to optimize performance and refine my skills in efficient rendering."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Motion" },
-        { "name": "Axios" }
-      ],
-      "image": [
-        "/wordrank.png",
-        "/wordrank.png",
-        "/wordrank.png"
-      ],
-      "link": {
-        "type": "deploy",
-        "url": "https://in-audio.netlify.app/"
-      }
-    },
-    "HuellitasEnCasa": {
-      "title": "Huellitas En Casa",
-      "description": [
-        "was developed during my first job simulation project at No-Country, where I served as the UX/UI designer and Front-End lead.",
-        " I was responsible for the complete design and layout of the platform, focusing on delivering a smooth user experience.",
-        " The application allowed both users and shelters to register and log in; shelters could upload and edit pet information.",
-        " It was my first hands-on experience working with APIs, marking the beginning of my transition from design to development."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Java" }
-      ],
-      "image": [
-        "/HuellitasEnCasa.png",
-        "/HuellitasEnCasa.png",
-        "/HuellitasEnCasa.png"
-      ],
-      "link": {
-        "type": "repo",
-        "url": "https://github.com/No-Country-simulation/c21-38-n-java-react"
-      }
-    },
-    "ClassRun": {
-      "title": "ClassRun",
-      "description": [
-        ", this project was carried out during my second job simulation at No-Country, where I worked as a Front-End developer.",
-        " One of the main challenges was adapting to technologies I had never used before, such as Next.js, Shadcn, and TypeScript, which were imposed by the team's architectural decisions.",
-        " During the five weeks of the simulation, I focused on integrating quickly, providing effective solutions even when several teammates dropped out.",
-        " I completed the experience with a functional Front-End that implemented global state management using Context API.",
-        " The application is aimed at academic management, allowing teachers and tutors to track subjects and students individually."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Netxjs" },
-        { "name": "ShadCn" },
-        { "name": "Typescript" },
-        { "name": "Nodejs" },
-        { "name": "Express" }
-      ],
-      "image": [
-        "/ClassRun.png",
-        "/ClassRun.png",
-        "/ClassRun.png"
-      ],
-      "link": {
-        "type": "repo",
-        "url": "https://github.com/No-Country-simulation/s20-03-webapp"
-      }
-    },
-    "CodigoDelMar": {
-      "title": "Codigo Del Mar",
-      "description": [
-        "was a professional commission to create a landing page aimed at improving the online presence of the team 'Programadores de Mar del Plata'.",
-        " The design focused on conveying brand identity with a simple yet attractive aesthetic, clearly presenting their services and experience.",
-        " It includes a validated contact form, facilitating direct communication with potential clients.",
-        " Currently, the project is on hold until the clients define new content for its official deployment."
-      ],
-      "technologies": [
-        { "name": "React" },
-        { "name": "Tailwind" },
-        { "name": "Motion" }
-      ],
-      "image": [
-        "/CodigoMar.png",
-        "/CodigoMar.png",
-        "/CodigoMar.png"
-      ],
-      "link": {
-        "type": "deploy",
-        "url": "https://cdelmar.netlify.app/"
-      }
+    "actualProjects": [
+        {
+            "title": "LyvMaz",
+            "description": "Currently working on a freelance project for a Colombian artist alongside another developer. Implementing testing with Vitest to enhance the quality of the final product.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7341233747272294400/"
+        },
+        {
+            "title": "ATSforShareIt",
+            "description": "This project aims to assist job-seeking developers in creating a CV optimized to pass ATS filters, streamlining and empowering their path toward new job opportunities.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7335781188676075520/"
+        },
+        {
+            "title": "No-Name",
+            "description": "A product that integrates e-commerce and inventory management, focused on reuse and customization to align the service with each client's brand identity.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7335781188676075520/"
+        }
+    ],
+    "projectTexts": {
+        "inAudio": {
+            "title": "In-Audio",
+            "description": [
+                "This project is currently in the first of four planned stages.",
+                " Its current functionality is to deliver uninterrupted music by retrieving tracks from the Jamendo API through a custom backend.",
+                " This backend handles both the reception and distribution of information to the front end, as well as securely storing the API key."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Motion" },
+                { "name": "Node.js" },
+                { "name": "Express" }
+            ],
+            "image": [
+                "/in-1.png",
+                "/in2.png",
+                "/in3.png",
+                "/in4.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://in-audio.netlify.app/"
+            }
+        },
+        "Urbania": {
+            "title": "Urbania",
+            "description": [
+                "This project was developed during my final job simulation at No Country.",
+                " I served as a Front-End Developer and also took on the role of Team Lead, coordinating tasks, promoting efficient componentization, and enhancing the application's overall performance.",
+                " I collaborated with the UX/UI designer, suggesting visual improvements that enhanced the user experience.",
+                " I also implemented animations using Framer Motion, creating a more appealing and fluid interface."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Motion" },
+                { "name": "Node.js" },
+                { "name": "Express" }
+            ],
+            "image": [
+                "/ur1.png",
+                "/ur2.png",
+                "/ur3.png",
+                "/ur4.png",
+                "/ur5.png",
+                "/ur6.png",
+                "/ut7.png",
+                "/ur8.png",
+                "/ur9.png",
+                "/ur10.png",
+                "/ur11.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://s21-14-n-webapp-urbania.onrender.com/"
+            }
+        },
+        "WordRank": {
+            "title": "WordRank",
+            "description": [
+                "This application was developed after completing my first job simulation at No Country.",
+                " I felt the need to strengthen my API consumption skills, so I approached this as a personal challenge.",
+                " The platform allows users to search, filter, and sort countries using a public API. It displays a dynamic results counter and detailed views for each country, including navigation between neighboring countries.",
+                " I implemented lazy loading to optimize performance and refine my skills in efficient rendering."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Motion" },
+                { "name": "Axios" }
+            ],
+            "image": [
+                "/wr1.png",
+                "/wr2.png"
+            ],
+            "link": {
+                "type": "repo",
+                "url": "https://github.com/AzzADesigns/WordRanks"
+            }
+        },
+        "HuellitasEnCasa": {
+            "title": "Huellitas En Casa",
+            "description": [
+                "This project was developed during my first job simulation at No Country, where I worked as the UX/UI designer and Front-End lead.",
+                " I was in charge of the full design and layout of the platform, focusing on delivering a smooth and intuitive user experience.",
+                " The application allowed both users and shelters to register and log in; shelters could upload and manage pet information.",
+                " It was my first practical experience working with APIs, marking the beginning of my transition from design to development."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Java" }
+            ],
+            "image": [
+                "/hu1.png",
+                "/hu2.png",
+                "/hu3.png",
+                "/hu4.png",
+                "/hu5.png",
+                "/hu6.png",
+                "/hu7.png",
+                "/hu8.png",
+                "/hu9.png"
+            ],
+            "link": {
+                "type": "repo",
+                "url": "https://github.com/No-Country-simulation/c21-38-n-java-react"
+            }
+        },
+        "ClassRun": {
+            "title": "ClassRun",
+            "description": [
+                "This project was developed during my second job simulation at No Country, where I worked as a Front-End Developer.",
+                " One of the biggest challenges was adapting to technologies I hadn't used before, such as Next.js, Shadcn, and TypeScript—tools chosen due to the team's architectural decisions.",
+                " Over the five-week simulation, I focused on quickly integrating into the team and delivering effective solutions, even as several teammates dropped out.",
+                " I completed the experience with a fully functional Front-End that implemented global state management using Context API.",
+                " The application focuses on academic management, allowing teachers and tutors to monitor subjects and students individually."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Next.js" },
+                { "name": "ShadCn" },
+                { "name": "TypeScript" },
+                { "name": "Node.js" },
+                { "name": "Express" }
+            ],
+            "image": [
+                "/cl1.png",
+                "/cl2.png",
+                "/cl3.png",
+                "/cl4.png",
+                "/cl5.png",
+                "/cl6.png",
+                "/cl7.png",
+                "/cl8.png"
+            ],
+            "link": {
+                "type": "repo",
+                "url": "https://github.com/No-Country-simulation/s20-03-webapp"
+            }
+        },
+        "CodigoDelMar": {
+            "title": "Codigo Del Mar",
+            "description": [
+                "This was a commissioned professional project to create a landing page aimed at enhancing the online presence of the 'Programadores de Mar del Plata' team.",
+                " the design focused on conveying brand identity through a simple yet attractive aesthetic, clearly showcasing their services and experience.",
+                " It includes a validated contact form to facilitate direct communication with potential clients.",
+                " The project is currently on hold until the clients finalize the content for its official deployment."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Motion" }
+            ],
+            "image": [
+                "/cm1.png",
+                "/cm2.png",
+                "/cm3.png",
+                "/cm4.png",
+                "/cm5.png",
+                "/cm6.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://cdelmar.netlify.app/"
+            }
+        },
+        "Acme": {
+            "title": "Acme",
+            "description": [
+                "Website developed by following the official Next.js documentation, where I learned to",
+                " handle the framework's native routing, implement authentication, and work with server-side rendering (SSR).",
+                " It includes a CRUD system for invoices and real-time data visualization",
+                " using a PostgreSQL database."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Nextjs" }
+            ],
+            "image": [
+                "/acme1.png",
+                "/acme2.png",
+                "/acme3.png",
+                "/acme4.png"
+            ],
+            "link": {
+                "type": "repo",
+                "url": "https://github.com/AzzADesigns/Acme"
+            }
+        }
     }
-  }
 }

@@ -5,5 +5,5 @@ export function useWhatsApp(phone: string, defaultMessage: string) {
         window.open(url, '_blank');
     };
 
-  return { contact };
+    return { contact };
 }

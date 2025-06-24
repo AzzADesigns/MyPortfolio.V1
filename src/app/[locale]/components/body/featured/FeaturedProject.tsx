@@ -9,9 +9,10 @@ import TechStack from "../../ui/TechStack";
 import Deploy from "../../ui/Deploy";
 import Tilt from 'react-parallax-tilt';
 import { Carousel } from "../../ui/Carousel";
+import { SwipeHint } from "../../ui/SwipeHint";
 
 export function FeaturedProject() {
-    const t = useTranslations('projectTexts.inAudio'); // Ajusta esto según el proyecto destacado que quieras mostrar
+    const t = useTranslations('projectTexts.inAudio');
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -22,10 +23,11 @@ export function FeaturedProject() {
         });
     };
 
-    const slides = t.raw('image'); // Esto asume que la key 'image' es un array en tu archivo de traducciones
+    const slides = t.raw('image');
 
     return (
         <Card extraClass="w-full p-6 flex flex-col md:flex-row gap-6">
+            
             <Tilt
                 perspective={1000}
                 transitionSpeed={700}
@@ -34,12 +36,13 @@ export function FeaturedProject() {
                 gyroscope={true}
             >
                 <div
-                    className="relative xl:h-[402px] 2xl:h-[360px] h-[400px] group overflow-hidden rounded-2xl cursor-pointer"
+                    className="relative  h-[300px] xl:h-[460px] group overflow-hidden rounded-2xl cursor-pointer"
                     onMouseMove={handleMouseMove}
                 >
+                    <SwipeHint/>
                     <Carousel slides={slides} />
                     <div
-                        className="absolute top-0 left-0 w-full h-[360px] pointer-events-none rounded-2xl transition-all duration-100"
+                        className="absolute top-0 left-0 w-full h-[300px] xl:h-[460px] pointer-events-none rounded-2xl transition-all duration-100"
                         style={{
                             background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.25), transparent 80%)`
                         }}
@@ -51,7 +54,7 @@ export function FeaturedProject() {
                 <div>
                     <Title extraClass="text-2xl font-bold mb-3">{t('title')}</Title>
                     {t.raw('description').map((paragraph: string, index: number) => (
-                        <p className="text-textColor mb-2" key={index}>{paragraph}</p>
+                        <p className="text-textColor mb-2 2xl:text-lg" key={index}>{paragraph}</p>
                     ))}
                 </div>
                 <div>

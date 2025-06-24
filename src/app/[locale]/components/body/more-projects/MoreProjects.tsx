@@ -12,6 +12,7 @@ import TitelPage from '../../ui/TitlePage';
 import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
 import { Carousel } from '../../ui/Carousel';
+import { SwipeHint } from '../../ui/SwipeHint';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,11 +73,12 @@ export const MoreProjects = () => {
 
     return (
         <Card extraClass="w-full flex flex-col pb-10">
+            
             <div ref={titleRef}>
                 <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
             </div>
 
-            <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
+            <div className="flex flex-col justify-center mt-5 items-center overflow-hidden">
                 {projectKeys.map((key, index) => {
                     const project = t.raw(`projectTexts.${key}`);
 
@@ -86,14 +88,15 @@ export const MoreProjects = () => {
                             ref={el => {
                                 if (el) projectRefs.current[index] = el;
                             }}
-                            className="flex rounded-xl flex-col gap-5 p-np md:w-full border-background"
+                            className="flex rounded-xl flex-col gap-5  md:w-full border-background"
                         >
                             <div className="relative m-auto">
+                                <SwipeHint />
                                 <Carousel slides={project.image} />
                             </div>
 
-                            <article className="w-full">
-                                <header className="flex flex-col gap-2 pr-1">
+                            <article className="w-full p-np">
+                                <div className="flex flex-col gap-2 pr-1">
                                     <div className="flex items-center justify-between">
                                         <TitelPage title={project.title} />
                                         {project.link && (
@@ -104,10 +107,10 @@ export const MoreProjects = () => {
                                         )}
                                     </div>
                                     <TechStack technologies={project.technologies} />
-                                </header>
+                                </div>
 
-                                <div className="border-2 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
-                                    <p>
+                                <div className="border-2 mb-10 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
+                                    <p className='text-sm xl:text-lg'>
                                         <span className="text-buttonColor font-semibold">
                                             {project.title}
                                         </span>{' '}
@@ -115,6 +118,7 @@ export const MoreProjects = () => {
                                             <span key={i}>{text}</span>
                                         ))}
                                     </p>
+                                    
                                 </div>
                             </article>
                         </div>
