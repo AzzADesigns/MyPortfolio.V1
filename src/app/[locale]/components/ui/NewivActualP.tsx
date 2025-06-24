@@ -18,7 +18,7 @@ export default function NewDivActualP() {
     return (
         <div
             ref={actualProjectsRef}
-            className={`transition-opacity  duration-2000 ${
+            className={`transition-opacity w-full duration-2000 ${
                 visible ? "xl:opacity-100" : "opacity-0"
             }`}
         >
