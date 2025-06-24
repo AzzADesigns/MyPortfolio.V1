@@ -78,7 +78,7 @@ export default function Home() {
                             <ActualPojects ref={actualProjectsRef}/>
                         </div>
 
-                        <Card ref={featuredRef} extraClass="mt-1.5" style={{ opacity: 0 }}>
+                        <Card ref={featuredRef} extraClass="" style={{ opacity: 0 }}>
                             <FeaturedProject />
                         </Card>
 
