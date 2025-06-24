@@ -17,7 +17,7 @@ export const Translator = () => {
     return (
         <div className="flex flex-col  xl:items-center  xl:justify-center xl:w-full">
             <Title extraClass="hidden xl:flex mb-2">{t('textIdiom')}</Title>
-            <div className="flex w-full justify-center gap-3">
+            <div className="flex w-full justify-center gap-1">
                 <Button onClick={() => changeLanguage('en')}>English</Button>
                 <Button onClick={() => changeLanguage('es')}>Español</Button>
             </div>

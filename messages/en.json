@@ -17,8 +17,24 @@
     "textMyLikendin": "My LinkedIn",
     "textMyGithub": "My GitHub",
     "textRepo": "My Portfolio Repository",
-    "textCopied": "Email copied!"
+    "textCopied": "Email copied!",
+    "textActualProject":"Actual Projects",
+    "textbuttonviewMore":"Viw More"
   },
+  "actualProjects": [
+    {
+      "title": "LyvMaz",
+      "description": "Currently working on a freelance project for a Colombian artist alongside another developer. Implementing testing with Vitest to enhance the quality of the final product."
+    },
+    {
+      "title": "ATSforShareIt",
+      "description": "This project aims to assist job-seeking developers in creating a CV optimized to pass ATS filters, streamlining and empowering their path toward new job opportunities."
+    },
+    {
+      "title": "No-Name",
+      "description": "A product that integrates e-commerce and inventory management, focused on reuse and customization to align the service with each client's brand identity."
+    }
+  ],
   "projectTexts": {
     "inAudio": {
       "title": "In-Audio",
@@ -188,6 +204,30 @@
         "type": "deploy",
         "url": "https://cdelmar.netlify.app/"
       }
+    },
+    "Acme": {
+        "title": "Acme",
+        "description": [
+            ", website developed by following the official Next.js documentation, where I learned to",
+            " handle the framework's native routing, implement authentication, and work with server-side rendering (SSR).",
+            " renderizado del lado del servidor (SSR). Contiene un CRUD de facturas y visualización",
+            " It features a CRUD for invoices and real-time data display from a PostgreSQL database."
+        ],
+        "technologies": [
+            { "name": "React" },
+            { "name": "Tailwind" },
+            { "name": "Nextjs" }
+        ],
+        "image": [
+            "/acme1.png",
+            "/acme2.png",
+            "/acme3.png",
+            "/acme4.png"
+        ],
+        "link": {
+            "type": "repo",
+            "url": "https://github.com/AzzADesigns/Acme"
+        }
     }
   }
 }

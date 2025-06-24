@@ -17,8 +17,28 @@
         "textMyLikendin": "Mi Linkedin",
         "textMyGithub": "Mi Github",
         "textRepo": "Repositorio de Mi Portfolio",
-        "textCopied": "¡Correo copiado!"
+        "textCopied": "¡Correo copiado!",
+        "textActualProject": "Proyectos actuales",
+        "textbuttonviewMore":"Ver Mas"
     },
+    "actualProjects": [
+        
+        {
+            "title": "LyvMaz",
+            "description": "Trabajando en un proyecto freelance para artista colombiana con otro desarrollador. Integrando testing con Vitest con el fin de mejorar la calidad del producto final.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7341233747272294400/"
+        },
+        {
+            "title": "ATSforShareIt",
+            "description": "Este proyecto tiene como objetivo ayudar a programadores en búsqueda laboral a crear un CV optimizado para pasar los filtros ATS, facilitando y potenciando su camino hacia nuevas oportunidades laborales.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7335781188676075520/"
+        },
+        {
+            "title": "No-Name",
+            "description": "Producto que integra e-commerce y control de inventario con foco en reutilizacion y personalizacion para adaptar el servicio a la identidad de marca de nuestros clientes.",
+            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7335781188676075520/"
+        }
+    ],
     "projectTexts": {
         "inAudio": {
             "title": "In-Audio",
@@ -187,6 +207,30 @@
             "link": {
                 "type": "deploy",
                 "url": "https://cdelmar.netlify.app/"
+            }
+        },
+        "Acme": {
+            "title": "Acme",
+            "description": [
+                ", sitio web que realicé siguiendo la documentación oficial de Next.js, donde aprendí a",
+                "manejar el enrutamiento nativo de la tecnología, aplicar autenticación y trabajar con",
+                "renderizado del lado del servidor (SSR). Contiene un CRUD de facturas y visualización",
+                " de datos en tiempo real provenientes de una base de datos PostgreSQL."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Nextjs" }
+            ],
+            "image": [
+                "/acme1.png",
+                "/acme2.png",
+                "/acme3.png",
+                "/acme4.png"
+            ],
+            "link": {
+                "type": "repo",
+                "url": "https://github.com/AzzADesigns/Acme"
             }
         }
     }

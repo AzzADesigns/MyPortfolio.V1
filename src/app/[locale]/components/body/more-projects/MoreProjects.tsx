@@ -78,7 +78,7 @@ export const MoreProjects = () => {
                 <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
             </div>
 
-            <div className="flex flex-col justify-center -mt-5 items-center overflow-hidden">
+            <div className="flex flex-col justify-center mt-5 items-center overflow-hidden">
                 {projectKeys.map((key, index) => {
                     const project = t.raw(`projectTexts.${key}`);
 
