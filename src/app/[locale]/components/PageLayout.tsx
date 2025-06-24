@@ -53,7 +53,7 @@ export default function Home() {
             <div className="flex flex-col h-full items-center xl:items-start w-[500px] md:w-[85%] xl:mr-52 xl:w-[47%]">
                 <section className="fixed w-full z-50 left-0 xl:left-[67%] 2xl:left-[1225px] xl:w-70 xl:top-10">
                     <Them_Trans />
-                    <div className='hidden xl:block'>
+                    <div className='hidden 2xl:block'>
                         <NewDivActualP/>
                     </div>
 
@@ -74,7 +74,7 @@ export default function Home() {
                             <p className='mt-3 text-textColor'>{t('textAboutme')}</p>
                         </Card>
 
-                        <div className='w-full overflow-visible flex  flex-col justify-center md:items-center 2xl:items-start transition-all duration-300  xl:hidden -mt-3'>
+                        <div className='w-full overflow-visible flex  flex-col justify-center md:items-center 2xl:items-start transition-all duration-300  2xl:hidden -mt-3'>
                             <ActualPojects ref={actualProjectsRef}/>
                         </div>
 
