@@ -215,7 +215,7 @@
             "description": [
                 ", sitio web que realicé siguiendo la documentación oficial de Next.js, donde aprendí a",
                 "manejar el enrutamiento nativo de la tecnología, aplicar autenticación y trabajar con",
-                "renderizado del lado del servidor (SSR). Contiene un CRUD de facturas y visualización",
+                " renderizado del lado del servidor (SSR). Contiene un CRUD de facturas y visualización",
                 " de datos en tiempo real provenientes de una base de datos PostgreSQL."
             ],
             "technologies": [
