@@ -22,7 +22,7 @@ export const ActualPojects = forwardRef<HTMLDivElement>((_, ref) => {
 
     return (
         <div ref={ref}>
-            <Card extraClass="w-full transition-all p-np mt-5 xl:w-73 2xl:w-83 backdrop-blur-sm bg-background/20 xl:bg-foreground rounded-2xl xl:rounded-t-3xl p-4">
+            <Card extraClass="w-full transition-all p-np mt-5 2xl:w-73 2xl:w-83 backdrop-blur-sm bg-background/20 xl:bg-foreground rounded-2xl xl:rounded-t-3xl p-4">
                 <Title>{t('textsPage.textActualProject')}</Title>
                 {projects.map((project, index) => (
                     <TitleAndDescriptionActualProject

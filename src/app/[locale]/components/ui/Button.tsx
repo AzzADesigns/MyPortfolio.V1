@@ -5,14 +5,20 @@ interface ButtonProps {
     children: ReactNode;
     extraClass?: string;
     onClick?: () => void;
+    isActive?: boolean;
 }
 
-export default function Button({ children, extraClass, onClick }: ButtonProps) {
+export default function Button({ children, extraClass, onClick, isActive }: ButtonProps) {
     return (
         <button
             onClick={onClick}
             className={clsx(
-                "border-2 border-foreground active:border-buttonColor hover:border-buttonColor px-2.5 py-1 rounded-full text-sm  bg-buttonColor text-buttonText hover:bg-foreground active:bg-foreground active:text-buttonColor hover:text-buttonColor transition-all cursor-pointer tracking-wider",
+                "border-2 border-foreground px-2.5 py-1 rounded-full text-sm  transition-all cursor-pointer tracking-wider",
+                "hover:border-buttonColor hover:bg-foreground hover:text-buttonColor",
+                "active:border-buttonColor active:bg-foreground active:text-buttonColor",
+                isActive
+                    ? " bg-textColor border-buttonColor bg-foreground text-buttonColor"
+                    : "bg-buttonColor  text-buttonText ",
                 extraClass
             )}
         >
@@ -20,4 +26,3 @@ export default function Button({ children, extraClass, onClick }: ButtonProps) {
         </button>
     );
 }
-
