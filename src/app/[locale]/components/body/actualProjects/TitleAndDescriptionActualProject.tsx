@@ -32,7 +32,7 @@ export const TitleAndDescriptionActualProject = ({ title, description, isOpen, o
             >
                 <p className='max-w-160 mb-2'>{description}</p>
                 <div>
-                    <a href={Href} className="text-buttonColor underline">
+                    <a href={Href} target="_blank" className="text-buttonColor underline">
                         {t("textsPage.textbuttonviewMore")}
                     </a>
                 </div>
