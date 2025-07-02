@@ -18,7 +18,7 @@
         "textMyGithub": "My GitHub",
         "textRepo": "My Portfolio Repository",
         "textCopied": "Email copied!",
-        "textActualProject": "Actual Projects",
+        "textActualProject": "Current projects",
         "textbuttonviewMore": "View More",
         "textSwipe":"Swipe to see more"
     },
@@ -148,6 +148,28 @@
             "link": {
                 "type": "repo",
                 "url": "https://github.com/No-Country-simulation/c21-38-n-java-react"
+            }
+        },
+        "AzzAEdusync": {
+            "title": "AzzAEdusync",
+            "description": [
+                ", a minimalistic and responsive web platform for students and self-learners that centralizes all study organization in one place.",
+                " It allows users to create thematic sections, add reminders, and plan sessions using a monthly calendar.",
+                " It features a rich text editor for notes, PDF upload and export, a daily task manager, and a section for saving useful links.",
+                " All data is stored locally in the browser, with the option to export notes as a PDF for backup."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Next.js" }
+            ],
+            "image": [
+                "/azzed1.png",
+                "/azzed2.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://azza-edusync.vercel.app/"
             }
         },
         "ClassRun": {

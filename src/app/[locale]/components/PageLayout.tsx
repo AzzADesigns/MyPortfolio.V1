@@ -49,11 +49,12 @@ export default function Home() {
 
 
     return (
-        <div className="flex flex-col overflow-x-hidden items-center max-w-[1900px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
-            <div className="flex flex-col h-full items-center xl:items-start w-[500px] md:w-[85%] xl:mr-52 xl:w-[47%]">
-                <section className="fixed w-full z-50 left-0 xl:left-[67%] 2xl:left-[1225px] xl:w-70 xl:top-10">
+        <div className="flex flex-col overflow-x-hidden items-center  max-w-[1713px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
+            {/*para aarreglar el problema del margen, aca abajo y en theme:trans */}
+            <div className="flex flex-col h-full items-center xl:items-start w-[500px] md:w-[85%] xl:mr-40  2xl:w-[800px] xl:w-[47%]">
+                <section className="fixed w-full z-50 left-0 xl:left-[69.5%] 2xl:left-[1200px] xl:w-70 xl:top-10">
                     <Them_Trans />
-                    <div className='hidden 2xl:block'>
+                    <div className='hidden 2xl:block w-full 2xl:min-w-83 '>
                         <NewDivActualP/>
                     </div>
 
@@ -74,11 +75,11 @@ export default function Home() {
                             <p className='mt-3 text-textColor'>{t('textAboutme')}</p>
                         </Card>
 
-                        <div className='w-full overflow-visible flex  flex-col justify-center md:items-center 2xl:items-start transition-all duration-300  2xl:hidden -mt-3'>
+                        <div className='  2xl:hidden -mt-3 mb-2 flex justify-center lg:w-full w-full'>
                             <ActualPojects ref={actualProjectsRef}/>
                         </div>
 
-                        <Card ref={featuredRef} extraClass="" style={{ opacity: 0 }}>
+                        <Card ref={featuredRef} extraClass="2xl:mt-1" style={{ opacity: 0 }}>
                             <FeaturedProject />
                         </Card>
 
@@ -87,7 +88,7 @@ export default function Home() {
                         </Card>
                     </main>
 
-                    <footer ref={lazyFooterRef} className=" w-full 2xl:w-[90%]  flex justify-center xl:ml-0 mb-10">
+                    <footer ref={lazyFooterRef} className=" w-full max-w-[1638px] xl:w-full  flex justify-center xl:ml-0 mb-10">
                         {shouldRenderFooter && (
                             <Card extraClass='w-full'>
                                 <Footer />
