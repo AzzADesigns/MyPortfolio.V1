@@ -65,7 +65,8 @@
                 "type": "deploy",
                 "url": "https://in-audio.netlify.app/"
             }
-        },
+        }
+        ,
         "Urbania": {
             "title": "Urbania",
             "description": [
@@ -149,6 +150,28 @@
             "link": {
                 "type": "repo",
                 "url": "https://github.com/No-Country-simulation/c21-38-n-java-react"
+            }
+        },
+        "AzzAEdusync": {
+            "title": "AzzAEdusync",
+            "description": [
+                ", plataforma web minimalista y responsive para estudiantes y autodidactas que centraliza toda la organización del estudio en un solo lugar.",
+                " Permite crear apartados temáticos, añadir recordatorios y planificar sesiones en un calendario mensual.",
+                " Integra un editor de notas con formato, subida y descarga de PDFs, gestor de tareas diarias y almacenamiento de enlaces relevantes.",
+                " Todo se guarda de forma local en el navegador, con opción de exportar apuntes a PDF para respaldo."
+            ],
+            "technologies": [
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Next.js" }
+            ],
+            "image": [
+                "/azzed1.png",
+                "/azzed2.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://azza-edusync.vercel.app/"
             }
         },
         "ClassRun": {
