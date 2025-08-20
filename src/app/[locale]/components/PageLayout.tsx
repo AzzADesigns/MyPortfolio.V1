@@ -22,6 +22,7 @@ import { ActualPojects } from './body/actualProjects/ActualPojects';
 import NewDivActualP from './ui/NewivActualP';
 
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const LazyMoreProjects = dynamic(
@@ -49,10 +50,10 @@ export default function Home() {
 
 
     return (
-        <div className="flex flex-col overflow-x-hidden justify-center items-center 2xl:w-[1713px] max-w-[1713px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
+        <div className="flex flex-col overflow-x-hidden justify-center items-center  new2xl:w-[1510px] 3xl:w-[1698px]  max-w-[1713px] min-h-screen bg-background text-textColor font-[family-name:var(--font-geist-sans)] selection">
             {/*para aarreglar el problema del margen, aca abajo y en theme:trans */}
             <div className="flex flex-col h-full items-center xl:items-start w-[500px] md:w-[85%] xl:mr-40  2xl:w-[800px] xl:w-[47%]">
-                <section className="fixed w-full z-50 left-0 xl:left-[69.5%] 2xl:left-[1200px] xl:w-70 xl:top-10">
+                <section className="fixed w-full z-50 left-0 xl:left-[69.5%] new2xl:left-[1100px] 3xl:left-[1190px] xl:w-70 xl:top-10">
                     <Them_Trans />
                     <div className='hidden 2xl:block w-full 2xl:min-w-83 '>
                         <NewDivActualP/>

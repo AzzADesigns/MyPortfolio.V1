@@ -4,6 +4,7 @@ import { FaSun, FaMoon } from "react-icons/fa";
 import { useTheme } from "next-themes";
 import { useTranslations } from 'next-intl';
 import { Title } from "../../ui/Title";
+import { Return } from "../../ui/Return";
 
 export const Theme: React.FC = () => {
     const t = useTranslations('textsPage');
@@ -23,23 +24,27 @@ export const Theme: React.FC = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-3">
             <Title extraClass="hidden xl:flex">{t('textTheme')}</Title>
-            <div
-                onClick={() => setTheme(isDark ? "light" : "dark")}
-                className="relative w-20 h-8  md:h-10 flex items-center hover:scale-105 select-none justify-between rounded-full shadow-2xl border-2 border-foreground cursor-pointer transition-colors duration-300 bg-buttonColor"
-            >
-                <div className="absolute left-2 z-10">
-                    <FaMoon className="w-5 h-5 text-buttonText hover:scale-125 transition-all" />
-                </div>
-                <div className="absolute right-2 z-10">
-                    <FaSun className="w-5 h-5 text-buttonText hover:scale-125 transition-all" />
-                </div>
-
+            <div className="flex">
                 <div
-                    className={`absolute w-7 md:w-8 h-6 md:h-8 left-0.5 right-0.5 bg-buttonText z-50 rounded-full shadow-md transition-transform duration-300 ${
-                        isDark ? "translate-x-10" : "translate-x-0"
-                    }`}
-                />
+                    onClick={() => setTheme(isDark ? "light" : "dark")}
+                    className="relative w-20 h-8 mr-5 lg:mr-1 md:h-10 flex items-center hover:scale-105 select-none justify-between rounded-full shadow-2xl border-2 border-foreground cursor-pointer transition-colors duration-300 bg-buttonColor"
+                >
+                    <div className="absolute left-2 z-10">
+                        <FaMoon className="w-5 h-5 text-buttonText hover:scale-125 transition-all" />
+                    </div>
+                    <div className="absolute right-2 z-10">
+                        <FaSun className="w-5 h-5 text-buttonText hover:scale-125 transition-all" />
+                    </div>
+
+                    <div
+                        className={`absolute w-7 md:w-8 h-6 md:h-8 left-0.5 right-0.5 bg-buttonText z-50 rounded-full shadow-md transition-transform duration-300 ${
+                            isDark ? "translate-x-10" : "translate-x-0"
+                        }`}
+                    />
+                </div>
+                  <Return/>
             </div>
+           
         </div>
     );
 };

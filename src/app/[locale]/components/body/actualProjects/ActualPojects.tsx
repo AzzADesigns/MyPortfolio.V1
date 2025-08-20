@@ -23,7 +23,10 @@ export const ActualPojects = forwardRef<HTMLDivElement>((_, ref) => {
     return (
         <div ref={ref} className='w-full flex justify-center'>
             <Card extraClass="w-full transition-all p-np mt-5   backdrop-blur-sm bg-background/20 xl:bg-foreground rounded-2xl xl:rounded-t-3xl p-4">
+            <div className='flex 3xl:gap-5'>
                 <Title>{t('textsPage.textActualProject')}</Title>
+
+            </div>
                 {projects.map((project, index) => (
                     <TitleAndDescriptionActualProject
                         key={index}

@@ -171,3 +171,16 @@ body {
     left: -100%;
   }
 }
+
+
+/* globals.css */
+/* globals.css */
+@theme {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-new2xl: 1522px;
+  --breakpoint-3xl: 1713px;
+}
