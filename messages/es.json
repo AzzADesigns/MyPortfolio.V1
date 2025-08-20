@@ -23,12 +23,6 @@
         "textSwipe":"Desliza para ver más"
     },
     "actualProjects": [
-        
-        {
-            "title": "LyvMaz",
-            "description": "Trabajando en un proyecto freelance para artista colombiana con otro desarrollador. Integrando testing con Vitest con el fin de mejorar la calidad del producto final.",
-            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7341233747272294400/"
-        },
         {
             "title": "ATSforShareIt",
             "description": "Este proyecto al que me uní recientemente, liderado por la comunidad Share It, busca ayudar a programadores a crear un CV optimizado para superar filtros ATS y acceder a nuevas oportunidades laborales.",
@@ -41,6 +35,32 @@
         }
     ],
     "projectTexts": {
+        "ShareIt": {
+            "title": "ShareIt",
+            "description": [
+                "En el sitio web oficial de la comunidad ShareIt, participé en la refactorización y escalado de la plataforma.",
+                " Mejoré la visibilidad del acceso principal, automatizé el proceso de registro en grupos e implementé validaciones de ingreso con un flujo de acceso en 2 pasos.",
+                " Además, optimicé la interfaz de usuario y contribuí al sistema de notificaciones."
+            ],
+            "technologies": [
+                { "name": "Astro" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "React-Hook-Form" },
+                { "name": "React-Toastify" },
+                { "name": "Zod" }
+            ],
+            "image": [
+                "/share1.png",
+                "/share2.png",
+                "/share3.png",
+                "/share4.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://shareit.lat/"
+            }
+        },
         "inAudio": {
             "title": "In-Audio",
             "description": [
@@ -65,8 +85,7 @@
                 "type": "deploy",
                 "url": "https://in-audio.netlify.app/"
             }
-        }
-        ,
+        },
         "Urbania": {
             "title": "Urbania",
             "description": [
