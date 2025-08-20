@@ -24,11 +24,6 @@
     },
     "actualProjects": [
         {
-            "title": "LyvMaz",
-            "description": "Currently working on a freelance project for a Colombian artist alongside another developer. Implementing testing with Vitest to enhance the quality of the final product.",
-            "href": "https://www.linkedin.com/feed/update/urn:li:activity:7341233747272294400/"
-        },
-        {
             "title": "ATSforShareIt",
             "description": "This project, which I recently joined and is led by the Share It community, aims to help developers create an ATS-optimized CV to access new job opportunities.",
             "href": "https://www.linkedin.com/posts/azariel-moreno-4267ba254_con-mucha-emoci%C3%B3n-quiero-compartir-con-activity-7339798939337949187-SgZD?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAD7EVN4BIWRQcIxDibviq_PCJ02FWRbuJ64"
@@ -40,6 +35,32 @@
         }
     ],
     "projectTexts": {
+        "ShareIt": {
+            "title": "ShareIt",
+            "description": [
+                "On the official website of the ShareIt community, I participated in the refactoring and scaling of the platform.",
+                " I improved the visibility of the main access, automated the group registration process, and implemented entry validations with a 2-step access flow.",
+                " Additionally, I optimized the user interface and contributed to the notification system."
+            ],
+            "technologies": [
+                { "name": "Astro" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "React-Hook-Form" },
+                { "name": "React-Toastify" },
+                { "name": "Zod" }
+            ],
+            "image": [
+                "/share1.png",
+                "/share2.png",
+                "/share3.png",
+                "/share4.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://shareit.lat/"
+            }
+        },
         "inAudio": {
             "title": "In-Audio",
             "description": [

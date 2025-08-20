@@ -12,7 +12,11 @@ import { Carousel } from "../../ui/Carousel";
 import { SwipeHint } from "../../ui/SwipeHint";
 
 export function FeaturedProject() {
-    const t = useTranslations('projectTexts.inAudio');
+    // Obtenemos todas las claves de los proyectos
+    const projects = useTranslations().raw('projectTexts');
+    const firstProjectKey = Object.keys(projects)[0]; // toma automáticamente la primera clave
+    const t = useTranslations(`projectTexts.${firstProjectKey}`); // traducciones del primer proyecto
+
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,7 +40,7 @@ export function FeaturedProject() {
                 gyroscope={true}
             >
                 <div
-                    className="relative  h-[300px] xl:h-[460px] group overflow-hidden rounded-2xl cursor-pointer"
+                    className="relative h-[300px] xl:h-[460px] group overflow-hidden rounded-2xl cursor-pointer"
                     onMouseMove={handleMouseMove}
                 >
                     <SwipeHint/>
