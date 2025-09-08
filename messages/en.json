@@ -3,7 +3,7 @@
         "textIdiom": "Languages",
         "textTheme": "Theme | Return",
         "textCountry": "Argentina",
-        "textPagesraliced": "10 Pages Created",
+        "textPagesraliced": "+10 Pages Created",
         "textButtonProject": "View Projects",
         "textButtonCv": "Download CV",
         "textButtonContact": "Contact Me",
@@ -54,6 +54,35 @@
             "link": {
                 "type": "deploy",
                 "url": "https://shareit.lat/"
+            }
+        },
+        "ATSfor-ShareIT": {
+            "title": "ATSfor-ShareIT",
+            "description": [
+                "Collaborated in resolving functional and visual bugs of the open-source platform belonging to ShareIT, improving the design",
+                " and functionality of the website by modifying existing code and creating key features from scratch, completely redesigning its interface",
+                " taking into account the previous design, while implementing changes to reflect the brand identity and enhance the UX."
+            ],
+            "technologies": [
+                { "name": "Nextjs" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Gsap" },
+                { "name": "Motion" },
+                { "name": "Formik" },
+                { "name": "React to print" },
+                { "name": "Zustand" }
+            ],
+            "image": [
+                "/ats1.png",
+                "/ats2.png",
+                "/ats3.png",
+                "/ats4.png",
+                "/ats5.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://ats-forshareit.vercel.app/home"
             }
         },
         "inAudio": {

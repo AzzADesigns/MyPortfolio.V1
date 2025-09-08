@@ -3,7 +3,7 @@
         "textIdiom": "Idiomas",
         "textTheme": "Tema | Volver",
         "textCountry": "Argentina",
-        "textPagesraliced": "10 Páginas realizadas",
+        "textPagesraliced": "+10 Páginas realizadas",
         "textButtonProject": "Ver Proyectos",
         "textButtonCv": "Descargar CV",
         "textButtonContact": "Contáctame",
@@ -54,6 +54,35 @@
             "link": {
                 "type": "deploy",
                 "url": "https://shareit.lat/"
+            }
+        },
+        "ATSfor-ShareIT": {
+            "title": "ATSfor-ShareIT",
+            "description": [
+                "Colaboré en la resolución de bugs funcionales y visuales de la plataforma de código abierto perteneciente a ShareIT, logrando mejorar el diseño",
+                " y funcionalidad de la web, modificando código existente, y creando features claves desde 0, rediseñando completamente su interfaz",
+                " teniendo en cuenta el diseño anterior, pero implementando cambios en pos de reflejar la identidad de la marca, y mejorando la UX."
+            ],
+            "technologies": [
+                { "name": "Netxjs" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Gsap" },
+                { "name": "Motion" },
+                { "name": "Formik" },
+                { "name": "React to print" },
+                { "name": "Zustand" }
+            ],
+            "image": [
+                "/ats1.png",
+                "/ats2.png",
+                "/ats3.png",
+                "/ats4.png",
+                "/ats5.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://ats-forshareit.vercel.app/home"
             }
         },
         "inAudio": {
