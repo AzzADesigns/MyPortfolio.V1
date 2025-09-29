@@ -56,6 +56,31 @@
                 "url": "https://shareit.lat/"
             }
         },
+        "Lucio Aquino": {
+            "title": "Lucio Aquino",
+            "description": [
+                ": I developed the official website of Lucio Misael Aquino, a programmer with over 10 years of experience in the video game development industry.",
+                "The site serves as an artistic representation of his career, featuring sections such as introduction, projects, about me, and contact.",
+                "It includes multiple animations, gamer-focused branding with RGB effects, a video game selection simulation with a characteristic console sound, and hidden references based on the client’s personal interests."
+            ],
+            "technologies": [
+                { "name": "Nextjs" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Gsap" }
+            ],
+            "image": [
+                "/luqio1.png",
+                "/luqio2.png",
+                "/luqio3.png",
+                "/luqio4.png",
+                "/luqio5.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://www.luquio.com/"
+            }
+        },
         "ATSfor-ShareIT": {
             "title": "ATSfor-ShareIT",
             "description": [
