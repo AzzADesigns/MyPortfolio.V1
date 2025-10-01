@@ -19,13 +19,37 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "AzzaDesigns",
-    description: "Portafolio",
+    title: "AzzaDesigns - Portafolio personal y profesional",
+    description: "Portafolio personal y profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
     icons: {
-        icon: "/logo.jpg",
-        shortcut: "/logo.jpg",       
-        apple: "/apple-touch-icon.png", 
+        icon: "/logoAzza.jpg",
     },
+    openGraph:{
+        title: "AzzaDesigns - Portafolio personal y profesional",
+        description: "Portafolio personal y profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
+        url: "https://azzadesigns.vercel.app/",
+        siteName: "AzzaDesigns",
+        images: [
+            {
+                url: "https://azzadesigns.vercel.app/logoAzza.jpg",
+                width: 800,
+                height: 600,
+                alt: "AzzaDesigns",
+            }
+        ],
+        locale: "es_ES",
+        type: "website",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        nocache: false,
+        googleBot: {
+            index: true,
+            follow: true,
+            noimageindex: false,
+        },
+    }
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
