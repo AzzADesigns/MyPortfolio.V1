@@ -97,7 +97,7 @@ export default function Footer() {
             <div className="w-[40%] flex justify-center md:mb-3 items-center">
                 <div className="text-xs p-2 rounded-2xl flex justify-center items-center   xl:text-2xl text-textColor mt-5">
                     <Image 
-                        src="/logo.jpg"
+                        src="/logoAzza.jpg"
                         alt="logo"
                         width={100}
                         height={100}
