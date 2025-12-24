@@ -56,6 +56,34 @@
                 "url": "https://shareit.lat/"
             }
         },
+        "EliasVelazquez": {
+            "title": "Sitio Web de Marca Personal – Elias Velazquez",
+            "description": [
+                "Este sitio web fue construido desde cero para un cliente con el objetivo de fortalecer y potenciar su marca personal.",
+                " Todo el proyecto fue diseñado y desarrollado desde la base, incluyendo identidad visual, logotipo y diseño de la interfaz, alineados con la paleta de colores y el estilo de otros productos digitales del cliente.",
+                " Además de una estética limpia y profesional, el sitio cuenta con animaciones elegantes y un sistema de contenido altamente escalable basado en Astro Content Collections, que permite actualizar la información sin romper la estructura visual.",
+                " Trabajar en este proyecto fue una experiencia tan desafiante como gratificante, ya que permitió total libertad creativa, experimentación y atención al detalle, dando como resultado una experiencia de usuario pulida que cumplió plenamente con las expectativas del cliente."
+            ],
+            "technologies": [
+                { "name": "Astro" },
+                { "name": "Tailwind CSS" },
+                { "name": "GSAP" }
+            ],
+            "image": [
+                "/eve1.png",
+                "/eve2.png",
+                "/eve3.png",
+                "/eve4.png",
+                "/eve5.png",
+                "/eve6.png",
+                "/eve7.png",
+                "/eve8.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://evelazquez.dev/en/"
+            }
+        },
         "Lucio Aquino": {
             "title": "Lucio Aquino",
             "description": [

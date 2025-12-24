@@ -56,12 +56,40 @@
                 "url": "https://shareit.lat/"
             }
         },
+        "EliasVelazquez": {
+            "title": "Personal Brand Website – Elias Velazquez",
+            "description": [
+                "This website was built from scratch for a client with the goal of strengthening and enhancing their personal brand.",
+                " The entire project was designed and developed from the ground up, including visual identity, logo, and UI design, all aligned with the color palette and style of the client’s existing digital products.",
+                " Beyond a clean and professional visual approach, the site features elegant animations and a highly scalable content system powered by Astro Content Collections, allowing seamless content updates without breaking the visual structure.",
+                " Working on this project was both exciting and meaningful, as it allowed full creative freedom, experimentation, and attention to detail, resulting in a polished user experience that fully met the client’s expectations."
+            ],
+            "technologies": [
+                { "name": "Astro" },
+                { "name": "Tailwind CSS" },
+                { "name": "GSAP" }
+            ],
+            "image": [
+                "/eve1.png",
+                "/eve2.png",
+                "/eve3.png",
+                "/eve4.png",
+                "/eve5.png",
+                "/eve6.png",
+                "/eve7.png",
+                "/eve8.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://evelazquez.dev/en/"
+            }
+        },
         "Lucio Aquino": {
             "title": "Lucio Aquino",
             "description": [
                 ": I developed the official website of Lucio Misael Aquino, a programmer with over 10 years of experience in the video game development industry.",
-                "The site serves as an artistic representation of his career, featuring sections such as introduction, projects, about me, and contact.",
-                "It includes multiple animations, gamer-focused branding with RGB effects, a video game selection simulation with a characteristic console sound, and hidden references based on the client’s personal interests."
+                " The site serves as an artistic representation of his career, featuring sections such as introduction, projects, about me, and contact.",
+                " It includes multiple animations, gamer-focused branding with RGB effects, a video game selection simulation with a characteristic console sound, and hidden references based on the client’s personal interests."
             ],
             "technologies": [
                 { "name": "Nextjs" },
