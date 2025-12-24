@@ -19,14 +19,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "AzzaDesigns - Portafolio personal y profesional",
-    description: "Portafolio personal y profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
+    title: "AzzaDesigns - Portafolio profesional",
+    description: "Portafolio profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
     icons: {
         icon: "/logoAzza.jpg",
     },
     openGraph:{
-        title: "AzzaDesigns - Portafolio personal y profesional",
-        description: "Portafolio personal y profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
+        title: "AzzaDesigns - Portafolio profesional",
+        description: "Portafolio profesional de AzzaDesigns, desarrollador web. Proyectos, habilidades y contacto.",
         url: "https://azzadesigns.vercel.app/",
         siteName: "AzzaDesigns",
         images: [

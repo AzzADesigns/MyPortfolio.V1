@@ -10,7 +10,7 @@ export default function Footer() {
     const links = [
         {
             label: t('textMyLikendin'),
-            href: "https://linkedin.com/in/azariel-moreno-4267ba254/",
+            href: "https://www.linkedin.com/in/azariel-moreno/",
         },
         {
             label: t('textMyGithub'),
