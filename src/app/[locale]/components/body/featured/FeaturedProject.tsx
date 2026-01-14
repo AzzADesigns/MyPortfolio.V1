@@ -30,13 +30,13 @@ export function FeaturedProject() {
     const slides = t.raw('image');
 
     return (
-        <Card extraClass="w-full p-6 flex flex-col md:flex-row gap-6">
+        <Card extraClass="w-full p-6 flex flex-col gap-6">
             
             <Tilt
                 perspective={1000}
                 transitionSpeed={700}
                 scale={1.05}
-                className="w-full md:w-1/2"
+                className="w-full"
                 gyroscope={true}
             >
                 <div
@@ -54,7 +54,7 @@ export function FeaturedProject() {
                 </div>
             </Tilt>
 
-            <div className="w-full md:w-1/2 flex flex-col justify-between">
+            <div className="w-full flex flex-col justify-between">
                 <div>
                     <Title extraClass="text-2xl font-bold mb-3">{t('title')}</Title>
                     {t.raw('description').map((paragraph: string, index: number) => (

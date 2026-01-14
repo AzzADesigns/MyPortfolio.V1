@@ -28,9 +28,8 @@ export const Information = ({ featuredRef }: InformationProps) => {
     };
 
     const techStack = [
-        "React", "SQL", "Figma", "Diseño UX/UI", "Research", "Tailwind",
-        "GitHub", "APIs", "Axios", "Shadcn", "Motion", "TypeScript",
-        "Express", "Nextjs", "Nodejs", "React Hook Form", "Gsap"
+        "TypeScript", "React", "Tailwind", "Nextjs", "Gsap", "Motion", "Figma", "Diseño UX/UI", "Research",
+        "NestJs", "Shadcn", "SQL", "Nodejs", "GitHub", "APIs",
     ];
 
     useGSAP(() => {
