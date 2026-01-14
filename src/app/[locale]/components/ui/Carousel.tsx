@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 
 interface CarouselProps {
@@ -12,6 +12,55 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     const [current, setCurrent] = useState(0);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
+    const [gradientColors, setGradientColors] = useState<string>('');
+
+    // Extraer los 3 colores principales de la primera imagen para crear un degradado
+    useEffect(() => {
+        const extractGradientColors = async () => {
+            if (slides.length === 0) return;
+
+            try {
+                // Importación dinámica de node-vibrant para navegador
+                const { Vibrant } = await import('node-vibrant/browser');
+
+                // Extraer paleta de la primera imagen
+                const palette = await Vibrant.from(slides[0]).getPalette();
+
+                // Obtener los 3 colores más vibrantes disponibles
+                const colors = [
+                    palette.Vibrant?.hex,
+                    palette.DarkVibrant?.hex,
+                    palette.LightVibrant?.hex,
+                    palette.Muted?.hex,
+                    palette.DarkMuted?.hex,
+                    palette.LightMuted?.hex
+                ].filter(Boolean) as string[];
+
+                // Tomar los primeros 3 colores disponibles
+                const topColors = colors.slice(0, 3);
+
+                // Crear degradado diagonal
+                if (topColors.length >= 3) {
+                    setGradientColors(
+                        `linear-gradient(135deg, ${topColors[0]} 0%, ${topColors[1]} 50%, ${topColors[2]} 100%)`
+                    );
+                } else if (topColors.length === 2) {
+                    setGradientColors(
+                        `linear-gradient(135deg, ${topColors[0]} 0%, ${topColors[1]} 100%)`
+                    );
+                } else if (topColors.length === 1) {
+                    setGradientColors(topColors[0]);
+                } else {
+                    setGradientColors('#1a1a1a');
+                }
+            } catch (error) {
+                console.error('Error extracting gradient colors:', error);
+                setGradientColors('#1a1a1a');
+            }
+        };
+
+        extractGradientColors();
+    }, [slides]);
 
     const previousSlide = () => {
         setCurrent(current === 0 ? slides.length - 1 : current - 1);
@@ -39,23 +88,30 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     };
 
     return (
-        <div className="relative overflow-hidden w-full h-[300px] xl:h-[460px]">
+        <div
+            className="relative overflow-hidden w-full h-[300px] xl:h-[460px] p-4 xl:p-6 transition-all duration-700"
+            style={{ background: gradientColors || '#1a1a1a' }}
+        >
             <div
-                className="flex transition-transform ease-out duration-500"
+                className="flex transition-transform ease-out duration-500 h-full"
                 style={{ transform: `translateX(-${current * 100}%)` }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
                 {slides.map((s, index) => (
-                    <Image
+                    <div
                         key={index}
-                        src={s}
-                        alt={`slide-${index}`}
-                        width={500}
-                        height={300}
-                        className="w-full h-[300px] xl:h-[460px] object-cover flex-shrink-0"
-                    />
+                        className="w-full h-full flex-shrink-0 px-2"
+                    >
+                        <Image
+                            src={s}
+                            alt={`slide-${index}`}
+                            width={500}
+                            height={300}
+                            className="w-full h-full object-cover rounded-lg shadow-2xl"
+                        />
+                    </div>
                 ))}
             </div>
 
