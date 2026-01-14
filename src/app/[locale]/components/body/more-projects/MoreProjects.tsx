@@ -12,7 +12,7 @@ import TitelPage from '../../ui/TitlePage';
 import TechStack from '../../ui/TechStack';
 import Deploy from '../../ui/Deploy';
 import { Carousel } from '../../ui/Carousel';
-import { SwipeHint } from '../../ui/SwipeHint';
+import Button from '../../ui/Button';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,19 +91,21 @@ export const MoreProjects = () => {
                             className="flex rounded-xl flex-col gap-5  md:w-full border-background"
                         >
                             <div className="relative m-auto">
-                                <SwipeHint />
                                 <Carousel slides={project.image} />
                             </div>
 
                             <article className="w-full p-np">
-                                <div className="flex flex-col gap-2 pr-1">
+                                <div className="flex flex-col  gap-2 pr-1">
                                     <div className="flex items-center justify-between">
                                         <TitelPage title={project.title} />
                                         {project.link && (
-                                            <Deploy
-                                                url={project.link.url}
-                                                type={project.link.type}
-                                            />
+                                            <Button>
+                                                <Deploy
+                                                    url={project.link.url}
+                                                    type={project.link.type}
+                                                />
+
+                                            </Button>
                                         )}
                                     </div>
                                     <TechStack technologies={project.technologies} />

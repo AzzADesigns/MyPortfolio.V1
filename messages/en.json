@@ -270,39 +270,6 @@
                 "url": "https://azza-edusync.vercel.app/"
             }
         },
-        "ClassRun": {
-            "title": "ClassRun",
-            "description": [
-                "This project was developed during my second job simulation at No Country, where I worked as a Front-End Developer.",
-                " One of the biggest challenges was adapting to technologies I hadn't used before, such as Next.js, Shadcn, and TypeScript—tools chosen due to the team's architectural decisions.",
-                " Over the five-week simulation, I focused on quickly integrating into the team and delivering effective solutions, even as several teammates dropped out.",
-                " I completed the experience with a fully functional Front-End that implemented global state management using Context API.",
-                " The application focuses on academic management, allowing teachers and tutors to monitor subjects and students individually."
-            ],
-            "technologies": [
-                { "name": "React" },
-                { "name": "Tailwind" },
-                { "name": "Next.js" },
-                { "name": "ShadCn" },
-                { "name": "TypeScript" },
-                { "name": "Node.js" },
-                { "name": "Express" }
-            ],
-            "image": [
-                "/cl1.png",
-                "/cl2.png",
-                "/cl3.png",
-                "/cl4.png",
-                "/cl5.png",
-                "/cl6.png",
-                "/cl7.png",
-                "/cl8.png"
-            ],
-            "link": {
-                "type": "repo",
-                "url": "https://github.com/No-Country-simulation/s20-03-webapp"
-            }
-        },
         "CodigoDelMar": {
             "title": "Codigo Del Mar",
             "description": [

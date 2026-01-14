@@ -17,7 +17,7 @@ export default function Button({ children, extraClass, onClick, isActive }: Butt
                 "hover:border-buttonColor hover:bg-foreground hover:text-buttonColor",
                 "active:border-buttonColor active:bg-foreground active:text-buttonColor",
                 isActive
-                    ? " bg-textColor border-buttonColor bg-foreground text-buttonColor"
+                    ? "  border-buttonColor bg-foreground text-buttonColor"
                     : "bg-buttonColor  text-buttonText ",
                 extraClass
             )}

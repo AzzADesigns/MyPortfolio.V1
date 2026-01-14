@@ -89,11 +89,11 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
 
     return (
         <div
-            className="relative overflow-hidden w-full h-[300px] xl:h-[460px] p-4 xl:p-6 transition-all duration-700"
+            className="relative overflow-hidden w-full p-4 xl:p-6 transition-all duration-700"
             style={{ background: gradientColors || '#1a1a1a' }}
         >
             <div
-                className="flex transition-transform ease-out duration-500 h-full"
+                className="flex transition-transform ease-out duration-500"
                 style={{ transform: `translateX(-${current * 100}%)` }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -102,14 +102,14 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
                 {slides.map((s, index) => (
                     <div
                         key={index}
-                        className="w-full h-full flex-shrink-0 px-2"
+                        className="w-full flex-shrink-0 px-2"
                     >
                         <Image
                             src={s}
                             alt={`slide-${index}`}
                             width={500}
                             height={300}
-                            className="w-full h-full object-cover rounded-lg shadow-2xl"
+                            className="w-full h-auto object-contain rounded-lg shadow-2xl"
                         />
                     </div>
                 ))}
