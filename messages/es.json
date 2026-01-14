@@ -13,7 +13,7 @@
         "textExp3": "OpenLabs",
         "textAbout": "Acerca de",
         "textMoreProjects": "Más Proyectos",
-        "textAboutme": "Con tres años de formación, que incluyen un año de experiencia práctica, me he especializado en UX/UI utilizando Atomic Design. He participado en simulaciones laborales, colaborando en equipos de hasta seis personas. Además, he desarrollado proyectos por encargo. Sumado a mis conocimientos en back-end, estoy preparado para integrarme a un equipo profesional.",
+        "textAboutme": "Con 1 año de experiencia y mas de 3 años de formación soy un desarrollador Full-Stack especializado en transformar diseños UX/UI en interfaces pixel-perfect, respetando sistemas de diseño, tipografías, espaciados y patrones definidos en Figma. Trabajo con React, Tailwind y Next.js en el Front-End, y NestJS con PostgreSQL en el Back-End. Implemento gestión eficiente de estado, consumo optimizado de REST APIs, lazy loading, diseño responsivo y automatización de procesos.",
         "textMyLikendin": "Mi Linkedin",
         "textMyGithub": "Mi Github",
         "textRepo": "Repositorio de Mi Portfolio",
@@ -87,7 +87,7 @@
         "Lucio Aquino": {
             "title": "Lucio Aquino",
             "description": [
-                ": Desarrollé la web oficial de Lucio Misael Aquino, programador con más de 10 años de experiencia en el rubro de creación de videojuegos.",
+                "Desarrollé la web oficial de Lucio Misael Aquino, programador con más de 10 años de experiencia en el rubro de creación de videojuegos.",
                 "La página funciona como una representación artística de su trayectoria, con secciones de presentación, proyectos, sobre mí y contacto.",
                 "El sitio cuenta con múltiples animaciones, branding gamer con efectos RGB, simulación de selección de videojuegos con sonido característico de consola, y referencias ocultas basadas en los gustos del cliente."
             ],
@@ -167,7 +167,7 @@
         "Urbania": {
             "title": "Urbania",
             "description": [
-                "es un proyecto desarrollado durante mi última simulación laboral en No-Country.",
+                "Es un proyecto desarrollado durante mi última simulación laboral en No-Country.",
                 " Me desempeñé como desarrollador Front-End y también como líder de equipo, coordinando tareas, promoviendo una componentización eficiente y mejorando el rendimiento general de la aplicación.",
                 " Colaboré con el diseñador UX/UI proponiendo ajustes visuales que elevaron la experiencia del usuario.",
                 " Además, implementé animaciones con Framer Motion, logrando una interfaz más atractiva y fluida."
@@ -200,7 +200,7 @@
         "WordRank": {
             "title": "WordRank",
             "description": [
-                ", aplicación que desarrollé tras finalizar mi primera simulación laboral en No-Country.",
+                "Aplicación que desarrollé tras finalizar mi primera simulación laboral en No-Country.",
                 " Sentí la necesidad de afianzar mis conocimientos en el consumo de APIs, por lo que encaré este proyecto como desafío personal.",
                 " La plataforma permite buscar, filtrar y ordenar países a través de una API pública, mostrando un contador dinámico de resultados y vistas detalladas por país, incluyendo navegación entre países vecinos.",
                 " Implementé lazy loading para optimizar el rendimiento y afinar mis habilidades en renderizado eficiente."
@@ -223,7 +223,7 @@
         "HuellitasEnCasa": {
             "title": "Huellitas En Casa",
             "description": [
-                "se realizó durante mi primer proyecto de simulación laboral en No-Country, donde actué como diseñador UX/UI y responsable del Front-End.",
+                "Se realizó durante mi primer proyecto de simulación laboral en No-Country, donde actué como diseñador UX/UI y responsable del Front-End.",
                 " Me encargué del diseño completo y la maquetación de la plataforma, enfocándome en ofrecer una experiencia de usuario fluida.",
                 " La aplicación permitía el registro e inicio de sesión tanto para usuarios como para refugios; estos últimos podían cargar y editar información de mascotas.",
                 " Fue mi primer contacto práctico con el trabajo con APIs, marcando el inicio de mi transición del diseño al desarrollo."
@@ -252,7 +252,7 @@
         "AzzAEdusync": {
             "title": "AzzAEdusync",
             "description": [
-                ", plataforma web minimalista y responsive para estudiantes y autodidactas que centraliza toda la organización del estudio en un solo lugar.",
+                "Plataforma web minimalista y responsive para estudiantes y autodidactas que centraliza toda la organización del estudio en un solo lugar.",
                 " Permite crear apartados temáticos, añadir recordatorios y planificar sesiones en un calendario mensual.",
                 " Integra un editor de notas con formato, subida y descarga de PDFs, gestor de tareas diarias y almacenamiento de enlaces relevantes.",
                 " Todo se guarda de forma local en el navegador, con opción de exportar apuntes a PDF para respaldo."
@@ -274,7 +274,7 @@
         "ClassRun": {
             "title": "ClassRun",
             "description": [
-                ", este proyecto fue realizado durante mi segunda simulación laboral en No-Country, donde me desempeñé como desarrollador Front-End.",
+                "Este proyecto fue realizado durante mi segunda simulación laboral en No-Country, donde me desempeñé como desarrollador Front-End.",
                 " Uno de los desafíos principales fue adaptarme a tecnologías que no había utilizado antes, como Next.js, Shadcn y TypeScript, impuestas por decisiones de arquitectura del equipo.",
                 " Durante las cinco semanas que duró la simulación, me enfoqué en integrarme rápidamente, aportando soluciones efectivas incluso ante la deserción de varios compañeros.",
                 " Finalicé la experiencia con un Front-End funcional que implementaba manejo de estado global mediante Context API.",
@@ -307,7 +307,7 @@
         "CodigoDelMar": {
             "title": "Codigo Del Mar",
             "description": [
-                ", es un trabajo por encargo profesional para crear una landing page orientada a mejorar la presencia online del equipo 'Programadores de Mar del Plata'.",
+                "Es un trabajo por encargo profesional para crear una landing page orientada a mejorar la presencia online del equipo 'Programadores de Mar del Plata'.",
                 " El diseño se enfocó en transmitir identidad visual de marca con una estética simple pero atractiva, presentando sus servicios y experiencia de forma clara.",
                 " Incluye un formulario de contacto validado, facilitando la comunicación directa con potenciales clientes.",
                 " Actualmente el proyecto se encuentra en pausa hasta que los clientes definan nuevos contenidos para su despliegue oficial."
@@ -333,7 +333,7 @@
         "Acme": {
             "title": "Acme",
             "description": [
-                ", sitio web que realicé siguiendo la documentación oficial de Next.js, donde aprendí a",
+                "Sitio web que realicé siguiendo la documentación oficial de Next.js, donde aprendí a",
                 "manejar el enrutamiento nativo de la tecnología, aplicar autenticación y trabajar con",
                 " renderizado del lado del servidor (SSR). Contiene un CRUD de facturas y visualización",
                 " de datos en tiempo real provenientes de una base de datos PostgreSQL."

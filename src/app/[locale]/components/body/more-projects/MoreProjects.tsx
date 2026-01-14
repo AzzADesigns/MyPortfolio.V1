@@ -73,7 +73,7 @@ export const MoreProjects = () => {
 
     return (
         <Card extraClass="w-full flex flex-col pb-10">
-            
+
             <div ref={titleRef}>
                 <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
             </div>
@@ -110,15 +110,18 @@ export const MoreProjects = () => {
                                 </div>
 
                                 <div className="border-2 mb-10 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
-                                    <p className='text-sm xl:text-lg'>
-                                        <span className="text-buttonColor font-semibold">
-                                            {project.title}
-                                        </span>{' '}
+                                    <div className="space-y-4">
+                                        <p className="text-sm xl:text-lg">
+                                            <span className="text-buttonColor font-semibold">
+                                                {project.title}
+                                            </span>
+                                        </p>
                                         {project.description.map((text: string, i: number) => (
-                                            <span key={i}>{text}</span>
+                                            <p key={i} className="text-sm xl:text-lg leading-relaxed">
+                                                {text}
+                                            </p>
                                         ))}
-                                    </p>
-                                    
+                                    </div>
                                 </div>
                             </article>
                         </div>
