@@ -21,9 +21,9 @@ export const Information = ({ featuredRef }: InformationProps) => {
     const { contact } = useWhatsApp('5492236979758', 'Hola Azariel, vi tu portfolio y quiero contactarte');
 
     const scrollToProjects = () => {
-        featuredRef.current?.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
+        featuredRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
         });
     };
 
@@ -88,7 +88,7 @@ export const Information = ({ featuredRef }: InformationProps) => {
                 duration: 0.4,
                 ease: "power2.out",
             });
-            
+
             // Animar botones - usando un enfoque más directo
             gsap.from(".button-wrapper", {
                 opacity: 0,
@@ -97,7 +97,7 @@ export const Information = ({ featuredRef }: InformationProps) => {
                 ease: "back.out(1.7)",
                 stagger: 0.15,
                 delay: 0.5,
-                clearProps: "all" 
+                clearProps: "all"
             });
         }, infoRef);
 
@@ -114,18 +114,20 @@ export const Information = ({ featuredRef }: InformationProps) => {
                     <div
                         className="mt-5 font-light text-md xl:text-lg w-full md:w-[80%] xl:w-[86%] 2xl:w-[90%]"
                     >
-                        <p className="flex flex-wrap gap-x-1">
+                        <p className="flex flex-wrap gap-x-2">
                             {techStack.map((tech, i) => (
                                 <span key={i} className="tech-item inline-block">
-                                    {tech} |
+                                    {tech}
+                                    {i < techStack.length - 1 && (
+                                        <span className="text-buttonColor ml-2 font-bold">|</span>
+                                    )}
                                 </span>
                             ))}
                         </p>
                     </div>
 
                     <div className="flex items-center gap-5 mt-5 text-md lg:text-lg">
-                        <p className="info-location">{t('textCountry')}</p>
-                        <p className="text-buttonColor font-semibold info-location">+54 9 2236979758</p>
+                        <p className="text-buttonColor font-semibold info-location">{t('textCountry')}</p>
                     </div>
 
                     <p className="font-bold text-buttonColor text-md lg:text-lg mt-3 info-pages">
@@ -146,9 +148,9 @@ export const Information = ({ featuredRef }: InformationProps) => {
             </div>
 
             <div className="grid grid-cols-2 gap-4  w-narrow-range w-full  xl:w-full lg:flex lg:flex-row">
-                <Button onClick={scrollToProjects}  extraClass="button-wrapper ">{t('textButtonProject')}</Button>
-                <Button onClick={download}  extraClass="button-wrapper ">{t('textButtonCv')}</Button>
-                <Button onClick={() => contact()} extraClass="col-span-2 button-wrapper   xl:col-span-1">{t('textButtonContact')}</Button>
+                <Button onClick={scrollToProjects} extraClass="button-wrapper  md:px-5 py-2">{t('textButtonProject')}</Button>
+                <Button onClick={download} extraClass="button-wrapper  md:px-5 py-2">{t('textButtonCv')}</Button>
+                <Button onClick={() => contact()} extraClass="col-span-2 button-wrapper md:px-5 py-2  xl:col-span-1">{t('textButtonContact')}</Button>
             </div>
         </section>
     );
