@@ -113,11 +113,6 @@ export const MoreProjects = () => {
 
                                 <div className="border-2 mb-10 rounded-2xl p-5 border-background h-auto mt-4 pr-2 overflow-y-auto custom-scrollbar">
                                     <div className="space-y-4">
-                                        <p className="text-sm xl:text-lg">
-                                            <span className="text-buttonColor font-semibold">
-                                                {project.title}
-                                            </span>
-                                        </p>
                                         {project.description.map((text: string, i: number) => (
                                             <p key={i} className="text-sm xl:text-lg leading-relaxed">
                                                 {text}

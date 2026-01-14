@@ -7,7 +7,7 @@ interface TitleCardProps {
 
 export default function TitelPage({ title, extraClass }: TitleCardProps) {
     return (
-        <section className={`lg:text-lg font-semibold  ${extraClass}`}>
+        <section className={`lg:text-lg text-buttonColor font-semibold ${extraClass}`}>
             <h2>{title}</h2>
         </section>
     );
