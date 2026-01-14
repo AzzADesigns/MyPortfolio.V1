@@ -87,7 +87,7 @@
         "Lucio Aquino": {
             "title": "Lucio Aquino",
             "description": [
-                ": I developed the official website of Lucio Misael Aquino, a programmer with over 10 years of experience in the video game development industry.",
+                "I developed the official website of Lucio Misael Aquino, a programmer with over 10 years of experience in the video game development industry.",
                 " The site serves as an artistic representation of his career, featuring sections such as introduction, projects, about me, and contact.",
                 " It includes multiple animations, gamer-focused branding with RGB effects, a video game selection simulation with a characteristic console sound, and hidden references based on the client’s personal interests."
             ],
@@ -251,7 +251,7 @@
         "AzzAEdusync": {
             "title": "AzzAEdusync",
             "description": [
-                ", a minimalistic and responsive web platform for students and self-learners that centralizes all study organization in one place.",
+                "A minimalistic and responsive web platform for students and self-learners that centralizes all study organization in one place.",
                 " It allows users to create thematic sections, add reminders, and plan sessions using a monthly calendar.",
                 " It features a rich text editor for notes, PDF upload and export, a daily task manager, and a section for saving useful links.",
                 " All data is stored locally in the browser, with the option to export notes as a PDF for backup."
