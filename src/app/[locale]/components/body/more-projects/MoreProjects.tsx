@@ -24,61 +24,58 @@ export const MoreProjects = () => {
     const projectKeys = Object.keys(t.raw('projectTexts')).slice(1);
 
     useGSAP(() => {
-        const timer = setTimeout(() => {
-            if (titleRef.current) {
-                gsap.fromTo(
-                    titleRef.current,
-                    { opacity: 0, y: 30 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: titleRef.current,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    }
-                );
-            }
+        // Configuración inicial inmediata: ocultos y desplazados
+        if (titleRef.current) gsap.set(titleRef.current, { autoAlpha: 0, y: 30 });
 
-            projectRefs.current.forEach((ref) => {
-                if (ref) {
-                    gsap.fromTo(
-                        ref,
-                        { opacity: 0, y: 60, scale: 0.9 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            scale: 1,
-                            duration: 0.7,
-                            ease: 'power2.out',
-                            scrollTrigger: {
-                                trigger: ref,
-                                start: 'top 80%',
-                                toggleActions: 'play none none reverse'
-                            }
-                        }
-                    );
+        const projects = projectRefs.current.filter(Boolean);
+        gsap.set(projects, { autoAlpha: 0, y: 50, scale: 0.95 });
+
+        // Animación del Título
+        if (titleRef.current) {
+            gsap.to(titleRef.current, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: titleRef.current,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
                 }
             });
-        }, 100);
+        }
 
-        return () => {
-            clearTimeout(timer);
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
+        // Animación de Proyectos (Batch)
+        ScrollTrigger.batch(projects, {
+            start: "top 85%",
+            onEnter: batch => gsap.to(batch, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                stagger: 0.15,
+                duration: 0.6,
+                ease: "power2.out",
+                overwrite: true
+            }),
+            onLeaveBack: batch => gsap.to(batch, {
+                autoAlpha: 0,
+                y: 50,
+                scale: 0.95,
+                overwrite: true
+            })
+        });
+
+        ScrollTrigger.refresh();
+
     }, []);
 
     return (
         <Card extraClass="w-full flex flex-col pb-10">
-
-            <div ref={titleRef}>
+            <div ref={titleRef} className="invisible">
                 <Title extraClass="p-np mt-5">{t('textsPage.textMoreProjects')}</Title>
             </div>
 
-            <div className="flex flex-col justify-center mt-5 items-center overflow-hidden">
+            <div className="flex flex-col justify-center mt-5 items-center overflow-hidden gap-10">
                 {projectKeys.map((key, index) => {
                     const project = t.raw(`projectTexts.${key}`);
 
@@ -88,9 +85,10 @@ export const MoreProjects = () => {
                             ref={el => {
                                 if (el) projectRefs.current[index] = el;
                             }}
-                            className="flex rounded-xl flex-col gap-5  md:w-full border-background"
+                            className="flex rounded-xl flex-col gap-5 md:w-full border-background invisible" // invisible inicial
                         >
-                            <div className="relative m-auto">
+                            {/* Reservamos espacio mínimo para evitar saltos y colapsos de altura */}
+                            <div className="relative m-auto w-full min-h-[250px] flex items-center bg-transparent rounded-xl">
                                 <Carousel slides={project.image} />
                             </div>
 
