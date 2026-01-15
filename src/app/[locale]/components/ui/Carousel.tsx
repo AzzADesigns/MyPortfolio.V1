@@ -102,14 +102,14 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
                 {slides.map((s, index) => (
                     <div
                         key={index}
-                        className="w-full flex-shrink-0 px-2"
+                        className="w-full flex-shrink-0 px-2 flex justify-center items-center"
                     >
                         <Image
                             src={s}
                             alt={`slide-${index}`}
-                            width={500}
-                            height={300}
-                            className="w-full h-auto object-contain rounded-lg shadow-2xl"
+                            width={800} // Aumentamos resolución base
+                            height={600}
+                            className="w-auto h-auto max-w-full max-h-[300px] xl:max-h-[450px] object-contain rounded-lg shadow-2xl mx-auto"
                         />
                     </div>
                 ))}
