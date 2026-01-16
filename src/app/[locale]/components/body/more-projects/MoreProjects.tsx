@@ -89,7 +89,10 @@ export const MoreProjects = () => {
                         >
                             {/* Reservamos espacio mínimo para evitar saltos y colapsos de altura */}
                             <div className="relative m-auto w-full min-h-[250px] flex items-center bg-transparent rounded-xl">
-                                <Carousel slides={project.image} />
+                                <Carousel
+                                    slides={project.image}
+                                    priority={index === 0}
+                                />
                             </div>
 
                             <article className="w-full p-np">
