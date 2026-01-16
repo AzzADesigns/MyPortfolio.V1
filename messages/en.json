@@ -30,30 +30,30 @@
         }
     ],
     "projectTexts": {
-        "ShareIt": {
-            "title": "ShareIt",
+        "Comparapet": {
+            "title": "Comparapet",
             "description": [
-                "On the official website of the ShareIt community, I participated in the refactoring and scaling of the platform.",
-                " I improved the visibility of the main access, automated the group registration process, and implemented entry validations with a 2-step access flow.",
-                " Additionally, I optimized the user interface and contributed to the notification system."
+                "At OpenLabs, I worked on the refactoring and scaling of the Comparapet platform using Screaming Architecture.",
+                "I improved the site’s performance by optimizing the code and reducing load times, cleaned the database to enhance query efficiency, and optimized the product search system.",
+                "I implemented a secure JWT-based authentication and authorization system, and developed new features such as an administrative dashboard for real-time updates."
             ],
             "technologies": [
-                { "name": "Astro" },
+                { "name": "NextJs" },
                 { "name": "React" },
                 { "name": "Tailwind" },
-                { "name": "React-Hook-Form" },
-                { "name": "React-Toastify" },
-                { "name": "Zod" }
+                { "name": "PostgreSQL" },
+                { "name": "NestJs" }
             ],
             "image": [
-                "/share1.png",
-                "/share2.png",
-                "/share3.png",
-                "/share4.png"
+                "/cp1.png",
+                "/cp2.png",
+                "/cp3.png",
+                "/cp4.png",
+                "/cp5.png"
             ],
             "link": {
                 "type": "deploy",
-                "url": "https://shareit.lat/"
+                "url": "https://comparapet.app/"
             }
         },
         "EliasVelazquez": {
@@ -107,6 +107,32 @@
             "link": {
                 "type": "deploy",
                 "url": "https://www.luquio.com/"
+            }
+        },
+        "ShareIt": {
+            "title": "ShareIt",
+            "description": [
+                "On the official website of the ShareIt community, I participated in the refactoring and scaling of the platform.",
+                " I improved the visibility of the main access, automated the group registration process, and implemented entry validations with a 2-step access flow.",
+                " Additionally, I optimized the user interface and contributed to the notification system."
+            ],
+            "technologies": [
+                { "name": "Astro" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "React-Hook-Form" },
+                { "name": "React-Toastify" },
+                { "name": "Zod" }
+            ],
+            "image": [
+                "/share1.png",
+                "/share2.png",
+                "/share3.png",
+                "/share4.png"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://shareit.lat/"
             }
         },
         "ATSfor-ShareIT": {

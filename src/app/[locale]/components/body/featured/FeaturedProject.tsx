@@ -46,7 +46,7 @@ export function FeaturedProject() {
                     className="relative group overflow-hidden rounded-2xl cursor-pointer"
                     onMouseMove={handleMouseMove}
                 >
-                    <Carousel slides={slides} />
+                    <Carousel slides={slides} priority={true} />
                     <div
                         className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-2xl transition-all duration-100"
                         style={{

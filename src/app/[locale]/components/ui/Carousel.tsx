@@ -3,30 +3,33 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
+import { useInView } from 'react-intersection-observer';
 
 interface CarouselProps {
     slides: string[];
+    priority?: boolean;
 }
 
-export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
+export const Carousel: React.FC<CarouselProps> = ({ slides, priority = false }) => {
     const [current, setCurrent] = useState(0);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
     const [gradientColors, setGradientColors] = useState<string>('');
 
-    // Extraer los 3 colores principales de la primera imagen para crear un degradado
-    useEffect(() => {
-        const extractGradientColors = async () => {
-            if (slides.length === 0) return;
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        rootMargin: '200px 0px',
+    });
 
+    useEffect(() => {
+        if (!inView || slides.length === 0) return;
+
+        const extractGradientColors = async () => {
             try {
-                // Importación dinámica de node-vibrant para navegador
                 const { Vibrant } = await import('node-vibrant/browser');
 
-                // Extraer paleta de la primera imagen
                 const palette = await Vibrant.from(slides[0]).getPalette();
 
-                // Obtener los 3 colores más vibrantes disponibles
                 const colors = [
                     palette.Vibrant?.hex,
                     palette.DarkVibrant?.hex,
@@ -36,10 +39,8 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
                     palette.LightMuted?.hex
                 ].filter(Boolean) as string[];
 
-                // Tomar los primeros 3 colores disponibles
                 const topColors = colors.slice(0, 3);
 
-                // Crear degradado diagonal
                 if (topColors.length >= 3) {
                     setGradientColors(
                         `linear-gradient(135deg, ${topColors[0]} 0%, ${topColors[1]} 50%, ${topColors[2]} 100%)`
@@ -60,7 +61,7 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
         };
 
         extractGradientColors();
-    }, [slides]);
+    }, [slides, inView]);
 
     const previousSlide = () => {
         setCurrent(current === 0 ? slides.length - 1 : current - 1);
@@ -89,11 +90,12 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
 
     return (
         <div
-            className="relative overflow-hidden w-full p-4 xl:p-6 transition-all duration-700"
+            ref={ref}
+            className="relative overflow-hidden w-full p-4 xl:p-6 transition-all duration-700 min-h-[250px] xl:min-h-[450px] flex items-center justify-center"
             style={{ background: gradientColors || '#1a1a1a' }}
         >
             <div
-                className="flex transition-transform ease-out duration-500"
+                className="flex transition-transform ease-out duration-500 w-full"
                 style={{ transform: `translateX(-${current * 100}%)` }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -107,20 +109,28 @@ export const Carousel: React.FC<CarouselProps> = ({ slides }) => {
                         <Image
                             src={s}
                             alt={`slide-${index}`}
-                            width={800} // Aumentamos resolución base
+                            width={800}
                             height={600}
+                            priority={priority && index === 0}
+                            loading={priority && index === 0 ? undefined : 'lazy'}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
                             className="w-auto h-auto max-w-full max-h-[300px] xl:max-h-[450px] object-contain rounded-lg shadow-2xl mx-auto"
                         />
                     </div>
                 ))}
             </div>
 
-            {/* Flechas solo desde lg en adelante */}
-            <div className="hidden lg:flex absolute top-0 left-0 h-full w-full justify-between items-center px-4 text-buttonColor text-4xl">
-                <button onClick={previousSlide} className="bg-white/90 hover:scale-110 transition-all cursor-pointer rounded-full">
+            <div className="hidden lg:flex absolute top-0 left-0 h-full w-full justify-between items-center px-4 text-buttonColor text-4xl pointer-events-none">
+                <button
+                    onClick={previousSlide}
+                    className="bg-white/90 hover:scale-110 transition-all cursor-pointer rounded-full p-1 pointer-events-auto"
+                >
                     <FaArrowCircleLeft />
                 </button>
-                <button onClick={nextSlide} className="bg-white/90 hover:scale-110 transition-all cursor-pointer rounded-full">
+                <button
+                    onClick={nextSlide}
+                    className="bg-white/90 hover:scale-110 transition-all cursor-pointer rounded-full p-1 pointer-events-auto"
+                >
                     <FaArrowCircleRight />
                 </button>
             </div>
