@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React, { useState, useEffect, useRef } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
-import { gsap } from 'gsap';
 
 interface CarouselProps {
     slides: string[];
@@ -16,7 +15,6 @@ export const Carousel: React.FC<CarouselProps> = ({ slides, priority = false }) 
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
     const [gradientColors, setGradientColors] = useState<string>('');
-    const dynamicBgRef = useRef<HTMLDivElement>(null);
 
     const { ref, inView } = useInView({
         triggerOnce: true,
@@ -62,7 +60,7 @@ export const Carousel: React.FC<CarouselProps> = ({ slides, priority = false }) 
                 img.onerror = () => {
                     setGradientColors('#1a1a1a');
                 };
-            } catch (error) {
+            } catch {
                 setGradientColors('#1a1a1a');
             }
         };
