@@ -23,13 +23,16 @@ export const Translator = () => {
                     isActive={locale === 'en'}
                     onClick={() => changeLanguage('en')}
                 >
-                    English
+                    <span className="md:hidden">Eng</span>
+                    <span className="hidden md:inline">English</span>
                 </Button>
+
                 <Button
                     isActive={locale === 'es'}
                     onClick={() => changeLanguage('es')}
                 >
-                    Español
+                    <span className="md:hidden">Esp</span>
+                    <span className="hidden md:inline">Español</span>
                 </Button>
             </div>
         </div>
