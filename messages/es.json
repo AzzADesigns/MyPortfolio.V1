@@ -45,11 +45,11 @@
                 { "name": "NestJs" }
             ],
             "image": [
-                "/cp1.png",
-                "/cp2.png",
-                "/cp3.png",
-                "/cp4.png",
-                "/cp5.png"
+                "/cp1.webp",
+                "/cp2.webp",
+                "/cp3.webp",
+                "/cp4.webp",
+                "/cp5.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -70,14 +70,14 @@
                 { "name": "GSAP" }
             ],
             "image": [
-                "/eve1.png",
-                "/eve2.png",
-                "/eve3.png",
-                "/eve4.png",
-                "/eve5.png",
-                "/eve6.png",
-                "/eve7.png",
-                "/eve8.png"
+                "/eve1.webp",
+                "/eve2.webp",
+                "/eve3.webp",
+                "/eve4.webp",
+                "/eve5.webp",
+                "/eve6.webp",
+                "/eve7.webp",
+                "/eve8.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -98,11 +98,11 @@
                 { "name": "Gsap" }
             ],
             "image": [
-                "/luqio1.png",
-                "/luqio2.png",
-                "/luqio3.png",
-                "/luqio4.png",
-                "/luqio5.png"
+                "/luqio1.webp",
+                "/luqio2.webp",
+                "/luqio3.webp",
+                "/luqio4.webp",
+                "/luqio5.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -126,10 +126,10 @@
                 { "name": "Zod" }
             ],
             "image": [
-                "/share1.png",
-                "/share2.png",
-                "/share3.png",
-                "/share4.png"
+                "/share1.webp",
+                "/share2.webp",
+                "/share3.webp",
+                "/share4.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -154,11 +154,11 @@
                 { "name": "Zustand" }
             ],
             "image": [
-                "/ats1.png",
-                "/ats2.png",
-                "/ats3.png",
-                "/ats4.png",
-                "/ats5.png"
+                "/ats1.webp",
+                "/ats2.webp",
+                "/ats3.webp",
+                "/ats4.webp",
+                "/ats5.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -180,10 +180,10 @@
                 { "name": "Express" }
             ],
             "image": [
-                "/in-1.png",
-                "/in2.png",
-                "/in3.png",
-                "/in4.png"
+                "/in-1.webp",
+                "/in2.webp",
+                "/in3.webp",
+                "/in4.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -206,17 +206,17 @@
                 { "name": "Express" }
             ],
             "image": [
-                "/ur1.png",
-                "/ur2.png",
-                "/ur3.png",
-                "/ur4.png",
-                "/ur5.png",
-                "/ur6.png",
-                "/ut7.png",
-                "/ur8.png",
-                "/ur9.png",
-                "/ur10.png",
-                "/ur11.png"
+                "/ur1.webp",
+                "/ur2.webp",
+                "/ur3.webp",
+                "/ur4.webp",
+                "/ur5.webp",
+                "/ur6.webp",
+                "/ut7.webp",
+                "/ur8.webp",
+                "/ur9.webp",
+                "/ur10.webp",
+                "/ur11.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -238,8 +238,8 @@
                 { "name": "Axios" }
             ],
             "image": [
-                "/wr1.png",
-                "/wr2.png"
+                "/wr1.webp",
+                "/wr2.webp"
             ],
             "link": {
                 "type": "repo",
@@ -260,15 +260,15 @@
                 { "name": "Java" }
             ],
             "image": [
-                "/hu1.png",
-                "/hu2.png",
-                "/hu3.png",
-                "/hu4.png",
-                "/hu5.png",
-                "/hu6.png",
-                "/hu7.png",
-                "/hu8.png",
-                "/hu9.png"
+                "/hu1.webp",
+                "/hu2.webp",
+                "/hu3.webp",
+                "/hu4.webp",
+                "/hu5.webp",
+                "/hu6.webp",
+                "/hu7.webp",
+                "/hu8.webp",
+                "/hu9.webp"
             ],
             "link": {
                 "type": "repo",
@@ -289,8 +289,8 @@
                 { "name": "Next.js" }
             ],
             "image": [
-                "/azzed1.png",
-                "/azzed2.png"
+                "/azzed1.webp",
+                "/azzed2.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -311,12 +311,12 @@
                 { "name": "Motion" }
             ],
             "image": [
-                "/cm1.png",
-                "/cm2.png",
-                "/cm3.png",
-                "/cm4.png",
-                "/cm5.png",
-                "/cm6.png"
+                "/cm1.webp",
+                "/cm2.webp",
+                "/cm3.webp",
+                "/cm4.webp",
+                "/cm5.webp",
+                "/cm6.webp"
             ],
             "link": {
                 "type": "deploy",
@@ -337,10 +337,10 @@
                 { "name": "Nextjs" }
             ],
             "image": [
-                "/acme1.png",
-                "/acme2.png",
-                "/acme3.png",
-                "/acme4.png"
+                "/acme1.webp",
+                "/acme2.webp",
+                "/acme3.webp",
+                "/acme4.webp"
             ],
             "link": {
                 "type": "repo",
