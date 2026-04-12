@@ -30,6 +30,38 @@
         }
     ],
     "projectTexts": {
+        "CemElearning": {
+            "title": "CEM-Elearning",
+            "description": [
+                "Durante el desarrollo del proyecto, asumí un rol activo en la resolución de desafíos técnicos y de producto, destacándome por la rapidez de ejecución y la toma de decisiones en contextos de alta presión.",
+                "En un escenario con deadlines críticos, implementé pasarelas de pago en tan solo 24 horas, estructurando una lógica multimoneda (Soles y Dólares) tanto en frontend como colaborando en backend, además de diseñar la arquitectura necesaria para soportar pagos concurrentes con moneda secundaria.",
+                "A nivel de experiencia de usuario, tomé la responsabilidad de definir decisiones clave de UI/UX, creando interfaces enfocadas en la usabilidad y optimizando la arquitectura de información para reducir errores en módulos de alta complejidad.",
+                "También diseñé flujos de navegación restrictivos en funcionalidades críticas, como el módulo de entrevistas, limitando técnicamente las acciones del usuario para evitar inconsistencias de estado en escenarios sensibles.",
+                "Desarrollé un sistema dinámico de permisología de usuarios basado en roles, así como la lógica de generación y validación automatizada de certificados, incluyendo el envío de credenciales e implementé lógica contable compleja.",
+                "Trabajé en la optimización de performance logrando elevar el puntaje de Lighthouse de 54 a 98, y desarrollé un sistema de gestión de video utilizando Bunny.net, con almacenamiento en memoria y carga por fragmentos (chunks) para asegurar la integridad de los archivos.",
+                "Realicé un mapeo inverso de la arquitectura (Screaming Architecture) apoyado en IA, lo que me permitió identificar rápidamente dependencias críticas desde el primer día de integración.",
+                "Mantuve una comunicación constante con el equipo mediante reportes diarios, facilitando la toma de decisiones ágil frente a cambios del cliente y adaptando los tiempos de entrega."
+            ],
+            "technologies": [
+                { "name": "Next.js" },
+                { "name": "NestJS" },
+                { "name": "React" },
+                { "name": "Tailwind" },
+                { "name": "Docker" },
+                { "name": "PostgreSQL" }
+            ],
+            "image": [
+                "/cem1.webp", "/cem2.webp", "/cem3.webp", "/cem4.webp", "/cem5.webp", "/cem6.webp", "/cem7.webp", "/cem8.webp", "/cem9.webp", "/cem10.webp",
+                "/cem11.webp", "/cem12.webp", "/cem13.webp", "/cem14.webp", "/cem15.webp", "/cem16.webp", "/cem17.webp", "/cem18.webp", "/cem19.webp", "/cem20.webp",
+                "/cem22.webp", "/cem23.webp", "/cem24.webp", "/cem25.webp", "/cem26.webp", "/cem27.webp", "/cem28.webp", "/cem29.webp", "/cem30.webp",
+                "/cem31.webp", "/cem32.webp", "/cem33.webp", "/cem34.webp", "/cem35.webp", "/cem36.webp", "/cem37.webp", "/cem38.webp", "/cem39.webp", "/cem40.webp",
+                "/cem41.webp", "/cem42.webp", "/cem43.webp", "/cem44.webp", "/cem45.webp"
+            ],
+            "link": {
+                "type": "deploy",
+                "url": "https://cemcapacita.com"
+            }
+        },
         "Comparapet": {
             "title": "Comparapet",
             "description": [
@@ -38,11 +70,11 @@
                 "Implementé un sistema seguro de autenticación y autorización con JWT, y desarrollé nuevas funcionalidades como un dashboard administrativo para actualizaciones en tiempo real."
             ],
             "technologies": [
-                { "name": "NextJs" },
+                { "name": "Next.js" },
                 { "name": "React" },
                 { "name": "Tailwind" },
                 { "name": "PostgreSQL" },
-                { "name": "NestJs" }
+                { "name": "NestJS" }
             ],
             "image": [
                 "/cp1.webp",
@@ -92,10 +124,10 @@
                 "El sitio cuenta con múltiples animaciones, branding gamer con efectos RGB, simulación de selección de videojuegos con sonido característico de consola, y referencias ocultas basadas en los gustos del cliente."
             ],
             "technologies": [
-                { "name": "Nextjs" },
+                { "name": "Next.js" },
                 { "name": "React" },
                 { "name": "Tailwind" },
-                { "name": "Gsap" }
+                { "name": "GSAP" }
             ],
             "image": [
                 "/luqio1.webp",
@@ -144,10 +176,10 @@
                 " teniendo en cuenta el diseño anterior, pero implementando cambios en pos de reflejar la identidad de la marca, y mejorando la UX."
             ],
             "technologies": [
-                { "name": "Netxjs" },
+                { "name": "Next.js" },
                 { "name": "React" },
                 { "name": "Tailwind" },
-                { "name": "Gsap" },
+                { "name": "GSAP" },
                 { "name": "Motion" },
                 { "name": "Formik" },
                 { "name": "React to print" },
@@ -212,7 +244,7 @@
                 "/ur4.webp",
                 "/ur5.webp",
                 "/ur6.webp",
-                "/ut7.webp",
+                "/ur7.webp",
                 "/ur8.webp",
                 "/ur9.webp",
                 "/ur10.webp",
@@ -334,7 +366,7 @@
             "technologies": [
                 { "name": "React" },
                 { "name": "Tailwind" },
-                { "name": "Nextjs" }
+                { "name": "Next.js" }
             ],
             "image": [
                 "/acme1.webp",
