@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import localFont from 'next/font/local';
 import { Sora } from 'next/font/google';
-import { FaLinkedin, FaTiktok, FaInstagram } from 'react-icons/fa';
 
 const sora = Sora({
     subsets: ['latin'],
@@ -23,12 +22,13 @@ export const Landing = () => {
         <div
             className={`min-h-screen w-full flex flex-col overflow-x-hidden ${momoSignature.variable} ${sora.variable}`}
             style={{
-                background: 'linear-gradient(160deg, #061828 0%, #071e35 55%, #081528 100%)',
+                backgroundColor: '#001720',
+                backgroundImage: 'linear-gradient(to bottom right, rgba(3, 231, 245, 0.15) 0%, transparent 70%)',
                 fontFamily: 'var(--font-sora), sans-serif'
             }}
         >
             {/* ─── NAVBAR ─────────────────────────────────────────────────────── */}
-            <nav className="flex items-center justify-between px-8 md:px-16 py-5 w-full">
+            <nav className="flex items-center justify-between mt-5 fixed px-8 md:px-16 py-5 w-full">
                 {/* Logo */}
                 <div className="flex items-center gap-4">
                     <Image
@@ -68,11 +68,11 @@ export const Landing = () => {
             </nav>
 
             {/* ─── HERO ───────────────────────────────────────────────────────── */}
-            <section className="flex-1 flex items-center justify-between px-8 md:px-16 py-10 gap-8">
+            <section className="flex-1 flex items-center mt-15 justify-between px-8 md:px-16 py-10 gap-8">
 
                 {/* ── Columna Izquierda: Texto ──────────────────────────────────── */}
-                <div className="flex flex-col gap-20 max-w-[580px] flex-shrink-0">
-                    <h1 className="text-5xl xl:text-[64px]  leading-20 text-white">
+                <div className="flex flex-col gap-17 max-w-[580px] flex-shrink-0">
+                    <h1 className="text-5xl xl:text-[70px]  leading-25 text-white">
                         El puente entre<br />
                         la{' '}
                         <span
@@ -91,7 +91,7 @@ export const Landing = () => {
                         </span>
                     </h1>
 
-                    <p className="text-[#D7D7D7] text-[15px] -tracking-tighter leading-10 xl:max-w-[438px]">
+                    <p className="text-[#D7D7D7] text-[18px] -tracking-tighter leading-10 xl:max-w-[540px]">
                         Construyo productos digitales de alto rendimiento.
                         Desde la optimización inicial y el diseño UX/UI, hasta
                         la escalabilidad y el mantenimiento constante
@@ -105,95 +105,96 @@ export const Landing = () => {
                 </div>
 
                 {/* ── Columna Central: Imágenes flotantes ───────────────────────── */}
-                <div className="relative flex-1 flex items-center justify-center" style={{ minHeight: '460px' }}>
-
-                    {/* Imagen izquierda — olab1 */}
-                    <div
-                        className="absolute shadow-2xl rounded-xl overflow-hidden transition-transform duration-500 hover:scale-105"
-                        style={{
-                            transform: 'rotate(2deg) translate(-250px, -60px)',
-                            zIndex: 2,
-                            boxShadow: '0 25px 60px rgba(0,0,0,0.7)',
-                            width: '450px',
-                        }}
-                    >
-                        <Image
-                            src="/olab1.jpg"
-                            alt="OpenLabs project"
-                            width={300}
-                            height={185}
-                            className="rounded-xl object-cover w-full h-auto"
-                        />
+                <div className="relative flex-1 flex items-center justify-center ">
+                    {/* Imagen izquierda — olab */}
+                    <div className="absolute animate-float-sutil-1" style={{ zIndex: 2 }}>
+                        <div style={{ transform: 'translate(-190px, -80px)' }}>
+                            <Image
+                                src="/header/olab.webp"
+                                alt="OpenLabs project"
+                                width={735}
+                                height={400}
+                                className="drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500"
+                            />
+                        </div>
                     </div>
 
-                    {/* Imagen derecha — eve1 */}
-                    <div
-                        className="absolute shadow-2xl rounded-xl overflow-hidden transition-transform duration-500 hover:scale-105"
-                        style={{
-                            transform: 'rotate(14deg) translate(-10px, -110px)',
-                            zIndex: 1,
-                            boxShadow: '0 25px 60px rgba(0,0,0,0.7)',
-                            width: '450px',
-                        }}
-                    >
-                        <Image
-                            src="/eve1.webp"
-                            alt="Evelazquez project"
-                            width={270}
-                            height={168}
-                            className="rounded-xl object-cover w-full h-auto"
-                        />
+                    {/* Imagen derecha — eve */}
+                    <div className="absolute animate-float-sutil-2" style={{ zIndex: 1 }}>
+                        <div >
+                            <Image
+                                src="/header/eve.webp"
+                                alt="Evelazquez project"
+                                width={735}
+                                height={400}
+                                className="drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]  transition-transform duration-500"
+                                style={{ transform: 'translate(70px, -120px)' }}
+                            />
+                        </div>
                     </div>
 
-                    {/* Imagen frontal central — cem29 */}
-                    <div
-                        className="absolute shadow-2xl rounded-xl overflow-hidden transition-transform duration-500 hover:scale-105"
-                        style={{
-                            transform: 'rotate(-3deg) translate(0px, 110px)',
-                            zIndex: 3,
-                            boxShadow: '0 35px 80px rgba(0,0,0,0.8)',
-                            width: '450px',
-                        }}
-                    >
-                        <Image
-                            src="/cem29.webp"
-                            alt="CEM Elearning project"
-                            width={310}
-                            height={193}
-                            className="rounded-xl object-cover w-full h-auto"
-                        />
+                    {/* Imagen frontal central — cem */}
+                    <div className="absolute animate-float-sutil-3" style={{ zIndex: 3 }}>
+                        <div style={{ transform: 'translate(45px, 60px)' }}>
+                            <Image
+                                src="/header/cem.webp"
+                                alt="CEM Elearning project"
+                                width={735}
+                                height={400}
+                                className="drop-shadow-[0_35px_60px_rgba(0,0,0,0.6)] transition-transform duration-500 "
+                            />
+                        </div>
                     </div>
 
-                    {/* Scroll indicator */}
-                    <div
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-                        style={{ zIndex: 10 }}
-                    >
-                        {/* Semicírculo decorativo */}
+                    {/* Gran arco decorativo de fondo y flecha */}
+                    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+                        {/* Círculo completo (Ajusta el translate para moverlo libremente) */}
                         <div
-                            className="w-20 h-10 border-b-2 border-l-2 border-r-2 rounded-b-full"
-                            style={{ borderColor: '#4ade80' }}
+                            className="absolute w-[400px] h-[400px] md:w-[550px] md:h-[550px] border-[3px] rounded-full"
+                            style={{ 
+                                borderColor: '#89EA2B', 
+                                opacity: 0.9,
+                                top: '50%',
+                                left: '56%',
+                                transform: 'translate(-72%, -40%)' /* -65% lo mueve a la izquierda, -50% lo centra verticalmente */
+                            }}
                         />
-                        <span
-                            className="text-2xl font-light animate-bounce"
-                            style={{ color: '#4ade80', marginTop: '-4px' }}
+                        
+                        {/* Flecha grande animada (Aumenta el número de píxeles en 'top' para bajarla más) */}
+                        <svg 
+                            className="absolute animate-bounce" 
+                            style={{
+                                top: 'calc(50% + 250px)', /* Aumenta el 250px a 300px, 400px, etc. para bajarla más */
+                                left: '40%',
+                                transform: 'translateX(-50%)'
+                            }}
+                            width="48" 
+                            height="72" /* Altura un poco más chica */
+                            viewBox="0 0 24 36" /* ViewBox ajustado a 1.5x */
+                            fill="none" 
+                            stroke="#D1D5DB" 
+                            strokeWidth="3" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
                         >
-                            ↓
-                        </span>
+                            {/* Línea vertical que va desde arriba hasta la punta */}
+                            <line x1="12" y1="0" x2="12" y2="32"></line>
+                            {/* Punta de la flecha colocada abajo */}
+                            <polyline points="5 25 12 32 19 25"></polyline>
+                        </svg>
                     </div>
                 </div>
 
                 {/* ── Columna Derecha: Stats + Sociales ────────────────────────── */}
-                <div className="flex flex-col gap-10 items-end flex-shrink-0">
+                <div className="flex flex-col gap-20 mt-8 items-end flex-shrink-0">
                     {/* Stat 1 */}
                     <div className="text-right">
                         <p
-                            className="text-5xl xl:text-6xl font-extrabold"
-                            style={{ color: '#22d3ee' }}
+                            className="text-5xl xl:text-[55px] font-bold"
                         >
-                            +3 Años
+                           <span className='text-[#22d3ee]'>+3</span> Años
                         </p>
-                        <p className="text-gray-400 text-base mt-1">De especialización</p>
+                        <p className="text-gray-400 text-base mt-1 text-[25px]">De especialización</p>
                     </div>
 
                     {/* Separador */}
@@ -202,46 +203,39 @@ export const Landing = () => {
                     {/* Stat 2 */}
                     <div className="text-right">
                         <p
-                            className="text-5xl xl:text-6xl font-extrabold"
-                            style={{ color: '#22d3ee' }}
+                            className="text-5xl xl:text-[55px] font-extrabold"
                         >
-                            +7
+                            <span className='text-[#22d3ee]'>+7</span> productos
                         </p>
-                        <p
-                            className="text-3xl xl:text-4xl font-bold"
-                            style={{ color: '#22d3ee' }}
-                        >
-                            productos
-                        </p>
-                        <p className="text-gray-400 text-base mt-1">lanzados</p>
+
+                        <p className="text-gray-400 text-base mt-1  text-[25px]">lanzados</p>
                     </div>
 
                     {/* Redes sociales */}
-                    <div className="flex items-center gap-5 mt-2">
+                    <div className="flex items-center gap-10 mt-25">
                         <Link
                             href="https://www.linkedin.com/in/azariel-moreno/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white hover:text-cyan-400 transition-colors duration-200"
+                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
                         >
-                            <FaLinkedin size={36} />
+                            <Image src="/branding/in.svg" alt="LinkedIn" width={80} height={80} />
                         </Link>
                         <Link
                             href="https://www.tiktok.com/@azzadesigns"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white hover:text-cyan-400 transition-colors duration-200"
+                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
                         >
-                            <FaTiktok size={32} />
+                            <Image src="/branding/ticktok.svg" alt="TikTok" width={70} height={80} />
                         </Link>
                         <Link
                             href="https://www.instagram.com/azzadesigns"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="transition-colors duration-200"
-                            style={{ color: '#4ade80' }}
+                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
                         >
-                            <FaInstagram size={36} />
+                            <Image src="/branding/instagram.svg" alt="Instagram" width={80} height={80} />
                         </Link>
                     </div>
                 </div>
