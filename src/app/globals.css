@@ -231,7 +231,18 @@ body {
 }
 
 
-/* globals.css */
+/* Animación para el degradado en hover de redes sociales */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+.animate-gradient-move {
+    background-size: 200% auto;
+}
+.group:hover .animate-gradient-move {
+    animation: gradientMove 2s linear infinite;
+}
+
 /* globals.css */
 @theme {
     --breakpoint-sm: 640px;

@@ -116,10 +116,16 @@ export const Landing = () => {
                         para que tu idea nunca deje de avanzar
                     </p>
 
-                    <button
-                        className="w-fit px-7 py-5 text-[18px] font-extrabold -tracking-tighter text-[#001720] rounded-[16px] bg-[#89EA2B] gsap-hero-text">
-                        Empezar mi proyecto hoy
-                    </button>
+                    <div className="gsap-hero-text w-fit">
+                        <button
+                            className="relative group overflow-hidden w-fit px-7 py-5 text-[18px] font-extrabold -tracking-tighter text-[#001720] rounded-[16px] bg-[#89EA2B] hover:scale-105 hover:shadow-[0_0_40px_rgba(74,222,128,0.6)] transition-all duration-300">
+                            <div 
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
+                                style={{ backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee, #4ade80)' }}
+                            />
+                            <span className="relative z-10">Empezar mi proyecto hoy</span>
+                        </button>
+                    </div>
                 </div>
 
                 {/* ── Columna Central: Imágenes flotantes ───────────────────────── */}
@@ -239,9 +245,9 @@ export const Landing = () => {
                         >
                             <Image src="/branding/in.svg" alt="LinkedIn" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
                             <div 
-                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                                 style={{
-                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee, #4ade80)',
                                     WebkitMaskImage: `url('/branding/in.svg')`,
                                     WebkitMaskSize: 'contain',
                                     WebkitMaskRepeat: 'no-repeat',
@@ -262,9 +268,9 @@ export const Landing = () => {
                         >
                             <Image src="/branding/ticktok.svg" alt="TikTok" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
                             <div 
-                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                                 style={{
-                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee, #4ade80)',
                                     WebkitMaskImage: `url('/branding/ticktok.svg')`,
                                     WebkitMaskSize: 'contain',
                                     WebkitMaskRepeat: 'no-repeat',
@@ -285,9 +291,9 @@ export const Landing = () => {
                         >
                             <Image src="/branding/instagram.svg" alt="Instagram" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
                             <div 
-                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                                 style={{
-                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee, #4ade80)',
                                     WebkitMaskImage: `url('/branding/instagram.svg')`,
                                     WebkitMaskSize: 'contain',
                                     WebkitMaskRepeat: 'no-repeat',
