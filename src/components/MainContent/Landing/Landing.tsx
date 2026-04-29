@@ -4,6 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import localFont from 'next/font/local';
 import { Sora } from 'next/font/google';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
 
 const sora = Sora({
     subsets: ['latin'],
@@ -18,8 +23,21 @@ const momoSignature = localFont({
 });
 
 export const Landing = () => {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline();
+
+        tl.from('.gsap-nav', { y: -50, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' });
+        tl.from('.gsap-hero-text', { y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, "-=0.4");
+        tl.from('.gsap-hero-image', { scale: 0.8, opacity: 0, duration: 1, stagger: 0.2, ease: 'back.out(1.5)' }, "-=0.4");
+        tl.from('.gsap-hero-bg', { opacity: 0, scale: 0.5, duration: 1.2, ease: 'power2.out' }, "-=0.8");
+        tl.from('.gsap-hero-stat', { x: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, "-=1");
+    }, { scope: container });
+
     return (
         <div
+            ref={container}
             className={`min-h-screen w-full flex flex-col overflow-x-hidden ${momoSignature.variable} ${sora.variable}`}
             style={{
                 backgroundColor: '#001720',
@@ -30,7 +48,7 @@ export const Landing = () => {
             {/* ─── NAVBAR ─────────────────────────────────────────────────────── */}
             <nav className="flex items-center justify-between mt-5 fixed px-8 md:px-16 py-5 w-full">
                 {/* Logo */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"
                         alt="AzzADesigns Logo"
@@ -53,7 +71,7 @@ export const Landing = () => {
                 </div>
 
                 {/* Nav links */}
-                <div className="hidden md:flex items-center gap-8 text-sm text-gray-400 font-medium">
+                <div className="hidden md:flex items-center gap-8 text-sm text-gray-400 font-medium gsap-nav">
                     <Link href="#servicios" className="hover:text-white transition-colors duration-200">Servicios</Link>
                     <Link href="#metodologia" className="hover:text-white transition-colors duration-200">Metodología</Link>
                     <Link href="#firma" className="hover:text-white transition-colors duration-200">La firma</Link>
@@ -68,11 +86,11 @@ export const Landing = () => {
             </nav>
 
             {/* ─── HERO ───────────────────────────────────────────────────────── */}
-            <section className="flex-1 flex items-center mt-15 justify-between px-8 md:px-16 py-10 gap-8">
+            <section className="flex-1  flex items-center relative mt-15 justify-between px-8 md:px-16 py-10 gap-8">
 
                 {/* ── Columna Izquierda: Texto ──────────────────────────────────── */}
                 <div className="flex flex-col gap-17 max-w-[580px] flex-shrink-0">
-                    <h1 className="text-5xl xl:text-[70px]  leading-25 text-white">
+                    <h1 className="text-5xl xl:text-[70px]  leading-25 text-white gsap-hero-text">
                         El puente entre<br />
                         la{' '}
                         <span
@@ -91,7 +109,7 @@ export const Landing = () => {
                         </span>
                     </h1>
 
-                    <p className="text-[#D7D7D7] text-[18px] -tracking-tighter leading-10 xl:max-w-[540px]">
+                    <p className="text-[#D7D7D7] text-[18px] -tracking-tighter leading-10 xl:max-w-[540px] gsap-hero-text">
                         Construyo productos digitales de alto rendimiento.
                         Desde la optimización inicial y el diseño UX/UI, hasta
                         la escalabilidad y el mantenimiento constante
@@ -99,7 +117,7 @@ export const Landing = () => {
                     </p>
 
                     <button
-                        className="w-fit px-7 py-5 text-[18px] font-extrabold -tracking-tighter text-[#001720] rounded-[16px] bg-[#89EA2B]">
+                        className="w-fit px-7 py-5 text-[18px] font-extrabold -tracking-tighter text-[#001720] rounded-[16px] bg-[#89EA2B] gsap-hero-text">
                         Empezar mi proyecto hoy
                     </button>
                 </div>
@@ -107,7 +125,7 @@ export const Landing = () => {
                 {/* ── Columna Central: Imágenes flotantes ───────────────────────── */}
                 <div className="relative flex-1 flex items-center justify-center ">
                     {/* Imagen izquierda — olab */}
-                    <div className="absolute animate-float-sutil-1" style={{ zIndex: 2 }}>
+                    <div className="absolute animate-float-sutil-1 gsap-hero-image" style={{ zIndex: 2 }}>
                         <div style={{ transform: 'translate(-190px, -80px)' }}>
                             <Image
                                 src="/header/olab.webp"
@@ -120,7 +138,7 @@ export const Landing = () => {
                     </div>
 
                     {/* Imagen derecha — eve */}
-                    <div className="absolute animate-float-sutil-2" style={{ zIndex: 1 }}>
+                    <div className="absolute animate-float-sutil-2 gsap-hero-image" style={{ zIndex: 1 }}>
                         <div >
                             <Image
                                 src="/header/eve.webp"
@@ -134,7 +152,7 @@ export const Landing = () => {
                     </div>
 
                     {/* Imagen frontal central — cem */}
-                    <div className="absolute animate-float-sutil-3" style={{ zIndex: 3 }}>
+                    <div className="absolute animate-float-sutil-3 gsap-hero-image" style={{ zIndex: 3 }}>
                         <div style={{ transform: 'translate(45px, 60px)' }}>
                             <Image
                                 src="/header/cem.webp"
@@ -150,7 +168,7 @@ export const Landing = () => {
                     <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
                         {/* Círculo completo (Ajusta el translate para moverlo libremente) */}
                         <div
-                            className="absolute w-[400px] h-[400px] md:w-[550px] md:h-[550px] border-[3px] rounded-full"
+                            className="absolute w-[400px] h-[400px] md:w-[550px] md:h-[550px] border-[3px] rounded-full gsap-hero-bg"
                             style={{ 
                                 borderColor: '#89EA2B', 
                                 opacity: 0.9,
@@ -162,7 +180,7 @@ export const Landing = () => {
                         
                         {/* Flecha grande animada (Aumenta el número de píxeles en 'top' para bajarla más) */}
                         <svg 
-                            className="absolute animate-bounce" 
+                            className="absolute animate-bounce gsap-hero-bg" 
                             style={{
                                 top: 'calc(50% + 250px)', /* Aumenta el 250px a 300px, 400px, etc. para bajarla más */
                                 left: '40%',
@@ -186,9 +204,9 @@ export const Landing = () => {
                 </div>
 
                 {/* ── Columna Derecha: Stats + Sociales ────────────────────────── */}
-                <div className="flex flex-col gap-20 mt-8 items-end flex-shrink-0">
+                <div className="flex flex-col gap-50 mt-10 items-end flex-shrink-0">
                     {/* Stat 1 */}
-                    <div className="text-right">
+                    <div className="text-right gsap-hero-stat">
                         <p
                             className="text-5xl xl:text-[55px] font-bold"
                         >
@@ -198,10 +216,10 @@ export const Landing = () => {
                     </div>
 
                     {/* Separador */}
-                    <div className="w-20 h-px bg-white/10 self-end" />
+                    <div className="w-[15%] bg-[#89EA2B] absolute bottom-0 right-0 h-2" />
 
                     {/* Stat 2 */}
-                    <div className="text-right">
+                    <div className="text-right gsap-hero-stat">
                         <p
                             className="text-5xl xl:text-[55px] font-extrabold"
                         >
@@ -212,30 +230,74 @@ export const Landing = () => {
                     </div>
 
                     {/* Redes sociales */}
-                    <div className="flex items-center gap-10 mt-25">
+                    <div className="flex items-center gap-10 gsap-hero-stat">
                         <Link
                             href="https://www.linkedin.com/in/azariel-moreno/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
+                            className="relative group hover:scale-110 transition-transform duration-300 block w-[80px] h-[80px]"
                         >
-                            <Image src="/branding/in.svg" alt="LinkedIn" width={80} height={80} />
+                            <Image src="/branding/in.svg" alt="LinkedIn" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
+                            <div 
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    WebkitMaskImage: `url('/branding/in.svg')`,
+                                    WebkitMaskSize: 'contain',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    WebkitMaskPosition: 'center',
+                                    maskImage: `url('/branding/in.svg')`,
+                                    maskSize: 'contain',
+                                    maskRepeat: 'no-repeat',
+                                    maskPosition: 'center'
+                                }}
+                            />
                         </Link>
+                        
                         <Link
                             href="https://www.tiktok.com/@azzadesigns"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
+                            className="relative group hover:scale-110 transition-transform duration-300 block w-[70px] h-[80px]"
                         >
-                            <Image src="/branding/ticktok.svg" alt="TikTok" width={70} height={80} />
+                            <Image src="/branding/ticktok.svg" alt="TikTok" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
+                            <div 
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    WebkitMaskImage: `url('/branding/ticktok.svg')`,
+                                    WebkitMaskSize: 'contain',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    WebkitMaskPosition: 'center',
+                                    maskImage: `url('/branding/ticktok.svg')`,
+                                    maskSize: 'contain',
+                                    maskRepeat: 'no-repeat',
+                                    maskPosition: 'center'
+                                }}
+                            />
                         </Link>
+
                         <Link
                             href="https://www.instagram.com/azzadesigns"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:scale-110 hover:opacity-80 transition-all duration-200"
+                            className="relative group hover:scale-110 transition-transform duration-300 block w-[80px] h-[80px]"
                         >
-                            <Image src="/branding/instagram.svg" alt="Instagram" width={80} height={80} />
+                            <Image src="/branding/instagram.svg" alt="Instagram" fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
+                            <div 
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)',
+                                    WebkitMaskImage: `url('/branding/instagram.svg')`,
+                                    WebkitMaskSize: 'contain',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    WebkitMaskPosition: 'center',
+                                    maskImage: `url('/branding/instagram.svg')`,
+                                    maskSize: 'contain',
+                                    maskRepeat: 'no-repeat',
+                                    maskPosition: 'center'
+                                }}
+                            />
                         </Link>
                     </div>
                 </div>
