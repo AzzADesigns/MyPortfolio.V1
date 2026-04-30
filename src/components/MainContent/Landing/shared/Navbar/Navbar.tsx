@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
@@ -14,6 +14,17 @@ export default function Navbar() {
     useGSAP(() => {
         animateMobileMenu(isMenuOpen, overlayRef.current, menuContentRef.current);
     }, { dependencies: [isMenuOpen] });
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMenuOpen]);
 
     return (
         <>
@@ -41,9 +52,9 @@ export default function Navbar() {
 
                 <div className="hidden lg:flex items-center gap-8 text-sm text-gray-400 font-medium gsap-nav">
                     {NAV_LINKS.map((link) => (
-                        <Link 
-                            key={link.href} 
-                            href={link.href} 
+                        <Link
+                            key={link.href}
+                            href={link.href}
                             className={`hover:text-white active:scale-90 transition-all duration-200 inline-block ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-[#22d3ee]' : 'active:text-[#89EA2B]'}`}
                         >
                             {link.label}
@@ -58,7 +69,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="lg:hidden flex items-center gsap-nav">
-                    <button 
+                    <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="text-white hover:text-[#89EA2B] active:scale-75 active:rotate-180 transition-all duration-300 cursor-pointer z-[60] relative"
                     >
@@ -68,30 +79,30 @@ export default function Navbar() {
             </nav>
 
             <div className="lg:hidden">
-                <div 
+                <div
                     ref={overlayRef}
-                    className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 invisible"
+                    className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] opacity-0 invisible"
                     onClick={() => setIsMenuOpen(false)}
                 />
-                
-                <div 
+
+                <div
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
                 >
-                    <div className="bg-[#001720]/95 backdrop-blur-2xl border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
+                    <div className="bg-[#001720]/80 backdrop-blur-md border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {NAV_LINKS.map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";
                                 const Icon = link.label === "Servicios" ? HiOutlineLightningBolt :
-                                             link.label === "Metodología" ? HiOutlineCog :
-                                             link.label === "La firma" ? HiOutlinePencil :
-                                             HiOutlineStar;
-                                
+                                    link.label === "Metodología" ? HiOutlineCog :
+                                        link.label === "La firma" ? HiOutlinePencil :
+                                            HiOutlineStar;
+
                                 return (
-                                    <Link 
+                                    <Link
                                         key={link.href}
-                                        onClick={() => setIsMenuOpen(false)} 
-                                        href={link.href} 
+                                        onClick={() => setIsMenuOpen(false)}
+                                        href={link.href}
                                         className={`mobile-link flex flex-col items-center justify-center bg-white/5 border border-white/5 rounded-2xl py-6 text-white transition-all duration-200 group ${isGreen ? 'hover:bg-[#89EA2B]/20 hover:border-[#89EA2B]/50 active:bg-[#89EA2B]/30' : 'hover:bg-[#22d3ee]/20 hover:border-[#22d3ee]/50 active:bg-[#22d3ee]/30'} active:scale-90`}
                                     >
                                         <Icon className={`${isGreen ? 'text-[#89EA2B]' : 'text-[#22d3ee]'} text-3xl mb-2 group-hover:scale-110 transition-transform ${link.label === "Metodología" ? 'group-active:rotate-90' : link.label === "Destacados" ? 'group-active:scale-150' : 'group-active:-rotate-12'}`} />
@@ -100,7 +111,7 @@ export default function Navbar() {
                                 );
                             })}
                         </div>
-                        <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link mt-2 w-full flex items-center justify-center bg-gradient-to-r from-[#4ade80] to-[#22d3ee] rounded-2xl py-4 text-[#001720] text-lg font-extrabold shadow-[0_0_20px_rgba(74,222,128,0.2)] hover:shadow-[0_0_30px_rgba(74,222,128,0.5)] active:scale-95 active:shadow-none active:opacity-80 transition-all duration-200">
+                        <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link mobile-cta mt-2 w-full flex items-center justify-center bg-gradient-to-r from-[#4ade80] to-[#22d3ee] rounded-2xl py-4 text-[#001720] text-lg font-extrabold shadow-[0_0_20px_rgba(74,222,128,0.2)] hover:shadow-[0_0_30px_rgba(74,222,128,0.5)] active:scale-95 active:shadow-none active:opacity-20 transition-all duration-200">
                             Explorar Portfolio
                         </Link>
                     </div>
