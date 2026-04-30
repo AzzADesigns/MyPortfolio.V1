@@ -14,7 +14,7 @@ export const Landing = () => {
         >
             <Navbar />
 
-            <section className="flex-1 flex flex-col lg:flex-row items-center relative mt-0 lg:mt-15 justify-center lg:justify-between px-6 md:px-16 lg:px-8 xl:px-16 py-10 gap-16 lg:gap-8 min-h-screen lg:min-h-0 overflow-hidden lg:overflow-visible">
+            <section className="flex-1 flex flex-col lg:flex-row items-center relative mt-0 lg:mt-15 justify-center lg:justify-between px-6 md:px-16 lg:px-8 xl:px-16 py-4 lg:py-10 gap-2 lg:gap-8 min-h-screen lg:min-h-0 overflow-hidden lg:overflow-visible">
                 <Hero />
                 <Projects />
                 <Validation />
