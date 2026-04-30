@@ -14,13 +14,12 @@ export default function Projects() {
                             width={735}
                             height={400}
                             className="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500"
-                            priority={index === 2} // Priority for the central image
+                            priority={index === 2}
                         />
                     </div>
                 </div>
             ))}
 
-            {/* Gran arco decorativo de fondo y flecha */}
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ zIndex: 0 }}>
                 <div
                     className="absolute border-[3px] border-[#89EA2B]/90 rounded-full gsap-hero-bg w-[280px] h-[280px] md:w-[450px] md:h-[450px] lg:w-[320px] lg:h-[320px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] lg:top-1/2 lg:left-[56%] lg:-translate-x-[72%] lg:-translate-y-[40%]"

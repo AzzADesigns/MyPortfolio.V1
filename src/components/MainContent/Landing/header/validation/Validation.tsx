@@ -18,10 +18,8 @@ export default function Validation() {
                 ))}
             </div>
 
-            {/* Separador */}
             <div className="hidden lg:block w-[15%] bg-[#89EA2B] absolute bottom-0 right-0 h-2" />
 
-            {/* Redes sociales */}
             <div className="flex items-center justify-center gap-6 md:gap-10 lg:gap-4 xl:gap-6 2xl:gap-10 gsap-hero-stat mt-4 lg:mt-0">
                 {SOCIAL_LINKS.map((link, index) => (
                     <Link

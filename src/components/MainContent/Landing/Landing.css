@@ -1,0 +1,18 @@
+.landing-container {
+    background-color: #001720;
+    background-image: linear-gradient(to bottom right, rgba(3, 231, 245, 0.15) 0%, transparent 70%);
+    font-family: var(--font-sora), sans-serif;
+}
+
+.gsap-nav, 
+.gsap-hero-text, 
+.gsap-hero-image, 
+.gsap-hero-bg, 
+.gsap-hero-stat {
+    visibility: hidden;
+    opacity: 0;
+}
+
+a, button {
+    -webkit-tap-highlight-color: transparent;
+}

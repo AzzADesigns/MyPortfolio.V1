@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
+import { animateMobileMenu } from './animation/navbarAnimation';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,24 +12,12 @@ export default function Navbar() {
     const overlayRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        if (isMenuOpen) {
-            gsap.to(overlayRef.current, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' });
-            gsap.to(menuContentRef.current, { y: 0, autoAlpha: 1, duration: 0.5, ease: 'back.out(1.2)' });
-            gsap.fromTo('.mobile-link', 
-                { y: 30, opacity: 0, scale: 0.9 }, 
-                { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.5)', delay: 0.1 }
-            );
-        } else {
-            gsap.to('.mobile-link', { y: -20, opacity: 0, duration: 0.2, stagger: -0.05, ease: 'power2.in' });
-            gsap.to(menuContentRef.current, { y: 50, autoAlpha: 0, duration: 0.4, ease: 'power3.in', delay: 0.1 });
-            gsap.to(overlayRef.current, { autoAlpha: 0, duration: 0.4, ease: 'power2.in', delay: 0.2 });
-        }
+        animateMobileMenu(isMenuOpen, overlayRef.current, menuContentRef.current);
     }, { dependencies: [isMenuOpen] });
 
     return (
         <>
             <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-auto lg:bottom-auto lg:top-0 lg:w-full mt-0 lg:mt-5 px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-[#001720]/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none rounded-2xl lg:rounded-none border border-white/10 lg:border-transparent shadow-lg shadow-black/20 lg:shadow-none">
-                {/* Logo */}
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"
@@ -51,7 +39,6 @@ export default function Navbar() {
                     </p>
                 </div>
 
-                {/* Nav links */}
                 <div className="hidden lg:flex items-center gap-8 text-sm text-gray-400 font-medium gsap-nav">
                     {NAV_LINKS.map((link) => (
                         <Link 
@@ -70,7 +57,6 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                {/* Mobile Menu Icon */}
                 <div className="lg:hidden flex items-center gsap-nav">
                     <button 
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -81,16 +67,13 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* ─── OVERLAY MENU MOBILE ────────────────────────────────────────── */}
             <div className="lg:hidden">
-                {/* Fondo oscuro desenfocado */}
                 <div 
                     ref={overlayRef}
                     className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 invisible"
                     onClick={() => setIsMenuOpen(false)}
                 />
                 
-                {/* Contenedor de Opciones (Grid Cards) */}
                 <div 
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
