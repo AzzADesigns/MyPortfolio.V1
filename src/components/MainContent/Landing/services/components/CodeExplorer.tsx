@@ -60,17 +60,11 @@ const CodeExplorerComponent = () => {
                 </div>
                 
                 <div className="level-content relative ml-5 mt-2 opacity-0 translate-y-2">
-
                     <div className="tree-line absolute -left-3 top-[-10px] w-[1px]" style={{ backgroundColor: color }} />
-                    
-
                     <div className="absolute -left-3 top-2 w-3 h-[1px]" style={{ backgroundColor: `${color}4D` }} />
-                    
                     <div className="flex items-center gap-2 mb-3 text-white/30">
                         <FiFileText size={16} />
                     </div>
-
-
                     <div className="relative">
                         <div className="absolute -left-3 top-3 w-3 h-[1px]" style={{ backgroundColor: `${color}4D` }} />
                         {renderLevels(depth + 1)}
@@ -83,7 +77,6 @@ const CodeExplorerComponent = () => {
     return (
         <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none opacity-80">
             <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-[#4ade80]/20 blur-[100px] rounded-full" />
-            
             <div className="explorer-wrapper absolute bottom-12 right-12">
                 {renderLevels(0)}
             </div>

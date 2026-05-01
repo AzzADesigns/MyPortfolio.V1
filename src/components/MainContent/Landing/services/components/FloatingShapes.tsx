@@ -61,19 +61,19 @@ const FloatingShapesComponent = ({ type = 'design' }: FloatingShapesProps) => {
 
     return (
         <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Icono 1 */}
+
             <div className="floating-shape absolute top-1/4 right-1/4 flex items-center justify-center will-change-transform">
                 <div className="absolute w-32 h-32 blur-[50px] rounded-full" style={{ backgroundColor: `${config.colors[0]}4D` }} />
                 <Icon1 size={config.sizes[0]} className="relative z-10" style={{ color: `${config.colors[0]}33` }} />
             </div>
             
-            {/* Icono 2 */}
+
             <div className="floating-shape absolute top-1/2 right-10 flex items-center justify-center will-change-transform">
                 <div className="absolute w-36 h-36 blur-[60px] rounded-full" style={{ backgroundColor: `${config.colors[1]}4D` }} />
                 <Icon2 size={config.sizes[1]} className="relative z-10" style={{ color: `${config.colors[1]}33` }} />
             </div>
 
-            {/* Icono 3 */}
+
             <div className="floating-shape absolute bottom-1/4 right-1/3 flex items-center justify-center will-change-transform">
                 <div className="absolute w-32 h-32 blur-[55px] rounded-full" style={{ backgroundColor: `${config.colors[2]}4D` }} />
                 <Icon3 size={config.sizes[2]} className="relative z-10" style={{ color: `${config.colors[2]}33` }} />

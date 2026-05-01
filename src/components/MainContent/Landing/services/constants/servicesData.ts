@@ -9,7 +9,7 @@ export interface ServiceCardData {
     wrapperClassName?: string;
     cardBg?: string;
     hoverBg?: string;
-    decorationType: 'design' | 'product' | 'code'; // Para mapear al componente correcto
+    decorationType: 'design' | 'product' | 'code';
 }
 
 export const SERVICES_TEXTS = {

@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 
-// Tipos de retorno del setup
+
 interface ServicesScene {
     bg: Element;
     titleWords: NodeListOf<Element>;
@@ -8,7 +8,7 @@ interface ServicesScene {
     cards: Element[];
 }
 
-// 0. Prepara el escenario invisible y retorna las referencias del DOM
+
 export const setupServicesScene = (container: HTMLDivElement): ServicesScene | null => {
     const bg = container.querySelector('.services-bg');
     const titleWords = container.querySelectorAll('.title-word');
@@ -42,7 +42,7 @@ export const setupServicesScene = (container: HTMLDivElement): ServicesScene | n
     return { bg, titleWords, subtitle, cards };
 };
 
-// 1. Animación del encabezado (fondo + título + subtítulo) — compartida entre desktop y mobile
+
 export const animateServicesHeader = (
     tl: gsap.core.Timeline,
     bg: Element,
@@ -62,7 +62,7 @@ export const animateServicesHeader = (
         );
 };
 
-// 2. Animación de cards en Desktop — se encadena al timeline principal
+
 export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Element[]) => {
     tl.to(
         cards,
@@ -80,7 +80,7 @@ export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Eleme
     );
 };
 
-// 3. Animación de cards en Móvil/Tablet — Scrubbing 1:1 con el scroll
+
 export const animateServicesCardsMobile = (cards: Element[]) => {
     cards.forEach((card) => {
         gsap.to(card, {

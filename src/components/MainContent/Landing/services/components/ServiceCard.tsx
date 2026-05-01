@@ -4,19 +4,15 @@ import React from 'react';
 import CTAButton from '../../shared/CTAButton/CTAButton';
 
 interface ServiceCardProps {
-    // Título
-    titleBase: string;        // Ej: "Diseño "
-    titleAccent: string;      // Ej: "UX / UI"
-    titleAccentColor: string; // Ej: "text-[#89EA2B]"
-    titleLineBreak?: boolean; // Si el acento va en una nueva línea
-    // Contenido
+    titleBase: string;
+    titleAccent: string;
+    titleAccentColor: string;
+    titleLineBreak?: boolean;
     description: string;
     ctaText: string;
-    // Layout
-    wrapperClassName?: string; // Ej: "lg:translate-y-12"
-    cardBg?: string;           // Ej: "bg-[#011D26]" (default: bg-[#001720])
-    hoverBg?: string;          // Ej: "hover:bg-[#001720]/95"
-    // Decoración interna (FloatingShapes o CodeExplorer)
+    wrapperClassName?: string;
+    cardBg?: string;
+    hoverBg?: string;
     decoration: React.ReactNode;
 }
 

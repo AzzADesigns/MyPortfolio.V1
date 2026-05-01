@@ -23,9 +23,9 @@ export const animateProjectsMobile = () => {
         scrollTrigger: {
             scroller: typeof window !== 'undefined' && window.innerWidth >= 1024 ? ".landing-container" : window,
             trigger: '.gsap-projects-container',
-            start: "top 60%", // Punto de equilibrio: ni tan arriba (mucho scroll) ni tan abajo (ya activado)
+            start: "top 60%", 
             end: "bottom center",
-            scrub: 1, // Balance entre instantáneo y suavidad premium
+            scrub: 1, 
             invalidateOnRefresh: true
         },
         defaults: { ease: "power1.inOut" }

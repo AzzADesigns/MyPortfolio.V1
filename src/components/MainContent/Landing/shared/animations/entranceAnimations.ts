@@ -35,11 +35,11 @@ export const useLandingEntrance = () => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 768px)", () => {
-            // Navbar: timeline independiente, sin ScrollTrigger, nunca se resetea
+
             const navTl = gsap.timeline();
             animateNavbar(navTl);
 
-            // Hero/Projects/Validation: se repiten al entrar/salir
+
             const tl = createMainTimeline(containerRef.current);
             animateHero(tl);
             animateProjects(tl);

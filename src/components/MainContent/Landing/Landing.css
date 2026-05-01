@@ -17,7 +17,7 @@ a, button {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Custom Scrollbar - Forzado Global */
+
 html::-webkit-scrollbar {
     width: 4px !important;
 }
@@ -39,7 +39,7 @@ html::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #a3f256 0%, #4ce4f7 100%) !important;
 }
 
-/* Soporte para Firefox */
+
 * {
     scrollbar-width: thin !important;
     scrollbar-color: #89EA2B transparent !important;
