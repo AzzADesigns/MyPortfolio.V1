@@ -17,8 +17,9 @@ function isPointOverWhite(x: number, y: number): boolean {
 export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const followerRef = useRef<HTMLDivElement>(null);
-    const bracketsWrapperRef = useRef<HTMLDivElement>(null);
-    const bracketsRef = useRef<HTMLDivElement>(null);
+    const bracketsPosRef = useRef<HTMLDivElement>(null); // Contenedor solo para X, Y
+    const bracketsWrapperRef = useRef<HTMLDivElement>(null); // Contenedor solo para giro constante
+    const bracketsRef = useRef<HTMLDivElement>(null); // Contenedor para efecto de carga
     const containerRef = useRef<HTMLDivElement>(null);
 
     // Refs para cada elemento individual del cursor
@@ -46,6 +47,7 @@ export default function CustomCursor() {
     useEffect(() => {
         const cursor = cursorRef.current;
         const follower = followerRef.current;
+        const bracketsPos = bracketsPosRef.current;
         const bracketsWrapper = bracketsWrapperRef.current;
         const brackets = bracketsRef.current;
         const container = containerRef.current;
@@ -54,7 +56,7 @@ export default function CustomCursor() {
         const dotTR = dotTRRef.current;
         const dotBL = dotBLRef.current;
 
-        if (!cursor || !follower || !bracketsWrapper || !brackets || !container) return;
+        if (!cursor || !follower || !bracketsPos || !bracketsWrapper || !brackets || !container) return;
         if (!bracketTL || !bracketBR || !dotTR || !dotBL) return;
 
         document.body.style.cursor = 'none';
@@ -149,7 +151,7 @@ export default function CustomCursor() {
             const dist = Math.sqrt(dx * dx + dy * dy);
             velocity.current = Math.min(dist, 100);
             
-            if (velocity.current > 5) isMoving.current = true;
+            if (velocity.current > 1) isMoving.current = true;
             
             lastPos.current = { x: e.clientX, y: e.clientY };
 
@@ -164,7 +166,7 @@ export default function CustomCursor() {
                 overwrite: 'auto'
             });
 
-            gsap.to(bracketsWrapper, {
+            gsap.to(bracketsPos, {
                 x: e.clientX,
                 y: e.clientY,
                 duration: 0.8,
@@ -191,12 +193,9 @@ export default function CustomCursor() {
             isMoving.current = false;
             isConfiguring.current = true;
 
-            if (rotationAnim.current) rotationAnim.current.pause();
-
             const tl = gsap.timeline({
                 onComplete: () => {
                     isConfiguring.current = false;
-                    if (rotationAnim.current) rotationAnim.current.play();
                 }
             });
 
@@ -247,7 +246,7 @@ export default function CustomCursor() {
             });
             
             if (rotationAnim.current) {
-                gsap.to(rotationAnim.current, { timeScale: 6, duration: 0.5, overwrite: true });
+                gsap.to(rotationAnim.current, { timeScale: 2, duration: 0.5, overwrite: true });
             }
 
             if (hoverAnim.current) hoverAnim.current.kill();
@@ -329,7 +328,7 @@ export default function CustomCursor() {
 
         rotationAnim.current = gsap.to(bracketsWrapper, {
             rotation: 360,
-            duration: 15,
+            duration: 3,
             repeat: -1,
             ease: "none"
         });
@@ -338,7 +337,7 @@ export default function CustomCursor() {
             const prevVelocity = velocity.current;
             velocity.current *= 0.9;
             
-            if (prevVelocity > 2 && velocity.current <= 2) {
+            if (prevVelocity > 0.5 && velocity.current <= 0.5) {
                 triggerLoadingEffect();
             }
         };
@@ -363,31 +362,36 @@ export default function CustomCursor() {
     return (
         // SIN mix-blend-difference global — el color lo controlamos por elemento
         <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block opacity-0">
-            <div ref={bracketsWrapperRef} className="fixed top-0 left-0 w-10 h-10 -translate-x-1/2 -translate-y-1/2">
-                <div ref={bracketsRef} className="w-full h-full relative opacity-90">
-                    {/* Bracket Top-Left — ref individual para muestreo */}
-                    <div 
-                        ref={bracketTLRef}
-                        className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent" 
-                        style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }} 
-                    />
-                    {/* Bracket Bottom-Right — ref individual */}
-                    <div 
-                        ref={bracketBRRef}
-                        className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent" 
-                        style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }} 
-                    />
-                    
-                    {/* Dot Top-Right — ref individual */}
-                    <div 
-                        ref={dotTRRef}
-                        className="is-dot absolute top-1 right-1 w-1.5 h-1.5 bg-white rounded-full" 
-                    />
-                    {/* Dot Bottom-Left — ref individual */}
-                    <div 
-                        ref={dotBLRef}
-                        className="is-dot absolute bottom-1 left-1 w-1.5 h-1.5 bg-white rounded-full" 
-                    />
+            {/* Posición (X, Y) aislada para no chocar con el giro */}
+            <div ref={bracketsPosRef} className="fixed top-0 left-0 w-10 h-10 -translate-x-1/2 -translate-y-1/2">
+                {/* Rotación constante aislada */}
+                <div ref={bracketsWrapperRef} className="w-full h-full">
+                    {/* Efectos de carga aislados */}
+                    <div ref={bracketsRef} className="w-full h-full relative opacity-90">
+                        {/* Bracket Top-Left — ref individual para muestreo */}
+                        <div 
+                            ref={bracketTLRef}
+                            className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]" 
+                            style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }} 
+                        />
+                        {/* Bracket Bottom-Right — ref individual */}
+                        <div 
+                            ref={bracketBRRef}
+                            className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]" 
+                            style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }} 
+                        />
+                        
+                        {/* Dot Top-Right — ref individual */}
+                        <div 
+                            ref={dotTRRef}
+                            className="is-dot absolute top-1 right-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]" 
+                        />
+                        {/* Dot Bottom-Left — ref individual */}
+                        <div 
+                            ref={dotBLRef}
+                            className="is-dot absolute bottom-1 left-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]" 
+                        />
+                    </div>
                 </div>
             </div>
 
