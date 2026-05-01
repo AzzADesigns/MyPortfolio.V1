@@ -86,7 +86,7 @@ export default function CustomCursor() {
             });
 
             tl.to(brackets, {
-                scale: 1.5,
+                scale: 1.3, // Reducido de 1.5 para un efecto más sutil
                 rotation: -360,
                 duration: 1.5,
                 ease: "power2.inOut"
@@ -250,10 +250,13 @@ export default function CustomCursor() {
 
     return (
         <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block opacity-0 mix-blend-difference">
-            <div ref={bracketsWrapperRef} className="fixed top-0 left-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2">
+            <div ref={bracketsWrapperRef} className="fixed top-0 left-0 w-10 h-10 -translate-x-1/2 -translate-y-1/2">
                 <div ref={bracketsRef} className="w-full h-full relative opacity-80">
+                    {/* Brackets */}
                     <div className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent" style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }} />
                     <div className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent" style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }} />
+                    
+                    {/* Círculos Externos - PROHIBIDO ELIMINAR */}
                     <div className="is-dot absolute top-1 right-1 w-1.5 h-1.5 bg-white rounded-full" />
                     <div className="is-dot absolute bottom-1 left-1 w-1.5 h-1.5 bg-white rounded-full" />
                 </div>
