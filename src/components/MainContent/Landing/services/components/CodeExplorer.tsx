@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, memo } from 'react';
-import { FiFolder, FiFileText, FiChevronRight, FiChevronDown } from 'react-icons/fi';
+import { FiFolder, FiFileText, FiChevronRight } from 'react-icons/fi';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -17,13 +17,11 @@ const CodeExplorerComponent = () => {
         const lines = containerRef.current.querySelectorAll('.tree-line');
         const chevrons = containerRef.current.querySelectorAll('.chevron-icon');
 
-        // Reset inicial: Empieza ABAJO (fuera de la tarjeta)
         gsap.set([levels, contents, lines], { opacity: 0 });
         gsap.set(lines, { height: 0 });
         gsap.set(chevrons, { rotation: 0 });
-        gsap.set(wrapper, { y: 250, x: 180 }); // Ajustado para entrar antes en escena
+        gsap.set(wrapper, { y: 250, x: 180 }); 
 
-        // Secuencia de Crecimiento Infinito
         levels.forEach((level, i) => {
             tl.to(level, { opacity: 1, duration: 0.3 });
             
@@ -36,7 +34,6 @@ const CodeExplorerComponent = () => {
                 tl.to(contents[i], { opacity: 1, y: 0, duration: 0.4 }, "-=0.3");
             }
 
-            // Scroll hacia ARRIBA pero solo hasta llegar a la esquina
             tl.to(wrapper, { 
                 y: `-=${42}`, 
                 x: `-=${12}`, 
@@ -85,7 +82,6 @@ const CodeExplorerComponent = () => {
 
     return (
         <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none opacity-80">
-            {/* Resplandor focalizado en la esquina inferior derecha */}
             <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-[#4ade80]/20 blur-[100px] rounded-full" />
             
             <div className="explorer-wrapper absolute bottom-12 right-12">
