@@ -1,7 +1,12 @@
+.landing-container, .landing-container * {
+    cursor: none !important;
+}
+
 .landing-container {
     background-color: #001720;
     background-image: linear-gradient(to bottom right, rgba(3, 231, 245, 0.15) 0%, transparent 70%);
     font-family: var(--font-sora), sans-serif;
+    user-select: none;
 }
 
 .gsap-nav,
