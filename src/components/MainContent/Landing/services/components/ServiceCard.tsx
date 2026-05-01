@@ -30,7 +30,7 @@ export const ServiceCard = ({
 }: ServiceCardProps) => {
     return (
         <div className={wrapperClassName}>
-            <div className={`service-card h-full ${cardBg} border border-white/5 p-8 lg:p-12 rounded-[16px] lg:rounded-[23px] flex flex-col gap-6 lg:gap-8 relative overflow-hidden group ${hoverBg} transition-colors duration-500 shadow-2xl`}>
+            <div className={`service-card h-full ${cardBg} border border-white/5 p-8 lg:p-12 rounded-[16px] lg:rounded-[23px] flex flex-col gap-6 lg:gap-8 relative overflow-hidden ${hoverBg} transition-colors duration-500 shadow-2xl`}>
                 <h3 className="text-white text-3xl lg:text-5xl font-bold leading-[1.1]">
                     {titleBase}
                     {titleLineBreak && <br />}

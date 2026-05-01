@@ -33,7 +33,7 @@ export default function Validation() {
                         <div 
                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                             style={{
-                                backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee, #4ade80)',
+                                backgroundImage: 'linear-gradient(90deg, #89EA2B, #07F8F2, #89EA2B)',
                                 WebkitMaskImage: `url('${link.icon}')`,
                                 WebkitMaskSize: 'contain',
                                 WebkitMaskRepeat: 'no-repeat',

@@ -4,16 +4,17 @@
     font-family: var(--font-sora), sans-serif;
 }
 
-.gsap-nav, 
-.gsap-hero-text, 
-.gsap-hero-image, 
-.gsap-hero-bg, 
+.gsap-nav,
+.gsap-hero-text,
+.gsap-hero-image,
+.gsap-hero-bg,
 .gsap-hero-stat {
     visibility: hidden;
     opacity: 0;
 }
 
-a, button {
+a,
+button {
     -webkit-tap-highlight-color: transparent;
 }
 

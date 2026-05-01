@@ -32,7 +32,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-[#001720]/80 backdrop-blur-md lg:bg-[#001720]/70 lg:backdrop-blur-md rounded-2xl lg:rounded-none border border-white/10 lg:border-b lg:border-white/5 shadow-lg shadow-black/20 lg:shadow-none">
+            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-brand-dark/80 backdrop-blur-md lg:bg-brand-dark/70 lg:backdrop-blur-md rounded-2xl lg:rounded-none border border-white/10 lg:border-b lg:border-white/5 shadow-lg shadow-black/20 lg:shadow-none">
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"
@@ -59,14 +59,14 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`hover:text-white active:scale-90 transition-all duration-200 inline-block ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-[#22d3ee]' : 'active:text-[#89EA2B]'}`}
+                            className={`hover:text-white active:scale-90 transition-all duration-200 inline-block ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-brand-cyan' : 'active:text-brand-green'}`}
                         >
                             {link.label}
                         </Link>
                     ))}
                     <Link
                         href="/portfolio"
-                        className="text-white border border-white/20 px-4 py-1.5 rounded-full hover:bg-white/10 active:scale-90 active:bg-white active:text-[#001720] transition-all duration-200 inline-block"
+                        className="text-white border border-white/20 px-4 py-1.5 rounded-full hover:bg-white/10 active:scale-90 active:bg-white active:text-brand-dark transition-all duration-200 inline-block"
                     >
                         Portfolio
                     </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
                 >
-                    <div className="bg-[#001720]/80 backdrop-blur-md border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
+                    <div className="bg-brand-dark/80 backdrop-blur-md border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {NAV_LINKS.map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";
@@ -107,15 +107,15 @@ export default function Navbar() {
                                         key={link.href}
                                         onClick={() => setIsMenuOpen(false)}
                                         href={link.href}
-                                        className={`mobile-link flex flex-col items-center justify-center bg-white/5 border border-white/5 rounded-2xl py-6 text-white transition-all duration-200 group ${isGreen ? 'hover:bg-[#89EA2B]/20 hover:border-[#89EA2B]/50 active:bg-[#89EA2B]/30' : 'hover:bg-[#22d3ee]/20 hover:border-[#22d3ee]/50 active:bg-[#22d3ee]/30'} active:scale-90`}
+                                        className={`mobile-link flex flex-col items-center justify-center bg-white/5 border border-white/5 rounded-2xl py-6 text-white transition-all duration-200 group ${isGreen ? 'hover:bg-brand-green/20 hover:border-brand-green/50 active:bg-brand-green/30' : 'hover:bg-brand-cyan/20 hover:border-brand-cyan/50 active:bg-brand-cyan/30'} active:scale-90`}
                                     >
-                                        <Icon className={`${isGreen ? 'text-[#89EA2B]' : 'text-[#22d3ee]'} text-3xl mb-2 group-hover:scale-110 transition-transform ${link.label === "Metodología" ? 'group-active:rotate-90' : link.label === "Destacados" ? 'group-active:scale-150' : 'group-active:-rotate-12'}`} />
+                                        <Icon className={`${isGreen ? 'text-brand-green' : 'text-brand-cyan'} text-3xl mb-2 group-hover:scale-110 transition-transform ${link.label === "Metodología" ? 'group-active:rotate-90' : link.label === "Destacados" ? 'group-active:scale-150' : 'group-active:-rotate-12'}`} />
                                         <span className="text-sm font-bold">{link.label}</span>
                                     </Link>
                                 );
                             })}
                         </div>
-                        <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link mobile-cta mt-2 w-full flex items-center justify-center bg-gradient-to-r from-[#4ade80] to-[#22d3ee] rounded-2xl py-4 text-[#001720] text-lg font-extrabold shadow-[0_0_20px_rgba(74,222,128,0.2)] hover:shadow-[0_0_30px_rgba(74,222,128,0.5)] active:scale-95 active:shadow-none active:opacity-20 transition-all duration-200">
+                        <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link mobile-cta mt-2 w-full flex items-center justify-center bg-gradient-to-r from-brand-green to-brand-cyan rounded-2xl py-4 text-brand-dark text-lg font-extrabold shadow-[0_0_20px_rgba(137,234,43,0.2)] hover:shadow-[0_0_30px_rgba(137,234,43,0.5)] active:scale-95 active:shadow-none active:opacity-20 transition-all duration-200">
                             Explorar Portfolio
                         </Link>
                     </div>

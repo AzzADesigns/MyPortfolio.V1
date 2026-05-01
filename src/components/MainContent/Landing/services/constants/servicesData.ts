@@ -1,4 +1,3 @@
-
 export interface ServiceCardData {
     titleBase: string;
     titleAccent: string;
@@ -24,18 +23,16 @@ export const SERVICES_CARDS: ServiceCardData[] = [
     {
         titleBase: 'Diseño ',
         titleAccent: 'UX / UI',
-        titleAccentColor: 'text-[#89EA2B]',
+        titleAccentColor: 'text-brand-green',
         description:
             'Diseño interfaces claras, modernas y alineadas a una identidad de marca sólida. Ideal para productos que necesitan mejorar su imagen o construir una experiencia desde cero.',
         ctaText: 'Crea mi diseño perfecto',
-        cardBg: 'bg-[#011D26]',
-        hoverBg: 'hover:bg-[#001720]/95',
         decorationType: 'design',
     },
     {
         titleBase: 'Planeación de',
         titleAccent: 'producto',
-        titleAccentColor: 'text-[#22d3ee]',
+        titleAccentColor: 'text-brand-cyan',
         titleLineBreak: true,
         description:
             'Analizo tu idea y la convierto en una estructura clara: funcionalidades, flujos, experiencia de usuario y enfoque del producto orientado a ventas.',
@@ -46,7 +43,7 @@ export const SERVICES_CARDS: ServiceCardData[] = [
     {
         titleBase: 'Creación de',
         titleAccent: 'apps webs',
-        titleAccentColor: 'text-[#4ade80]',
+        titleAccentColor: 'text-brand-green',
         titleLineBreak: true,
         description:
             'Desarrollo productos funcionales, optimizados y escalables. Podés llegar con una idea, un diseño previo o una planificación ya definida.',

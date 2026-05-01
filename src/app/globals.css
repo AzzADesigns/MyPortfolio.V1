@@ -238,9 +238,7 @@ body {
 }
 .animate-gradient-move {
     background-size: 200% auto;
-}
-.group:hover .animate-gradient-move {
-    animation: gradientMove 2s linear infinite;
+    animation: gradientMove 3s linear infinite;
 }
 
 /* globals.css */
@@ -252,4 +250,8 @@ body {
     --breakpoint-2xl: 1536px;
     --breakpoint-new2xl: 1522px;
     --breakpoint-3xl: 1713px;
+
+    --color-brand-green: #89EA2B;
+    --color-brand-cyan: #07F8F2;
+    --color-brand-dark: #001720;
 }

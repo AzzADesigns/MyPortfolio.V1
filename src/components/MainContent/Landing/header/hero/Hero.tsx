@@ -10,7 +10,7 @@ export default function Hero() {
                 {HERO_TEXTS.title.word1}{' '}
                 <span
                     className="text-transparent bg-clip-text"
-                    style={{ backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)' }}
+                    style={{ backgroundImage: 'linear-gradient(90deg, #89EA2B, #07F8F2)' }}
                 >
                     {HERO_TEXTS.title.highlight1}
                 </span>{' '}
@@ -18,7 +18,7 @@ export default function Hero() {
                 {HERO_TEXTS.title.word3}{' '}
                 <span
                     className="text-transparent bg-clip-text"
-                    style={{ backgroundImage: 'linear-gradient(90deg, #4ade80, #22d3ee)' }}
+                    style={{ backgroundImage: 'linear-gradient(90deg, #89EA2B, #07F8F2)' }}
                 >
                     {HERO_TEXTS.title.highlight2}
                 </span>

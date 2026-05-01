@@ -3,13 +3,13 @@ export const STATS = [
         value: "+3",
         label: "Años",
         subLabel: "De especialización",
-        valueColor: "text-[#22d3ee]"
+        valueColor: "text-brand-cyan"
     },
     {
         value: "+7",
         label: "productos",
         subLabel: "lanzados",
-        valueColor: "text-[#22d3ee]"
+        valueColor: "text-brand-cyan"
     }
 ];
 

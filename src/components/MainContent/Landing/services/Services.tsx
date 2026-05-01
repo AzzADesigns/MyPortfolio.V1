@@ -25,7 +25,7 @@ export const Services = () => {
                                 <span className="title-word inline-block">{word}</span>{' '}
                             </React.Fragment>
                         ))}
-                        <span className="title-word relative inline-block px-4 lg:px-6 py-1 lg:py-2 bg-[#001720] border border-[#22d3ee]/30 rounded-2xl lg:rounded-3xl text-[#22d3ee] shadow-[0_0_40px_rgba(34,211,238,0.25)] ml-1">
+                        <span className="title-word relative inline-block px-4 lg:px-6 py-1 lg:py-2 bg-brand-dark border border-brand-cyan/30 rounded-2xl lg:rounded-3xl text-brand-cyan shadow-[0_0_40px_rgba(7,248,242,0.25)] ml-1">
                             {SERVICES_TEXTS.title.highlight}
                         </span>
                     </h2>
