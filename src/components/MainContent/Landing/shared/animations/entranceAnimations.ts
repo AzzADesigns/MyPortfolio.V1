@@ -16,8 +16,15 @@ export const setupGSAPDefaults = () => {
     });
 };
 
-export const createMainTimeline = () => {
-    return gsap.timeline();
+export const createMainTimeline = (container: HTMLDivElement | null) => {
+    return gsap.timeline({
+        scrollTrigger: {
+            trigger: container ? container.querySelector("section:first-of-type") : null,
+            scroller: container,
+            start: "top 50%",
+            toggleActions: "play reset play reset"
+        }
+    });
 };
 
 export const useLandingEntrance = () => {
@@ -28,8 +35,12 @@ export const useLandingEntrance = () => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 768px)", () => {
-            const tl = createMainTimeline();
-            animateNavbar(tl);
+            // Navbar: timeline independiente, sin ScrollTrigger, nunca se resetea
+            const navTl = gsap.timeline();
+            animateNavbar(navTl);
+
+            // Hero/Projects/Validation: se repiten al entrar/salir
+            const tl = createMainTimeline(containerRef.current);
             animateHero(tl);
             animateProjects(tl);
             animateValidation(tl);
