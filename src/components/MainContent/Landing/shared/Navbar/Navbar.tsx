@@ -4,12 +4,16 @@ import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
-import { animateMobileMenu } from './animation/navbarAnimation';
+import { animateMobileMenu, initNavbarScroll } from './animation/navbarAnimation';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuContentRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        initNavbarScroll();
+    }, []);
 
     useGSAP(() => {
         animateMobileMenu(isMenuOpen, overlayRef.current, menuContentRef.current);
@@ -28,7 +32,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-auto lg:bottom-auto lg:top-0 lg:w-full mt-0 lg:mt-5 px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-[#001720]/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none rounded-2xl lg:rounded-none border border-white/10 lg:border-transparent shadow-lg shadow-black/20 lg:shadow-none">
+            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-[#001720]/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none rounded-2xl lg:rounded-none border border-white/10 lg:border-transparent shadow-lg shadow-black/20 lg:shadow-none">
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"

@@ -1,4 +1,41 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export const initNavbarScroll = () => {
+    ScrollTrigger.create({
+        scroller: typeof window !== 'undefined' && window.innerWidth >= 1024 ? ".landing-container" : window,
+        start: "top -20",
+        onUpdate: (self) => {
+            if (window.innerWidth >= 1024) {
+                if (self.direction === 1 && self.scroll() > 20) {
+                    gsap.to("nav", { 
+                        backgroundColor: "rgba(0, 23, 32, 0.7)", 
+                        backdropFilter: "blur(12px)",
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                        paddingTop: "12px",
+                        paddingBottom: "12px",
+                        duration: 0.4,
+                        ease: 'power2.out',
+                        overwrite: true
+                    });
+                } else if (self.scroll() <= 20) {
+                    gsap.to("nav", { 
+                        backgroundColor: "transparent", 
+                        backdropFilter: "blur(0px)",
+                        borderBottom: "1px solid transparent",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        duration: 0.4,
+                        ease: 'power2.out',
+                        overwrite: true
+                    });
+                }
+            }
+        }
+    });
+};
 
 export const animateNavbar = (tl: gsap.core.Timeline) => {
     tl.fromTo('.gsap-nav', { y: -50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' });

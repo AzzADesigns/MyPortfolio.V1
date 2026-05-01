@@ -16,3 +16,31 @@
 a, button {
     -webkit-tap-highlight-color: transparent;
 }
+
+/* Custom Scrollbar - Forzado Global */
+html::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+html::-webkit-scrollbar-button {
+    display: none !important;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #89EA2B 0%, #22d3ee 100%) !important;
+    border-radius: 10px !important;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a3f256 0%, #4ce4f7 100%) !important;
+}
+
+/* Soporte para Firefox */
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: #89EA2B transparent !important;
+}
