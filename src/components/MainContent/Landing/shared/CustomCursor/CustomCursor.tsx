@@ -16,6 +16,7 @@ export default function CustomCursor() {
     const hoverAnim = useRef<gsap.core.Timeline | null>(null);
     const isMoving = useRef(false);
     const isConfiguring = useRef(false);
+    const isHovering = useRef(false);
 
     useEffect(() => {
         const cursor = cursorRef.current;
@@ -29,10 +30,6 @@ export default function CustomCursor() {
 
         const xSetCursor = gsap.quickSetter(cursor, "x", "px");
         const ySetCursor = gsap.quickSetter(cursor, "y", "px");
-        const xSetFollower = gsap.quickSetter(follower, "x", "px");
-        const ySetFollower = gsap.quickSetter(follower, "y", "px");
-        const xSetBrackets = gsap.quickSetter(bracketsWrapper, "x", "px");
-        const ySetBrackets = gsap.quickSetter(bracketsWrapper, "y", "px");
 
         const onMouseMove = (e: MouseEvent) => {
             const dx = e.clientX - lastPos.current.x;
@@ -62,10 +59,20 @@ export default function CustomCursor() {
                 ease: 'power3.out',
                 overwrite: 'auto'
             });
+
+            // Delegación de eventos para hover consistente
+            const target = e.target as HTMLElement;
+            const interactive = target.closest('a, button, .cursor-pointer, [role="button"], .service-card');
+            
+            if (interactive && !isHovering.current) {
+                onHoverStart();
+            } else if (!interactive && isHovering.current) {
+                onHoverEnd();
+            }
         };
 
         const triggerLoadingEffect = () => {
-            if (!isMoving.current || isConfiguring.current) return;
+            if (!isMoving.current || isConfiguring.current || isHovering.current) return;
             isMoving.current = false;
             isConfiguring.current = true;
 
@@ -107,16 +114,25 @@ export default function CustomCursor() {
         };
 
         const onHoverStart = () => {
-            gsap.to(cursor, { scale: 2, backgroundColor: '#FFFFFF', backgroundImage: 'none', duration: 0.2 });
+            isHovering.current = true;
+            gsap.to(cursor, { 
+                scale: 3.5, 
+                backgroundColor: '#FFFFFF', 
+                backgroundImage: 'none', 
+                boxShadow: '0 0 20px rgba(255, 255, 255, 0.7)',
+                duration: 0.4,
+                overwrite: true
+            });
             gsap.to(follower, { 
-                scale: 1.4, 
-                backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+                scale: 1.6, 
+                backgroundColor: 'rgba(255, 255, 255, 0.25)', 
                 borderColor: '#FFFFFF',
-                duration: 0.2 
+                duration: 0.4,
+                overwrite: true
             });
             
             if (rotationAnim.current) {
-                gsap.to(rotationAnim.current, { timeScale: 5, duration: 0.4 });
+                gsap.to(rotationAnim.current, { timeScale: 6, duration: 0.5, overwrite: true });
             }
 
             const bracketEls = brackets.querySelectorAll('.is-bracket');
@@ -131,40 +147,49 @@ export default function CustomCursor() {
                 scale: 1.4,
                 borderColor: '#FFFFFF',
                 borderImageSource: 'none',
-                duration: 0.4,
+                duration: 0.5,
                 ease: "power2.inOut"
             })
             .to(dotEls, {
                 scale: 0.8,
                 backgroundColor: '#FFFFFF',
-                duration: 0.4,
+                duration: 0.5,
                 ease: "power2.inOut"
             }, 0)
             .to(bracketEls, {
                 scale: 1.1,
-                duration: 0.4,
+                duration: 0.5,
                 ease: "power2.inOut"
             })
             .to(dotEls, {
                 scale: 1.3,
-                duration: 0.4,
+                duration: 0.5,
                 ease: "power2.inOut"
-            }, 0.4);
+            }, 0.5);
         };
 
         const onHoverEnd = () => {
+            isHovering.current = false;
             if (hoverAnim.current) hoverAnim.current.kill();
             
-            gsap.to(cursor, { scale: 1, backgroundColor: 'transparent', backgroundImage: 'linear-gradient(90deg, #89EA2B, #07F8F2, #89EA2B)', duration: 0.3 });
+            gsap.to(cursor, { 
+                scale: 1, 
+                backgroundColor: 'transparent', 
+                backgroundImage: 'linear-gradient(90deg, #89EA2B, #07F8F2, #89EA2B)', 
+                boxShadow: '0 0 8px rgba(255,255,255,0.4)',
+                duration: 0.4,
+                overwrite: true
+            });
             gsap.to(follower, { 
                 scale: 1, 
                 backgroundColor: 'transparent', 
                 borderColor: 'rgba(255, 255, 255, 0.4)',
-                duration: 0.3 
+                duration: 0.4,
+                overwrite: true
             });
 
             if (rotationAnim.current) {
-                gsap.to(rotationAnim.current, { timeScale: 1, duration: 0.5 });
+                gsap.to(rotationAnim.current, { timeScale: 1, duration: 0.6, overwrite: true });
             }
             
             const bracketEls = brackets.querySelectorAll('.is-bracket');
@@ -174,32 +199,21 @@ export default function CustomCursor() {
                 scale: 1,
                 borderColor: 'transparent',
                 borderImageSource: (i: number) => i % 2 === 0 ? 'linear-gradient(to right, #89EA2B, #07F8F2)' : 'linear-gradient(to right, #07F8F2, #89EA2B)',
-                duration: 0.3 
+                duration: 0.4,
+                overwrite: true
             });
 
             gsap.to(dotEls, {
                 scale: 1,
                 backgroundColor: 'white',
-                duration: 0.3
+                duration: 0.4,
+                overwrite: true
             });
         };
 
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mouseup', onMouseUp);
-
-        const updateInteractiveElements = () => {
-            const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer, [role="button"]');
-            interactiveElements.forEach(el => {
-                el.removeEventListener('mouseenter', onHoverStart);
-                el.removeEventListener('mouseleave', onHoverEnd);
-                el.addEventListener('mouseenter', onHoverStart);
-                el.addEventListener('mouseleave', onHoverEnd);
-            });
-        };
-
-        const interval = setInterval(updateInteractiveElements, 1000);
-        updateInteractiveElements();
 
         gsap.to(container, { autoAlpha: 1, duration: 0.5 });
 
@@ -225,7 +239,6 @@ export default function CustomCursor() {
             window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mouseup', onMouseUp);
             gsap.ticker.remove(ticker);
-            clearInterval(interval);
             document.body.style.cursor = 'auto';
         };
     }, []);
@@ -239,11 +252,8 @@ export default function CustomCursor() {
         <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block opacity-0 mix-blend-difference">
             <div ref={bracketsWrapperRef} className="fixed top-0 left-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2">
                 <div ref={bracketsRef} className="w-full h-full relative opacity-80">
-                    {/* Brackets Asimétricos (Safety Fix) */}
                     <div className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent" style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }} />
                     <div className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent" style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }} />
-                    
-                    {/* Puntos Asimétricos */}
                     <div className="is-dot absolute top-1 right-1 w-1.5 h-1.5 bg-white rounded-full" />
                     <div className="is-dot absolute bottom-1 left-1 w-1.5 h-1.5 bg-white rounded-full" />
                 </div>
