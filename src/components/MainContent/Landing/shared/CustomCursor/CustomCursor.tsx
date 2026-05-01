@@ -84,7 +84,7 @@ export default function CustomCursor() {
                 gsap.to(bracketTL, {
                     borderColor: tlWhite ? DARK_BLUE : 'transparent',
                     duration: 0.15,
-                    overwrite: true
+                    overwrite: 'auto'
                 });
             }
 
@@ -95,7 +95,7 @@ export default function CustomCursor() {
                 gsap.to(bracketBR, {
                     borderColor: brWhite ? DARK_BLUE : 'transparent',
                     duration: 0.15,
-                    overwrite: true
+                    overwrite: 'auto'
                 });
             }
 
@@ -105,7 +105,7 @@ export default function CustomCursor() {
                 gsap.to(dotTR, {
                     backgroundColor: trWhite ? DARK_BLUE : 'white',
                     duration: 0.15,
-                    overwrite: true
+                    overwrite: 'auto'
                 });
             }
 
@@ -115,7 +115,7 @@ export default function CustomCursor() {
                 gsap.to(dotBL, {
                     backgroundColor: blWhite ? DARK_BLUE : 'white',
                     duration: 0.15,
-                    overwrite: true
+                    overwrite: 'auto'
                 });
             }
 
@@ -124,10 +124,10 @@ export default function CustomCursor() {
                 state.center = centerWhite;
                 if (centerWhite) {
                     gsap.set(cursor, { backgroundImage: 'none' });
-                    gsap.to(cursor, { backgroundColor: DARK_BLUE, duration: 0.15, overwrite: true });
+                    gsap.to(cursor, { backgroundColor: DARK_BLUE, boxShadow: '0 0 8px rgba(0,23,32,0.4)', duration: 0.15, overwrite: 'auto' });
                 } else {
                     gsap.set(cursor, { backgroundColor: 'transparent' });
-                    gsap.to(cursor, { backgroundImage: BRAND_GRAD, duration: 0.15, overwrite: true });
+                    gsap.to(cursor, { backgroundImage: BRAND_GRAD, boxShadow: '0 0 8px rgba(255,255,255,0.4), 0 0 0 1px rgba(0,23,32,0.6)', duration: 0.15, overwrite: 'auto' });
                 }
             }
 
@@ -136,8 +136,9 @@ export default function CustomCursor() {
                 state.follower = followerWhite;
                 gsap.to(follower, {
                     borderColor: followerWhite ? 'rgba(0,23,32,0.5)' : 'rgba(255,255,255,0.4)',
+                    boxShadow: followerWhite ? 'none' : '0 0 0 1px rgba(0,23,32,0.4)',
                     duration: 0.15,
-                    overwrite: true
+                    overwrite: 'auto'
                 });
             }
         };
