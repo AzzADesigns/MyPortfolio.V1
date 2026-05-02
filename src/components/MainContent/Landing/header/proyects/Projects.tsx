@@ -4,7 +4,7 @@ import { PROJECT_IMAGES } from './constants/projectData';
 
 export default function Projects() {
     return (
-        <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] 2xl:h-auto flex items-center justify-center mt-[-120px] mb-10 lg:my-0 z-10 gsap-projects-container">
+        <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] 2xl:h-auto flex items-center justify-center mt-[-120px] md:mt-0 mb-10 lg:my-0 z-10 gsap-projects-container">
             {PROJECT_IMAGES.map((img, index) => (
                 <div key={index} className={`absolute ${img.animateClass} gsap-hero-image`} style={{ zIndex: img.zIndex }}>
                     <div className={img.containerClass}>

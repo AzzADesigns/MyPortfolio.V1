@@ -5,7 +5,7 @@ import { STATS, SOCIAL_LINKS } from './constants/validationData';
 
 export default function Validation() {
     return (
-        <div className="flex flex-col gap-10 lg:gap-16 2xl:gap-50 mt-[-100px] lg:mt-0 items-center lg:items-end flex-shrink-0 z-20 w-full lg:w-auto pb-32 lg:pb-0">
+        <div className="flex flex-col gap-10 lg:gap-16 2xl:gap-50 mt-[-100px] md:mt-0 lg:mt-0 items-center lg:items-end flex-shrink-0 z-20 w-full lg:w-auto pb-32 lg:pb-0">
             <div className="flex flex-row lg:flex-col gap-4 md:gap-20 lg:gap-12 2xl:gap-50 w-full justify-center lg:justify-end px-2">
                 {STATS.map((stat, index) => (
                     <div key={index} className="text-center lg:text-right gsap-hero-stat flex-1 lg:flex-auto">
