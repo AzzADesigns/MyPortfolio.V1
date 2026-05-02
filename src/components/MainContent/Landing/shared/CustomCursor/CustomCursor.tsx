@@ -11,7 +11,7 @@ const HALF = BRACKET_SIZE / 2;
 function isPointOverWhite(x: number, y: number): boolean {
     let el = document.elementFromPoint(x, y) as HTMLElement | null;
     if (!el) return false;
-    
+
     // Excepción crítica: Las cards se vuelven oscuras al hacer hover, el cursor debe mantenerse brillante
     if (el.closest('.service-card, .project-card, [data-card]')) return false;
 
@@ -22,7 +22,7 @@ function isPointOverWhite(x: number, y: number): boolean {
     while (el && el !== document.body && el !== document.documentElement) {
         const style = window.getComputedStyle(el);
         const bg = style.backgroundColor;
-        
+
         // Extraer valores rgba
         const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
         if (match) {
@@ -30,7 +30,7 @@ function isPointOverWhite(x: number, y: number): boolean {
             const g = parseInt(match[2]);
             const b = parseInt(match[3]);
             const a = match[4] ? parseFloat(match[4]) : 1;
-            
+
             // Si el fondo no es transparente
             if (a > 0.1) {
                 // Si los 3 canales son altos, es un color claro
@@ -44,7 +44,7 @@ function isPointOverWhite(x: number, y: number): boolean {
         }
         el = el.parentElement;
     }
-    
+
     return false;
 }
 
@@ -69,6 +69,7 @@ export default function CustomCursor() {
     const isMoving = useRef(false);
     const isConfiguring = useRef(false);
     const activeStates = useRef({ isCard: false, isButton: false });
+    const lastMagneticButton = useRef<HTMLElement | null>(null);
 
     // Estado de color por elemento (para no re-aplicar innecesariamente)
     const elementWhiteState = useRef({ tl: false, br: false, tr: false, bl: false, center: false, follower: false });
@@ -178,28 +179,64 @@ export default function CustomCursor() {
             }
         };
 
+        // Función auxiliar para encontrar botones en un radio
+        const getButtonInRadius = (x: number, y: number, radius: number, target: HTMLElement | null): HTMLElement | null => {
+            // 1. Intento rápido: el elemento bajo el cursor
+            const btn = target?.closest('a, button, .cursor-pointer, [role="button"]') as HTMLElement | null;
+            if (btn) return btn;
+
+            // 2. Búsqueda radial
+            const interactives = document.querySelectorAll('a, button, .cursor-pointer, [role="button"]');
+            for (let i = 0; i < interactives.length; i++) {
+                const el = interactives[i] as HTMLElement;
+                const rect = el.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) continue;
+
+                if (
+                    x >= rect.left - radius &&
+                    x <= rect.right + radius &&
+                    y >= rect.top - radius &&
+                    y <= rect.bottom + radius
+                ) {
+                    return el;
+                }
+            }
+            return null;
+        };
+
         const onMouseMove = (e: MouseEvent) => {
             const dx = e.clientX - lastPos.current.x;
             const dy = e.clientY - lastPos.current.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             velocity.current = Math.min(dist, 100);
-            
+
             if (velocity.current > 1) isMoving.current = true;
-            
+
             lastPos.current = { x: e.clientX, y: e.clientY };
 
             // Evaluar Estados
             const target = e.target as HTMLElement;
             const isCard = !!target.closest('.service-card, .project-card, [data-card]');
-            const button = target.closest('a, button, .cursor-pointer, [role="button"]') as HTMLElement | null;
-            const isButton = !!button;
             
+            const attractRadius = 40;
+            const button = getButtonInRadius(e.clientX, e.clientY, attractRadius, target);
+            const isButton = !!button;
+
             if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
                 activeStates.current = { isCard, isButton };
                 applyStates(isCard, isButton);
+                
+                // Sincronizar el efecto visual del botón físico con el imán virtual
+                if (isButton && button) {
+                    button.setAttribute('data-hover', 'true');
+                    lastMagneticButton.current = button;
+                } else if (!isButton && lastMagneticButton.current) {
+                    lastMagneticButton.current.removeAttribute('data-hover');
+                    lastMagneticButton.current = null;
+                }
             }
-            
-            // Efecto Imán: Atraer el cursor al centro del botón
+
+            // Efecto Imán con Físicas
             let cursorX = e.clientX;
             let cursorY = e.clientY;
 
@@ -207,13 +244,13 @@ export default function CustomCursor() {
                 const rect = button.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
-                
-                // Distancia desde el ratón al centro del botón
+
                 const distanceX = e.clientX - centerX;
                 const distanceY = e.clientY - centerY;
                 
-                // Factor de atracción (0.5 = se acerca un 50% al centro)
+                // Factor constante para el cursor (fuerte chasquido táctil)
                 const pullFactor = 0.5; 
+
                 cursorX = e.clientX - (distanceX * pullFactor);
                 cursorY = e.clientY - (distanceY * pullFactor);
             }
@@ -238,7 +275,7 @@ export default function CustomCursor() {
                 ease: 'power3.out',
                 overwrite: 'auto'
             });
-            
+
             applyElementColors(e.clientX, e.clientY);
         };
 
@@ -259,11 +296,11 @@ export default function CustomCursor() {
                 duration: 1.5,
                 ease: "power2.inOut"
             })
-            .to(brackets, {
-                rotation: 0,
-                duration: 1.5,
-                ease: "power2.inOut"
-            });
+                .to(brackets, {
+                    rotation: 0,
+                    duration: 1.5,
+                    ease: "power2.inOut"
+                });
             tl.to(brackets, {
                 scale: 1,
                 duration: 0.5,
@@ -295,11 +332,11 @@ export default function CustomCursor() {
 
             // 2. Cursor (Punto central): Blanco en ambos, pero más grande en botones.
             if (isButton || isCard) {
-                gsap.to(cursor, { 
-                    scale: isButton ? 3.5 : 1.2, 
-                    backgroundColor: '#FFFFFF', 
-                    backgroundImage: 'none', 
-                    boxShadow: isButton 
+                gsap.to(cursor, {
+                    scale: isButton ? 3.5 : 1.2,
+                    backgroundColor: '#FFFFFF',
+                    backgroundImage: 'none',
+                    boxShadow: isButton
                         ? '0 0 20px rgba(255, 255, 255, 0.7), 0 0 0 1px rgba(0,23,32,0.5)'
                         : '0 0 10px rgba(255, 255, 255, 0.4), 0 0 0 1px rgba(0,23,32,0.5)',
                     duration: 0.4,
@@ -315,34 +352,34 @@ export default function CustomCursor() {
                     const tl = gsap.timeline({ repeat: -1 });
                     hoverAnim.current = tl;
                     tl.to([bracketTL, bracketBR], { scale: 1.4, borderColor: '#FFFFFF', duration: 0.5, ease: "power2.inOut" })
-                      .to([dotTR, dotBL], { scale: 0.8, backgroundColor: '#FFFFFF', duration: 0.5, ease: "power2.inOut" }, 0)
-                      .to([bracketTL, bracketBR], { scale: 1.1, duration: 0.5, ease: "power2.inOut" })
-                      .to([dotTR, dotBL], { scale: 1.3, duration: 0.5, ease: "power2.inOut" }, 0.5);
+                        .to([dotTR, dotBL], { scale: 0.8, backgroundColor: '#FFFFFF', duration: 0.5, ease: "power2.inOut" }, 0)
+                        .to([bracketTL, bracketBR], { scale: 1.1, duration: 0.5, ease: "power2.inOut" })
+                        .to([dotTR, dotBL], { scale: 1.3, duration: 0.5, ease: "power2.inOut" }, 0.5);
                 }
             } else {
                 if (hoverAnim.current) {
                     hoverAnim.current.kill();
                     hoverAnim.current = null;
                 }
-                
+
                 // Efecto único de Card: Todo se vuelve blanco
                 if (isCard) {
                     bracketTL!.style.borderImage = 'none';
                     bracketBR!.style.borderImage = 'none';
                 }
-                
-                gsap.to([bracketTL, bracketBR], { 
-                    scale: isCard ? 1.3 : 1, 
-                    rotation: isCard ? 15 : 0, 
+
+                gsap.to([bracketTL, bracketBR], {
+                    scale: isCard ? 1.3 : 1,
+                    rotation: isCard ? 15 : 0,
                     borderColor: isCard ? '#FFFFFF' : undefined,
-                    duration: 0.4, 
-                    overwrite: 'auto' 
+                    duration: 0.4,
+                    overwrite: 'auto'
                 });
-                gsap.to([dotTR, dotBL], { 
-                    scale: isCard ? 1.3 : 1, 
+                gsap.to([dotTR, dotBL], {
+                    scale: isCard ? 1.3 : 1,
                     backgroundColor: isCard ? '#FFFFFF' : undefined,
-                    duration: 0.4, 
-                    overwrite: 'auto' 
+                    duration: 0.4,
+                    overwrite: 'auto'
                 });
             }
 
@@ -362,15 +399,26 @@ export default function CustomCursor() {
 
         const updateStateFromPoint = () => {
             if (lastPos.current.x === 0 && lastPos.current.y === 0) return;
-            
+
             const target = document.elementFromPoint(lastPos.current.x, lastPos.current.y) as HTMLElement | null;
-            if (target) {
-                const isCard = !!target.closest('.service-card, .project-card, [data-card]');
-                const isButton = !!target.closest('a, button, .cursor-pointer, [role="button"]');
-                
-                if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
-                    activeStates.current = { isCard, isButton };
-                    applyStates(isCard, isButton);
+            const attractRadius = 40;
+            const { isCard, isButton, button } = {
+                isCard: !!target?.closest('.service-card, .project-card, [data-card]'),
+                button: getButtonInRadius(lastPos.current.x, lastPos.current.y, attractRadius, target),
+                get isButton() { return !!this.button; }
+            };
+
+            if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
+                activeStates.current = { isCard, isButton };
+                applyStates(isCard, isButton);
+
+                // IMPORTANTE: También gestionar data-hover aquí para evitar desincronización
+                if (isButton && button) {
+                    button.setAttribute('data-hover', 'true');
+                    lastMagneticButton.current = button;
+                } else if (!isButton && lastMagneticButton.current) {
+                    lastMagneticButton.current.removeAttribute('data-hover');
+                    lastMagneticButton.current = null;
                 }
             }
             applyElementColors(lastPos.current.x, lastPos.current.y);
@@ -399,7 +447,7 @@ export default function CustomCursor() {
         const ticker = () => {
             const prevVelocity = velocity.current;
             velocity.current *= 0.9;
-            
+
             if (prevVelocity > 0.5 && velocity.current <= 0.5) {
                 triggerLoadingEffect();
             }
@@ -432,27 +480,27 @@ export default function CustomCursor() {
                     {/* Efectos de carga aislados */}
                     <div ref={bracketsRef} className="w-full h-full relative opacity-90">
                         {/* Bracket Top-Left — ref individual para muestreo */}
-                        <div 
+                        <div
                             ref={bracketTLRef}
-                            className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]" 
-                            style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }} 
+                            className="is-bracket absolute top-0 left-0 w-3.5 h-3.5 border-t-[2.5px] border-l-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]"
+                            style={{ borderImage: 'linear-gradient(to right, #89EA2B, #07F8F2) 1' }}
                         />
                         {/* Bracket Bottom-Right — ref individual */}
-                        <div 
+                        <div
                             ref={bracketBRRef}
-                            className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]" 
-                            style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }} 
+                            className="is-bracket absolute bottom-0 right-0 w-3.5 h-3.5 border-b-[2.5px] border-r-[2.5px] border-transparent drop-shadow-[0_0_1.5px_rgba(0,23,32,0.8)]"
+                            style={{ borderImage: 'linear-gradient(to right, #07F8F2, #89EA2B) 1' }}
                         />
-                        
+
                         {/* Dot Top-Right — ref individual */}
-                        <div 
+                        <div
                             ref={dotTRRef}
-                            className="is-dot absolute top-1 right-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]" 
+                            className="is-dot absolute top-1 right-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]"
                         />
                         {/* Dot Bottom-Left — ref individual */}
-                        <div 
+                        <div
                             ref={dotBLRef}
-                            className="is-dot absolute bottom-1 left-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]" 
+                            className="is-dot absolute bottom-1 left-1 w-2 h-2 bg-white rounded-full border-[1.5px] border-[#001720]"
                         />
                     </div>
                 </div>
