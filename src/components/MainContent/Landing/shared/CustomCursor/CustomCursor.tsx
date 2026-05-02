@@ -9,9 +9,43 @@ const HALF = BRACKET_SIZE / 2;
 
 // Devuelve true si el punto (x, y) está sobre una superficie blanca/clara
 function isPointOverWhite(x: number, y: number): boolean {
-    const el = document.elementFromPoint(x, y);
+    let el = document.elementFromPoint(x, y) as HTMLElement | null;
     if (!el) return false;
-    return !!el.closest('.services-bg');
+    
+    // Excepción crítica: Las cards se vuelven oscuras al hacer hover, el cursor debe mantenerse brillante
+    if (el.closest('.service-card, .project-card, [data-card]')) return false;
+
+    // Fast path: si el elemento o sus padres tienen clases obvias de fondo claro
+    if (el.closest('.services-bg, .bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-100')) return true;
+
+    // Búsqueda profunda de color de fondo real
+    while (el && el !== document.body && el !== document.documentElement) {
+        const style = window.getComputedStyle(el);
+        const bg = style.backgroundColor;
+        
+        // Extraer valores rgba
+        const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+        if (match) {
+            const r = parseInt(match[1]);
+            const g = parseInt(match[2]);
+            const b = parseInt(match[3]);
+            const a = match[4] ? parseFloat(match[4]) : 1;
+            
+            // Si el fondo no es transparente
+            if (a > 0.1) {
+                // Si los 3 canales son altos, es un color claro
+                if (r > 200 && g > 200 && b > 200) {
+                    return true;
+                } else {
+                    // Es un color oscuro sólido, dejamos de buscar hacia arriba
+                    return false;
+                }
+            }
+        }
+        el = el.parentElement;
+    }
+    
+    return false;
 }
 
 export default function CustomCursor() {
@@ -34,7 +68,7 @@ export default function CustomCursor() {
     const hoverAnim = useRef<gsap.core.Timeline | null>(null);
     const isMoving = useRef(false);
     const isConfiguring = useRef(false);
-    const isHovering = useRef(false);
+    const activeStates = useRef({ isCard: false, isButton: false });
 
     // Estado de color por elemento (para no re-aplicar innecesariamente)
     const elementWhiteState = useRef({ tl: false, br: false, tr: false, bl: false, center: false, follower: false });
@@ -65,9 +99,8 @@ export default function CustomCursor() {
         const ySetCursor = gsap.quickSetter(cursor, "y", "px");
 
         // Aplica el color correcto a cada elemento según si está sobre blanco o no
-        // Pasar forceUpdate=true para saltarse el cache (e.g., al salir del hover)
         const applyElementColors = (cx: number, cy: number, forceUpdate = false) => {
-            if (isHovering.current) return; // Hover tiene sus propios colores
+            if (activeStates.current.isButton || activeStates.current.isCard) return; // Si es botón o card, los colores son forzados en applyStates
 
             const tlWhite = isPointOverWhite(cx - HALF + 4, cy - HALF + 4);
             const brWhite = isPointOverWhite(cx + HALF - 4, cy + HALF - 4);
@@ -155,41 +188,62 @@ export default function CustomCursor() {
             
             lastPos.current = { x: e.clientX, y: e.clientY };
 
-            xSetCursor(e.clientX);
-            ySetCursor(e.clientY);
+            // Evaluar Estados
+            const target = e.target as HTMLElement;
+            const isCard = !!target.closest('.service-card, .project-card, [data-card]');
+            const button = target.closest('a, button, .cursor-pointer, [role="button"]') as HTMLElement | null;
+            const isButton = !!button;
+            
+            if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
+                activeStates.current = { isCard, isButton };
+                applyStates(isCard, isButton);
+            }
+            
+            // Efecto Imán: Atraer el cursor al centro del botón
+            let cursorX = e.clientX;
+            let cursorY = e.clientY;
 
+            if (isButton && button) {
+                const rect = button.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                // Distancia desde el ratón al centro del botón
+                const distanceX = e.clientX - centerX;
+                const distanceY = e.clientY - centerY;
+                
+                // Factor de atracción (0.5 = se acerca un 50% al centro)
+                const pullFactor = 0.5; 
+                cursorX = e.clientX - (distanceX * pullFactor);
+                cursorY = e.clientY - (distanceY * pullFactor);
+            }
+
+            // Mover el punto real inmediatamente
+            xSetCursor(cursorX);
+            ySetCursor(cursorY);
+
+            // Animación del seguidor y corchetes (persigue al punto magnetizado)
             gsap.to(follower, {
-                x: e.clientX,
-                y: e.clientY,
+                x: cursorX,
+                y: cursorY,
                 duration: 0.4,
                 ease: 'power2.out',
                 overwrite: 'auto'
             });
 
             gsap.to(bracketsPos, {
-                x: e.clientX,
-                y: e.clientY,
+                x: cursorX,
+                y: cursorY,
                 duration: 0.8,
                 ease: 'power3.out',
                 overwrite: 'auto'
             });
-
-            // Aplicar colores por elemento
-            applyElementColors(e.clientX, e.clientY);
-
-            // Hover en elementos interactivos
-            const target = e.target as HTMLElement;
-            const interactive = target.closest('a, button, .cursor-pointer, [role="button"], .service-card');
             
-            if (interactive && !isHovering.current) {
-                onHoverStart();
-            } else if (!interactive && isHovering.current) {
-                onHoverEnd();
-            }
+            applyElementColors(e.clientX, e.clientY);
         };
 
         const triggerLoadingEffect = () => {
-            if (!isMoving.current || isConfiguring.current || isHovering.current) return;
+            if (!isMoving.current || isConfiguring.current || activeStates.current.isButton) return;
             isMoving.current = false;
             isConfiguring.current = true;
 
@@ -227,90 +281,99 @@ export default function CustomCursor() {
             gsap.to(cursor, { scale: 1, duration: 0.3, overwrite: true, ease: "back.out(3)" });
         };
 
-        const onHoverStart = () => {
-            isHovering.current = true;
-            gsap.to(cursor, { 
-                scale: 3.5, 
-                backgroundColor: '#FFFFFF', 
-                backgroundImage: 'none', 
-                boxShadow: '0 0 20px rgba(255, 255, 255, 0.7)',
+        const applyStates = (isCard: boolean, isButton: boolean) => {
+            // 1. Follower: Cuadrado en cards, circular en el resto. Background blanco en botones.
+            gsap.to(follower, {
+                borderRadius: isCard ? '8px' : '50%',
+                scale: isButton ? 1.6 : (isCard ? 1.2 : 1),
+                backgroundColor: isButton ? 'rgba(255, 255, 255, 0.25)' : 'transparent',
+                borderColor: (isButton || isCard) ? '#FFFFFF' : undefined,
+                boxShadow: (isButton || isCard) ? '0 0 0 1px rgba(0,23,32,0.4)' : undefined,
                 duration: 0.4,
-                overwrite: true
+                overwrite: 'auto'
             });
-            gsap.to(follower, { 
-                scale: 1.6, 
-                backgroundColor: 'rgba(255, 255, 255, 0.25)', 
-                borderColor: '#FFFFFF',
-                duration: 0.4,
-                overwrite: true
-            });
-            
-            if (rotationAnim.current) {
-                gsap.to(rotationAnim.current, { timeScale: 2, duration: 0.5, overwrite: true });
+
+            // 2. Cursor (Punto central): Blanco en ambos, pero más grande en botones.
+            if (isButton || isCard) {
+                gsap.to(cursor, { 
+                    scale: isButton ? 3.5 : 1.2, 
+                    backgroundColor: '#FFFFFF', 
+                    backgroundImage: 'none', 
+                    boxShadow: isButton 
+                        ? '0 0 20px rgba(255, 255, 255, 0.7), 0 0 0 1px rgba(0,23,32,0.5)'
+                        : '0 0 10px rgba(255, 255, 255, 0.4), 0 0 0 1px rgba(0,23,32,0.5)',
+                    duration: 0.4,
+                    overwrite: 'auto'
+                });
+            } else {
+                gsap.to(cursor, { scale: 1, duration: 0.3, overwrite: 'auto' });
             }
 
-            if (hoverAnim.current) hoverAnim.current.kill();
-            
-            const tl = gsap.timeline({ repeat: -1 });
-            hoverAnim.current = tl;
-
-            tl.to([bracketTL, bracketBR], {
-                scale: 1.4,
-                borderColor: '#FFFFFF',
-                duration: 0.5,
-                ease: "power2.inOut"
-            })
-            .to([dotTR, dotBL], {
-                scale: 0.8,
-                backgroundColor: '#FFFFFF',
-                duration: 0.5,
-                ease: "power2.inOut"
-            }, 0)
-            .to([bracketTL, bracketBR], {
-                scale: 1.1,
-                duration: 0.5,
-                ease: "power2.inOut"
-            })
-            .to([dotTR, dotBL], {
-                scale: 1.3,
-                duration: 0.5,
-                ease: "power2.inOut"
-            }, 0.5);
-        };
-
-        const onHoverEnd = () => {
-            isHovering.current = false;
-            if (hoverAnim.current) hoverAnim.current.kill();
-            
-            if (rotationAnim.current) {
-                gsap.to(rotationAnim.current, { timeScale: 1, duration: 0.6, overwrite: true });
+            // 3. Brackets & Dots: Pulsación en botones, expansión blanca en cards
+            if (isButton) {
+                if (!hoverAnim.current) {
+                    const tl = gsap.timeline({ repeat: -1 });
+                    hoverAnim.current = tl;
+                    tl.to([bracketTL, bracketBR], { scale: 1.4, borderColor: '#FFFFFF', duration: 0.5, ease: "power2.inOut" })
+                      .to([dotTR, dotBL], { scale: 0.8, backgroundColor: '#FFFFFF', duration: 0.5, ease: "power2.inOut" }, 0)
+                      .to([bracketTL, bracketBR], { scale: 1.1, duration: 0.5, ease: "power2.inOut" })
+                      .to([dotTR, dotBL], { scale: 1.3, duration: 0.5, ease: "power2.inOut" }, 0.5);
+                }
+            } else {
+                if (hoverAnim.current) {
+                    hoverAnim.current.kill();
+                    hoverAnim.current = null;
+                }
+                
+                // Efecto único de Card: Todo se vuelve blanco
+                if (isCard) {
+                    bracketTL!.style.borderImage = 'none';
+                    bracketBR!.style.borderImage = 'none';
+                }
+                
+                gsap.to([bracketTL, bracketBR], { 
+                    scale: isCard ? 1.3 : 1, 
+                    rotation: isCard ? 15 : 0, 
+                    borderColor: isCard ? '#FFFFFF' : undefined,
+                    duration: 0.4, 
+                    overwrite: 'auto' 
+                });
+                gsap.to([dotTR, dotBL], { 
+                    scale: isCard ? 1.3 : 1, 
+                    backgroundColor: isCard ? '#FFFFFF' : undefined,
+                    duration: 0.4, 
+                    overwrite: 'auto' 
+                });
             }
 
-            gsap.to(cursor, { scale: 1, duration: 0.3, overwrite: true });
-            gsap.to(follower, { scale: 1, backgroundColor: 'transparent', duration: 0.3, overwrite: true });
-            gsap.to([bracketTL, bracketBR], { scale: 1, duration: 0.3, overwrite: true });
-            gsap.to([dotTR, dotBL], { scale: 1, duration: 0.3, overwrite: true });
+            // 4. Velocidad de Giro
+            if (rotationAnim.current) {
+                const timeScale = isButton ? 2 : (isCard ? 1.5 : 1);
+                gsap.to(rotationAnim.current, { timeScale, duration: 0.5, overwrite: true });
+            }
 
-            // Forzar re-evaluación completa ignorando el cache
-            // para que los colores del hover (blanco) sean reemplazados inmediatamente
-            gsap.delayedCall(0.05, () => {
-                applyElementColors(lastPos.current.x, lastPos.current.y, true);
-            });
+            // Forzar colores correctos inmediatamente si salimos de interactivos
+            if (!isButton && !isCard) {
+                gsap.delayedCall(0.05, () => {
+                    applyElementColors(lastPos.current.x, lastPos.current.y, true);
+                });
+            }
         };
 
         const updateStateFromPoint = () => {
             if (lastPos.current.x === 0 && lastPos.current.y === 0) return;
             
-            applyElementColors(lastPos.current.x, lastPos.current.y);
             const target = document.elementFromPoint(lastPos.current.x, lastPos.current.y) as HTMLElement | null;
             if (target) {
-                const interactive = target.closest('a, button, .cursor-pointer, [role="button"], .service-card');
-                if (interactive && !isHovering.current) {
-                    onHoverStart();
-                } else if (!interactive && isHovering.current) {
-                    onHoverEnd();
+                const isCard = !!target.closest('.service-card, .project-card, [data-card]');
+                const isButton = !!target.closest('a, button, .cursor-pointer, [role="button"]');
+                
+                if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
+                    activeStates.current = { isCard, isButton };
+                    applyStates(isCard, isButton);
                 }
             }
+            applyElementColors(lastPos.current.x, lastPos.current.y);
         };
 
         const pollInterval = setInterval(updateStateFromPoint, 50);
