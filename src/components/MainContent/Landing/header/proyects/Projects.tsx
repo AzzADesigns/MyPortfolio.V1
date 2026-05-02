@@ -1,5 +1,4 @@
-import React from 'react';
-import Image from 'next/image';
+import PixelDistortion from './components/PixelDistortion';
 import { PROJECT_IMAGES } from './constants/projectData';
 
 export default function Projects() {
@@ -7,17 +6,11 @@ export default function Projects() {
         <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] 2xl:h-auto flex items-center justify-center mt-[-120px] md:mt-0 mb-10 lg:my-0 z-10 gsap-projects-container">
             {PROJECT_IMAGES.map((img, index) => (
                 <div key={index} className={`absolute ${img.animateClass} gsap-hero-image`} style={{ zIndex: img.zIndex }}>
-                    <div className={img.containerClass}>
-                        <Image
-                            src={img.src}
-                            alt={img.alt}
-                            width={735}
-                            height={400}
-                            className="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 will-change-transform will-change-[filter]"
-                            priority={index === 2}
-                            loading={index === 2 ? "eager" : "lazy"}
-                        />
-                    </div>
+                    <PixelDistortion
+                        src={img.src}
+                        alt={img.alt}
+                        containerClass={`${img.containerClass} aspect-[16/9] w-[280px] md:w-[450px] lg:w-[320px] xl:w-[450px] 2xl:w-[535px]`}
+                    />
                 </div>
             ))}
 
