@@ -31,20 +31,11 @@ export default function HexagonWave3D() {
             }
             ctx.closePath();
             
-            // 1. Relleno base oscuro
-            ctx.fillStyle = `rgba(137, 234, 43, ${opacity * 0.1})`;
+            // 1. RELLENO SÓLIDO (Bloquea la luz de fondo)
+            ctx.fillStyle = '#001720'; 
             ctx.fill();
 
-            // 2. Brillo especular (Efecto cristal de la imagen)
-            if (shimmer > 0) {
-                const grad = ctx.createRadialGradient(x, y - size*0.5, 0, x, y, size);
-                grad.addColorStop(0, `rgba(255, 255, 255, ${shimmer * 0.4})`);
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-                ctx.fill();
-            }
-
-            // 3. Trazo (Wireframe)
+            // 2. Trazo (Borde técnico sutil)
             ctx.strokeStyle = `rgba(137, 234, 43, ${opacity})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
@@ -54,17 +45,27 @@ export default function HexagonWave3D() {
             const w = canvas.width;
             const h = canvas.height;
             
-            // Fondo sólido para evitar ghosting
+            // 1. Fondo base
             ctx.fillStyle = '#001720';
             ctx.fillRect(0, 0, w, h);
 
-            const cols = Math.ceil(w / horizDist) + 2;
-            const rows = Math.ceil(h / vertDist) + 2;
-
-            // Posición de la burbuja basada en el progreso diagonal
             const waveX = w * wave.current.progress;
             const waveY = h * wave.current.progress;
             const waveRadius = Math.max(w, h) * 0.35;
+
+            // 2. LUZ DE ENERGÍA (La que se escapa por las grietas)
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            const lightGrad = ctx.createRadialGradient(waveX, waveY, 0, waveX, waveY, waveRadius * 1.2);
+            lightGrad.addColorStop(0, 'rgba(137, 234, 43, 0.45)'); // Verde marca vibrante
+            lightGrad.addColorStop(0.5, 'rgba(137, 234, 43, 0.15)');
+            lightGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = lightGrad;
+            ctx.fillRect(0, 0, w, h);
+            ctx.restore();
+
+            const cols = Math.ceil(w / horizDist) + 2;
+            const rows = Math.ceil(h / vertDist) + 2;
 
             for (let r = 0; r < rows; r++) {
                 const offset = (r % 2) * (hexWidth / 2);
@@ -78,21 +79,21 @@ export default function HexagonWave3D() {
 
                     let rx = bx;
                     let ry = by;
-                    let opacity = 0.12;
-                    let shimmer = 0;
-                    let size = hexSize - 1;
+                    let opacity = 0.15; // Opacidad constante para efecto silueta
+                    let shimmer = 0;    // Sin brillo propio
+                    let size = hexSize - 1.2;
 
-                    // Efecto de abombamiento (Bulge)
                     if (dist < waveRadius) {
                         const strength = Math.pow(1 - dist / waveRadius, 2);
                         
-                        // Empujamos los hexágonos hacia afuera del centro para crear el "bulto"
-                        rx = bx + dx * strength * 0.35;
-                        ry = by + dy * strength * 0.35;
+                        // Mantenemos la apertura de grietas
+                        rx = bx + dx * strength * 0.65; 
+                        ry = by + dy * strength * 0.65;
                         
-                        opacity = 0.12 + strength * 0.6;
-                        shimmer = strength;
-                        size = (hexSize - 1) * (1 + strength * 0.1);
+                        // Los hexágonos permanecen oscuros para contrastar con la luz de fondo
+                        opacity = 0.15; 
+                        shimmer = 0;
+                        size = (hexSize - 1.2) * (1 + strength * 0.05);
                     }
 
                     drawHexagon(ctx, rx, ry, size, opacity, shimmer);
