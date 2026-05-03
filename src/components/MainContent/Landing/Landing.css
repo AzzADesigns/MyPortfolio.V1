@@ -49,3 +49,15 @@ html::-webkit-scrollbar-thumb:hover {
     scrollbar-width: thin !important;
     scrollbar-color: #89EA2B transparent !important;
 }
+
+/* Animación para el botón CTA */
+@keyframes aurora-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-aurora-flow {
+    background-size: 200% 200%;
+    animation: aurora-flow 6s ease infinite;
+}
