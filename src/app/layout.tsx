@@ -59,6 +59,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <html lang={locale} suppressHydrationWarning>
             <body
                 className={`scroll-smooth ${geistSans.variable} ${geistMono.variable} antialiased bg-[var(--background)] text-[var(--textColor)]`}
+                suppressHydrationWarning
             >
                 <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
                     <NextIntlClientProvider>

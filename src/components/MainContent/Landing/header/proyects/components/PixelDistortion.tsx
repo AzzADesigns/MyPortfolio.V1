@@ -14,6 +14,12 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
     const containerRef = useRef<HTMLDivElement>(null);
     const mouse        = useRef({ x: 0, y: 0, lastX: 0, lastY: 0, vx: 0, vy: 0, active: false });
     const [isHovered, setIsHovered] = useState(false);
+    const bracketElements = useRef<Element[]>([]);
+    const animateRef   = useRef<() => void>(() => {});
+    const loopRunning  = useRef(false);
+    const bracketPoints = useRef<CursorPoint[]>([]);
+    const dotPoints     = useRef<CursorPoint[]>([]);
+    const particlesRef  = useRef<any[]>([]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -22,12 +28,9 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
         if (!ctx) return;
 
         let animationFrameId: number;
-        let particles: Particle[] = [];
         const image = new Image();
         image.src = src;
 
-        let bracketPoints: CursorPoint[] = [];
-        let dotPoints: CursorPoint[]     = [];
 
         class Particle {
             originX: number;
@@ -90,28 +93,34 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
                         this.vy += tvy * vForce;
                     }
 
-                    // 2. EFECTO ASPAS (Brackets) - Ahora mucho más localizado y tenso
-                    for (const bp of bracketPoints) {
-                        const bdx = this.x - bp.x;
-                        const bdy = this.y - bp.y;
-                        const distB = Math.sqrt(bdx * bdx + bdy * bdy);
-                        const BRACKET_ZONE = 8 * dynamicMultiplier; // Radio reducido para evitar manchas grandes
+                    // 2. EFECTO ASPAS (Brackets)
+                    const bPoints = bracketPoints.current;
+                    if (bPoints.length > 0) {
+                        const BRACKET_ZONE = 8 * dynamicMultiplier;
+                        const BRACKET_ZONE_SQ = BRACKET_ZONE * BRACKET_ZONE;
+                        
+                        for (const bp of bPoints) {
+                            const bdx = this.x - bp.x;
+                            const bdy = this.y - bp.y;
+                            const bDistSq = bdx * bdx + bdy * bdy;
 
-                        if (distB < BRACKET_ZONE && distB > 0) {
-                            const angle = Math.atan2(bdy, bdx);
-                            let bForce = (BRACKET_ZONE - distB) / BRACKET_ZONE;
+                            if (bDistSq < BRACKET_ZONE_SQ && bDistSq > 0) {
+                                const distB = Math.sqrt(bDistSq);
+                                const angle = Math.atan2(bdy, bdx);
+                                let bForce = (BRACKET_ZONE - distB) / BRACKET_ZONE;
 
-                            if (mouseSpeed > 0.5) {
-                                const dotB = (bdx * dirX + bdy * dirY) / distB;
-                                if (dotB < 0) {
-                                    bForce = 0; // Se cierra inmediatamente al pasar
-                                } else {
-                                    bForce *= (1 + dotB * 1.5); // Empuje frontal fuerte
+                                if (mouseSpeed > 0.5) {
+                                    const dotB = (bdx * dirX + bdy * dirY) / distB;
+                                    if (dotB < 0) {
+                                        bForce = 0;
+                                    } else {
+                                        bForce *= (1 + dotB * 1.5);
+                                    }
                                 }
+                                
+                                this.vx += Math.cos(angle) * bForce * 14;
+                                this.vy += Math.sin(angle) * bForce * 14;
                             }
-                            
-                            this.vx += Math.cos(angle) * bForce * 14;
-                            this.vy += Math.sin(angle) * bForce * 14;
                         }
                     }
                     // Los puntos (dots) y el centro no generan vacío, permitiendo que el agua se junte ahí
@@ -124,12 +133,14 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
                 this.vx *= 0.94;
                 this.vy *= 0.94;
 
-                // Curación suave
-                this.x += (this.originX - this.x) * 0.06;
-                this.y += (this.originY - this.y) * 0.06;
+                // Atracción al origen (Hard Snap: más fuerte si no hay mouse)
+                const ease = mouse.current.active ? 0.06 : 0.15;
+                this.x += (this.originX - this.x) * ease;
+                this.y += (this.originY - this.y) * ease;
 
-                // Optimización de descanso (Snapping)
-                if (Math.abs(this.x - this.originX) < 0.1 && Math.abs(this.y - this.originY) < 0.1 && Math.abs(this.vx) < 0.1 && Math.abs(this.vy) < 0.1) {
+                // Optimización de descanso (Más permisiva al salir para apagar rápido)
+                const threshold = mouse.current.active ? 0.1 : 0.5;
+                if (Math.abs(this.x - this.originX) < threshold && Math.abs(this.y - this.originY) < threshold && Math.abs(this.vx) < 0.1 && Math.abs(this.vy) < 0.1) {
                     this.x = this.originX;
                     this.y = this.originY;
                     this.vx = 0;
@@ -170,7 +181,7 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
             const imageData = tempCtx?.getImageData(0, 0, w, h).data;
             if (!imageData) return;
 
-            particles = [];
+            particlesRef.current = [];
             // Step de 3.5 para reducir drásticamente la cantidad de partículas sin perder densidad visual
             const step = 3.5; 
             for (let y = 0; y < h; y += step) {
@@ -186,36 +197,44 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
                         const g = Math.min(255, imageData[index+1] * 1.15);
                         const b = Math.min(255, imageData[index+2] * 1.15);
                         const color = `rgb(${r},${g},${b})`;
-                        particles.push(new Particle(x, y, color));
+                        particlesRef.current.push(new Particle(x, y, color));
                     }
                 }
             }
-
+            
             // Dibujo inicial estático para cuando no hay interacción
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].draw(ctx);
+            for (let i = 0; i < particlesRef.current.length; i++) {
+                particlesRef.current[i].draw(ctx);
             }
         };
 
         const updateCursorPoints = () => {
-            if (!mouse.current.active) return;
+            if (!mouse.current.active || bracketElements.current.length === 0) return;
             const canvasRect = canvas.getBoundingClientRect();
-            const toCanvasCoord = (el: Element): CursorPoint => {
+            
+            const toCoord = (el: Element) => {
                 const r = el.getBoundingClientRect();
-                return {
-                    x: (r.left + r.width  / 2) - canvasRect.left,
-                    y: (r.top  + r.height / 2) - canvasRect.top,
-                };
+                return { x: (r.left + r.width/2) - canvasRect.left, y: (r.top + r.height/2) - canvasRect.top };
             };
-            bracketPoints = Array.from(document.querySelectorAll('.is-bracket')).map(toCanvasCoord);
-            dotPoints     = Array.from(document.querySelectorAll('.is-dot')).map(toCanvasCoord);
+
+            bracketPoints.current = bracketElements.current.filter(el => el.classList.contains('is-bracket')).map(toCoord);
+            dotPoints.current     = bracketElements.current.filter(el => el.classList.contains('is-dot')).map(toCoord);
         };
 
-        image.onload = () => { init(); animate(); };
+        image.onload = () => { init(); loopRunning.current = true; animate(); };
 
-        const animate = () => {
+        let lastTime = 0;
+        const fpsInterval = 1000 / 20;
+
+        const animate = (time: number) => {
+            if (!loopRunning.current) return;
             animationFrameId = requestAnimationFrame(animate);
+
+            const now = time || performance.now();
+            const deltaTime = now - lastTime;
+            if (deltaTime < fpsInterval) return;
+            lastTime = now - (deltaTime % fpsInterval);
 
             // Calcular velocidad real del ratón
             mouse.current.vx = mouse.current.x - mouse.current.lastX;
@@ -223,23 +242,31 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
             mouse.current.lastX = mouse.current.x;
             mouse.current.lastY = mouse.current.y;
 
-            // Optimización: si no hay mouse y todas las partículas están en su origen, pausamos el canvas.
-            // Como ya dibujamos el estado estático al terminar de moverse, se queda la imagen perfectamente formada.
-            let isMoving = mouse.current.active;
-            if (!isMoving) {
-                isMoving = particles.some(p => p.x !== p.originX || p.y !== p.originY);
+            let anyMoving = mouse.current.active;
+            
+            for (let i = 0; i < particlesRef.current.length; i++) {
+                const p = particlesRef.current[i];
+                p.update();
+                p.draw(ctx);
+                if (p.x !== p.originX || p.y !== p.originY) anyMoving = true;
             }
-            if (!isMoving) return; // Sleep
+
+            if (!anyMoving) {
+                loopRunning.current = false;
+                cancelAnimationFrame(animationFrameId);
+                return;
+            }
 
             updateCursorPoints();
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw(ctx);
+            for (let i = 0; i < particlesRef.current.length; i++) {
+                particlesRef.current[i].update();
+                particlesRef.current[i].draw(ctx);
             }
         };
+        animateRef.current = animate;
 
         const handleResize = () => {
             const rect = containerRef.current?.getBoundingClientRect();
@@ -272,8 +299,31 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
             ref={containerRef}
             className={`relative overflow-hidden rounded-[23px] group bg-black/5 transition-all duration-500 ${containerClass}`}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => { mouse.current.active = true;  setIsHovered(true);  }}
-            onMouseLeave={() => { mouse.current.active = false; setIsHovered(false); }}
+            onMouseEnter={() => { 
+                bracketElements.current = Array.from(document.querySelectorAll('.is-bracket, .is-dot'));
+                mouse.current.active = true;  
+                setIsHovered(true);  
+                if (!loopRunning.current) {
+                    loopRunning.current = true;
+                    animateRef.current();
+                }
+            }}
+            onMouseLeave={() => { 
+                mouse.current.active = false; 
+                setIsHovered(false); 
+                bracketElements.current = [];
+                bracketPoints.current = [];
+                dotPoints.current = [];
+                
+                // Reset instantáneo de todas las partículas para forzar el apagado del bucle
+                for (let i = 0; i < particlesRef.current.length; i++) {
+                    const p = particlesRef.current[i];
+                    p.x = p.originX;
+                    p.y = p.originY;
+                    p.vx = 0;
+                    p.vy = 0;
+                }
+            }}
         >
             <img
                 src={src}
