@@ -23,7 +23,7 @@ export default function HexagonWave3D() {
         const horizDist = hexWidth;
         const vertDist = hexHeight * 0.75;
 
-        const drawHexagon = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, opacity: number, shimmer: number) => {
+        const drawHexagon = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, opacity: number) => {
             ctx.beginPath();
             for (let i = 0; i < 6; i++) {
                 const angle = (Math.PI / 3) * i + (Math.PI / 6);
@@ -31,7 +31,7 @@ export default function HexagonWave3D() {
             }
             ctx.closePath();
             
-            // 1. RELLENO SÓLIDO (Bloquea la luz de fondo)
+            // 1. RELLENO MATE SÓLIDO (Bloquea la luz de fondo)
             ctx.fillStyle = '#001720'; 
             ctx.fill();
 
@@ -53,12 +53,12 @@ export default function HexagonWave3D() {
             const waveY = h * wave.current.progress;
             const waveRadius = Math.max(w, h) * 0.35;
 
-            // 2. LUZ DE ENERGÍA (La que se escapa por las grietas)
+            // 2. LUZ DE ENERGÍA (Degradado Cian -> Verde)
             ctx.save();
             ctx.globalCompositeOperation = 'lighter';
-            const lightGrad = ctx.createRadialGradient(waveX, waveY, 0, waveX, waveY, waveRadius * 1.2);
-            lightGrad.addColorStop(0, 'rgba(137, 234, 43, 0.45)'); // Verde marca vibrante
-            lightGrad.addColorStop(0.5, 'rgba(137, 234, 43, 0.15)');
+            const lightGrad = ctx.createRadialGradient(waveX, waveY, 0, waveX, waveY, waveRadius * 1.3);
+            lightGrad.addColorStop(0, 'rgba(3, 231, 245, 0.25)'); // Núcleo Cian (Celeste)
+            lightGrad.addColorStop(0.5, 'rgba(137, 234, 43, 0.08)'); // Aura Verde Marca
             lightGrad.addColorStop(1, 'transparent');
             ctx.fillStyle = lightGrad;
             ctx.fillRect(0, 0, w, h);
@@ -79,24 +79,21 @@ export default function HexagonWave3D() {
 
                     let rx = bx;
                     let ry = by;
-                    let opacity = 0.15; // Opacidad constante para efecto silueta
-                    let shimmer = 0;    // Sin brillo propio
-                    let size = hexSize - 1.2;
+                    let opacity = 0.04; // Sutil presencia constante
+                    let size = hexSize - 0.4;
 
                     if (dist < waveRadius) {
                         const strength = Math.pow(1 - dist / waveRadius, 2);
                         
-                        // Mantenemos la apertura de grietas
-                        rx = bx + dx * strength * 0.65; 
-                        ry = by + dy * strength * 0.65;
+                        // MICRO-MOVIMIENTO (0.08)
+                        rx = bx + dx * strength * 0.08; 
+                        ry = by + dy * strength * 0.08;
                         
-                        // Los hexágonos permanecen oscuros para contrastar con la luz de fondo
-                        opacity = 0.15; 
-                        shimmer = 0;
-                        size = (hexSize - 1.2) * (1 + strength * 0.05);
+                        opacity = 0.04 + strength * 0.2; // Se intensifica con la onda
+                        size = (hexSize - 0.4) * (1 + strength * 0.015);
                     }
 
-                    drawHexagon(ctx, rx, ry, size, opacity, shimmer);
+                    drawHexagon(ctx, rx, ry, size, opacity);
                 }
             }
 
