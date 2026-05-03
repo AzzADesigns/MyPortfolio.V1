@@ -13,6 +13,7 @@ class Particle {
     friction: number;
     ease: number;
     active: boolean = false;
+    distanceToMouse: number = 2000;
 
     constructor(x: number, y: number, color: string) {
         this.x = x; 
@@ -27,14 +28,21 @@ class Particle {
     }
 
     draw(ctx: CanvasRenderingContext2D, globalRotation: number) {
-        const opacity = this.active ? 0.95 : 0.18;
+        // Rango de visibilidad (Spotlight)
+        const visibilityRadius = 250;
+        if (this.distanceToMouse > visibilityRadius) return;
+
+        // Calculamos la opacidad basada en la distancia (1 en el centro, 0 en el borde del radio)
+        const visibility = 1 - (this.distanceToMouse / visibilityRadius);
+        const opacity = (this.active ? 0.95 : 0.6) * visibility;
+
         ctx.save();
         
         ctx.translate(this.x, this.y);
         ctx.rotate(globalRotation);
 
         if (this.active) {
-            ctx.shadowBlur = 12;
+            ctx.shadowBlur = 12 * visibility;
             ctx.shadowColor = this.color;
         }
 
@@ -52,9 +60,11 @@ class Particle {
         const offset = 5.5; 
         
         ctx.beginPath();
+        // Superior Izquierdo
         ctx.moveTo(-offset, -offset + size);
         ctx.lineTo(-offset, -offset);
         ctx.lineTo(-offset + size, -offset);
+        // Inferior Derecho
         ctx.moveTo(offset, offset - size);
         ctx.lineTo(offset, offset);
         ctx.lineTo(offset - size, offset);
@@ -67,6 +77,8 @@ class Particle {
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
         const distanceSq = dx * dx + dy * dy;
+        this.distanceToMouse = Math.sqrt(distanceSq) || 1;
+
         const radius = 130; 
         const radiusSq = radius * radius;
 
@@ -75,16 +87,15 @@ class Particle {
         this.active = false;
 
         if (distanceSq < radiusSq) {
-            const distance = Math.sqrt(distanceSq) || 1;
-            const force = (radius - distance) / radius;
+            const force = (radius - this.distanceToMouse) / radius;
             
             const zoomAmount = 1.5; 
-            targetX = this.originX - (dx / distance) * (radius - distance) * zoomAmount;
-            targetY = this.originY - (dy / distance) * (radius - distance) * zoomAmount;
+            targetX = this.originX - (dx / this.distanceToMouse) * (radius - this.distanceToMouse) * zoomAmount;
+            targetY = this.originY - (dy / this.distanceToMouse) * (radius - this.distanceToMouse) * zoomAmount;
 
             const swirlStrength = 4.0; 
-            this.vx -= (dy / distance) * angularVelocity * swirlStrength;
-            this.vy += (dx / distance) * angularVelocity * swirlStrength;
+            this.vx -= (dy / this.distanceToMouse) * angularVelocity * swirlStrength;
+            this.vy += (dx / this.distanceToMouse) * angularVelocity * swirlStrength;
 
             this.active = true;
         }
@@ -121,16 +132,12 @@ export const FluidBackground = () => {
         particles.current = newParticles;
     };
 
-    // Función para capturar la rotación COMPUESTA (Wrapper + Ref)
     const getCompositeRotation = () => {
         const bracket = document.querySelector('.is-bracket');
         if (!bracket) return 0;
         
         let totalRotation = 0;
-        
-        // Capa 1: bracketsRef (Efectos de carga/inercia)
         const refLayer = bracket.parentElement;
-        // Capa 2: bracketsWrapperRef (Giro constante)
         const wrapperLayer = refLayer?.parentElement;
         
         [refLayer, wrapperLayer].forEach(el => {
