@@ -12,7 +12,7 @@ interface CursorPoint { x: number; y: number; }
 export default function PixelDistortion({ src, alt, containerClass }: PixelDistortionProps) {
     const canvasRef    = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const mouse        = useRef({ x: 0, y: 0, active: false });
+    const mouse        = useRef({ x: 0, y: 0, lastX: 0, lastY: 0, vx: 0, vy: 0, active: false });
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
@@ -60,58 +60,73 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
 
             update() {
                 if (mouse.current.active) {
-                    const dx = this.x - mouse.current.x;
-                    const dy = this.y - mouse.current.y;
-                    const distMouse = Math.sqrt(dx * dx + dy * dy);
+                    // Multiplicador dinámico basado en la velocidad
+                    const mouseSpeed = Math.hypot(mouse.current.vx, mouse.current.vy);
+                    const dynamicMultiplier = 1 + Math.min(mouseSpeed * 0.15, 2.5);
 
-                    // Agujero central
-                    if (distMouse < 20) {
-                        const angle = Math.atan2(dy, dx);
-                        const force = (20 - distMouse) / 20;
-                        this.vx += Math.cos(angle) * force * 8;
-                        this.vy += Math.sin(angle) * force * 8;
+                    // Dirección del ratón normalizada
+                    let dirX = 0; let dirY = 0;
+                    if (mouseSpeed > 0.1) {
+                        dirX = mouse.current.vx / mouseSpeed;
+                        dirY = mouse.current.vy / mouseSpeed;
                     }
 
-                    // Corchetes (Fuerza principal de barrido)
-                    const BRACKET_ZONE = 35;
-                    const BRACKET_FORCE = 15;
+                    const rdx = this.x - mouse.current.x;
+                    const rdy = this.y - mouse.current.y;
+                    const distCenter = Math.sqrt(rdx * rdx + rdy * rdy);
+
+                    // 1. EFECTO REMOLINO (Vortex) - Más ceñido al centro
+                    const VORTEX_ZONE = 25 * dynamicMultiplier;
+                    if (distCenter < VORTEX_ZONE && distCenter > 0) {
+                        const tvx = -rdy / distCenter; 
+                        const tvy = rdx / distCenter;
+                        
+                        const dotV = tvx * dirX + tvy * dirY;
+                        // Fuerza de remolino más sutil para no dispersar tanto los píxeles
+                        let vForce = (8 / (distCenter + 5)) * (mouseSpeed * 0.3);
+                        vForce *= (dotV > 0 ? 1.3 : 0.2); 
+                        
+                        this.vx += tvx * vForce;
+                        this.vy += tvy * vForce;
+                    }
+
+                    // 2. EFECTO ASPAS (Brackets) - Ahora mucho más localizado y tenso
                     for (const bp of bracketPoints) {
-                        const dbx = this.x - bp.x;
-                        const dby = this.y - bp.y;
-                        const dist = Math.sqrt(dbx * dbx + dby * dby);
-                        if (dist < BRACKET_ZONE) {
-                            const angle = Math.atan2(dby, dbx);
-                            const force = (BRACKET_ZONE - dist) / BRACKET_ZONE;
-                            this.vx += Math.cos(angle) * force * BRACKET_FORCE;
-                            this.vy += Math.sin(angle) * force * BRACKET_FORCE;
-                        }
-                    }
+                        const bdx = this.x - bp.x;
+                        const bdy = this.y - bp.y;
+                        const distB = Math.sqrt(bdx * bdx + bdy * bdy);
+                        const BRACKET_ZONE = 8 * dynamicMultiplier; // Radio reducido para evitar manchas grandes
 
-                    // Dots
-                    const DOT_ZONE = 20;
-                    for (const dp of dotPoints) {
-                        const ddx = this.x - dp.x;
-                        const ddy = this.y - dp.y;
-                        const dist = Math.sqrt(ddx * ddx + ddy * ddy);
-                        if (dist < DOT_ZONE) {
-                            const angle = Math.atan2(ddy, ddx);
-                            const force = (DOT_ZONE - dist) / DOT_ZONE;
-                            this.vx += Math.cos(angle) * force * 10;
-                            this.vy += Math.sin(angle) * force * 10;
+                        if (distB < BRACKET_ZONE && distB > 0) {
+                            const angle = Math.atan2(bdy, bdx);
+                            let bForce = (BRACKET_ZONE - distB) / BRACKET_ZONE;
+
+                            if (mouseSpeed > 0.5) {
+                                const dotB = (bdx * dirX + bdy * dirY) / distB;
+                                if (dotB < 0) {
+                                    bForce = 0; // Se cierra inmediatamente al pasar
+                                } else {
+                                    bForce *= (1 + dotB * 1.5); // Empuje frontal fuerte
+                                }
+                            }
+                            
+                            this.vx += Math.cos(angle) * bForce * 14;
+                            this.vy += Math.sin(angle) * bForce * 14;
                         }
                     }
+                    // Los puntos (dots) y el centro no generan vacío, permitiendo que el agua se junte ahí
                 }
 
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Fricción baja para que los puntos viajen más lejos creando estelas y nubes
-                this.vx *= 0.88;
-                this.vy *= 0.88;
+                // Fricción líquida viscosa
+                this.vx *= 0.94;
+                this.vy *= 0.94;
 
-                // Atracción suave al origen
-                this.x += (this.originX - this.x) * 0.04;
-                this.y += (this.originY - this.y) * 0.04;
+                // Curación suave
+                this.x += (this.originX - this.x) * 0.06;
+                this.y += (this.originY - this.y) * 0.06;
 
                 // Optimización de descanso (Snapping)
                 if (Math.abs(this.x - this.originX) < 0.1 && Math.abs(this.y - this.originY) < 0.1 && Math.abs(this.vx) < 0.1 && Math.abs(this.vy) < 0.1) {
@@ -201,6 +216,12 @@ export default function PixelDistortion({ src, alt, containerClass }: PixelDisto
 
         const animate = () => {
             animationFrameId = requestAnimationFrame(animate);
+
+            // Calcular velocidad real del ratón
+            mouse.current.vx = mouse.current.x - mouse.current.lastX;
+            mouse.current.vy = mouse.current.y - mouse.current.lastY;
+            mouse.current.lastX = mouse.current.x;
+            mouse.current.lastY = mouse.current.y;
 
             // Optimización: si no hay mouse y todas las partículas están en su origen, pausamos el canvas.
             // Como ya dibujamos el estado estático al terminar de moverse, se queda la imagen perfectamente formada.
