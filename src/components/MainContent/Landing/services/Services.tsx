@@ -5,6 +5,7 @@ import { FloatingShapes } from './components/FloatingShapes';
 import { CodeExplorer } from './components/CodeExplorer';
 import { ServiceCard } from './components/ServiceCard';
 import { SERVICES_TEXTS, SERVICES_CARDS } from './constants/servicesData';
+import { FluidBackground } from './components/FluidBackground';
 
 const decorationMap = {
     design: <FloatingShapes type="design" />,
@@ -15,7 +16,8 @@ const decorationMap = {
 export const Services = () => {
     return (
         <section id="servicios" className="flex-none w-full min-h-screen lg:h-screen px-0 lg:px-6 pt-0 lg:pt-27 relative z-10 lg:snap-start">
-            <div className="services-bg w-full h-full bg-gradient-to-b from-white to-[#ababab] rounded-t-[16px] lg:rounded-t-[23px] flex flex-col items-center justify-start gap-8 lg:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 shadow-[0_-20px_50px_rgba(255,255,255,0.1)]">
+            <div className="services-bg w-full h-full bg-gradient-to-b from-white to-[#ababab] rounded-t-[16px] lg:rounded-t-[23px] flex flex-col items-center justify-start gap-8 lg:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 shadow-[0_-20px_50px_rgba(255,255,255,0.1)] relative overflow-hidden">
+                <FluidBackground />
 
 
                 <div className="text-center space-y-1 px-4">

@@ -129,7 +129,7 @@ export default function HexagonWave3D() {
     return (
         <div 
             ref={containerRef} 
-            className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden z-[0]"
+            className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-[0]"
         >
             <canvas
                 ref={canvasRef}
