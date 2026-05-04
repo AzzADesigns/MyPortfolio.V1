@@ -4,7 +4,6 @@
 
 .landing-container {
     background-color: #001720;
-    background-image: linear-gradient(to bottom right, rgba(3, 231, 245, 0.15) 0%, transparent 70%);
     font-family: var(--font-sora), sans-serif;
     user-select: none;
 }
@@ -49,4 +48,48 @@ html::-webkit-scrollbar-thumb:hover {
 * {
     scrollbar-width: thin !important;
     scrollbar-color: #89EA2B transparent !important;
+}
+
+/* Animación para el botón CTA */
+@keyframes aurora-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-aurora-flow {
+    background-size: 200% 200%;
+    animation: aurora-flow 6s ease infinite;
+}
+
+/* Ocultar el scrollbar interno de Servicios para limpieza visual */
+.services-internal-scroll {
+    -ms-overflow-style: none !important;  /* IE y Edge */
+    scrollbar-width: none !important;     /* Firefox */
+}
+
+.services-internal-scroll::-webkit-scrollbar {
+    display: none !important;  /* Chrome, Safari y Opera */
+}
+
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(100%); } /* Se desplaza su propia altura hacia abajo */
+}
+
+.animate-scroll-bounce {
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.services-internal-scroll::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb {
+    background: #000000 !important; /* Negro puro */
+    border-radius: 10px !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #1a1a1a !important;
 }

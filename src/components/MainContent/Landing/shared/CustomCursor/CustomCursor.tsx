@@ -218,7 +218,7 @@ export default function CustomCursor() {
             const target = e.target as HTMLElement;
             const isCard = !!target.closest('.service-card, .project-card, [data-card]');
             
-            const attractRadius = 40;
+            const attractRadius = 120;
             const button = getButtonInRadius(e.clientX, e.clientY, attractRadius, target);
             const isButton = !!button;
 
@@ -249,7 +249,7 @@ export default function CustomCursor() {
                 const distanceY = e.clientY - centerY;
                 
                 // Factor constante para el cursor (fuerte chasquido táctil)
-                const pullFactor = 0.5; 
+                const pullFactor = 0.65; 
 
                 cursorX = e.clientX - (distanceX * pullFactor);
                 cursorY = e.clientY - (distanceY * pullFactor);
@@ -401,7 +401,7 @@ export default function CustomCursor() {
             if (lastPos.current.x === 0 && lastPos.current.y === 0) return;
 
             const target = document.elementFromPoint(lastPos.current.x, lastPos.current.y) as HTMLElement | null;
-            const attractRadius = 40;
+            const attractRadius = 120;
             const { isCard, isButton, button } = {
                 isCard: !!target?.closest('.service-card, .project-card, [data-card]'),
                 button: getButtonInRadius(lastPos.current.x, lastPos.current.y, attractRadius, target),
