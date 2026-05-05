@@ -12,7 +12,7 @@ const decorationMap = {
 
 export const ServicesContent = () => {
     return (
-        <div className="absolute inset-0 flex flex-col items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 overflow-y-auto overflow-x-hidden services-internal-scroll z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 overflow-x-hidden z-10">
             <div className="text-center space-y-1 px-4">
                 <h2 className="text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
                     {SERVICES_TEXTS.title.words.map((word) => (
