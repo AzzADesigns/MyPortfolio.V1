@@ -123,8 +123,11 @@ export const FluidBackground = () => {
 
     const initParticles = (width: number, height: number) => {
         const newParticles: Particle[] = [];
-        for (let y = 0; y < height; y += SPACING) {
-            for (let x = 0; x < width; x += SPACING) {
+        // Generamos un área mucho más grande que el canvas actual para que cuando el contenedor
+        // se expanda (ej: al quitar los márgenes con GSAP), ya existan partículas en esos bordes.
+        const margin = 300; 
+        for (let y = -margin; y < height + margin; y += SPACING) {
+            for (let x = -margin; x < width + margin; x += SPACING) {
                 const color = brandColors[Math.floor(Math.random() * brandColors.length)];
                 newParticles.push(new Particle(x, y, color));
             }
@@ -165,13 +168,30 @@ export const FluidBackground = () => {
         const handleResize = () => {
             const parent = canvas.parentElement;
             if (parent) {
-                canvas.width = parent.clientWidth;
-                canvas.height = parent.clientHeight;
-                initParticles(canvas.width, canvas.height);
+                const newWidth = parent.clientWidth;
+                const newHeight = parent.clientHeight;
+                
+                // Solo reasignar si cambió de verdad para evitar lag
+                if (canvas.width !== newWidth || canvas.height !== newHeight) {
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    // Solo iniciamos partículas si no hay, para no resetear el enjambre mientras cambia el padding
+                    if (particles.current.length === 0) {
+                        initParticles(newWidth, newHeight);
+                    }
+                }
             }
         };
 
-        handleResize();
+        // ResizeObserver es crucial porque GSAP cambia el tamaño del contenedor al animar el padding,
+        // y el evento 'resize' de window no se dispara, lo que causa que el canvas se estire y pierda la alineación.
+        const resizeObserver = new ResizeObserver(() => {
+            handleResize();
+        });
+
+        if (canvas.parentElement) {
+            resizeObserver.observe(canvas.parentElement);
+        }
 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -186,8 +206,13 @@ export const FluidBackground = () => {
             cursorState.current.rotation = currentRotation;
             cursorState.current.prevRotation = currentRotation;
             
+            // Calculamos la posición relativa en cada frame por si el canvas se mueve (ej. animaciones GSAP)
+            const rect = canvas.getBoundingClientRect();
+            const relativeMouseX = mouse.current.x - rect.left;
+            const relativeMouseY = mouse.current.y - rect.top;
+
             particles.current.forEach(p => {
-                p.update(mouse.current.x, mouse.current.y, cursorState.current.velocity);
+                p.update(relativeMouseX, relativeMouseY, cursorState.current.velocity);
                 p.draw(ctx, cursorState.current.rotation);
             });
 
@@ -197,17 +222,16 @@ export const FluidBackground = () => {
         animate();
 
         const handleMouseMove = (e: MouseEvent) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.current.x = e.clientX - rect.left;
-            mouse.current.y = e.clientY - rect.top;
+            // Guardamos las coordenadas físicas de la pantalla (viewport)
+            mouse.current.x = e.clientX;
+            mouse.current.y = e.clientY;
         };
 
-        window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouseMove);
 
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current);
-            window.removeEventListener('resize', handleResize);
+            resizeObserver.disconnect();
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);

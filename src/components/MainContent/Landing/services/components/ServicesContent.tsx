@@ -12,7 +12,7 @@ const decorationMap = {
 
 export const ServicesContent = () => {
     return (
-        <div className="absolute inset-0 flex flex-col items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 overflow-x-hidden z-10">
+        <div className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 z-10">
             <div className="text-center space-y-1 px-4">
                 <h2 className="text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
                     {SERVICES_TEXTS.title.words.map((word) => (
@@ -29,7 +29,7 @@ export const ServicesContent = () => {
                 </p>
             </div>
 
-            <div className="grid 2xl:mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[6%] w-full max-w-8xl ">
+            <div className="grid 2xl:mt-8 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[6%] w-full max-w-8xl ">
                 {SERVICES_CARDS.map((card, index) => (
                     <ServiceCard
                         key={card.titleAccent}
@@ -38,7 +38,7 @@ export const ServicesContent = () => {
                         wrapperClassName={`
                             ${index === 0 ? "2xl:-translate-y-12" : ""}
                             ${index === 1 ? "2xl:translate-y-4" : ""}
-                            ${index === 2 ? "2xl:translate-y-20 md:col-span-2 md:w-[70%] md:mx-auto lg:col-span-1 lg:w-full" : ""}
+                            ${index === 2 ? "2xl:translate-y-20 lg:col-span-1" : ""}
                         `.trim()}
                     />
                 ))}
