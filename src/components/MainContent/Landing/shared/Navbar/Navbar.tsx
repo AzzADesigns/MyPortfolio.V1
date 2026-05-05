@@ -32,7 +32,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-brand-dark/80 backdrop-blur-md lg:bg-brand-dark/70 lg:backdrop-blur-md rounded-2xl lg:rounded-none border border-white/10 lg:border-b lg:border-white/5 shadow-lg shadow-black/20 lg:shadow-none">
+            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-brand-dark/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none">
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"
