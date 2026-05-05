@@ -1,18 +1,24 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
-import { animateMobileMenu, initNavbarScroll } from './animation/navbarAnimation';
+import { animateMobileMenu, initNavbarScroll, initBackgroundDetection } from './animation/navbarAnimation';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLight, setIsLight] = useState(false);
     const menuContentRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
+    const navRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         initNavbarScroll();
+        const cleanupDetection = initBackgroundDetection(navRef.current, setIsLight);
+        return cleanupDetection;
     }, []);
 
     useGSAP(() => {
@@ -32,7 +38,10 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:inset-x-auto lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-5 bg-brand-dark/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none">
+            <nav 
+                ref={navRef}
+                className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none backdrop-blur-md lg:backdrop-blur-none bg-black/60 lg:bg-transparent"
+            >
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
                     <Image
                         src="/branding/AzzADesigns.svg"
@@ -42,31 +51,41 @@ export default function Navbar() {
                         className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]"
                     />
                     <p
-                        className="text-white text-[1.6rem] md:text-[1.8rem] lg:text-[2.2rem]"
+                        className={`text-[1.6rem] md:text-[1.8rem] lg:text-[2.2rem] transition-colors duration-300 ${isLight ? 'text-[#001720]' : 'text-white'}`}
                         style={{
                             fontFamily: 'var(--font-momo)',
                             letterSpacing: '0',
                             fontVariantLigatures: 'no-common-ligatures'
                         }}
                     >
-                        <span style={{ color: '#89EA2B' }}>A</span>zzA
-                        <span style={{ color: '#89EA2B' }}>D</span>esigns
+                        <span style={{ 
+                            color: '#89EA2B',
+                            WebkitTextStroke: isLight ? '1px #001720' : '0px transparent',
+                            WebkitTextFillColor: '#89EA2B'
+                        }}>A</span>zzA
+                        <span style={{ 
+                            color: '#89EA2B',
+                            WebkitTextStroke: isLight ? '1px #001720' : '0px transparent',
+                            WebkitTextFillColor: '#89EA2B'
+                        }}>D</span>esigns
                     </p>
                 </div>
 
-                <div className="hidden lg:flex items-center gap-8 text-sm text-gray-400 font-medium gsap-nav">
+                <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-colors duration-300 gsap-nav ${isLight ? 'text-[#001720]/70' : 'text-gray-400'}`}>
                     {NAV_LINKS.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`hover:text-white active:scale-90 transition-all duration-200 inline-block ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-brand-cyan' : 'active:text-brand-green'}`}
+                            className={`active:scale-90 transition-all duration-200 inline-block ${isLight ? 'hover:text-[#001720]' : 'hover:text-white'} ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-brand-cyan' : 'active:text-brand-green'}`}
                         >
                             {link.label}
                         </Link>
                     ))}
                     <Link
                         href="/portfolio"
-                        className="text-white border border-white/20 px-4 py-1.5 rounded-full hover:bg-white/10 active:scale-90 active:bg-white active:text-brand-dark transition-all duration-200 inline-block"
+                        className={`border px-4 py-1.5 rounded-full active:scale-90 transition-all duration-300 inline-block ${isLight 
+                            ? 'text-[#001720] border-[#001720]/20 hover:bg-[#001720]/10 active:bg-[#001720] active:text-white' 
+                            : 'text-white border-white/20 hover:bg-white/10 active:bg-white active:text-brand-dark'}`}
                     >
                         Portfolio
                     </Link>
@@ -75,7 +94,7 @@ export default function Navbar() {
                 <div className="lg:hidden flex items-center gsap-nav">
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="text-white hover:text-[#89EA2B] active:scale-75 active:rotate-180 transition-all duration-300 cursor-pointer z-[60] relative"
+                        className={`transition-all duration-300 cursor-pointer z-[60] relative active:scale-75 active:rotate-180 ${isLight ? 'text-[#001720]' : 'text-white'} hover:text-[#89EA2B]`}
                     >
                         {isMenuOpen ? <HiX size={32} /> : <HiMenu size={32} />}
                     </button>
@@ -93,7 +112,7 @@ export default function Navbar() {
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
                 >
-                    <div className="bg-brand-dark/80 backdrop-blur-md border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
+                    <div className="bg-brand-dark/90 backdrop-blur-xl border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {NAV_LINKS.map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";

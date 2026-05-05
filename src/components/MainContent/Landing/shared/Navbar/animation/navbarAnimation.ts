@@ -11,9 +11,9 @@ export const initNavbarScroll = () => {
             if (window.innerWidth >= 1024) {
                 if (self.direction === 1 && self.scroll() > 20) {
                     gsap.to("nav", { 
-                        backgroundColor: "rgba(0, 23, 32, 0.7)", 
-                        backdropFilter: "blur(12px)",
-                        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                        backgroundColor: "transparent", 
+                        backdropFilter: "blur(0px)",
+                        borderBottom: "1px solid transparent",
                         paddingTop: "12px",
                         paddingBottom: "12px",
                         duration: 0.4,
@@ -35,6 +35,73 @@ export const initNavbarScroll = () => {
             }
         }
     });
+};
+
+export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeChange: (isLight: boolean) => void) => {
+    if (typeof window === 'undefined' || !navElement) return () => {};
+
+    let currentIsLight = false;
+
+    const checkBackground = () => {
+        // Bloqueo total para móviles: si la pantalla es menor a 1024, forzar modo oscuro y salir
+        if (window.innerWidth < 1024) {
+            if (currentIsLight) {
+                currentIsLight = false;
+                onThemeChange(false);
+            }
+            return;
+        }
+
+        const rect = navElement.getBoundingClientRect();
+        const points = [
+            { x: rect.left + 50, y: rect.top + rect.height / 2 },
+            { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 },
+            { x: rect.right - 50, y: rect.top + rect.height / 2 }
+        ];
+        
+        let lightPoints = 0;
+        navElement.style.pointerEvents = 'none';
+        
+        points.forEach(pt => {
+            let el = document.elementFromPoint(pt.x, pt.y) as HTMLElement | null;
+            if (!el) return;
+
+            if (el.closest('.service-card, .project-card, [data-card], .bg-brand-dark, .dark-bg')) return;
+            if (el.closest('.services-bg, .bg-white, .bg-gray-50, .bg-gray-100, .light-bg')) {
+                lightPoints++;
+                return;
+            }
+
+            let current: HTMLElement | null = el;
+            while (current && current !== document.body) {
+                const style = window.getComputedStyle(current);
+                const bg = style.backgroundColor;
+                const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+                if (match) {
+                    const r = parseInt(match[1]);
+                    const g = parseInt(match[2]);
+                    const b = parseInt(match[3]);
+                    const a = match[4] ? parseFloat(match[4]) : 1;
+                    if (a > 0.3) {
+                        if (r > 200 && g > 200 && b > 200) lightPoints++;
+                        return;
+                    }
+                }
+                current = current.parentElement;
+            }
+        });
+
+        navElement.style.pointerEvents = 'auto';
+        
+        const shouldBeLight = lightPoints >= 1;
+        if (shouldBeLight !== currentIsLight) {
+            currentIsLight = shouldBeLight;
+            onThemeChange(shouldBeLight);
+        }
+    };
+
+    gsap.ticker.add(checkBackground);
+    return () => gsap.ticker.remove(checkBackground);
 };
 
 export const animateNavbar = (tl: gsap.core.Timeline) => {
