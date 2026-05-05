@@ -38,11 +38,47 @@ export const initNavbarScroll = () => {
 };
 
 export const animateNavbar = (tl: gsap.core.Timeline) => {
-    tl.fromTo('.gsap-nav', { y: -50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' });
+    tl.fromTo('.gsap-nav', 
+        { 
+            y: -80, 
+            autoAlpha: 0, 
+            rotateX: -45, 
+            scale: 0.9,
+            filter: 'blur(10px)'
+        }, 
+        { 
+            y: 0, 
+            autoAlpha: 1, 
+            rotateX: 0, 
+            scale: 1,
+            filter: 'blur(0px)',
+            duration: 1.5, 
+            stagger: 0.15, 
+            ease: 'elastic.out(1, 0.7)',
+            transformOrigin: "top center"
+        }
+    );
 };
 
 export const animateNavbarMobile = () => {
-    gsap.fromTo('.gsap-nav', { y: -30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: 'power2.out' });
+    gsap.fromTo('.gsap-nav', 
+        { 
+            y: -50, 
+            autoAlpha: 0, 
+            scale: 0.95,
+            filter: 'blur(8px)'
+        }, 
+        { 
+            y: 0, 
+            autoAlpha: 1, 
+            scale: 1,
+            filter: 'blur(0px)',
+            duration: 1.2, 
+            stagger: 0.15, 
+            ease: 'expo.out',
+            delay: 0.2
+        }
+    );
 };
 
 export const animateMobileMenu = (

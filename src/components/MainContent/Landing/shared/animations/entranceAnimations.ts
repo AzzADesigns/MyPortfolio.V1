@@ -36,7 +36,7 @@ export const useLandingEntrance = () => {
 
         mm.add("(min-width: 768px)", () => {
 
-            const navTl = gsap.timeline();
+            const navTl = gsap.timeline({ delay: 0.2 });
             animateNavbar(navTl);
 
 
