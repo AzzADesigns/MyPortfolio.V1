@@ -9,7 +9,14 @@ const HALF = BRACKET_SIZE / 2;
 
 // Devuelve true si el punto (x, y) está sobre una superficie blanca/clara
 function isPointOverWhite(x: number, y: number): boolean {
-    let el = document.elementFromPoint(x, y) as HTMLElement | null;
+    // Usamos elementsFromPoint para poder "ver" a través de capas como la Navbar
+    const elements = document.elementsFromPoint(x, y);
+    let el = elements.find(e => {
+        const isNav = !!e.closest('nav');
+        const isCursor = e.classList.contains('fixed') && (e.ref === 'containerRef' || e.parentElement?.classList.contains('z-[9999]'));
+        return !isNav && !isCursor;
+    }) as HTMLElement | null;
+
     if (!el) return false;
 
     // Excepción crítica: Las cards se vuelven oscuras al hacer hover, el cursor debe mantenerse brillante
@@ -19,11 +26,11 @@ function isPointOverWhite(x: number, y: number): boolean {
     if (el.closest('.services-bg, .bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-100')) return true;
 
     // Búsqueda profunda de color de fondo real
-    while (el && el !== document.body && el !== document.documentElement) {
-        const style = window.getComputedStyle(el);
+    let current: HTMLElement | null = el;
+    while (current && current !== document.body && current !== document.documentElement) {
+        const style = window.getComputedStyle(current);
         const bg = style.backgroundColor;
 
-        // Extraer valores rgba
         const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
         if (match) {
             const r = parseInt(match[1]);
@@ -31,18 +38,12 @@ function isPointOverWhite(x: number, y: number): boolean {
             const b = parseInt(match[3]);
             const a = match[4] ? parseFloat(match[4]) : 1;
 
-            // Si el fondo no es transparente
             if (a > 0.1) {
-                // Si los 3 canales son altos, es un color claro
-                if (r > 200 && g > 200 && b > 200) {
-                    return true;
-                } else {
-                    // Es un color oscuro sólido, dejamos de buscar hacia arriba
-                    return false;
-                }
+                if (r > 200 && g > 200 && b > 200) return true;
+                return false;
             }
         }
-        el = el.parentElement;
+        current = current.parentElement;
     }
 
     return false;

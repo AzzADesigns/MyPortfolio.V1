@@ -40,9 +40,9 @@ export default function Navbar() {
         <>
             <nav 
                 ref={navRef}
-                className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none backdrop-blur-md lg:backdrop-blur-none bg-black/60 lg:bg-transparent"
+                className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none pointer-events-none"
             >
-                <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav">
+                <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav pointer-events-auto">
                     <Image
                         src="/branding/AzzADesigns.svg"
                         alt="AzzADesigns Logo"
@@ -71,7 +71,7 @@ export default function Navbar() {
                     </p>
                 </div>
 
-                <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-colors duration-300 gsap-nav ${isLight ? 'text-[#001720]/70' : 'text-gray-400'}`}>
+                <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-colors duration-300 gsap-nav pointer-events-auto ${isLight ? 'text-[#001720]/70' : 'text-gray-400'}`}>
                     {NAV_LINKS.map((link) => (
                         <Link
                             key={link.href}
@@ -99,7 +99,7 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                <div className="lg:hidden flex items-center gsap-nav">
+                <div className="lg:hidden flex items-center gsap-nav pointer-events-auto">
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className={`transition-all duration-300 cursor-pointer z-[60] relative active:scale-75 active:rotate-180 ${isLight ? 'text-[#001720]' : 'text-white'} hover:text-[#89EA2B]`}

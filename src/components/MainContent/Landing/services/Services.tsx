@@ -96,7 +96,7 @@ export const Services = () => {
                 gsap.fromTo(bigNumber,
                     { 
                         scale: 15, 
-                        opacity: 0, 
+                        opacity: 1, 
                         filter: "blur(20px)", 
                         x: 330, // Offset inicial para que parezca venir del centro de la pantalla
                         y: -110 
