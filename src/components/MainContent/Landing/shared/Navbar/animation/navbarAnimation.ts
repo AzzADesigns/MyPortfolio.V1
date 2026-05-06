@@ -63,7 +63,7 @@ export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeC
         navElement.style.pointerEvents = 'none';
         
         points.forEach(pt => {
-            let el = document.elementFromPoint(pt.x, pt.y) as HTMLElement | null;
+            const el = document.elementFromPoint(pt.x, pt.y) as HTMLElement | null;
             if (!el) return;
 
             if (el.closest('.service-card, .project-card, [data-card], .bg-brand-dark, .dark-bg')) return;

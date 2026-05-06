@@ -87,8 +87,6 @@ class Particle {
         this.active = false;
 
         if (distanceSq < radiusSq) {
-            const force = (radius - this.distanceToMouse) / radius;
-            
             const zoomAmount = 1.5; 
             targetX = this.originX - (dx / this.distanceToMouse) * (radius - this.distanceToMouse) * zoomAmount;
             targetY = this.originY - (dy / this.distanceToMouse) * (radius - this.distanceToMouse) * zoomAmount;
@@ -116,7 +114,7 @@ export const FluidBackground = () => {
     const particles = useRef<Particle[]>([]);
     const mouse = useRef({ x: -2000, y: -2000 });
     const cursorState = useRef({ rotation: 0, prevRotation: 0, velocity: 0 });
-    const animationRef = useRef<number>();
+    const animationRef = useRef<number>(0);
 
     const SPACING = 48; 
     const brandColors = ['#001720']; // Azul Oscuro Profundo

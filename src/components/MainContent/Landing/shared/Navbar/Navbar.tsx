@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';

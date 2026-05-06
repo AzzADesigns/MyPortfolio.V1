@@ -11,9 +11,10 @@ const HALF = BRACKET_SIZE / 2;
 function isPointOverWhite(x: number, y: number): boolean {
     // Usamos elementsFromPoint para poder "ver" a través de capas como la Navbar
     const elements = document.elementsFromPoint(x, y);
-    let el = elements.find(e => {
+    const el = elements.find(e => {
         const isNav = !!e.closest('nav');
-        const isCursor = e.classList.contains('fixed') && (e.ref === 'containerRef' || e.parentElement?.classList.contains('z-[9999]'));
+        // Usamos atributos de datos o clases para identificar el cursor y evitar que se detecte a sí mismo
+        const isCursor = e.hasAttribute('data-cursor') || e.closest('[data-cursor]');
         return !isNav && !isCursor;
     }) as HTMLElement | null;
 
@@ -479,7 +480,7 @@ export default function CustomCursor() {
 
     return (
         // SIN mix-blend-difference global — el color lo controlamos por elemento
-        <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block opacity-0">
+        <div ref={containerRef} data-cursor="container" className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block opacity-0">
             {/* Posición (X, Y) aislada para no chocar con el giro */}
             <div ref={bracketsPosRef} className="fixed top-0 left-0 w-10 h-10 -translate-x-1/2 -translate-y-1/2">
                 {/* Rotación constante aislada */}
