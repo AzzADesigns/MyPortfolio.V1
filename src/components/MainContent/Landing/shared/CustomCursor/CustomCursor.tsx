@@ -218,22 +218,25 @@ export default function CustomCursor() {
             const target = e.target as HTMLElement;
             const isCard = !!target.closest('.service-card, .project-card, [data-card]');
             
-            const attractRadius = 120;
+            const attractRadius = 90;
             const button = getButtonInRadius(e.clientX, e.clientY, attractRadius, target);
             const isButton = !!button;
 
             if (isCard !== activeStates.current.isCard || isButton !== activeStates.current.isButton) {
                 activeStates.current = { isCard, isButton };
                 applyStates(isCard, isButton);
-                
-                // Sincronizar el efecto visual del botón físico con el imán virtual
-                if (isButton && button) {
+            }
+
+            // Sincronizar el efecto visual del botón físico (hover normal forzado por atributo)
+            if (isButton && button) {
+                if (lastMagneticButton.current !== button) {
+                    if (lastMagneticButton.current) lastMagneticButton.current.removeAttribute('data-hover');
                     button.setAttribute('data-hover', 'true');
                     lastMagneticButton.current = button;
-                } else if (!isButton && lastMagneticButton.current) {
-                    lastMagneticButton.current.removeAttribute('data-hover');
-                    lastMagneticButton.current = null;
                 }
+            } else if (lastMagneticButton.current) {
+                lastMagneticButton.current.removeAttribute('data-hover');
+                lastMagneticButton.current = null;
             }
 
             // Efecto Imán con Físicas
@@ -401,7 +404,7 @@ export default function CustomCursor() {
             if (lastPos.current.x === 0 && lastPos.current.y === 0) return;
 
             const target = document.elementFromPoint(lastPos.current.x, lastPos.current.y) as HTMLElement | null;
-            const attractRadius = 120;
+            const attractRadius = 90;
             const { isCard, isButton, button } = {
                 isCard: !!target?.closest('.service-card, .project-card, [data-card]'),
                 button: getButtonInRadius(lastPos.current.x, lastPos.current.y, attractRadius, target),
@@ -412,10 +415,13 @@ export default function CustomCursor() {
                 activeStates.current = { isCard, isButton };
                 applyStates(isCard, isButton);
 
-                // IMPORTANTE: También gestionar data-hover aquí para evitar desincronización
+                // Gestionar data-hover también en el polling para sincronizar visualmente
                 if (isButton && button) {
-                    button.setAttribute('data-hover', 'true');
-                    lastMagneticButton.current = button;
+                    if (lastMagneticButton.current !== button) {
+                        if (lastMagneticButton.current) lastMagneticButton.current.removeAttribute('data-hover');
+                        button.setAttribute('data-hover', 'true');
+                        lastMagneticButton.current = button;
+                    }
                 } else if (!isButton && lastMagneticButton.current) {
                     lastMagneticButton.current.removeAttribute('data-hover');
                     lastMagneticButton.current = null;

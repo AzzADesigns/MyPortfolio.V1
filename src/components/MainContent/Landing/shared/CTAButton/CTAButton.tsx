@@ -11,7 +11,6 @@ export default function CTAButton({ text = "Empezar mi proyecto hoy", className 
     return (
         <button
             onClick={onClick}
-            data-hover="false"
             className={`
                 relative group overflow-hidden cursor-pointer 
                 ${fullWidth ? 'w-full' : 'w-fit'} 

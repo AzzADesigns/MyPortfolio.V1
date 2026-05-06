@@ -76,16 +76,24 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`active:scale-90 transition-all duration-200 inline-block ${isLight ? 'hover:text-[#001720]' : 'hover:text-white'} ${link.href.includes('destacados') || link.href.includes('firma') ? 'active:text-brand-cyan' : 'active:text-brand-green'}`}
+                            className={`
+                                active:scale-90 transition-all duration-300 inline-block
+                                hover:bg-gradient-to-r hover:from-brand-green hover:to-brand-cyan hover:bg-clip-text hover:text-transparent hover:animate-gradient-move
+                                data-[hover=true]:bg-gradient-to-r data-[hover=true]:from-brand-green data-[hover=true]:to-brand-cyan data-[hover=true]:bg-clip-text data-[hover=true]:text-transparent data-[hover=true]:animate-gradient-move
+                            `}
                         >
                             {link.label}
                         </Link>
                     ))}
                     <Link
                         href="/portfolio"
-                        className={`border px-4 py-1.5 rounded-full active:scale-90 transition-all duration-300 inline-block ${isLight 
-                            ? 'text-[#001720] border-[#001720]/20 hover:bg-[#001720]/10 active:bg-[#001720] active:text-white' 
-                            : 'text-white border-white/20 hover:bg-white/10 active:bg-white active:text-brand-dark'}`}
+                        className={`
+                            border px-4 py-1.5 rounded-full active:scale-90 transition-all duration-300 inline-block
+                            border-white/20 
+                            ${isLight ? 'text-[#001720] border-[#001720]/20' : 'text-white border-white/20'}
+                            hover:border-transparent hover:bg-gradient-to-r hover:from-brand-green hover:to-brand-cyan hover:text-brand-dark hover:animate-gradient-move
+                            data-[hover=true]:border-transparent data-[hover=true]:bg-gradient-to-r data-[hover=true]:from-brand-green data-[hover=true]:to-brand-cyan data-[hover=true]:text-brand-dark data-[hover=true]:animate-gradient-move
+                        `}
                     >
                         Portfolio
                     </Link>
