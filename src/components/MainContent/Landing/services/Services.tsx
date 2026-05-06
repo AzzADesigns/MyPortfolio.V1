@@ -148,7 +148,7 @@ export const Services = () => {
                     if (vLineEl)     tl.to(vLineEl,     { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
                     if (bLineEl)     tl.to(bLineEl,     { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
                     if (rLineEl)     tl.to(rLineEl,     { scaleY: 1, opacity: 1, duration: 0.18, ease: "none" }, 1.6);
-                    if (exitLineEl)  tl.to(exitLineEl,  { scaleX: 1, opacity: 1, duration: 2.4, ease: "none" }, 1.78);
+                    if (exitLineEl)  tl.to(exitLineEl,  { scaleX: 1, opacity: 1, duration: 1.0, ease: "none" }, 1.78);
 
                     if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
                     if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
