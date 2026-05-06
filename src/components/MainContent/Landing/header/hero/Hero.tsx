@@ -4,7 +4,7 @@ import CTAButton from '../../shared/CTAButton/CTAButton';
 
 export default function Hero() {
     return (
-        <div className="flex flex-col gap-8 lg:gap-10 2xl:gap-17 w-full max-w-[600px] lg:max-w-[400px] xl:max-w-[480px] 2xl:max-w-[580px] flex-shrink-0 items-center text-center lg:items-start lg:text-left z-20">
+        <div className="flex mt-15 flex-col gap-8 lg:gap-10 2xl:gap-17 w-full max-w-[600px] lg:max-w-[400px] xl:max-w-[480px] 2xl:max-w-[580px] flex-shrink-0 items-center text-center lg:items-start lg:text-left z-20">
             <h1 className="text-4xl md:text-6xl lg:text-4xl xl:text-5xl 2xl:text-[70px] leading-tight lg:leading-snug 2xl:leading-25 text-white gsap-hero-text">
                 {HERO_TEXTS.title.line1}<br className="hidden lg:block" />
                 {HERO_TEXTS.title.word1}{' '}
