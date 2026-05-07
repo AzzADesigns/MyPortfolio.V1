@@ -272,8 +272,8 @@ export const Services = () => {
                 gsap.fromTo(bigNumber,
                     {
                         scale: 15,
-                        opacity: 1,
-                        filter: "blur(20px)",
+                        opacity: 0, // Empieza invisible
+                        filter: "blur(40px)", // Más desenfocado para el efecto gaseoso
                         x: 330,
                         y: -110
                     },
@@ -289,7 +289,7 @@ export const Services = () => {
                             scroller: scroller,
                             start: "top top",
                             end: "top -50%", // 50vh de scroll para el efecto de achicado
-                            scrub: 1,
+                            scrub: 0.3, // Más reactivo para evitar sensación de retardo al subir
                             // Al terminar el scrub hacia abajo, bloqueamos
                             onLeave: () => {
                                 scroller.style.overflowY = 'hidden';
@@ -332,12 +332,18 @@ export const Services = () => {
                     if (activeStepRef.current > 0) {
                         handleStepChangeRef.current(activeStepRef.current - 1);
                     } else {
-                        // Si estamos en el Paso 01 y scrolleamos hacia arriba, 
-                        // hacemos una salida elegante antes de liberar el scroll
-                        playPaso01Exit(() => {
-                            scroller.style.overflowY = 'auto';
-                            carouselObserver.disable();
-                            gsap.to(scroller, { scrollTo: 0, duration: 1.2, ease: "power2.inOut" });
+                        // MANTENEMOS EL BLOQUEO durante el ascenso para que no haya lucha entre GSAP y el Navegador
+                        playPaso01Exit(); 
+                        gsap.to(scroller, { 
+                            scrollTo: 0, 
+                            duration: 0.8, // Más rápido y directo
+                            ease: "power3.inOut", 
+                            overwrite: "auto",
+                            onComplete: () => {
+                                // Solo liberamos cuando ya estamos en el destino
+                                scroller.style.overflowY = 'auto';
+                                carouselObserver.disable();
+                            }
                         });
                     }
                 },
@@ -388,14 +394,19 @@ export const Services = () => {
                 if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 1.4);
             };
 
-            // Función para la salida reversa del Paso 01
-            const playPaso01Exit = (onComplete: () => void) => {
+            // Función para la salida reversa del Paso 01 (Ahora no bloquea el scroll)
+            const playPaso01Exit = () => {
                 setIsAnimating(true);
                 isAnimatingRef.current = true;
 
-                const tl = gsap.timeline({ onComplete });
-                // Los elementos caen y se desvanecen
-                tl.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.4, stagger: 0.02, ease: "power2.in" });
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        setIsAnimating(false);
+                        isAnimatingRef.current = false;
+                    }
+                });
+                // Los elementos caen y se desvanecen (sin blur para ganar fluidez)
+                tl.to(allElements, { opacity: 0, y: 30, duration: 0.3, stagger: 0.01, ease: "power2.in" });
                 // Las líneas se contraen
                 if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0);
                 if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.1);
@@ -420,7 +431,7 @@ export const Services = () => {
                 }
             });
 
-            // 5. Efecto Acuoso / Expansión del Contenedor
+            // 5. Efecto Acuoso / Expansión del Contenedor (RESTAURADO Y OPTIMIZADO)
             const mainSection = document.getElementById('servicios');
             const bgContainer = mainSection?.querySelector('.services-bg');
             if (mainSection && bgContainer) {
@@ -428,16 +439,22 @@ export const Services = () => {
                     paddingTop: 0, paddingLeft: 0, paddingRight: 0,
                     ease: "power2.inOut",
                     scrollTrigger: {
-                        trigger: processSection, scroller: scroller,
-                        start: "top 95%", end: "top 10%", scrub: true,
+                        trigger: processSection,
+                        scroller: scroller,
+                        start: "top 95%",
+                        end: "top 10%",
+                        scrub: 1, // Suavizamos el cambio de layout para evitar la tirantez
                     }
                 });
                 gsap.to(bgContainer, {
                     borderTopLeftRadius: 0, borderTopRightRadius: 0,
                     ease: "power2.inOut",
                     scrollTrigger: {
-                        trigger: processSection, scroller: scroller,
-                        start: "top 95%", end: "top 10%", scrub: true,
+                        trigger: processSection,
+                        scroller: scroller,
+                        start: "top 95%",
+                        end: "top 10%",
+                        scrub: 1, // Sincronizado
                     }
                 });
             }
