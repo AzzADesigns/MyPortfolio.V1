@@ -94,18 +94,18 @@ export const Services = () => {
             const bigNumber = processSection.querySelector('.step-number-huge');
             if (bigNumber) {
                 gsap.fromTo(bigNumber,
-                    { 
-                        scale: 15, 
-                        opacity: 1, 
-                        filter: "blur(20px)", 
+                    {
+                        scale: 15,
+                        opacity: 1,
+                        filter: "blur(20px)",
                         x: 330, // Offset inicial para que parezca venir del centro de la pantalla
-                        y: -110 
+                        y: -110
                     },
                     {
-                        scale: 1, 
-                        opacity: 1, 
+                        scale: 1,
+                        opacity: 1,
                         filter: "blur(0px)",
-                        x: 0, 
+                        x: 0,
                         y: 0,
                         ease: "power2.out",
                         scrollTrigger: {
@@ -120,19 +120,19 @@ export const Services = () => {
             }
 
             // 4. Entrada Épica del Contenido
-            const titleEl    = processSection.querySelector('h3') as HTMLElement | null;
+            const titleEl = processSection.querySelector('h3') as HTMLElement | null;
             const subtitleContainer = processSection.querySelector('.mt-8.space-y-1') as HTMLElement | null;
-            const pillEl      = processSection.querySelector('.mb-8.self-start') as HTMLElement | null;
+            const pillEl = processSection.querySelector('.mb-8.self-start') as HTMLElement | null;
             const descriptionEl = processSection.querySelector('p.max-w-2xl') as HTMLElement | null;
             const listItemEls = Array.from(processSection.querySelectorAll('ul li')) as HTMLElement[];
-            const buttonsEl   = processSection.querySelector('.flex-col.gap-6') as HTMLElement | null;
+            const buttonsEl = processSection.querySelector('.flex-col.gap-6') as HTMLElement | null;
             const stepLabelEl = processSection.querySelector('.process-step-label') as HTMLElement | null;
-            
-            const titleLineEl  = processSection.querySelector('.process-title-line') as HTMLElement | null;
-            const vLineEl      = processSection.querySelector('.process-v-line') as HTMLElement | null;
-            const bLineEl      = processSection.querySelector('.process-b-line') as HTMLElement | null;
-            const rLineEl      = processSection.querySelector('.process-r-line') as HTMLElement | null;
-            const tLineEl      = processSection.querySelector('.process-t-line') as HTMLElement | null;
+
+            const titleLineEl = processSection.querySelector('.process-title-line') as HTMLElement | null;
+            const vLineEl = processSection.querySelector('.process-v-line') as HTMLElement | null;
+            const bLineEl = processSection.querySelector('.process-b-line') as HTMLElement | null;
+            const rLineEl = processSection.querySelector('.process-r-line') as HTMLElement | null;
+            const tLineEl = processSection.querySelector('.process-t-line') as HTMLElement | null;
 
             const allElements = [titleEl, subtitleContainer, pillEl, descriptionEl, ...listItemEls, buttonsEl, stepLabelEl].filter(Boolean);
 
@@ -145,10 +145,10 @@ export const Services = () => {
                 onEnter: () => {
                     const tl = gsap.timeline();
                     if (titleLineEl) tl.to(titleLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 0);
-                    if (vLineEl)     tl.to(vLineEl,     { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
-                    if (bLineEl)     tl.to(bLineEl,     { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
-                    if (rLineEl)     tl.to(rLineEl,     { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
-                    if (tLineEl)     tl.to(tLineEl,     { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
+                    if (vLineEl) tl.to(vLineEl, { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
+                    if (bLineEl) tl.to(bLineEl, { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
+                    if (rLineEl) tl.to(rLineEl, { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
+                    if (tLineEl) tl.to(tLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
 
                     if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
                     if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
@@ -161,10 +161,10 @@ export const Services = () => {
                 onLeaveBack: () => {
                     gsap.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.3, stagger: 0.02, ease: "power2.in", overwrite: true });
                     if (titleLineEl) gsap.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (vLineEl)     gsap.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (bLineEl)     gsap.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (rLineEl)     gsap.to(rLineEl,     { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (tLineEl)     gsap.to(tLineEl,     { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                    if (vLineEl) gsap.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                    if (bLineEl) gsap.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                    if (rLineEl) gsap.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                    if (tLineEl) gsap.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
                 }
             });
 
@@ -258,9 +258,9 @@ export const Services = () => {
                                                     <span className="process-step-label absolute -top-10 -right-2 origin-center rotate-90 text-[11px] font-black tracking-[0.3em] text-[#001720]/40 uppercase whitespace-nowrap">
                                                         Paso
                                                     </span>
-                                                    
+
                                                     {/* El número gigante ahora vive en el flujo, alineándose naturalmente */}
-                                                    <span 
+                                                    <span
                                                         className="step-number-huge block text-[120px] md:text-[180px] lg:text-[210px] font-bold leading-[0.8] text-transparent bg-clip-text bg-gradient-to-br from-brand-cyan to-brand-green drop-shadow-[0_15px_30px_rgba(7,248,242,0.25)]"
                                                         style={{ WebkitTextStroke: '2px #001720' }}
                                                     >
