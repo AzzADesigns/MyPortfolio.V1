@@ -6,12 +6,13 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { Observer } from 'gsap/Observer';
 import { FluidBackground } from './components/FluidBackground';
 import { ScrollIndicator } from './components/ScrollIndicator';
 import { ServicesContent } from './components/ServicesContent';
 import { PROCESS_STEPS } from './constants/servicesData';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
 export const Services = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -20,9 +21,10 @@ export const Services = () => {
     const processRef = useRef<HTMLDivElement>(null);
     const currentStep = PROCESS_STEPS[activeStep];
 
-    // Refs para acceder al estado más reciente dentro de GSAP (evitando cierres obsoletos / stale closures)
+    // Refs para acceder al estado más reciente dentro de GSAP
     const activeStepRef = useRef(activeStep);
     const isAnimatingRef = useRef(isAnimating);
+    const scrollTargetStepRef = useRef(activeStep); // Tracker de la posición deseada por el scroll
 
     useEffect(() => {
         activeStepRef.current = activeStep;
@@ -34,6 +36,8 @@ export const Services = () => {
 
     const handleStepChange = (newIdx: number) => {
         if (isAnimatingRef.current || newIdx === activeStepRef.current) return;
+        
+        scrollTargetStepRef.current = newIdx; // Actualizamos la intención manual
         setIsAnimating(true);
         isAnimatingRef.current = true; // Síncrono para bloqueo inmediato
 
@@ -158,6 +162,19 @@ export const Services = () => {
                         onComplete: () => {
                             setIsAnimating(false);
                             isAnimatingRef.current = false;
+
+                            // LEY DE SECUENCIACIÓN: ¿El scroll ya avanzó más allá de este paso?
+                            // Si es así, disparamos el siguiente paso de la cadena.
+                            if (scrollTargetStepRef.current !== activeStepRef.current) {
+                                const nextStep = scrollTargetStepRef.current > activeStepRef.current 
+                                    ? activeStepRef.current + 1 
+                                    : activeStepRef.current - 1;
+                                
+                                // Pequeño respiro para que React asiente el estado antes de la siguiente animación
+                                setTimeout(() => {
+                                    handleStepChangeRef.current(nextStep);
+                                }, 30);
+                            }
                         }
                     });
                 }, 20);
@@ -203,12 +220,15 @@ export const Services = () => {
                 scroller: scroller,
                 start: "top 10%",
                 onLeaveBack: () => {
-                    gsap.to(scroller, {
-                        scrollTo: { y: 0 },
-                        duration: 1.2,
-                        ease: "power4.inOut",
-                        overwrite: true
-                    });
+                    // Solo salimos de la sección de procesos si estamos en el primer paso (Step 01)
+                    if (activeStepRef.current === 0) {
+                        gsap.to(scroller, {
+                            scrollTo: { y: 0 },
+                            duration: 1.2,
+                            ease: "power4.inOut",
+                            overwrite: true
+                        });
+                    }
                 }
             });
 
@@ -246,7 +266,7 @@ export const Services = () => {
                 });
             });
 
-            // 3. Animación de "01" Gigante
+            // 3. Animación de "01" Gigante (Integrada con el Lock)
             const bigNumber = processSection.querySelector('.step-number-huge');
             if (bigNumber) {
                 gsap.fromTo(bigNumber,
@@ -254,7 +274,7 @@ export const Services = () => {
                         scale: 15,
                         opacity: 1,
                         filter: "blur(20px)",
-                        x: 330, // Offset inicial para que parezca venir del centro de la pantalla
+                        x: 330,
                         y: -110
                     },
                     {
@@ -263,13 +283,21 @@ export const Services = () => {
                         filter: "blur(0px)",
                         x: 0,
                         y: 0,
-                        ease: "power2.out",
+                        ease: "none",
                         scrollTrigger: {
                             trigger: processSection,
                             scroller: scroller,
                             start: "top top",
-                            end: "center top",
+                            end: "top -50%", // 50vh de scroll para el efecto de achicado
                             scrub: 1,
+                            // Al terminar el scrub hacia abajo, bloqueamos
+                            onLeave: () => {
+                                scroller.style.overflowY = 'hidden';
+                                // Forzamos el estado final del número para que no haya solapamiento con el suavizado del scrub
+                                gsap.set(bigNumber, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, y: 0 });
+                                // Disparamos la aparición del contenido
+                                playPaso01Entrance();
+                            }
                         }
                     }
                 );
@@ -294,33 +322,101 @@ export const Services = () => {
 
             gsap.set(allElements, { opacity: 0, y: 40, filter: "blur(10px)" });
 
+            // 4. Sistema de Bloqueo y Navegación por Pasos (Observer + Scroll Lock)
+            // Creamos el Observer que manejará el cambio de pasos de forma virtual
+            const carouselObserver = Observer.create({
+                target: scroller,
+                type: "wheel,touch",
+                onUp: () => {
+                    if (isAnimatingRef.current) return;
+                    if (activeStepRef.current > 0) {
+                        handleStepChangeRef.current(activeStepRef.current - 1);
+                    } else {
+                        // Si estamos en el Paso 01 y scrolleamos hacia arriba, 
+                        // hacemos una salida elegante antes de liberar el scroll
+                        playPaso01Exit(() => {
+                            scroller.style.overflowY = 'auto';
+                            carouselObserver.disable();
+                            gsap.to(scroller, { scrollTo: 0, duration: 1.2, ease: "power2.inOut" });
+                        });
+                    }
+                },
+                onDown: () => {
+                    if (isAnimatingRef.current) return;
+                    if (activeStepRef.current < PROCESS_STEPS.length - 1) {
+                        handleStepChangeRef.current(activeStepRef.current + 1);
+                    } else {
+                        // Si estamos en el último paso y scrolleamos hacia abajo, liberamos el scroll
+                        scroller.style.overflowY = 'auto';
+                        carouselObserver.disable();
+                    }
+                },
+                preventDefault: true
+            });
+            carouselObserver.disable(); // Empezamos desactivado por defecto
+
+            // Función para disparar la animación de contenido del Paso 01
+            const playPaso01Entrance = () => {
+                // Bloqueamos cualquier interacción mientras dure la intro
+                setIsAnimating(true);
+                isAnimatingRef.current = true;
+                carouselObserver.disable();
+
+                gsap.killTweensOf([...allElements, titleLineEl, vLineEl, bLineEl, rLineEl, tLineEl].filter(Boolean));
+                gsap.set(allElements, { scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, x: 0 });
+
+                const tl = gsap.timeline({
+                    delay: 0.2, // Pequeña pausa para que el "01" se asiente
+                    onComplete: () => {
+                        setIsAnimating(false);
+                        isAnimatingRef.current = false;
+                        carouselObserver.enable(); // Solo ahora permitimos navegar
+                    }
+                });
+                if (titleLineEl) tl.to(titleLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 0);
+                if (vLineEl) tl.to(vLineEl, { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
+                if (bLineEl) tl.to(bLineEl, { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
+                if (rLineEl) tl.to(rLineEl, { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
+                if (tLineEl) tl.to(tLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
+
+                if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
+                if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.3);
+                if (pillEl) tl.to(pillEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.6);
+                const col4 = [descriptionEl, ...listItemEls].filter(Boolean);
+                if (col4.length) tl.to(col4, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.9);
+                if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 1.4);
+            };
+
+            // Función para la salida reversa del Paso 01
+            const playPaso01Exit = (onComplete: () => void) => {
+                setIsAnimating(true);
+                isAnimatingRef.current = true;
+
+                const tl = gsap.timeline({ onComplete });
+                // Los elementos caen y se desvanecen
+                tl.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.4, stagger: 0.02, ease: "power2.in" });
+                // Las líneas se contraen
+                if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0);
+                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.1);
+                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.15);
+                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.2);
+                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.25);
+            };
+
+            // Trigger de Soporte para liberar el bloqueo al volver atrás (Scrub reverso)
             ScrollTrigger.create({
                 trigger: processSection,
                 scroller: scroller,
-                start: "center top",
-                onEnter: () => {
-                    const tl = gsap.timeline();
-                    if (titleLineEl) tl.to(titleLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 0);
-                    if (vLineEl) tl.to(vLineEl, { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
-                    if (bLineEl) tl.to(bLineEl, { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
-                    if (rLineEl) tl.to(rLineEl, { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
-                    if (tLineEl) tl.to(tLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
-
-                    if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
-                    if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
-                    if (subtitleContainer) tl.to(subtitleContainer, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.3);
-                    if (pillEl) tl.to(pillEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.6);
-                    const col4 = [descriptionEl, ...listItemEls].filter(Boolean);
-                    if (col4.length) tl.to(col4, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.9);
-                    if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 1.4);
-                },
-                onLeaveBack: () => {
-                    gsap.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.3, stagger: 0.02, ease: "power2.in", overwrite: true });
-                    if (titleLineEl) gsap.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (vLineEl) gsap.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (bLineEl) gsap.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (rLineEl) gsap.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (tLineEl) gsap.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                start: "top -49%", // Justo un poco antes del punto de bloqueo
+                onEnterBack: () => {
+                    scroller.style.overflowY = 'auto';
+                    carouselObserver.disable();
+                    
+                    // Limpieza: ocultamos el contenido para que el número pueda crecer solo
+                    gsap.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.3, overwrite: true });
+                    if (titleLineEl) gsap.to(titleLineEl, { scaleX: 0, opacity: 0 });
+                    if (vLineEl) gsap.to(vLineEl, { scaleY: 0, opacity: 0 });
                 }
             });
 
@@ -345,29 +441,6 @@ export const Services = () => {
                     }
                 });
             }
-
-            // 6. Integración del Scroll con los Pasos (Scroll-driven Carousel)
-            // Esto asegura que el efecto se haga con el scroll, y arranca DESPUÉS de que el 01 entra.
-            ScrollTrigger.create({
-                trigger: processSection,
-                scroller: scroller,
-                // Empieza considerablemente después de "center top" para dar margen a que
-                // la animación épica de entrada termine y todo esté ya en pantalla.
-                start: "center -30%", 
-                end: "bottom bottom",
-                onUpdate: (self) => {
-                    const progress = self.progress;
-                    const totalSteps = PROCESS_STEPS.length;
-                    
-                    // Divide el scroll restante equitativamente entre todos los pasos
-                    let targetStep = Math.floor(progress * totalSteps);
-                    if (targetStep >= totalSteps) targetStep = totalSteps - 1;
-
-                    if (targetStep !== activeStepRef.current && !isAnimatingRef.current) {
-                        handleStepChangeRef.current(targetStep);
-                    }
-                }
-            });
         });
 
         return () => mm.revert();
@@ -541,4 +614,3 @@ export const Services = () => {
         </section>
     );
 };
-
