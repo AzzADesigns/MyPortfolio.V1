@@ -1,0 +1,95 @@
+.landing-container, .landing-container * {
+    cursor: none !important;
+}
+
+.landing-container {
+    background-color: #001720;
+    font-family: var(--font-sora), sans-serif;
+    user-select: none;
+}
+
+.gsap-nav,
+.gsap-hero-text,
+.gsap-hero-image,
+.gsap-hero-bg,
+.gsap-hero-stat {
+    visibility: hidden;
+    opacity: 0;
+}
+
+a,
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+html::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+html::-webkit-scrollbar-button {
+    display: none !important;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #89EA2B 0%, #22d3ee 100%) !important;
+    border-radius: 10px !important;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a3f256 0%, #4ce4f7 100%) !important;
+}
+
+
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: #89EA2B transparent !important;
+}
+
+/* Animación para el botón CTA */
+@keyframes aurora-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-aurora-flow {
+    background-size: 200% 200%;
+    animation: aurora-flow 6s ease infinite;
+}
+
+/* Ocultar el scrollbar interno de Servicios para limpieza visual */
+.services-internal-scroll {
+    -ms-overflow-style: none !important;  /* IE y Edge */
+    scrollbar-width: none !important;     /* Firefox */
+}
+
+.services-internal-scroll::-webkit-scrollbar {
+    display: none !important;  /* Chrome, Safari y Opera */
+}
+
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(100%); } /* Se desplaza su propia altura hacia abajo */
+}
+
+.animate-scroll-bounce {
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.services-internal-scroll::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb {
+    background: #000000 !important; /* Negro puro */
+    border-radius: 10px !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #1a1a1a !important;
+}

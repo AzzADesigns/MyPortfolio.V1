@@ -49,23 +49,27 @@ body {
     color: var(--buttonColor);
 }
 
-/* Scrollbar personalizado */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+/* Scrollbar exclusivo para la sección de Servicios */
+.services-internal-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #001720 transparent;
 }
-  
-.custom-scrollbar::-webkit-scrollbar-track {
+
+.services-internal-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.services-internal-scroll::-webkit-scrollbar-track {
     background: transparent;
 }
-  
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--buttonColor);
-    border-radius: 20px;
+
+.services-internal-scroll::-webkit-scrollbar-thumb {
+    background-color: #001720; /* Negro total */
+    border-radius: 10px;
 }
-  
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: var(--buttonColor);
-    opacity: 0.8;
+
+.services-internal-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #000000;
 }
 
 /* Animaciones */
@@ -74,12 +78,15 @@ body {
         transform: translateY(-120%);
         opacity: 0;
     }
+
     10% {
         opacity: 1;
     }
+
     90% {
         opacity: 1;
     }
+
     100% {
         transform: translateY(120%);
         opacity: 0;
@@ -91,12 +98,15 @@ body {
         transform: translateY(120%);
         opacity: 0;
     }
+
     10% {
         opacity: 1;
     }
+
     90% {
         opacity: 1;
     }
+
     100% {
         transform: translateY(-120%);
         opacity: 0;
@@ -111,14 +121,64 @@ body {
     animation: scrollUp 6s linear infinite;
 }
 
+/* Animaciones de flotación para el Hero */
+@keyframes float-sutil-1 {
+
+    0%,
+    100% {
+        transform: var(--pos, translate(0, 0)) translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: var(--pos, translate(0, 0)) translateY(-15px) rotate(1deg);
+    }
+}
+
+@keyframes float-sutil-2 {
+
+    0%,
+    100% {
+        transform: var(--pos, translate(0, 0)) translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: var(--pos, translate(0, 0)) translateY(-10px) rotate(-1deg);
+    }
+}
+
+@keyframes float-sutil-3 {
+
+    0%,
+    100% {
+        transform: var(--pos, translate(0, 0)) translateY(0px);
+    }
+
+    50% {
+        transform: var(--pos, translate(0, 0)) translateY(-12px);
+    }
+}
+
+.animate-float-sutil-1 {
+    animation: float-sutil-1 5s ease-in-out infinite;
+}
+
+.animate-float-sutil-2 {
+    animation: float-sutil-2 7s ease-in-out infinite;
+}
+
+.animate-float-sutil-3 {
+    animation: float-sutil-3 6s ease-in-out infinite;
+}
+
 /* Utilidades personalizadas */
 .p-np {
     padding: 26px;
 }
 
 .max {
-  max-width: 2125px;
+    max-width: 2125px;
 }
+
 @media (min-width: 458px) and (max-width: 639px) {
     .w-narrow-range {
         width: 70%;
@@ -139,48 +199,63 @@ body {
 
 /* Ocultar scrollbar para IE, Edge y Firefox */
 .hide-scrollbar {
-    -ms-overflow-style: none;  /* IE y Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE y Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 
 .glass-glow {
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0) 80%
-  );
-  position: absolute;
-  top: 0;
-  left: -100%;
-  transform: skewX(-20deg);
-  animation: glowMove 3s ease-in-out infinite;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 20%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 80%);
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transform: skewX(-20deg);
+    animation: glowMove 3s ease-in-out infinite;
 }
 
 @keyframes glowMove {
-  0% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: -100%;
-  }
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: -100%;
+    }
 }
 
 
-/* globals.css */
+/* Animación para el degradado en hover de redes sociales */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+.animate-gradient-move {
+    background-size: 200% auto;
+    animation: gradientMove 3s linear infinite;
+}
+
 /* globals.css */
 @theme {
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-  --breakpoint-new2xl: 1522px;
-  --breakpoint-3xl: 1713px;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+    --breakpoint-new2xl: 1522px;
+    --breakpoint-3xl: 1713px;
+
+    --color-brand-green: #89EA2B;
+    --color-brand-cyan: #07F8F2;
+    --color-brand-dark: #001720;
 }
