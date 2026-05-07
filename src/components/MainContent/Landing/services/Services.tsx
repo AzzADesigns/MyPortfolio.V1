@@ -132,7 +132,7 @@ export const Services = () => {
             const vLineEl      = processSection.querySelector('.process-v-line') as HTMLElement | null;
             const bLineEl      = processSection.querySelector('.process-b-line') as HTMLElement | null;
             const rLineEl      = processSection.querySelector('.process-r-line') as HTMLElement | null;
-            const exitLineEl   = processSection.querySelector('.process-exit-line') as HTMLElement | null;
+            const tLineEl      = processSection.querySelector('.process-t-line') as HTMLElement | null;
 
             const allElements = [titleEl, subtitleContainer, pillEl, descriptionEl, ...listItemEls, buttonsEl, stepLabelEl].filter(Boolean);
 
@@ -147,8 +147,8 @@ export const Services = () => {
                     if (titleLineEl) tl.to(titleLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 0);
                     if (vLineEl)     tl.to(vLineEl,     { scaleY: 1, opacity: 1, duration: 0.7, ease: "none" }, 0.3);
                     if (bLineEl)     tl.to(bLineEl,     { scaleX: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.0);
-                    if (rLineEl)     tl.to(rLineEl,     { scaleY: 1, opacity: 1, duration: 0.18, ease: "none" }, 1.6);
-                    if (exitLineEl)  tl.to(exitLineEl,  { scaleX: 1, opacity: 1, duration: 1.0, ease: "none" }, 1.78);
+                    if (rLineEl)     tl.to(rLineEl,     { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
+                    if (tLineEl)     tl.to(tLineEl,     { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
 
                     if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
                     if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
@@ -164,7 +164,7 @@ export const Services = () => {
                     if (vLineEl)     gsap.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
                     if (bLineEl)     gsap.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
                     if (rLineEl)     gsap.to(rLineEl,     { scaleY: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
-                    if (exitLineEl)  gsap.to(exitLineEl,  { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+                    if (tLineEl)     gsap.to(tLineEl,     { scaleX: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
                 }
             });
 
@@ -281,12 +281,12 @@ export const Services = () => {
                                     </div>
 
                                     {/* Columna 2: Texto y Detalles */}
-                                    <div className="lg:col-span-7 flex flex-col justify-center lg:pt-12 pl-10 lg:pl-16 pb-16 relative">
+                                    <div className="lg:col-span-7 flex flex-col justify-center lg:pt-24 pl-10 lg:pl-16 pb-16 relative">
                                         {/* Líneas decorativas */}
                                         <div className="process-v-line absolute left-0 top-[29px] bottom-0 w-[3px] bg-[#001720] origin-top" style={{ transform: 'scaleY(0)' }} />
                                         <div className="process-b-line absolute bottom-0 left-0 -right-10 h-[3px] bg-[#001720] origin-left" style={{ transform: 'scaleX(0)' }} />
-                                        <div className="process-r-line absolute bottom-0 -right-10 w-[3px] h-[150px] bg-[#001720] origin-bottom" style={{ transform: 'scaleY(0)' }} />
-                                        <div className="process-exit-line absolute h-[3px] bg-[#001720] origin-left" style={{ bottom: '149px', left: 'calc(100% + 39px)', width: '2000px', transform: 'scaleX(0)' }} />
+                                        <div className="process-r-line absolute bottom-0 -right-10 top-[29px] w-[3px] bg-[#001720] origin-bottom" style={{ transform: 'scaleY(0)' }} />
+                                        <div className="process-t-line absolute top-[29px] -right-10 w-24 h-[3px] bg-[#001720] origin-right" style={{ transform: 'scaleX(0)' }} />
 
                                         {/* Pregunta / Pill */}
                                         <div className="mb-8 self-start flex items-center gap-3">
