@@ -1,7 +1,7 @@
 'use client';
 // Force refresh to clear stale exit animations
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -15,9 +15,165 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export const Services = () => {
     const [activeStep, setActiveStep] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
     const processRef = useRef<HTMLDivElement>(null);
     const currentStep = PROCESS_STEPS[activeStep];
+
+    // Refs para acceder al estado más reciente dentro de GSAP (evitando cierres obsoletos / stale closures)
+    const activeStepRef = useRef(activeStep);
+    const isAnimatingRef = useRef(isAnimating);
+
+    useEffect(() => {
+        activeStepRef.current = activeStep;
+    }, [activeStep]);
+
+    useEffect(() => {
+        isAnimatingRef.current = isAnimating;
+    }, [isAnimating]);
+
+    const handleStepChange = (newIdx: number) => {
+        if (isAnimatingRef.current || newIdx === activeStepRef.current) return;
+        setIsAnimating(true);
+        isAnimatingRef.current = true; // Síncrono para bloqueo inmediato
+
+        const direction = newIdx > activeStepRef.current ? 1 : -1;
+        const processSection = processRef.current;
+        if (!processSection) {
+            setActiveStep(newIdx);
+            setIsAnimating(false);
+            isAnimatingRef.current = false;
+            return;
+        }
+
+        // Seleccionamos los elementos específicos del contenido para animar
+        const number = processSection.querySelector('.step-number-huge');
+        const subtitle = processSection.querySelector('.step-content-subtitle');
+        const pill = processSection.querySelector('.step-content-pill');
+        const desc = processSection.querySelector('.step-content-desc');
+        const list = processSection.querySelector('.step-content-list');
+
+        const targets = [number, subtitle, pill, desc, list].filter(Boolean);
+
+        // Seleccionamos las líneas decorativas
+        const titleLine = processSection.querySelector('.process-title-line');
+        const vLine = processSection.querySelector('.process-v-line');
+        const bLine = processSection.querySelector('.process-b-line');
+        const rLine = processSection.querySelector('.process-r-line');
+        const tLine = processSection.querySelector('.process-t-line');
+
+        const hLines = [titleLine, bLine, tLine].filter(Boolean);
+        const vLines = [vLine, rLine].filter(Boolean);
+
+        if (targets.length === 0) {
+            setActiveStep(newIdx);
+            setIsAnimating(false);
+            isAnimatingRef.current = false;
+            return;
+        }
+
+        // --- CONFIGURACIÓN DE EFECTOS DINÁMICOS POR SECCIÓN ---
+        let textOut: gsap.TweenVars, textInFrom: gsap.TweenVars, textInTo: gsap.TweenVars;
+        let hLinesOut: gsap.TweenVars, vLinesOut: gsap.TweenVars;
+        let hLinesInFrom: gsap.TweenVars, vLinesInFrom: gsap.TweenVars;
+        let hLinesIn: gsap.TweenVars, vLinesIn: gsap.TweenVars;
+
+        // Limpieza universal de transformaciones para evitar que "basura" de otros efectos se acumule
+        const baseFrom = { x: 0, y: 0, scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, opacity: 0, filter: "blur(10px)" };
+
+        if (newIdx === 2) { 
+            // ----- SECCIÓN 03: 3D DEPTH DIVE (Efecto de Inmersión) -----
+            textOut = { scale: 1.5, opacity: 0, filter: "blur(20px)", y: -50, duration: 0.5, stagger: 0.04, ease: "power3.in" };
+            textInFrom = { ...baseFrom, scale: 0.5, rotationX: 45, y: 100, filter: "blur(15px)" };
+            textInTo = { scale: 1, rotationX: 0, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.06, ease: "elastic.out(1, 0.75)" };
+            
+            // Las líneas "explotan" hacia afuera del marco
+            hLinesOut = { scaleX: 1.5, opacity: 0, duration: 0.4, ease: "power3.in", stagger: 0.05 };
+            vLinesOut = { scaleY: 1.5, opacity: 0, duration: 0.4, ease: "power3.in", stagger: 0.05 };
+            hLinesInFrom = { scaleX: 0, opacity: 0 };
+            vLinesInFrom = { scaleY: 0, opacity: 0 };
+            hLinesIn = { scaleX: 1, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.1 };
+            vLinesIn = { scaleY: 1, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.1, delay: 0.2 };
+        }
+        else if (newIdx === 3) { 
+            // ----- SECCIÓN 04: GRAVITY BOUNCE & GLITCH (Efecto Disruptivo) -----
+            textOut = { y: 150, skewX: -15, rotationZ: direction * 5, opacity: 0, filter: "blur(5px)", duration: 0.4, stagger: 0.02, ease: "back.in(2)" };
+            textInFrom = { ...baseFrom, y: -200, skewX: 15, rotationZ: direction * -5 };
+            textInTo = { y: 0, skewX: 0, rotationZ: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, stagger: 0.04, ease: "bounce.out" };
+            
+            // Las líneas colapsan violentamente y rebotan de forma caótica (stagger invertido)
+            hLinesOut = { scaleX: 0, opacity: 0, duration: 0.3, ease: "power4.in" };
+            vLinesOut = { scaleY: 0, opacity: 0, duration: 0.3, ease: "power4.in" };
+            hLinesInFrom = { scaleX: 0, opacity: 0 };
+            vLinesInFrom = { scaleY: 0, opacity: 0 };
+            hLinesIn = { scaleX: 1, opacity: 1, duration: 1, ease: "elastic.out(1, 0.3)", stagger: -0.05 };
+            vLinesIn = { scaleY: 1, opacity: 1, duration: 1, ease: "elastic.out(1, 0.3)", stagger: -0.05, delay: 0.1 };
+        }
+        else if (newIdx >= 4) {
+            // ----- SECCIÓN 05: HYPER-WARP / VELOCIDAD DE LA LUZ (Efecto Final) -----
+            // El texto colapsa en un agujero negro súper rápido
+            textOut = { scale: 0, rotationZ: direction * 15, opacity: 0, filter: "blur(10px)", duration: 0.3, stagger: 0.02, ease: "expo.in" };
+            // El texto nuevo viene disparado desde detrás del usuario
+            textInFrom = { ...baseFrom, scale: 5, filter: "blur(30px)", opacity: 0 };
+            textInTo = { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.9, stagger: 0.05, ease: "expo.out" };
+
+            // Las líneas se estiran hacia el infinito y desaparecen
+            hLinesOut = { scaleX: 3, opacity: 0, duration: 0.3, ease: "expo.in" };
+            vLinesOut = { scaleY: 3, opacity: 0, duration: 0.3, ease: "expo.in" };
+            hLinesInFrom = { scaleX: 0, opacity: 0 };
+            vLinesInFrom = { scaleY: 0, opacity: 0 };
+            // Las líneas entran como un rayo láser limpio
+            hLinesIn = { scaleX: 1, opacity: 1, duration: 0.7, ease: "circ.out", stagger: 0.05 };
+            vLinesIn = { scaleY: 1, opacity: 1, duration: 0.7, ease: "circ.out", stagger: 0.05, delay: 0.1 };
+        }
+        else { 
+            // ----- SECCIÓN 01 y 02: SLIDE MECÁNICO (Línea de tiempo progresiva) -----
+            textOut = { x: -80 * direction, opacity: 0, filter: "blur(10px)", duration: 0.4, stagger: 0.03, ease: "power2.in" };
+            textInFrom = { ...baseFrom, x: 80 * direction };
+            textInTo = { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.05, ease: "back.out(1.2)" };
+            
+            hLinesOut = { scaleX: 0.2, opacity: 0.2, duration: 0.4, ease: "power2.inOut", stagger: 0.05 };
+            vLinesOut = { scaleY: 0.2, opacity: 0.2, duration: 0.4, ease: "power2.inOut", stagger: 0.05 };
+            hLinesInFrom = { scaleX: 0.2, opacity: 0.2 };
+            vLinesInFrom = { scaleY: 0.2, opacity: 0.2 };
+            hLinesIn = { scaleX: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)", stagger: 0.05 };
+            vLinesIn = { scaleY: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)", stagger: 0.05, delay: 0.1 };
+        }
+
+        // Ejecutar Animación de Salida del contenido
+        gsap.to(targets, {
+            ...textOut,
+            onComplete: () => {
+                setActiveStep(newIdx);
+                activeStepRef.current = newIdx;
+                
+                setTimeout(() => {
+                    // Ejecutar Animación de Entrada de las Líneas
+                    if (hLines.length) gsap.fromTo(hLines, hLinesInFrom, hLinesIn);
+                    if (vLines.length) gsap.fromTo(vLines, vLinesInFrom, vLinesIn);
+
+                    // Ejecutar Animación de Entrada del contenido
+                    gsap.fromTo(targets, textInFrom, {
+                        ...textInTo,
+                        onComplete: () => {
+                            setIsAnimating(false);
+                            isAnimatingRef.current = false;
+                        }
+                    });
+                }, 20);
+            }
+        });
+
+        // Ejecutar Animación de Salida de las Líneas simultáneamente
+        if (hLines.length) gsap.to(hLines, hLinesOut);
+        if (vLines.length) gsap.to(vLines, vLinesOut);
+    };
+
+    // Ref para la función fresca
+    const handleStepChangeRef = useRef(handleStepChange);
+    useEffect(() => {
+        handleStepChangeRef.current = handleStepChange;
+    });
 
     useGSAP(() => {
         if (!scrollRef.current || !processRef.current) return;
@@ -189,6 +345,29 @@ export const Services = () => {
                     }
                 });
             }
+
+            // 6. Integración del Scroll con los Pasos (Scroll-driven Carousel)
+            // Esto asegura que el efecto se haga con el scroll, y arranca DESPUÉS de que el 01 entra.
+            ScrollTrigger.create({
+                trigger: processSection,
+                scroller: scroller,
+                // Empieza considerablemente después de "center top" para dar margen a que
+                // la animación épica de entrada termine y todo esté ya en pantalla.
+                start: "center -30%", 
+                end: "bottom bottom",
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    const totalSteps = PROCESS_STEPS.length;
+                    
+                    // Divide el scroll restante equitativamente entre todos los pasos
+                    let targetStep = Math.floor(progress * totalSteps);
+                    if (targetStep >= totalSteps) targetStep = totalSteps - 1;
+
+                    if (targetStep !== activeStepRef.current && !isAnimatingRef.current) {
+                        handleStepChangeRef.current(targetStep);
+                    }
+                }
+            });
         });
 
         return () => mm.revert();
@@ -214,7 +393,8 @@ export const Services = () => {
                     <div
                         ref={processRef}
                         id="proceso-section"
-                        className="w-full relative h-auto lg:min-h-[300vh]"
+                        // Incrementamos la altura para tener suficiente espacio de scroll (track) para los 4 pasos
+                        className="w-full relative h-auto lg:min-h-[400vh]"
                     >
                         {/* VERSION DESKTOP: Sticky + Interactivo (Solo visible en LG+) */}
                         <div className="hidden lg:flex sticky top-0 h-screen w-full items-center justify-center overflow-hidden">
@@ -241,11 +421,12 @@ export const Services = () => {
                                                 {PROCESS_STEPS.map((step, idx) => (
                                                     <button
                                                         key={step.id}
-                                                        onClick={() => setActiveStep(idx)}
+                                                        onClick={() => handleStepChange(idx)}
+                                                        disabled={isAnimating}
                                                         className={`w-[67px] h-[60px] rounded-xl border-[3px] flex items-center justify-center font-bold text-xl transition-all duration-300 ${activeStep === idx
                                                             ? 'border-[#001720] bg-[#001720] text-white shadow-md'
                                                             : 'border-[#001720] text-[#001720] hover:bg-[#001720]/5'
-                                                            }`}
+                                                            } ${isAnimating ? 'cursor-default' : ''}`}
                                                     >
                                                         {step.id}
                                                     </button>
@@ -268,7 +449,7 @@ export const Services = () => {
                                                     </span>
                                                 </div>
 
-                                                <div className="mt-8 space-y-1 text-right mr-4">
+                                                <div className="mt-8 space-y-1 text-right mr-4 step-content-subtitle">
                                                     <h4 className="text-3xl md:text-[45px] font-bold text-[#001720] tracking-tight leading-tight">
                                                         {currentStep.title}
                                                     </h4>
@@ -289,16 +470,16 @@ export const Services = () => {
                                         <div className="process-t-line absolute top-[29px] -right-10 w-24 h-[3px] bg-[#001720] origin-right" style={{ transform: 'scaleX(0)' }} />
 
                                         {/* Pregunta / Pill */}
-                                        <div className="mb-8 self-start flex items-center gap-3">
+                                        <div className="mb-8 self-start flex items-center gap-3 step-content-pill">
                                             <span className="text-[#001720] font-medium text-lg md:text-[20px]">Todo comienza con</span>
                                             <div className="bg-[#001720] px-6 py-3 rounded-3xl border border-brand-cyan/20 shadow-[0_0_30px_rgba(34,211,238,0.1)] transform -rotate-1">
                                                 <span className="text-brand-green font-bold text-lg md:text-[20px] italic tracking-tight block mb-[2px]">“{currentStep.question}”</span>
                                             </div>
                                         </div>
 
-                                        <p className="text-lg md:text-xl text-gray-600 font-medium leading-relaxed mb-10 max-w-2xl">{currentStep.description}</p>
+                                        <p className="text-lg md:text-xl text-gray-600 font-medium leading-relaxed mb-10 max-w-2xl step-content-desc">{currentStep.description}</p>
 
-                                        <ul className="space-y-6">
+                                        <ul className="space-y-6 step-content-list">
                                             {currentStep.points.map((point, idx) => (
                                                 <li key={idx} className="flex items-start gap-5">
                                                     <div className="w-2.5 h-2.5 bg-[#001720] mt-2.5 flex-shrink-0"></div>
