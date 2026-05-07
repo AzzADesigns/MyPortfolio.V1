@@ -288,15 +288,19 @@ export const Services = () => {
                             trigger: processSection,
                             scroller: scroller,
                             start: "top top",
-                            end: "top -50%", // 50vh de scroll para el efecto de achicado
-                            scrub: 0.3, // Más reactivo para evitar sensación de retardo al subir
-                            // Al terminar el scrub hacia abajo, bloqueamos
+                            end: "top -50%", 
+                            scrub: 0.3, // Restaurado: el efecto que sigue tu scroll
                             onLeave: () => {
                                 scroller.style.overflowY = 'hidden';
-                                // Forzamos el estado final del número para que no haya solapamiento con el suavizado del scrub
                                 gsap.set(bigNumber, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, y: 0 });
-                                // Disparamos la aparición del contenido
                                 playPaso01Entrance();
+                            },
+                            // Al volver atrás (subiendo), liberamos el scroll
+                            onEnterBack: () => {
+                                scroller.style.overflowY = 'auto';
+                                carouselObserver.disable();
+                                // Limpieza preventiva del contenido
+                                gsap.to(allElements, { opacity: 0, y: 40, duration: 0.3, overwrite: true });
                             }
                         }
                     }
@@ -336,13 +340,17 @@ export const Services = () => {
                         playPaso01Exit(); 
                         gsap.to(scroller, { 
                             scrollTo: 0, 
-                            duration: 0.8, // Más rápido y directo
+                            duration: 0.8, 
                             ease: "power3.inOut", 
                             overwrite: "auto",
                             onComplete: () => {
                                 // Solo liberamos cuando ya estamos en el destino
                                 scroller.style.overflowY = 'auto';
                                 carouselObserver.disable();
+                                setActiveStep(0);
+                                activeStepRef.current = 0;
+                                // Forzamos un refresh para que el navegador esté listo para la próxima entrada
+                                ScrollTrigger.refresh();
                             }
                         });
                     }
@@ -415,21 +423,7 @@ export const Services = () => {
                 if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.25);
             };
 
-            // Trigger de Soporte para liberar el bloqueo al volver atrás (Scrub reverso)
-            ScrollTrigger.create({
-                trigger: processSection,
-                scroller: scroller,
-                start: "top -49%", // Justo un poco antes del punto de bloqueo
-                onEnterBack: () => {
-                    scroller.style.overflowY = 'auto';
-                    carouselObserver.disable();
-                    
-                    // Limpieza: ocultamos el contenido para que el número pueda crecer solo
-                    gsap.to(allElements, { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.3, overwrite: true });
-                    if (titleLineEl) gsap.to(titleLineEl, { scaleX: 0, opacity: 0 });
-                    if (vLineEl) gsap.to(vLineEl, { scaleY: 0, opacity: 0 });
-                }
-            });
+            // (Trigger de soporte eliminado y consolidado arriba)
 
             // 5. Efecto Acuoso / Expansión del Contenedor (RESTAURADO Y OPTIMIZADO)
             const mainSection = document.getElementById('servicios');
