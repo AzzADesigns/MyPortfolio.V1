@@ -371,16 +371,17 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
                         if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
 
+                        // El dissolve ocurre primero (0.65s), luego el scroll interno
+                        // empieza con delay para evitar el conflicto de movimiento opuesto:
+                        // el sticky baja físicamente mientras nuestra animación subía = caos visual.
                         gsap.to(scroller, {
                             scrollTo: 0,
-                            duration: 0.8,
-                            ease: 'power3.inOut',
+                            delay: 0.6,
+                            duration: 1.0,
+                            ease: 'power4.inOut',
                             overwrite: 'auto',
                             onComplete: () => {
                                 isProcessModeRef.current = false;
-                                // Usar 'hidden' brevemente y luego 'auto' para que el siguiente
-                                // wheel event que llegue ya no sea interceptado por el inner scroller
-                                // y pueda chainear correctamente al outer container.
                                 scroller.style.overflowY = 'hidden';
                                 requestAnimationFrame(() => {
                                     scroller.style.overflowY = 'auto';
@@ -518,7 +519,6 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
             };
 
             // keepLocked=true: no resetear isAnimating en onComplete (el caller lo hace).
-            // útil cuando el scroll de 0.8s controla el lock completo de la transición.
             const playPaso01Exit = (keepLocked = false) => {
                 setIsAnimating(true);
                 isAnimatingRef.current = true;
@@ -529,16 +529,45 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         isAnimatingRef.current = false;
                     }
                 });
-                // El número gigante se encoge y desvanece primero
-                if (bigNumber) tl.to(bigNumber, { scale: 0.3, opacity: 0, filter: 'blur(20px)', duration: 0.35, ease: 'power3.in' }, 0);
-                // Los elementos caen y se desvanecen
-                tl.to(allElements, { opacity: 0, y: 30, duration: 0.3, stagger: 0.01, ease: "power2.in" }, 0);
-                // Las líneas se contraen
-                if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0);
-                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.05);
-                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.1);
-                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.15);
-                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.2);
+
+                // ── DISSOLVE PURO: sin movimiento Y para no luchar con el sticky ────────
+                // El sticky baja físicamente durante el scroll;
+                // añadir y:-28 crearía movimiento opuesto y el efecto "apresurado".
+                // Blur + fade es el único efecto que se percibe como elegante aquí.
+
+                // Número gigante: se expande levísimamente y se evapora
+                if (bigNumber) tl.to(bigNumber, {
+                    opacity: 0,
+                    scale: 1.04,
+                    filter: 'blur(18px)',
+                    duration: 0.8,
+                    ease: 'power2.inOut'
+                }, 0);
+
+                // Líneas: se disuelven antes (dan señal de que el marco se deshace)
+                if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.5, ease: 'expo.inOut' }, 0);
+                if (tLineEl)     tl.to(tLineEl,     { scaleX: 0, opacity: 0, duration: 0.45, ease: 'expo.inOut' }, 0.04);
+                if (rLineEl)     tl.to(rLineEl,     { scaleY: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.1);
+                if (bLineEl)     tl.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.18);
+                if (vLineEl)     tl.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.55, ease: 'expo.inOut' }, 0.26);
+
+                // Contenido: fade con stagger suave, sin y
+                if (titleEl)           tl.to(titleEl,           { opacity: 0, filter: 'blur(6px)', duration: 0.55, ease: 'power2.inOut' }, 0.05);
+                if (stepLabelEl)       tl.to(stepLabelEl,       { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.08);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.12);
+                if (pillEl)            tl.to(pillEl,            { opacity: 0, filter: 'blur(4px)', duration: 0.48, ease: 'power2.inOut' }, 0.15);
+                if (descriptionEl)     tl.to(descriptionEl,     { opacity: 0, filter: 'blur(4px)', duration: 0.45, ease: 'power2.inOut' }, 0.2);
+
+                const exitListItems = Array.from(processSection.querySelectorAll('ul li'));
+                if (exitListItems.length) tl.to(exitListItems, {
+                    opacity: 0,
+                    filter: 'blur(3px)',
+                    duration: 0.4,
+                    stagger: 0.04,
+                    ease: 'power2.inOut'
+                }, 0.23);
+
+                if (buttonsEl) tl.to(buttonsEl, { opacity: 0, filter: 'blur(3px)', duration: 0.4, ease: 'power2.inOut' }, 0.32);
             };
 
             // (Trigger de soporte eliminado y consolidado arriba)
