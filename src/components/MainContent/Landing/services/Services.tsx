@@ -331,9 +331,9 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
 
             // 4. Entrada Épica del Contenido
             const titleEl = processSection.querySelector('h3') as HTMLElement | null;
-            const subtitleContainer = processSection.querySelector('.mt-8.space-y-1') as HTMLElement | null;
-            const pillEl = processSection.querySelector('.mb-8.self-start') as HTMLElement | null;
-            const descriptionEl = processSection.querySelector('p.max-w-2xl') as HTMLElement | null;
+            const subtitleContainer = processSection.querySelector('.step-content-subtitle') as HTMLElement | null;
+            const pillEl = processSection.querySelector('.step-content-pill') as HTMLElement | null;
+            const descriptionEl = processSection.querySelector('.step-content-desc') as HTMLElement | null;
             const listItemEls = Array.from(processSection.querySelectorAll('ul li')) as HTMLElement[];
             const buttonsEl = processSection.querySelector('.flex-col.gap-6') as HTMLElement | null;
             const stepLabelEl = processSection.querySelector('.process-step-label') as HTMLElement | null;
@@ -366,21 +366,23 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         const mainSection = document.getElementById('servicios');
                         const bgContainer = mainSection?.querySelector('.services-bg');
 
-                        // Limpiar los inline styles forzados por enterFromBottom (gsap.set)
-                        // para que el CSS / scrub retome el control del padding y border-radius
-                        if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
-                        if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
-
+                        // El dissolve ocurre primero (0.6s). NO limpiamos los estilos todavía
+                        // para mantener la pantalla completa intacta y evitar el "doble salto".
                         gsap.to(scroller, {
                             scrollTo: 0,
-                            duration: 0.8,
-                            ease: 'power3.inOut',
+                            delay: 0.6,
+                            duration: 1.0,
+                            ease: 'power4.inOut',
                             overwrite: 'auto',
                             onComplete: () => {
+                                // Limpiamos los estilos SOLAMENTE al final.
+                                // Durante el scroll, el ScrollTrigger se encarga de reducir
+                                // el contenedor suavemente. Limpiar aquí asegura que el CSS
+                                // base retome el control sin saltos visuales.
+                                if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
+                                if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
+
                                 isProcessModeRef.current = false;
-                                // Usar 'hidden' brevemente y luego 'auto' para que el siguiente
-                                // wheel event que llegue ya no sea interceptado por el inner scroller
-                                // y pueda chainear correctamente al outer container.
                                 scroller.style.overflowY = 'hidden';
                                 requestAnimationFrame(() => {
                                     scroller.style.overflowY = 'auto';
@@ -518,7 +520,6 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
             };
 
             // keepLocked=true: no resetear isAnimating en onComplete (el caller lo hace).
-            // útil cuando el scroll de 0.8s controla el lock completo de la transición.
             const playPaso01Exit = (keepLocked = false) => {
                 setIsAnimating(true);
                 isAnimatingRef.current = true;
@@ -529,16 +530,45 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         isAnimatingRef.current = false;
                     }
                 });
-                // El número gigante se encoge y desvanece primero
-                if (bigNumber) tl.to(bigNumber, { scale: 0.3, opacity: 0, filter: 'blur(20px)', duration: 0.35, ease: 'power3.in' }, 0);
-                // Los elementos caen y se desvanecen
-                tl.to(allElements, { opacity: 0, y: 30, duration: 0.3, stagger: 0.01, ease: "power2.in" }, 0);
-                // Las líneas se contraen
-                if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0);
-                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.05);
-                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.1);
-                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.15);
-                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.2);
+
+                // ── DISSOLVE PURO: sin movimiento Y para no luchar con el sticky ────────
+                // El sticky baja físicamente durante el scroll;
+                // añadir y:-28 crearía movimiento opuesto y el efecto "apresurado".
+                // Blur + fade es el único efecto que se percibe como elegante aquí.
+
+                // Número gigante: se expande levísimamente y se evapora
+                if (bigNumber) tl.to(bigNumber, {
+                    opacity: 0,
+                    scale: 1.04,
+                    filter: 'blur(18px)',
+                    duration: 0.8,
+                    ease: 'power2.inOut'
+                }, 0);
+
+                // Líneas: se disuelven antes (dan señal de que el marco se deshace)
+                if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.5, ease: 'expo.inOut' }, 0);
+                if (tLineEl)     tl.to(tLineEl,     { scaleX: 0, opacity: 0, duration: 0.45, ease: 'expo.inOut' }, 0.04);
+                if (rLineEl)     tl.to(rLineEl,     { scaleY: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.1);
+                if (bLineEl)     tl.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.18);
+                if (vLineEl)     tl.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.55, ease: 'expo.inOut' }, 0.26);
+
+                // Contenido: fade con stagger suave, sin y
+                if (titleEl)           tl.to(titleEl,           { opacity: 0, filter: 'blur(6px)', duration: 0.55, ease: 'power2.inOut' }, 0.05);
+                if (stepLabelEl)       tl.to(stepLabelEl,       { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.08);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.12);
+                if (pillEl)            tl.to(pillEl,            { opacity: 0, filter: 'blur(4px)', duration: 0.48, ease: 'power2.inOut' }, 0.15);
+                if (descriptionEl)     tl.to(descriptionEl,     { opacity: 0, filter: 'blur(4px)', duration: 0.45, ease: 'power2.inOut' }, 0.2);
+
+                const exitListItems = Array.from(processSection.querySelectorAll('ul li'));
+                if (exitListItems.length) tl.to(exitListItems, {
+                    opacity: 0,
+                    filter: 'blur(3px)',
+                    duration: 0.4,
+                    stagger: 0.04,
+                    ease: 'power2.inOut'
+                }, 0.23);
+
+                if (buttonsEl) tl.to(buttonsEl, { opacity: 0, filter: 'blur(3px)', duration: 0.4, ease: 'power2.inOut' }, 0.32);
             };
 
             // (Trigger de soporte eliminado y consolidado arriba)
@@ -555,7 +585,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         scroller: scroller,
                         start: "top 95%",
                         end: "top 10%",
-                        scrub: 1, // Suavizamos el cambio de layout para evitar la tirantez
+                        scrub: true, // Sincronización instantánea vital para evitar parpadeos al limpiar props
                     }
                 });
                 gsap.to(bgContainer, {
@@ -566,7 +596,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         scroller: scroller,
                         start: "top 95%",
                         end: "top 10%",
-                        scrub: 1, // Sincronizado
+                        scrub: true, // Sincronización instantánea
                     }
                 });
             }
@@ -613,13 +643,13 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         <div className="hidden lg:flex sticky top-0 h-screen w-full items-center justify-center overflow-hidden">
 
 
-                            <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 lg:px-16 relative z-10 lg:mt-24">
+                            <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-16 relative z-10 lg:mt-12 xl:mt-16 2xl:mt-24">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 w-full">
 
                                     {/* Columna 1: Títulos y Selectores */}
-                                    <div className="lg:col-span-5 flex flex-col space-y-8 lg:space-y-10">
+                                    <div className="lg:col-span-5 flex flex-col space-y-8 lg:space-y-6 2xl:space-y-10">
                                         <div className="flex items-center">
-                                            <h3 className="text-3xl md:text-[50px] font-bold text-[#001720] tracking-tight whitespace-nowrap">
+                                            <h3 className="text-3xl md:text-[50px] lg:text-[36px] xl:text-[32px] 2xl:text-[50px] font-bold text-[#001720] tracking-tight whitespace-nowrap">
                                                 El proceso
                                             </h3>
                                             <div
@@ -628,15 +658,15 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                                             />
                                         </div>
 
-                                        <div className="flex items-start gap-8 lg:gap-10">
+                                        <div className="flex items-start gap-8 lg:gap-8 2xl:gap-10">
                                             {/* Selectores de pasos */}
-                                            <div className="flex flex-col gap-6 mt-4">
+                                            <div className="flex flex-col gap-6 lg:gap-4 2xl:gap-6 mt-4 lg:mt-2 2xl:mt-4">
                                                 {PROCESS_STEPS.map((step, idx) => (
                                                     <button
                                                         key={step.id}
                                                         onClick={() => handleStepChange(idx)}
                                                         disabled={isAnimating}
-                                                        className={`w-[67px] h-[60px] rounded-xl border-[3px] flex items-center justify-center font-bold text-xl transition-all duration-300 ${activeStep === idx
+                                                        className={`w-[67px] h-[60px] lg:w-[45px] lg:h-[40px] 2xl:w-[67px] 2xl:h-[60px] rounded-xl border-[3px] lg:border-[2px] 2xl:border-[3px] flex items-center justify-center font-bold text-xl lg:text-base 2xl:text-xl transition-all duration-300 ${activeStep === idx
                                                             ? 'border-[#001720] bg-[#001720] text-white shadow-md'
                                                             : 'border-[#001720] text-[#001720] hover:bg-[#001720]/5'
                                                             } ${isAnimating ? 'cursor-default' : ''}`}
@@ -647,26 +677,26 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                                             </div>
 
                                             {/* Bloque central: Paso + Número Gigante + Subtítulo */}
-                                            <div className="flex flex-col ml-10 lg:ml-0 xl:ml-20 lg:mt-20">
+                                            <div className="flex flex-col ml-10 lg:ml-6 xl:ml-12 2xl:ml-20 lg:mt-10 2xl:mt-20">
                                                 <div className="relative inline-block">
-                                                    <span className="process-step-label absolute -top-10 -right-2 origin-center rotate-90 text-[11px] font-black tracking-[0.3em] text-[#001720]/40 uppercase whitespace-nowrap">
+                                                    <span className="process-step-label absolute -top-10 -right-2 origin-center rotate-90 text-[11px] lg:text-[9px] 2xl:text-[11px] font-black tracking-[0.3em] text-[#001720]/40 uppercase whitespace-nowrap">
                                                         Paso
                                                     </span>
 
                                                     {/* El número gigante ahora vive en el flujo, alineándose naturalmente */}
                                                     <span
-                                                        className="step-number-huge block text-[120px] md:text-[180px] lg:text-[210px] font-bold leading-[0.8] text-transparent bg-clip-text bg-gradient-to-br from-brand-cyan to-brand-green drop-shadow-[0_15px_30px_rgba(7,248,242,0.25)]"
+                                                        className="step-number-huge block text-[120px] md:text-[180px] lg:text-[130px] xl:text-[110px] 2xl:text-[210px] font-bold leading-[0.8] text-transparent bg-clip-text bg-gradient-to-br from-brand-cyan to-brand-green drop-shadow-[0_15px_30px_rgba(7,248,242,0.25)]"
                                                         style={{ WebkitTextStroke: '2px #001720' }}
                                                     >
                                                         {currentStep.id}
                                                     </span>
                                                 </div>
 
-                                                <div className="mt-8 space-y-1 text-right mr-4 step-content-subtitle">
-                                                    <h4 className="text-3xl md:text-[45px] font-bold text-[#001720] tracking-tight leading-tight">
+                                                <div className="mt-8 lg:mt-4 2xl:mt-8 space-y-1 text-right mr-4 step-content-subtitle">
+                                                    <h4 className="text-3xl md:text-[45px] lg:text-[32px] xl:text-[28px] 2xl:text-[45px] font-bold text-[#001720] tracking-tight leading-tight">
                                                         {currentStep.title}
                                                     </h4>
-                                                    <p className="text-2xl md:text-[35px] font-medium text-gray-500 leading-tight">
+                                                    <p className="text-2xl md:text-[35px] lg:text-[24px] xl:text-[20px] 2xl:text-[35px] font-medium text-gray-500 leading-tight">
                                                         {currentStep.subtitle}
                                                     </p>
                                                 </div>
@@ -675,7 +705,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                                     </div>
 
                                     {/* Columna 2: Texto y Detalles */}
-                                    <div className="lg:col-span-7 flex flex-col justify-center lg:pt-24 pl-10 lg:pl-16 pb-16 relative">
+                                    <div className="lg:col-span-7 flex flex-col justify-center lg:pt-12 2xl:pt-24 pl-10 lg:pl-12 2xl:pl-16 lg:pr-24 xl:pr-36 2xl:pr-16 pb-16 relative">
                                         {/* Líneas decorativas */}
                                         <div className="process-v-line absolute left-0 top-[29px] bottom-0 w-[3px] bg-[#001720] origin-top" style={{ transform: 'scaleY(0)' }} />
                                         <div className="process-b-line absolute bottom-0 left-0 -right-10 h-[3px] bg-[#001720] origin-left" style={{ transform: 'scaleX(0)' }} />
@@ -683,20 +713,20 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                                         <div className="process-t-line absolute top-[29px] -right-10 w-24 h-[3px] bg-[#001720] origin-right" style={{ transform: 'scaleX(0)' }} />
 
                                         {/* Pregunta / Pill */}
-                                        <div className="mb-8 self-start flex items-center gap-3 step-content-pill">
-                                            <span className="text-[#001720] font-medium text-lg md:text-[20px]">Todo comienza con</span>
-                                            <div className="bg-[#001720] px-6 py-3 rounded-3xl border border-brand-cyan/20 shadow-[0_0_30px_rgba(34,211,238,0.1)] transform -rotate-1">
-                                                <span className="text-brand-green font-bold text-lg md:text-[20px] italic tracking-tight block mb-[2px]">“{currentStep.question}”</span>
+                                        <div className="mb-8 lg:mb-6 2xl:mb-8 self-start flex items-center gap-3 step-content-pill">
+                                            <span className="text-[#001720] font-medium text-lg lg:text-[15px] xl:text-[14px] 2xl:text-[20px]">Todo comienza con</span>
+                                            <div className="bg-[#001720] px-6 py-3 lg:px-4 lg:py-2 2xl:px-6 2xl:py-3 rounded-3xl border border-brand-cyan/20 shadow-[0_0_30px_rgba(34,211,238,0.1)] transform -rotate-1">
+                                                <span className="text-brand-green font-bold text-lg lg:text-[15px] xl:text-[14px] 2xl:text-[20px] italic tracking-tight block mb-[2px]">“{currentStep.question}”</span>
                                             </div>
                                         </div>
 
-                                        <p className="text-lg md:text-xl text-gray-600 font-medium leading-relaxed mb-10 max-w-2xl step-content-desc">{currentStep.description}</p>
+                                        <p className="text-lg lg:text-[15px] xl:text-[14px] 2xl:text-xl text-gray-600 font-medium leading-relaxed mb-10 lg:mb-6 2xl:mb-10 max-w-4xl 2xl:max-w-none step-content-desc">{currentStep.description}</p>
 
-                                        <ul className="space-y-6 step-content-list">
+                                        <ul className="space-y-6 lg:space-y-4 2xl:space-y-6 step-content-list">
                                             {currentStep.points.map((point, idx) => (
-                                                <li key={idx} className="flex items-start gap-5">
-                                                    <div className="w-2.5 h-2.5 bg-[#001720] mt-2.5 flex-shrink-0"></div>
-                                                    <p className="text-lg md:text-[19px] text-gray-700 leading-snug">
+                                                <li key={idx} className="flex items-start gap-5 lg:gap-3 2xl:gap-5">
+                                                    <div className="w-2.5 h-2.5 lg:w-2 lg:h-2 2xl:w-2.5 2xl:h-2.5 bg-[#001720] mt-2.5 lg:mt-1.5 2xl:mt-2.5 flex-shrink-0"></div>
+                                                    <p className="text-lg lg:text-[15px] xl:text-[14px] 2xl:text-[19px] text-gray-700 leading-snug">
                                                         <span className="font-bold text-[#001720]">{point.label}:</span> {point.text}
                                                     </p>
                                                 </li>
