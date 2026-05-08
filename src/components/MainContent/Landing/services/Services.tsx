@@ -366,14 +366,8 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         const mainSection = document.getElementById('servicios');
                         const bgContainer = mainSection?.querySelector('.services-bg');
 
-                        // Limpiar los inline styles forzados por enterFromBottom (gsap.set)
-                        // para que el CSS / scrub retome el control del padding y border-radius
-                        if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
-                        if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
-
-                        // El dissolve ocurre primero (0.65s), luego el scroll interno
-                        // empieza con delay para evitar el conflicto de movimiento opuesto:
-                        // el sticky baja físicamente mientras nuestra animación subía = caos visual.
+                        // El dissolve ocurre primero (0.6s). NO limpiamos los estilos todavía
+                        // para mantener la pantalla completa intacta y evitar el "doble salto".
                         gsap.to(scroller, {
                             scrollTo: 0,
                             delay: 0.6,
@@ -381,6 +375,13 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                             ease: 'power4.inOut',
                             overwrite: 'auto',
                             onComplete: () => {
+                                // Limpiamos los estilos SOLAMENTE al final.
+                                // Durante el scroll, el ScrollTrigger se encarga de reducir
+                                // el contenedor suavemente. Limpiar aquí asegura que el CSS
+                                // base retome el control sin saltos visuales.
+                                if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
+                                if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
+
                                 isProcessModeRef.current = false;
                                 scroller.style.overflowY = 'hidden';
                                 requestAnimationFrame(() => {
@@ -584,7 +585,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         scroller: scroller,
                         start: "top 95%",
                         end: "top 10%",
-                        scrub: 1, // Suavizamos el cambio de layout para evitar la tirantez
+                        scrub: true, // Sincronización instantánea vital para evitar parpadeos al limpiar props
                     }
                 });
                 gsap.to(bgContainer, {
@@ -595,7 +596,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         scroller: scroller,
                         start: "top 95%",
                         end: "top 10%",
-                        scrub: 1, // Sincronizado
+                        scrub: true, // Sincronización instantánea
                     }
                 });
             }
