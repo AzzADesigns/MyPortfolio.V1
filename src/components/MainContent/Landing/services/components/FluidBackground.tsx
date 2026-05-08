@@ -116,48 +116,48 @@ export const FluidBackground = () => {
     const cursorState = useRef({ rotation: 0, prevRotation: 0, velocity: 0 });
     const animationRef = useRef<number>(0);
 
-    const SPACING = 48; 
-    const brandColors = ['#001720']; // Azul Oscuro Profundo
+    useEffect(() => {
+        const SPACING = 48; 
+        const brandColors = ['#001720']; // Azul Oscuro Profundo
 
-    const initParticles = (width: number, height: number) => {
-        const newParticles: Particle[] = [];
-        // Generamos un área mucho más grande que el canvas actual para que cuando el contenedor
-        // se expanda (ej: al quitar los márgenes con GSAP), ya existan partículas en esos bordes.
-        const margin = 300; 
-        for (let y = -margin; y < height + margin; y += SPACING) {
-            for (let x = -margin; x < width + margin; x += SPACING) {
-                const color = brandColors[Math.floor(Math.random() * brandColors.length)];
-                newParticles.push(new Particle(x, y, color));
-            }
-        }
-        particles.current = newParticles;
-    };
-
-    const getCompositeRotation = () => {
-        const bracket = document.querySelector('.is-bracket');
-        if (!bracket) return 0;
-        
-        let totalRotation = 0;
-        const refLayer = bracket.parentElement;
-        const wrapperLayer = refLayer?.parentElement;
-        
-        [refLayer, wrapperLayer].forEach(el => {
-            if (el) {
-                const style = window.getComputedStyle(el);
-                const transform = style.getPropertyValue('transform');
-                if (transform && transform !== 'none' && transform.includes('matrix')) {
-                    const values = transform.split('(')[1].split(')')[0].split(',');
-                    const a = parseFloat(values[0]);
-                    const b = parseFloat(values[1]);
-                    totalRotation += Math.atan2(b, a);
+        const initParticles = (width: number, height: number) => {
+            const newParticles: Particle[] = [];
+            // Generamos un área mucho más grande que el canvas actual para que cuando el contenedor
+            // se expanda (ej: al quitar los márgenes con GSAP), ya existan partículas en esos bordes.
+            const margin = 300; 
+            for (let y = -margin; y < height + margin; y += SPACING) {
+                for (let x = -margin; x < width + margin; x += SPACING) {
+                    const color = brandColors[Math.floor(Math.random() * brandColors.length)];
+                    newParticles.push(new Particle(x, y, color));
                 }
             }
-        });
-        
-        return totalRotation;
-    };
+            particles.current = newParticles;
+        };
 
-    useEffect(() => {
+        const getCompositeRotation = () => {
+            const bracket = document.querySelector('.is-bracket');
+            if (!bracket) return 0;
+            
+            let totalRotation = 0;
+            const refLayer = bracket.parentElement;
+            const wrapperLayer = refLayer?.parentElement;
+            
+            [refLayer, wrapperLayer].forEach(el => {
+                if (el) {
+                    const style = window.getComputedStyle(el);
+                    const transform = style.getPropertyValue('transform');
+                    if (transform && transform !== 'none' && transform.includes('matrix')) {
+                        const values = transform.split('(')[1].split(')')[0].split(',');
+                        const a = parseFloat(values[0]);
+                        const b = parseFloat(values[1]);
+                        totalRotation += Math.atan2(b, a);
+                    }
+                }
+            });
+            
+            return totalRotation;
+        };
+
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d', { alpha: true });
