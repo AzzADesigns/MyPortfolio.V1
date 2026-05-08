@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -129,6 +129,7 @@ export const useServicesAnimations = ({
             gsap.set(allElements, { opacity: 0, y: 40, filter: "blur(10px)" });
 
             // Declaramos let para carouselObserver que inicializaremos abajo
+            // eslint-disable-next-line prefer-const
             let carouselObserver: ReturnType<typeof Observer.create>;
 
             const playPaso01Entrance = () => {
