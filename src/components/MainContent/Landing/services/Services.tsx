@@ -1,7 +1,6 @@
 'use client';
-// Force refresh to clear stale exit animations
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useImperativeHandle } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,7 +13,11 @@ import { PROCESS_STEPS } from './constants/servicesData';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
-export const Services = () => {
+export interface ServicesHandle {
+    enterFromBottom: () => void;
+}
+
+export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
     const [activeStep, setActiveStep] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,12 @@ export const Services = () => {
     const activeStepRef = useRef(activeStep);
     const isAnimatingRef = useRef(isAnimating);
     const scrollTargetStepRef = useRef(activeStep); // Tracker de la posición deseada por el scroll
+
+    // Refs para exponer funciones al componente padre (Landing)
+    const carouselObserverRef = useRef<ReturnType<typeof Observer.create> | null>(null);
+    const enterFromBottomFnRef = useRef<(() => void) | null>(null);
+    // Bandera: true cuando el carousel está activo (scroll bloqueado en pasos)
+    const isProcessModeRef = useRef(false);
 
     useEffect(() => {
         activeStepRef.current = activeStep;
@@ -201,11 +210,13 @@ export const Services = () => {
 
         mm.add("(min-width: 1024px)", () => {
             // 1. Efecto de "Snap" fluido hecho con GSAP para mayor suavidad que el Snap nativo
+            //    Guardado con isProcessModeRef para no re-disparar cuando el carrusel ya está activo.
             ScrollTrigger.create({
                 trigger: processSection,
                 scroller: scroller,
                 start: "top 90%",
                 onEnter: () => {
+                    if (isProcessModeRef.current) return; // ya en modo carousel, ignorar
                     gsap.to(scroller, {
                         scrollTo: { y: processSection.offsetTop },
                         duration: 1.2,
@@ -220,7 +231,11 @@ export const Services = () => {
                 scroller: scroller,
                 start: "top 10%",
                 onLeaveBack: () => {
-                    // Solo salimos de la sección de procesos si estamos en el primer paso (Step 01)
+                    // GUARD: durante el exit del carousel, isProcessModeRef es true.
+                    // Sin este guard, esta trigger mata el onComplete del scroll de salida
+                    // (overwrite:true) y el cleanup nunca corre → scroll bloqueado permanentemente.
+                    if (isProcessModeRef.current) return;
+                    // Solo aplica para scroll manual del usuario (no programático)
                     if (activeStepRef.current === 0) {
                         gsap.to(scroller, {
                             scrollTo: { y: 0 },
@@ -291,15 +306,22 @@ export const Services = () => {
                             end: "top -50%", 
                             scrub: 0.3, // Restaurado: el efecto que sigue tu scroll
                             onLeave: () => {
+                                if (isProcessModeRef.current) return; // entrada desde abajo ya lo configura
+                                isProcessModeRef.current = true;
                                 scroller.style.overflowY = 'hidden';
                                 gsap.set(bigNumber, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, y: 0 });
+                                // Habilitar el observer ANTES de la animación de entrada
+                                // para que preventDefault bloquee el scroll del outer container
+                                // mientras isAnimating bloquea los cambios de paso
+                                carouselObserver.enable();
                                 playPaso01Entrance();
                             },
-                            // Al volver atrás (subiendo), liberamos el scroll
+                            // onEnterBack: solo aplica cuando el usuario hace scroll manual atrás del scrub
+                            // (no cuando venimos de un exit programático del carousel)
                             onEnterBack: () => {
+                                if (isProcessModeRef.current) return;
                                 scroller.style.overflowY = 'auto';
                                 carouselObserver.disable();
-                                // Limpieza preventiva del contenido
                                 gsap.to(allElements, { opacity: 0, y: 40, duration: 0.3, overwrite: true });
                             }
                         }
@@ -336,21 +358,39 @@ export const Services = () => {
                     if (activeStepRef.current > 0) {
                         handleStepChangeRef.current(activeStepRef.current - 1);
                     } else {
-                        // MANTENEMOS EL BLOQUEO durante el ascenso para que no haya lucha entre GSAP y el Navegador
-                        playPaso01Exit(); 
-                        gsap.to(scroller, { 
-                            scrollTo: 0, 
-                            duration: 0.8, 
-                            ease: "power3.inOut", 
-                            overwrite: "auto",
+                        // Salida hacia arriba: animar salida, restaurar estado visual y
+                        // volver al inner scroll a 0 (ServicesContent).
+                        // El usuario puede scrollear manualmente a Hero desde ahí.
+                        playPaso01Exit(true);
+
+                        const mainSection = document.getElementById('servicios');
+                        const bgContainer = mainSection?.querySelector('.services-bg');
+
+                        // Limpiar los inline styles forzados por enterFromBottom (gsap.set)
+                        // para que el CSS / scrub retome el control del padding y border-radius
+                        if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
+                        if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
+
+                        gsap.to(scroller, {
+                            scrollTo: 0,
+                            duration: 0.8,
+                            ease: 'power3.inOut',
+                            overwrite: 'auto',
                             onComplete: () => {
-                                // Solo liberamos cuando ya estamos en el destino
-                                scroller.style.overflowY = 'auto';
+                                isProcessModeRef.current = false;
+                                // Usar 'hidden' brevemente y luego 'auto' para que el siguiente
+                                // wheel event que llegue ya no sea interceptado por el inner scroller
+                                // y pueda chainear correctamente al outer container.
+                                scroller.style.overflowY = 'hidden';
+                                requestAnimationFrame(() => {
+                                    scroller.style.overflowY = 'auto';
+                                });
                                 carouselObserver.disable();
                                 setActiveStep(0);
                                 activeStepRef.current = 0;
-                                // Forzamos un refresh para que el navegador esté listo para la próxima entrada
-                                ScrollTrigger.refresh();
+                                scrollTargetStepRef.current = 0;
+                                setIsAnimating(false);
+                                isAnimatingRef.current = false;
                             }
                         });
                     }
@@ -360,31 +400,106 @@ export const Services = () => {
                     if (activeStepRef.current < PROCESS_STEPS.length - 1) {
                         handleStepChangeRef.current(activeStepRef.current + 1);
                     } else {
-                        // Si estamos en el último paso y scrolleamos hacia abajo, liberamos el scroll
-                        scroller.style.overflowY = 'auto';
+                        // Último paso → salida hacia abajo.
+                        // NO desbloqueamos el inner scroll (tiene 400vh abajo todavía).
+                        // En su lugar, scrolleamos directamente el outer container a Contact.
+                        isProcessModeRef.current = false;
                         carouselObserver.disable();
+
+                        const outerEl = scrollRef.current?.closest('.landing-container') as HTMLElement | null;
+                        const contactEl = document.getElementById('contacto');
+                        if (outerEl && contactEl) {
+                            gsap.to(outerEl, {
+                                scrollTo: { y: contactEl.offsetTop },
+                                duration: 1.2,
+                                ease: 'power4.inOut',
+                                overwrite: true
+                            });
+                        }
                     }
                 },
                 preventDefault: true
             });
             carouselObserver.disable(); // Empezamos desactivado por defecto
+            carouselObserverRef.current = carouselObserver;
+
+            // --- ENTRADA DESDE ABAJO (Contact → Services) ---
+            // Esta función es llamada por Landing cuando el usuario viene desde Contact
+            enterFromBottomFnRef.current = () => {
+                if (!processRef.current || !scrollRef.current) return;
+                const lastIdx = PROCESS_STEPS.length - 1;
+
+                // Marcar modo proceso ANTES de cualquier cambio para que los guards funcionen
+                isProcessModeRef.current = true;
+
+                // 1. Full-screen instantáneo
+                const mainSection = document.getElementById('servicios');
+                const bgContainer = mainSection?.querySelector('.services-bg');
+                if (mainSection) gsap.set(mainSection, { paddingTop: 0, paddingLeft: 0, paddingRight: 0 });
+                if (bgContainer) gsap.set(bgContainer, { borderTopLeftRadius: 0, borderTopRightRadius: 0 });
+
+                // 2. Bloquear overflow ANTES de mover el scroll para que el onDown del observer no dispare
+                scroller.style.overflowY = 'hidden';
+
+                // 3. Posicionar el scroll interno en el proceso (después de bloquear)
+                scroller.scrollTop = processRef.current.offsetTop;
+
+                // 4. Saltar al último paso
+                setActiveStep(lastIdx);
+                activeStepRef.current = lastIdx;
+                scrollTargetStepRef.current = lastIdx;
+                setIsAnimating(false);
+                isAnimatingRef.current = false;
+
+                // 5. Mostrar contenido del último paso + bigNumber inmediatamente
+                const ps = processRef.current;
+                const bigNum2 = ps.querySelector('.step-number-huge');
+                const titleEl2 = ps.querySelector('h3');
+                const subtitleContainer2 = ps.querySelector('.mt-8.space-y-1');
+                const pillEl2 = ps.querySelector('.mb-8.self-start');
+                const descriptionEl2 = ps.querySelector('p.max-w-2xl');
+                const listItemEls2 = Array.from(ps.querySelectorAll('ul li'));
+                const buttonsEl2 = ps.querySelector('.flex-col.gap-6');
+                const stepLabelEl2 = ps.querySelector('.process-step-label');
+                const titleLineEl2 = ps.querySelector('.process-title-line');
+                const vLineEl2 = ps.querySelector('.process-v-line');
+                const bLineEl2 = ps.querySelector('.process-b-line');
+                const rLineEl2 = ps.querySelector('.process-r-line');
+                const tLineEl2 = ps.querySelector('.process-t-line');
+
+                // Matar tweens activos del scrub sobre bigNumber para que no lo reemplace
+                if (bigNum2) gsap.killTweensOf(bigNum2);
+                gsap.set([bigNum2].filter(Boolean), { scale: 1, opacity: 1, filter: 'blur(0px)', x: 0, y: 0 });
+
+                const allEls2 = [titleEl2, subtitleContainer2, pillEl2, descriptionEl2, ...listItemEls2, buttonsEl2, stepLabelEl2].filter(Boolean);
+                gsap.set(allEls2, { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, x: 0 });
+                gsap.set([titleLineEl2, vLineEl2, bLineEl2, rLineEl2, tLineEl2].filter(Boolean), { scaleX: 1, scaleY: 1, opacity: 1 });
+
+                // 6. Habilitar observer en el siguiente frame, cuando el scroll ya se asentó
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        carouselObserver.enable();
+                    });
+                });
+            };
 
             // Función para disparar la animación de contenido del Paso 01
             const playPaso01Entrance = () => {
-                // Bloqueamos cualquier interacción mientras dure la intro
+                // isAnimating bloquea cambios de paso. El observer ya está habilitado
+                // (activado en onLeave) para que preventDefault detenga el scroll del outer container.
                 setIsAnimating(true);
                 isAnimatingRef.current = true;
-                carouselObserver.disable();
 
                 gsap.killTweensOf([...allElements, titleLineEl, vLineEl, bLineEl, rLineEl, tLineEl].filter(Boolean));
                 gsap.set(allElements, { scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, x: 0 });
 
                 const tl = gsap.timeline({
-                    delay: 0.2, // Pequeña pausa para que el "01" se asiente
+                    delay: 0.2,
                     onComplete: () => {
                         setIsAnimating(false);
                         isAnimatingRef.current = false;
-                        carouselObserver.enable(); // Solo ahora permitimos navegar
+                        // Observer ya está habilitado, sólo asegurar que sigue activo
+                        carouselObserver.enable();
                     }
                 });
                 if (titleLineEl) tl.to(titleLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 0);
@@ -402,25 +517,28 @@ export const Services = () => {
                 if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 1.4);
             };
 
-            // Función para la salida reversa del Paso 01 (Ahora no bloquea el scroll)
-            const playPaso01Exit = () => {
+            // keepLocked=true: no resetear isAnimating en onComplete (el caller lo hace).
+            // útil cuando el scroll de 0.8s controla el lock completo de la transición.
+            const playPaso01Exit = (keepLocked = false) => {
                 setIsAnimating(true);
                 isAnimatingRef.current = true;
 
                 const tl = gsap.timeline({
-                    onComplete: () => {
+                    onComplete: keepLocked ? undefined : () => {
                         setIsAnimating(false);
                         isAnimatingRef.current = false;
                     }
                 });
-                // Los elementos caen y se desvanecen (sin blur para ganar fluidez)
-                tl.to(allElements, { opacity: 0, y: 30, duration: 0.3, stagger: 0.01, ease: "power2.in" });
+                // El número gigante se encoge y desvanece primero
+                if (bigNumber) tl.to(bigNumber, { scale: 0.3, opacity: 0, filter: 'blur(20px)', duration: 0.35, ease: 'power3.in' }, 0);
+                // Los elementos caen y se desvanecen
+                tl.to(allElements, { opacity: 0, y: 30, duration: 0.3, stagger: 0.01, ease: "power2.in" }, 0);
                 // Las líneas se contraen
                 if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0);
-                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.1);
-                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.15);
-                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.2);
-                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.25);
+                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.05);
+                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.1);
+                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.3 }, 0.15);
+                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.3 }, 0.2);
             };
 
             // (Trigger de soporte eliminado y consolidado arriba)
@@ -454,8 +572,19 @@ export const Services = () => {
             }
         });
 
-        return () => mm.revert();
+        return () => {
+            mm.revert();
+            carouselObserverRef.current = null;
+            enterFromBottomFnRef.current = null;
+        };
     }, { scope: scrollRef });
+
+    // Exponer la API imperativa al padre (Landing)
+    useImperativeHandle(ref, () => ({
+        enterFromBottom: () => {
+            enterFromBottomFnRef.current?.();
+        }
+    }), []);
 
     return (
         <section id="servicios" className="flex-none w-full h-auto lg:h-screen px-0 lg:px-6 pt-0 lg:pt-27 relative z-10 lg:snap-start">
@@ -624,4 +753,6 @@ export const Services = () => {
             </div>
         </section>
     );
-};
+});
+
+Services.displayName = 'Services';
