@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef} from 'react';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
-import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, sora, momoSignature } from './shared';
+import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, sora, momoSignature } from './shared';
 import { Services, ServicesHandle } from './services';
 
 export const Landing = () => {
@@ -11,38 +11,7 @@ export const Landing = () => {
     useServicesEntrance(containerRef);
     const servicesRef = useRef<ServicesHandle>(null);
 
-    // Detecta si el usuario llega a Services scrolleando hacia arriba (desde Contact)
-    // y dispara la entrada desde abajo en el carrusel de pasos.
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        let scrollDir: 'up' | 'down' = 'down';
-        let lastScrollTop = 0;
-
-        const onScroll = () => {
-            const current = container.scrollTop;
-            scrollDir = current < lastScrollTop ? 'up' : 'down';
-            lastScrollTop = current;
-        };
-
-        const onScrollEnd = () => {
-            if (scrollDir !== 'up') return;
-            const servicesEl = document.getElementById('servicios');
-            if (!servicesEl) return;
-            // Comprobamos que el snap aterrizó en la sección de Servicios
-            if (Math.abs(container.scrollTop - servicesEl.offsetTop) < 80) {
-                servicesRef.current?.enterFromBottom();
-            }
-        };
-
-        container.addEventListener('scroll', onScroll, { passive: true });
-        container.addEventListener('scrollend', onScrollEnd, { passive: true });
-        return () => {
-            container.removeEventListener('scroll', onScroll);
-            container.removeEventListener('scrollend', onScrollEnd);
-        };
-    }, [containerRef]);
+    useServicesScrollDetection(containerRef, servicesRef);
 
     return (
         <div
