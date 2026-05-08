@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef} from 'react';
+import { useRef } from 'react';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
 import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, sora, momoSignature } from './shared';
@@ -29,7 +29,7 @@ export const Landing = () => {
             </section>
 
             <Services ref={servicesRef} />
-            
+
             <section id="contacto" className="flex-none w-full h-screen bg-slate-900 flex flex-col items-center justify-center lg:snap-start">
                 <h1 className="text-6xl font-black text-white">Contacto</h1>
                 <p className="text-gray-400 mt-4 text-xl">¿Tienes un proyecto en mente?</p>

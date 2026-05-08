@@ -29,7 +29,7 @@ export const ServicesContent = () => {
                 </p>
             </div>
 
-            <div className="grid 2xl:mt-8 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[6%] w-full max-w-8xl ">
+            <div className="grid 2xl:mt-8 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[7%] w-full max-w-8xl ">
                 {SERVICES_CARDS.map((card, index) => (
                     <ServiceCard
                         key={card.titleAccent}
