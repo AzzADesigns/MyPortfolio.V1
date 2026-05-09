@@ -24,12 +24,12 @@ export const ServicesContent = () => {
                         {SERVICES_TEXTS.title.highlight}
                     </span>
                 </h2>
-                <p className="services-subtitle text-gray-600 text-lg mt-5 lg:text-xl xl:text-2xl font-medium">
+                <p className="services-subtitle text-gray-600 text-lg mt-8 lg:text-xl xl:text-2xl font-medium">
                     {SERVICES_TEXTS.subtitle}
                 </p>
             </div>
 
-            <div className="grid 2xl:mt-8 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[7%] w-full max-w-8xl ">
+            <div className="grid 2xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[7%] w-full max-w-8xl ">
                 {SERVICES_CARDS.map((card, index) => (
                     <ServiceCard
                         key={card.titleAccent}
