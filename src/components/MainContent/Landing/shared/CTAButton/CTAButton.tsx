@@ -15,8 +15,8 @@ export default function CTAButton({ text = "Empezar mi proyecto hoy", className 
                 relative group/btn overflow-hidden cursor-pointer 
                 ${fullWidth ? 'w-full' : 'w-fit'} 
                 px-8 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5 2xl:px-14 2xl:py-6
-                text-[9px] md:text-[11px] lg:text-sm 2xl:text-lg 
-                font-black tracking-[0.2em] uppercase text-[#001720]
+                text-[10px] md:text-[12px] lg:text-base 2xl:text-xl 
+                font-bold tracking-tight text-[#001720]
                 rounded-lg md:rounded-xl 2xl:rounded-[1rem]
                 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
                 active:scale-[0.96]
@@ -36,14 +36,6 @@ export default function CTAButton({ text = "Empezar mi proyecto hoy", className 
 
             {/* Efecto de Escaneo HUD (Beam) */}
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover/btn:animate-[scan_0.8s_ease-in-out_infinite] pointer-events-none" />
-
-            {/* Micro-Labels Técnicos (HUD Context) */}
-            <div className="absolute top-2 left-8 text-[7px] font-mono opacity-30 group-hover/btn:opacity-60 transition-opacity tracking-widest uppercase">
-                CMD_EXECUTE_V1.0
-            </div>
-            <div className="absolute bottom-2 right-12 text-[7px] font-mono opacity-30 group-hover/btn:opacity-60 transition-opacity tracking-widest uppercase">
-                AUTH_VERIFIED
-            </div>
             
             {/* Brackets Técnicos HUD (Adaptados a bordes redondeados) */}
             <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#001720]/30 group-hover/btn:border-[#001720]/50 rounded-tl-lg" />

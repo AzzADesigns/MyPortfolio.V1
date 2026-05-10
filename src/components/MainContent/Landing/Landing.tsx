@@ -9,6 +9,7 @@ import { Services, ServicesHandle } from './services';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FiLinkedin, FiGithub, FiInstagram, FiEye, FiChevronDown } from 'react-icons/fi';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -255,6 +256,8 @@ const HoverWord = ({
             <span 
                 ref={wordContentRef} 
                 className={`inline-block relative z-10 transition-all duration-500 ${
+                    !isScanned ? 'hover-word-hint' : ''
+                } ${
                     isScanned 
                         ? (id === 'premium' 
                             ? 'bg-gradient-to-r from-[#07F8F2] to-[#89EA2B] bg-clip-text text-transparent font-bold' 
@@ -279,7 +282,7 @@ const HoverWord = ({
             {mounted && createPortal(
                 <span 
                     ref={tooltipRef}
-                    className={`fixed top-0 left-0 w-max max-w-[320px] md:max-w-[480px] 2xl:max-w-[500px] whitespace-normal text-left px-6 md:px-8 py-5 md:py-6 bg-[#001720]/90 backdrop-blur-xl border border-[#07F8F2]/30 text-[#07F8F2] font-mono pointer-events-none z-[9999] uppercase opacity-0
+                    className={`fixed top-0 left-0 w-max max-w-[320px] md:max-w-[480px] 2xl:max-w-[500px] whitespace-normal text-left px-6 md:px-8 py-5 md:py-6 bg-[#001720]/90 backdrop-blur-xl border border-[#07F8F2]/30 text-[#07F8F2] font-mono pointer-events-none z-[9999] uppercase opacity-0 rounded-md
                     shadow-[0_0_50px_rgba(7,248,242,0.15),inset_0_0_20px_rgba(7,248,242,0.05)]
                 `}
                 style={{ transformOrigin: '0 0' }} // El escalado nace exactamente desde el punto de anclaje
@@ -433,25 +436,51 @@ export const Landing = () => {
                 <AuroraBackground />
                 
                 {/* HUD: Barra de progreso de escaneo global - Adaptado a Mobile/Tablet/Desktop/Ultra-wide */}
-                <div className="absolute top-24 left-1/2 -translate-x-1/2 md:top-36 md:left-12 md:translate-x-0 xl:top-auto xl:bottom-8 xl:left-12 z-20 flex flex-col gap-3 font-mono text-[#07F8F2] text-[8px] md:text-xs tracking-[0.2em] uppercase w-[85%] md:w-auto xl:bg-[#001720]/40 xl:backdrop-blur-md xl:p-6 xl:rounded-2xl xl:border xl:border-[#07F8F2]/20 xl:shadow-[0_0_50px_rgba(7,248,242,0.05)] transition-all duration-700">
-                    <div className="flex justify-between items-end w-full md:w-64 lg:w-72 xl:w-80">
+                <div 
+                    onClick={allScanned ? () => setShowRewardCard(true) : undefined}
+                    className={`absolute top-24 left-1/2 -translate-x-1/2 md:top-36 md:left-12 md:translate-x-0 xl:top-auto xl:bottom-12 xl:left-1/2 xl:-translate-x-1/2 z-20 flex flex-col xl:flex-col-reverse gap-3 xl:gap-0.5 font-outfit text-[#07F8F2] text-[8px] md:text-xs tracking-[0.2em] w-[85%] md:w-auto xl:w-[420px] xl:bg-[#001720]/40 xl:backdrop-blur-md xl:px-5 xl:py-2 xl:rounded-2xl xl:border xl:border-[#07F8F2]/20 xl:shadow-[0_0_50px_rgba(7,248,242,0.05)] transition-all duration-700 
+                    ${allScanned ? 'cursor-pointer hover:border-[#07F8F2]/50 hover:bg-[#001720]/60 active:scale-95 group/hud' : ''}`}
+                >
+                    <div className="flex justify-between items-center w-full">
                         <span className="flex items-center gap-1.5 md:gap-3">
                             <span className={`w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${allScanned ? 'bg-[#89EA2B] shadow-[0_0_15px_#89EA2B]' : 'bg-[#07F8F2] animate-pulse shadow-[0_0_10px_#07F8F2]'}`}></span>
-                            <span className="xl:text-sm xl:font-bold">{isOpeningReward || showRewardCard ? 'ACCESS_GRANTED' : 'SYSTEM_UPLINK'}</span>
+                            <span className="xl:text-base xl:font-bold">
+                                {showRewardCard || allScanned ? 'misión_cumplida' : 'experiencia_cursor'}
+                            </span>
                         </span>
-                        <span className={`text-xs md:text-base xl:text-xl font-black tracking-normal ${allScanned ? 'text-[#89EA2B]' : 'text-[#07F8F2] text-shadow-[0_0_10px_rgba(7,248,242,0.5)]'}`}>
+                        <span className={`text-xs md:text-base xl:text-xl font-bold tracking-tight ${allScanned ? 'text-[#89EA2B]' : 'text-[#07F8F2] text-shadow-[0_0_10px_rgba(7,248,242,0.5)]'}`}>
                             {Math.round((scannedWords.size / 7) * 100)}%
                         </span>
                     </div>
-                    <div className="w-full md:w-64 lg:w-72 xl:w-80 h-[2px] md:h-[4px] xl:h-[6px] bg-white/10 rounded-full overflow-hidden">
+                    <div className="w-full h-[2px] md:h-[4px] xl:h-[6px] bg-white/10 rounded-full overflow-hidden">
                         <div 
                             className={`h-full bg-gradient-to-r from-[#07F8F2] via-[#07F8F2] to-[#89EA2B] transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(7,248,242,0.8)]`}
                             style={{ width: `${(scannedWords.size / 7) * 100}%` }}
                         ></div>
                     </div>
-                    <div className="hidden xl:flex justify-between items-center text-[9px] text-[#07F8F2]/40 font-bold mt-1">
-                        <span>{isOpeningReward ? 'DECRYPTING_MANIFESTO_KEY...' : 'ENCRYPTED_CONNECTION'}</span>
-                        <span>{isOpeningReward ? 'STATUS: IN_PROGRESS' : 'v1.0.42_STABLE'}</span>
+                    <div className="flex justify-between items-center text-[10px] text-[#07F8F2]/40 font-bold mt-1 xl:mt-0 xl:mb-0">
+                        <div className="flex flex-col gap-1">
+                            <span>
+                                {allScanned 
+                                    ? 'manifiesto_desbloqueado' 
+                                    : isOpeningReward 
+                                        ? 'desencriptando_manifiesto...' 
+                                        : 'esperando_exploración...'}
+                            </span>
+                            <div className="flex items-center gap-5 mt-3 xl:mt-1 opacity-60 group-hover/hud:opacity-100 transition-opacity">
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full hover:text-[#07F8F2] transition-all"><FiLinkedin size={14} /></a>
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full hover:text-[#07F8F2] transition-all"><FiGithub size={14} /></a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full hover:text-[#07F8F2] transition-all"><FiInstagram size={14} /></a>
+                            </div>
+                        </div>
+                        <div className="text-right flex flex-col items-end gap-1">
+                            <span>{isOpeningReward ? 'Estado: En_proceso' : 'v1.0.42_estable'}</span>
+                            {allScanned && (
+                                <div className="mt-2 text-[#89EA2B] animate-pulse">
+                                    <FiEye size={18} />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -460,37 +489,37 @@ export const Landing = () => {
                     <DecryptionOverlay />
                 )}
 
-                <div className="relative z-10 flex flex-col items-center max-w-6xl 2xl:max-w-screen-2xl mx-auto px-6 text-center -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:translate-y-16">
+                <div className="relative z-10 flex flex-col items-center max-w-6xl 2xl:max-w-screen-2xl mx-auto px-6 text-center -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
                     
                     {/* Títulos principales con estetica de "HUD Card" (estilo RewardCard) */}
-                    <div className="flex flex-col gap-6 md:gap-10 items-center justify-center mb-8 md:mb-16 lg:mb-20 perspective-[1000px] w-full">
-                        <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-[2.5rem] 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                    <div className="flex flex-col gap-6 md:gap-10 xl:gap-8 items-center justify-center mb-8 md:mb-16 lg:mb-20 xl:mb-4 perspective-[1000px] w-full">
+                        <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
                             <span className="text-white manifesto-w3 inline-block will-change-transform">Revolucionando</span>
                             <div className="relative manifesto-w2 inline-block will-change-transform group">
-                                <div className="relative bg-[#001720]/80 backdrop-blur-xl border border-[#89EA2B]/40 px-5 py-2.5 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-md shadow-[0_0_40px_rgba(137,234,43,0.15)] overflow-hidden">
+                                <div className="relative bg-[#001720]/80 backdrop-blur-xl border border-[#89EA2B]/40 px-5 py-2.5 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-2xl shadow-[0_0_40px_rgba(137,234,43,0.15)] overflow-hidden">
                                     <span className="relative z-10 text-[#89EA2B] font-bold tracking-tight">el internet</span>
                                     
                                     {/* Mini Brackets HUD */}
-                                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#89EA2B]/60"></div>
-                                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#89EA2B]/60"></div>
-                                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#89EA2B]/60"></div>
-                                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#89EA2B]/60"></div>
+                                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#89EA2B]/60 rounded-tl-2xl"></div>
+                                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#89EA2B]/60 rounded-tr-2xl"></div>
+                                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#89EA2B]/60 rounded-bl-2xl"></div>
+                                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#89EA2B]/60 rounded-br-2xl"></div>
 
                                     {/* Brillo interno sutil */}
                                     <div className="absolute inset-0 bg-[#89EA2B]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-[2.5rem] 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                        <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
                             <div className="relative manifesto-w1 inline-block will-change-transform group">
-                                <div className="relative bg-[#001720]/80 backdrop-blur-xl border border-[#07F8F2]/40 px-5 py-2.5 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-md shadow-[0_0_40px_rgba(7,248,242,0.15)] overflow-hidden">
+                                <div className="relative bg-[#001720]/80 backdrop-blur-xl border border-[#07F8F2]/40 px-5 py-2.5 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-2xl shadow-[0_0_40px_rgba(7,248,242,0.15)] overflow-hidden">
                                     <span className="relative z-10 text-[#07F8F2] font-bold tracking-tight">Recreando</span>
                                     
                                     {/* Mini Brackets HUD */}
-                                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#07F8F2]/60"></div>
-                                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#07F8F2]/60"></div>
-                                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#07F8F2]/60"></div>
-                                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#07F8F2]/60"></div>
+                                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#07F8F2]/60 rounded-tl-2xl"></div>
+                                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#07F8F2]/60 rounded-tr-2xl"></div>
+                                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#07F8F2]/60 rounded-bl-2xl"></div>
+                                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#07F8F2]/60 rounded-br-2xl"></div>
 
                                     {/* Brillo interno sutil */}
                                     <div className="absolute inset-0 bg-[#07F8F2]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -501,7 +530,7 @@ export const Landing = () => {
                     </div>
 
                     {/* Texto secundario unificado con leading-relaxed para mejor espaciado vertical */}
-                    <div className="flex flex-col gap-6 md:gap-10 2xl:gap-14 text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.6rem] 2xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 2xl:max-w-7xl perspective-[1000px] leading-[1.8] sm:leading-[2] md:leading-[2.2] 2xl:leading-[2.1]">
+                    <div className="flex flex-col gap-6 md:gap-10 xl:gap-10 2xl:gap-14 text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.6rem] 2xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 2xl:max-w-7xl perspective-[1000px] leading-[1.8] sm:leading-[2] md:leading-[2.2] xl:leading-[1.8] 2xl:leading-[2.1]">
                         <p className="manifesto-text-line will-change-transform opacity-0">
                             <span className={`transition-all duration-500 ${hoveredWord ? 'blur-sm opacity-40' : ''}`}>AzzADesigns busca </span>
                             <HoverWord id="liderar" baseText="liderar" completionText="el mercado digital con autoridad" hoveredWord={hoveredWord} setHoveredWord={setHoveredWord} onScan={handleScan} />
@@ -616,23 +645,23 @@ const RewardCard = ({ onClose }: { onClose: () => void }) => {
             </button>
 
             {/* Metadatos Técnicos */}
-            <div className="absolute top-8 left-8 hidden md:flex flex-col gap-1 font-mono text-[8px] text-[#07F8F2]/40 tracking-widest uppercase">
-                <span>ENC_TYPE: RSA_4096</span>
-                <span>COORD: 34.0522° N, 118.2437° W</span>
-                <span>STATUS: AUTHENTICATED</span>
+            <div className="absolute top-8 left-8 hidden md:flex flex-col gap-1 font-outfit text-[10px] text-[#07F8F2]/40 tracking-widest">
+                <span>Enc_Type: RSA_4096</span>
+                <span>Coord: 34.0522° N, 118.2437° W</span>
+                <span>Status: Authenticated</span>
             </div>
 
-            <div className="absolute bottom-8 right-8 hidden md:flex flex-col gap-1 font-mono text-[8px] text-[#07F8F2]/40 tracking-widest uppercase text-right">
-                <span>TIMESTAMP: {new Date().toISOString().split('T')[0]}</span>
-                <span>SESSION_ID: {sessionId}</span>
-                <span>UPLINK: STABLE</span>
+            <div className="absolute bottom-8 right-8 hidden md:flex flex-col gap-1 font-outfit text-[10px] text-[#07F8F2]/40 tracking-widest text-right">
+                <span>Timestamp: {new Date().toISOString().split('T')[0]}</span>
+                <span>Session_id: {sessionId}</span>
+                <span>Uplink: Stable</span>
             </div>
 
             <div ref={contentRef} className="relative z-10 flex flex-col items-center text-center gap-12 md:gap-20">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="flex items-center gap-3 text-[#89EA2B] font-mono text-xs md:text-sm 2xl:text-xl tracking-[0.6em] animate-pulse font-bold">
+                    <div className="flex items-center gap-3 text-[#89EA2B] font-syne text-xs md:text-sm 2xl:text-xl tracking-[0.4em] animate-pulse font-bold">
                         <span className="w-2.5 h-2.5 rounded-full bg-[#89EA2B] shadow-[0_0_15px_#89EA2B]"></span>
-                        MANIFESTO_VERIFIED_SUCCESS
+                        comencemos_a_trabajar_juntos
                     </div>
                     <div className="h-[1px] w-48 md:w-64 bg-gradient-to-r from-transparent via-[#07F8F2]/40 to-transparent"></div>
                 </div>
@@ -640,7 +669,7 @@ const RewardCard = ({ onClose }: { onClose: () => void }) => {
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-32 w-full">
                     {/* Bloque de Matriz Binaria Cibernética (Estática) */}
                     <div className="flex flex-col items-center lg:items-end order-2 lg:order-1 relative group w-full lg:w-auto h-[200px] md:h-[300px] 2xl:h-[400px]">
-                        <div className="absolute -top-8 lg:-right-4 text-[#07F8F2]/30 font-mono text-[9px] tracking-[0.5em] uppercase z-20">DATA_STREAM_v1.0</div>
+                        <div className="absolute -top-8 lg:-right-4 text-[#07F8F2]/30 font-outfit text-[10px] tracking-[0.5em] z-20">data_stream_v1.0</div>
                         
                         <div className="relative w-full lg:w-[400px] 2xl:w-[600px] h-full overflow-hidden">
                             <BinaryMatrix />
@@ -652,7 +681,7 @@ const RewardCard = ({ onClose }: { onClose: () => void }) => {
 
                     <div className="flex flex-col items-center gap-6 order-1 lg:order-2">
                         <div className="flex flex-col items-center gap-2">
-                            <p className="text-[#07F8F2]/50 font-mono text-[10px] 2xl:text-base uppercase tracking-[0.4em] mb-1">COMMAND_EXECUTION</p>
+                            <p className="text-[#07F8F2]/50 font-syne text-[10px] 2xl:text-base tracking-[0.2em] mb-1">si descubriste esto, agendemos una planeación gratuita</p>
                             <div className="w-12 h-[2px] bg-[#89EA2B]/40"></div>
                         </div>
                         <CTAButton 
@@ -662,13 +691,13 @@ const RewardCard = ({ onClose }: { onClose: () => void }) => {
                     </div>
                 </div>
                 
-                <div className="flex flex-col items-center gap-4 mt-8 opacity-40">
-                    <div className="flex gap-4 md:gap-8 font-mono text-[8px] md:text-[10px] tracking-[0.3em] uppercase">
-                        <span>PRJ: AZZA_v1.0</span>
-                        <span>AUTH: SYSTEM_ROOT</span>
-                        <span>PERM: UNLIMITED</span>
+                {/* Botón de Scroll Automático Maqueteado */}
+                <div className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer">
+                    <span className="text-[#07F8F2]/40 text-[10px] tracking-[0.4em] group-hover/scroll:text-[#07F8F2] transition-colors">CONTINUAR_VIAJE</span>
+                    <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-[#07F8F2]/20 bg-[#07F8F2]/5 backdrop-blur-sm group-hover/scroll:border-[#07F8F2]/60 group-hover/scroll:bg-[#07F8F2]/10 transition-all duration-500">
+                        <FiChevronDown size={24} className="text-[#07F8F2] animate-bounce" />
+                        <div className="absolute inset-0 rounded-full bg-[#07F8F2]/20 blur-xl opacity-0 group-hover/scroll:opacity-100 transition-opacity"></div>
                     </div>
-                    <p className="font-mono text-[7px] md:text-[9px] tracking-widest text-[#07F8F2]">CLICK OUTSIDE OR PRESS X TO TERMINATE SESSION</p>
                 </div>
             </div>
         </div>

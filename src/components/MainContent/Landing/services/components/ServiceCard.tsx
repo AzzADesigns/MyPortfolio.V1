@@ -41,10 +41,6 @@ export const ServiceCard = ({
                 <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#07F8F2]/40 group-hover:border-[#07F8F2]/70 rounded-tl-lg transition-colors duration-500" />
                 <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#07F8F2]/40 group-hover:border-[#07F8F2]/70 rounded-br-lg transition-colors duration-500" />
 
-                {/* Micro-Labels Técnicos */}
-                <div className="absolute top-3 right-8 text-[9px] font-mono text-[#07F8F2]/50 uppercase tracking-[0.4em]">
-                    SVC_MODULE_v1.0
-                </div>
                 
                 <div className="relative z-10 flex flex-col gap-6 lg:gap-3 xl:gap-6 2xl:gap-8 h-full">
                     <h3 className="text-white text-3xl lg:text-xl xl:text-2xl 2xl:text-5xl font-bold leading-[1.1]">
