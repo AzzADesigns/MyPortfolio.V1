@@ -2,9 +2,9 @@
 
 import { Dispatch, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
-import { useHoverWord } from '../lib/useHoverWord';
+import { useHoverWord } from '../hooks/useHoverWord';
 
-export const HoverWord = ({ 
+export const HoverWord = ({
     id,
     baseText,
     completionText,
@@ -14,10 +14,10 @@ export const HoverWord = ({
     onScan,
     isLastScan = false,
     onAllScannedClose,
-}: { 
-    id: string, 
-    baseText: string, 
-    completionText: string, 
+}: {
+    id: string,
+    baseText: string,
+    completionText: string,
     colorClass?: string,
     hoveredWord: string | null,
     setHoveredWord: Dispatch<SetStateAction<string | null>>,
@@ -52,7 +52,7 @@ export const HoverWord = ({
     });
 
     return (
-        <strong 
+        <strong
             role="button"
             className={`manifesto-highlight inline-block font-medium relative z-20 transition-all duration-500 cursor-pointer
                 ${colorClass} 
@@ -64,38 +64,36 @@ export const HoverWord = ({
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
         >
-            <span 
-                ref={wordContentRef} 
-                className={`inline-block relative z-10 transition-all duration-500 ${
-                    !isScanned ? 'hover-word-hint' : ''
-                } ${
-                    isScanned 
-                        ? (id === 'premium' 
-                            ? 'bg-gradient-to-r from-[#07F8F2] to-[#89EA2B] bg-clip-text text-transparent font-bold' 
-                            : 'text-[#07F8F2]') 
+            <span
+                ref={wordContentRef}
+                className={`inline-block relative z-10 transition-all duration-500 ${!isScanned ? 'hover-word-hint' : ''
+                    } ${isScanned
+                        ? (id === 'premium'
+                            ? 'bg-gradient-to-r from-[#07F8F2] to-[#89EA2B] bg-clip-text text-transparent font-bold'
+                            : 'text-[#07F8F2]')
                         : ''
-                }`}
+                    }`}
             >
                 {baseText}
             </span>
-            
+
             {/* Láser de Escaneo Holo-óptico */}
-            <span 
+            <span
                 ref={scanRef}
                 className="absolute top-0 left-0 w-1 md:w-[6px] h-full bg-[#07F8F2] opacity-0 pointer-events-none z-30"
-                style={{ 
+                style={{
                     boxShadow: '0 0 15px 3px rgba(7,248,242,0.8), 0 0 30px 8px rgba(137,234,43,0.4)',
                     borderRadius: '4px'
                 }}
             ></span>
-            
+
             {/* Panel HUD proyectado al Root */}
             {mounted && createPortal(
                 <>
                     {/* Backdrop para cerrar al tocar fuera en Mobile */}
                     {isHovered && window.innerWidth < 1024 && (
-                        <div 
-                            className="fixed inset-0 z-[9998]" 
+                        <div
+                            className="fixed inset-0 z-[9998]"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleMouseLeave();
@@ -103,21 +101,21 @@ export const HoverWord = ({
                         />
                     )}
 
-                    <span 
+                    <span
                         ref={tooltipRef}
                         className={`fixed w-max max-w-[260px] md:max-w-[480px] 2xl:max-w-[500px] whitespace-normal text-left px-4 md:px-8 py-3 md:py-6 bg-[#001720]/95 backdrop-blur-2xl border border-[#07F8F2]/30 text-[#07F8F2] font-mono pointer-events-none z-[9999] uppercase rounded-md
                         shadow-[0_0_50px_rgba(7,248,242,0.2),inset_0_0_20px_rgba(7,248,242,0.05)]
                         ${window.innerWidth >= 1024 ? 'top-0 left-0 opacity-0' : ''}
                     `}
-                    style={window.innerWidth < 1024 ? {
-                        left: `${tooltipPos.x}px`,
-                        top: `${tooltipPos.y}px`,
-                        opacity: tooltipVisible ? 1 : 0,
-                        transform: tooltipVisible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(8px)',
-                        transition: 'opacity 0.25s ease-out, transform 0.25s ease-out',
-                        willChange: 'opacity, transform',
-                        transformOrigin: 'center bottom',
-                    } : { transformOrigin: '0 0' }}
+                        style={window.innerWidth < 1024 ? {
+                            left: `${tooltipPos.x}px`,
+                            top: `${tooltipPos.y}px`,
+                            opacity: tooltipVisible ? 1 : 0,
+                            transform: tooltipVisible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(8px)',
+                            transition: 'opacity 0.25s ease-out, transform 0.25s ease-out',
+                            willChange: 'opacity, transform',
+                            transformOrigin: 'center bottom',
+                        } : { transformOrigin: '0 0' }}
                     >
                         {/* Láser conector - Solo en 2XL */}
                         <svg className="absolute top-0 left-0 w-full h-full overflow-visible transition-opacity duration-300 opacity-0 2xl:opacity-100">
@@ -139,7 +137,7 @@ export const HoverWord = ({
                         {/* Barra de progreso solo en el último escaneo en móvil */}
                         {isLastScan && window.innerWidth < 1024 && (
                             <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden mb-2">
-                                <div 
+                                <div
                                     className="h-full bg-[#07F8F2] rounded-full"
                                     style={{ animation: 'fillBar 2.3s linear forwards' }}
                                 />

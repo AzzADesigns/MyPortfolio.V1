@@ -1,6 +1,6 @@
 'use client';
 
-import { useDecryptionOverlay } from '../lib/useDecryptionOverlay';
+import { useDecryptionOverlay } from '../hooks/useDecryptionOverlay';
 import { DECRYPTION_LABELS } from '../constants/signatureData';
 
 export const DecryptionOverlay = () => {
