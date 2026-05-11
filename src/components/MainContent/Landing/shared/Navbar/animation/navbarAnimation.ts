@@ -4,37 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const initNavbarScroll = () => {
-    ScrollTrigger.create({
-        scroller: typeof window !== 'undefined' && window.innerWidth >= 1024 ? ".landing-container" : window,
-        start: "top -20",
-        onUpdate: (self) => {
-            if (window.innerWidth >= 1024) {
-                if (self.direction === 1 && self.scroll() > 20) {
-                    gsap.to("nav", { 
-                        backgroundColor: "transparent", 
-                        backdropFilter: "blur(0px)",
-                        borderBottom: "1px solid transparent",
-                        paddingTop: "12px",
-                        paddingBottom: "12px",
-                        duration: 0.4,
-                        ease: 'power2.out',
-                        overwrite: true
-                    });
-                } else if (self.scroll() <= 20) {
-                    gsap.to("nav", { 
-                        backgroundColor: "transparent", 
-                        backdropFilter: "blur(0px)",
-                        borderBottom: "1px solid transparent",
-                        paddingTop: "20px",
-                        paddingBottom: "20px",
-                        duration: 0.4,
-                        ease: 'power2.out',
-                        overwrite: true
-                    });
-                }
-            }
-        }
-    });
+    // El efecto de achicar la navbar al scrollear ha sido desactivado
+    // para mantenerla completamente fija (solo queda la animación de aparición inicial).
 };
 
 export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeChange: (isLight: boolean) => void) => {

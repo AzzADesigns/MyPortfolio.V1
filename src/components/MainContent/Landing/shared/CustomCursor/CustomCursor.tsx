@@ -192,7 +192,15 @@ export default function CustomCursor() {
             for (let i = 0; i < interactives.length; i++) {
                 const el = interactives[i] as HTMLElement;
                 const rect = el.getBoundingClientRect();
+                
+                // Ignorar elementos sin dimensiones, invisibles o sin eventos de puntero
                 if (rect.width === 0 || rect.height === 0) continue;
+                
+                const style = window.getComputedStyle(el);
+                if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0' || style.pointerEvents === 'none') continue;
+                
+                // Verificar si algún padre es invisible o bloquea clics
+                if (el.closest('.invisible, .opacity-0, .pointer-events-none')) continue;
 
                 if (
                     x >= rect.left - radius &&

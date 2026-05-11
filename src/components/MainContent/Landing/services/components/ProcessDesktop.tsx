@@ -38,13 +38,14 @@ export const ProcessDesktop: React.FC<ProcessDesktopProps> = ({
                                     <button
                                         key={step.id}
                                         onClick={() => handleStepChange(idx)}
-                                        disabled={isAnimating}
-                                        className={`w-[67px] h-[60px] lg:w-[45px] lg:h-[40px] 2xl:w-[67px] 2xl:h-[60px] rounded-xl border-[3px] lg:border-[2px] 2xl:border-[3px] flex items-center justify-center font-bold text-xl lg:text-base 2xl:text-xl transition-all duration-300 ${activeStep === idx
+                                        className={`relative z-20 cursor-pointer w-[67px] h-[60px] lg:w-[45px] lg:h-[40px] 2xl:w-[67px] 2xl:h-[60px] rounded-xl border-[3px] lg:border-[2px] 2xl:border-[3px] flex items-center justify-center font-bold text-xl lg:text-base 2xl:text-xl transition-all duration-300 ${activeStep === idx
                                             ? 'border-[#001720] bg-[#001720] text-white shadow-md'
                                             : 'border-[#001720] text-[#001720] hover:bg-[#001720]/5'
-                                            } ${isAnimating ? 'cursor-default' : ''}`}
+                                            } ${isAnimating ? 'opacity-80' : 'hover:scale-105'}`}
                                     >
-                                        {step.id}
+                                        <span className="pointer-events-none w-full h-full flex items-center justify-center">
+                                            {step.id}
+                                        </span>
                                     </button>
                                 ))}
                             </div>

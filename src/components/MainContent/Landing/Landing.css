@@ -22,6 +22,12 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Barra de progreso para el último tooltip en mobile */
+@keyframes fillBar {
+    from { width: 0%; }
+    to   { width: 100%; }
+}
+
 
 html::-webkit-scrollbar {
     width: 4px !important;
@@ -92,4 +98,101 @@ html::-webkit-scrollbar-thumb:hover {
 
 .services-internal-scroll::-webkit-scrollbar-thumb:hover {
     background: #1a1a1a !important;
+}
+
+/* Efectos HUD Interactivos: Lenguaje no hablado */
+@keyframes shimmer {
+    0% { transform: translateX(-150%) skewX(-25deg); }
+    100% { transform: translateX(150%) skewX(-25deg); }
+}
+
+.hud-shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.hud-shimmer-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    animation: shimmer 4s infinite ease-in-out;
+}
+
+@keyframes bracket-glow {
+    0%, 100% { opacity: 0.4; filter: brightness(1); }
+    50% { opacity: 1; filter: brightness(1.5); }
+}
+
+.animate-bracket-glow {
+    animation: bracket-glow 3s ease-in-out infinite;
+}
+
+/* Hint para palabras interactivas (Lenguaje no hablado) */
+@keyframes text-breathing {
+    0%, 100% { 
+        opacity: 1; 
+        text-shadow: 0 0 0px rgba(7, 248, 242, 0);
+    }
+    50% { 
+        opacity: 0.8; 
+        text-shadow: 0 0 10px rgba(7, 248, 242, 0.3);
+        color: #07F8F2;
+    }
+}
+
+@keyframes pulse-aura {
+    0% { 
+        transform: scale(0.95);
+        opacity: 0;
+        filter: blur(8px);
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 0.5;
+        filter: blur(12px);
+    }
+    100% { 
+        transform: scale(1.5);
+        opacity: 0;
+        filter: blur(20px);
+    }
+}
+
+.hover-word-hint {
+    position: relative;
+    animation: text-breathing 4s ease-in-out infinite;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.hover-word-hint::before {
+    content: "";
+    position: absolute;
+    inset: -5px -10px;
+    background: radial-gradient(ellipse at center, rgba(7, 248, 242, 0.4) 0%, transparent 80%);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: pulse-aura 3s ease-out infinite;
+}
+
+.hover-word-hint:hover {
+    animation: none;
+    opacity: 1;
+}
+
+.hover-word-hint:hover::before {
+    animation: none;
+    opacity: 0;
 }
