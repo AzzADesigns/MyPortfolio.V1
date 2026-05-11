@@ -22,6 +22,12 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Barra de progreso para el último tooltip en mobile */
+@keyframes fillBar {
+    from { width: 0%; }
+    to   { width: 100%; }
+}
+
 
 html::-webkit-scrollbar {
     width: 4px !important;
