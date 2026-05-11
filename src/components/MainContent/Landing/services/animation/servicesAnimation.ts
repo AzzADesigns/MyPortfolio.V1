@@ -32,10 +32,7 @@ export const setupServicesScene = (container: HTMLDivElement): ServicesScene | n
     });
     gsap.set(cards, {
         opacity: 0,
-        rotateX: -45,
-        y: 100,
-        scale: 0.9,
-        transformPerspective: 1000,
+        x: -50,
         willChange: 'transform, opacity',
     });
 
@@ -68,12 +65,10 @@ export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Eleme
         cards,
         {
             opacity: 1,
-            rotateX: 0,
-            y: 0,
-            scale: 1,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: 'elastic.out(1, 0.8)',
+            x: 0,
+            duration: 1.0,
+            stagger: 0.3, // Retraso estilo proyector de izquierda a derecha
+            ease: 'power3.out',
             force3D: true,
         },
         '-=0.4'
@@ -91,9 +86,7 @@ export const animateServicesCardsMobile = (cards: Element[]) => {
                 scrub: true,
             },
             opacity: 1,
-            rotateX: 0,
-            y: 0,
-            scale: 1,
+            x: 0,
             ease: 'none',
             force3D: true,
         });

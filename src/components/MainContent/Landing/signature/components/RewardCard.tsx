@@ -27,7 +27,6 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
             <div
                 className="absolute inset-0 bg-[#001720]/80 transition-all duration-300 pointer-events-auto"
                 style={{
-                    backdropFilter: isClosing ? 'blur(0px)' : 'blur(12px)',
                     opacity: isClosing ? 0 : 1,
                 }}
                 onClick={onClose}
@@ -36,7 +35,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
             <div
                 ref={cardRef}
                 style={cardStyle}
-                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl bg-[#001720]/95 backdrop-blur-3xl border border-[#07F8F2]/30 p-5 md:p-16 lg:p-20 2xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto ${isMobileRender ? '' : 'invisible'}`}
+                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl bg-[#001720]/95 border border-[#07F8F2]/30 p-5 md:p-16 lg:p-20 2xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto`}
             >
                 {/* Decoraciones de Esquina HUD */}
                 <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#07F8F2]/60 rounded-tl-xl"></div>

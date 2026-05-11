@@ -94,9 +94,8 @@ export const useServicesAnimations = ({
 
             cards.forEach((card, i) => {
                 gsap.to(card, {
-                    y: -150 - (i * 60),
+                    y: -50,
                     opacity: 0,
-                    scale: 0.9,
                     ease: "power1.inOut",
                     scrollTrigger: {
                         trigger: processSection,
@@ -126,7 +125,7 @@ export const useServicesAnimations = ({
 
             const allElements = [titleEl, subtitleContainer, pillEl, descriptionEl, ...listItemEls, buttonsEl, stepLabelEl].filter(Boolean);
 
-            gsap.set(allElements, { opacity: 0, y: 40, filter: "blur(10px)" });
+            gsap.set(allElements, { opacity: 0, y: 40 });
 
             // Declaramos let para carouselObserver que inicializaremos abajo
             // eslint-disable-next-line prefer-const
@@ -153,13 +152,13 @@ export const useServicesAnimations = ({
                 if (rLineEl) tl.to(rLineEl, { scaleY: 1, opacity: 1, duration: 0.6, ease: "none" }, 1.6);
                 if (tLineEl) tl.to(tLineEl, { scaleX: 1, opacity: 1, duration: 0.3, ease: "none" }, 2.2);
 
-                if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0);
-                if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.15);
-                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.3);
-                if (pillEl) tl.to(pillEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 0.6);
+                if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 0);
+                if (stepLabelEl) tl.to(stepLabelEl, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.15);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.3);
+                if (pillEl) tl.to(pillEl, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.6);
                 const col4 = [descriptionEl, ...listItemEls].filter(Boolean);
-                if (col4.length) tl.to(col4, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.9);
-                if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.5)" }, 1.4);
+                if (col4.length) tl.to(col4, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.9);
+                if (buttonsEl) tl.to(buttonsEl, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 1.4);
             };
 
             const bigNumber = processSection.querySelector('.step-number-huge');
@@ -178,7 +177,6 @@ export const useServicesAnimations = ({
                 if (bigNumber) tl.to(bigNumber, {
                     opacity: 0,
                     scale: 1.04,
-                    filter: 'blur(18px)',
                     duration: 0.8,
                     ease: 'power2.inOut'
                 }, 0);
@@ -189,22 +187,21 @@ export const useServicesAnimations = ({
                 if (bLineEl)     tl.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.18);
                 if (vLineEl)     tl.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.55, ease: 'expo.inOut' }, 0.26);
 
-                if (titleEl)           tl.to(titleEl,           { opacity: 0, filter: 'blur(6px)', duration: 0.55, ease: 'power2.inOut' }, 0.05);
-                if (stepLabelEl)       tl.to(stepLabelEl,       { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.08);
-                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, filter: 'blur(5px)', duration: 0.5,  ease: 'power2.inOut' }, 0.12);
-                if (pillEl)            tl.to(pillEl,            { opacity: 0, filter: 'blur(4px)', duration: 0.48, ease: 'power2.inOut' }, 0.15);
-                if (descriptionEl)     tl.to(descriptionEl,     { opacity: 0, filter: 'blur(4px)', duration: 0.45, ease: 'power2.inOut' }, 0.2);
+                if (titleEl)           tl.to(titleEl,           { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, 0.05);
+                if (stepLabelEl)       tl.to(stepLabelEl,       { opacity: 0, duration: 0.5,  ease: 'power2.inOut' }, 0.08);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, duration: 0.5,  ease: 'power2.inOut' }, 0.12);
+                if (pillEl)            tl.to(pillEl,            { opacity: 0, duration: 0.48, ease: 'power2.inOut' }, 0.15);
+                if (descriptionEl)     tl.to(descriptionEl,     { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, 0.2);
 
                 const exitListItems = Array.from(processSection.querySelectorAll('ul li'));
                 if (exitListItems.length) tl.to(exitListItems, {
                     opacity: 0,
-                    filter: 'blur(3px)',
                     duration: 0.4,
                     stagger: 0.04,
                     ease: 'power2.inOut'
                 }, 0.23);
 
-                if (buttonsEl) tl.to(buttonsEl, { opacity: 0, filter: 'blur(3px)', duration: 0.4, ease: 'power2.inOut' }, 0.32);
+                if (buttonsEl) tl.to(buttonsEl, { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 0.32);
             };
 
             // 3. Animación de "01" Gigante (Integrada con el Lock)
@@ -213,14 +210,12 @@ export const useServicesAnimations = ({
                     {
                         scale: 15,
                         opacity: 0,
-                        filter: "blur(40px)",
                         x: 330,
                         y: -110
                     },
                     {
                         scale: 1,
                         opacity: 1,
-                        filter: "blur(0px)",
                         x: 0,
                         y: 0,
                         ease: "none",
@@ -231,10 +226,9 @@ export const useServicesAnimations = ({
                             end: "top -50%", 
                             scrub: 0.3,
                             onLeave: () => {
-                                if (isProcessModeRef.current) return; 
                                 isProcessModeRef.current = true;
                                 scroller.style.overflowY = 'hidden';
-                                gsap.set(bigNumber, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, y: 0 });
+                                gsap.set(bigNumber, { scale: 1, opacity: 1, x: 0, y: 0 });
                                 if (carouselObserver) carouselObserver.enable();
                                 playPaso01Entrance();
                             },
@@ -350,10 +344,10 @@ export const useServicesAnimations = ({
                 const tLineEl2 = ps.querySelector('.process-t-line');
 
                 if (bigNum2) gsap.killTweensOf(bigNum2);
-                gsap.set([bigNum2].filter(Boolean), { scale: 1, opacity: 1, filter: 'blur(0px)', x: 0, y: 0 });
+                gsap.set([bigNum2].filter(Boolean), { scale: 1, opacity: 1, x: 0, y: 0 });
 
                 const allEls2 = [titleEl2, subtitleContainer2, pillEl2, descriptionEl2, ...listItemEls2, buttonsEl2, stepLabelEl2].filter(Boolean);
-                gsap.set(allEls2, { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, x: 0 });
+                gsap.set(allEls2, { opacity: 1, y: 0, scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, x: 0 });
                 gsap.set([titleLineEl2, vLineEl2, bLineEl2, rLineEl2, tLineEl2].filter(Boolean), { scaleX: 1, scaleY: 1, opacity: 1 });
 
                 requestAnimationFrame(() => {

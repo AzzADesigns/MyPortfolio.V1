@@ -68,13 +68,13 @@ export const useProcessStepTransition = ({
         let hLinesIn: gsap.TweenVars, vLinesIn: gsap.TweenVars;
 
         // Limpieza universal de transformaciones para evitar que "basura" de otros efectos se acumule
-        const baseFrom = { x: 0, y: 0, scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, opacity: 0, filter: "blur(10px)" };
+        const baseFrom = { x: 0, y: 0, scale: 1, rotationX: 0, rotationZ: 0, skewX: 0, opacity: 0 };
 
         if (newIdx === 2) { 
             // ----- SECCIÓN 03: 3D DEPTH DIVE (Efecto de Inmersión) -----
-            textOut = { scale: 1.5, opacity: 0, filter: "blur(20px)", y: -50, duration: 0.5, stagger: 0.04, ease: "power3.in" };
-            textInFrom = { ...baseFrom, scale: 0.5, rotationX: 45, y: 100, filter: "blur(15px)" };
-            textInTo = { scale: 1, rotationX: 0, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.06, ease: "elastic.out(1, 0.75)" };
+            textOut = { scale: 1.5, opacity: 0, y: -50, duration: 0.5, stagger: 0.04, ease: "power3.in" };
+            textInFrom = { ...baseFrom, scale: 0.5, rotationX: 45, y: 100 };
+            textInTo = { scale: 1, rotationX: 0, y: 0, opacity: 1, duration: 0.8, stagger: 0.06, ease: "elastic.out(1, 0.75)" };
             
             // Las líneas "explotan" hacia afuera del marco
             hLinesOut = { scaleX: 1.5, opacity: 0, duration: 0.4, ease: "power3.in", stagger: 0.05 };
@@ -86,9 +86,9 @@ export const useProcessStepTransition = ({
         }
         else if (newIdx === 3) { 
             // ----- SECCIÓN 04: GRAVITY BOUNCE & GLITCH (Efecto Disruptivo) -----
-            textOut = { y: 150, skewX: -15, rotationZ: direction * 5, opacity: 0, filter: "blur(5px)", duration: 0.4, stagger: 0.02, ease: "back.in(2)" };
+            textOut = { y: 150, skewX: -15, rotationZ: direction * 5, opacity: 0, duration: 0.4, stagger: 0.02, ease: "back.in(2)" };
             textInFrom = { ...baseFrom, y: -200, skewX: 15, rotationZ: direction * -5 };
-            textInTo = { y: 0, skewX: 0, rotationZ: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, stagger: 0.04, ease: "bounce.out" };
+            textInTo = { y: 0, skewX: 0, rotationZ: 0, opacity: 1, duration: 0.9, stagger: 0.04, ease: "bounce.out" };
             
             // Las líneas colapsan violentamente y rebotan de forma caótica (stagger invertido)
             hLinesOut = { scaleX: 0, opacity: 0, duration: 0.3, ease: "power4.in" };
@@ -101,10 +101,10 @@ export const useProcessStepTransition = ({
         else if (newIdx >= 4) {
             // ----- SECCIÓN 05: HYPER-WARP / VELOCIDAD DE LA LUZ (Efecto Final) -----
             // El texto colapsa en un agujero negro súper rápido
-            textOut = { scale: 0, rotationZ: direction * 15, opacity: 0, filter: "blur(10px)", duration: 0.3, stagger: 0.02, ease: "expo.in" };
+            textOut = { scale: 0, rotationZ: direction * 15, opacity: 0, duration: 0.3, stagger: 0.02, ease: "expo.in" };
             // El texto nuevo viene disparado desde detrás del usuario
-            textInFrom = { ...baseFrom, scale: 5, filter: "blur(30px)", opacity: 0 };
-            textInTo = { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.9, stagger: 0.05, ease: "expo.out" };
+            textInFrom = { ...baseFrom, scale: 5, opacity: 0 };
+            textInTo = { scale: 1, opacity: 1, duration: 0.9, stagger: 0.05, ease: "expo.out" };
 
             // Las líneas se estiran hacia el infinito y desaparecen
             hLinesOut = { scaleX: 3, opacity: 0, duration: 0.3, ease: "expo.in" };
@@ -117,9 +117,9 @@ export const useProcessStepTransition = ({
         }
         else { 
             // ----- SECCIÓN 01 y 02: SLIDE MECÁNICO (Línea de tiempo progresiva) -----
-            textOut = { x: -80 * direction, opacity: 0, filter: "blur(10px)", duration: 0.4, stagger: 0.03, ease: "power2.in" };
+            textOut = { x: -80 * direction, opacity: 0, duration: 0.4, stagger: 0.03, ease: "power2.in" };
             textInFrom = { ...baseFrom, x: 80 * direction };
-            textInTo = { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.05, ease: "back.out(1.2)" };
+            textInTo = { x: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.2)" };
             
             hLinesOut = { scaleX: 0.2, opacity: 0.2, duration: 0.4, ease: "power2.inOut", stagger: 0.05 };
             vLinesOut = { scaleY: 0.2, opacity: 0.2, duration: 0.4, ease: "power2.inOut", stagger: 0.05 };

@@ -110,7 +110,7 @@ export default function Navbar() {
             <div className="lg:hidden">
                 <div
                     ref={overlayRef}
-                    className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] opacity-0 invisible"
+                    className="fixed inset-0 z-40 bg-black/60 opacity-0 invisible"
                     onClick={() => setIsMenuOpen(false)}
                 />
 
@@ -118,7 +118,7 @@ export default function Navbar() {
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
                 >
-                    <div className="bg-brand-dark/90 backdrop-blur-xl border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
+                    <div className="bg-[#001720]/95 border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {NAV_LINKS.map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";

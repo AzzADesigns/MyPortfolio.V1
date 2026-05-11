@@ -17,8 +17,8 @@ export const useDecryptionOverlay = () => {
         if (!overlayRef.current) return;
         const tl = gsap.timeline();
         tl.fromTo(".decryption-bg",
-            { opacity: 0, backdropFilter: "blur(0px)" },
-            { opacity: 1, backdropFilter: "blur(24px)", duration: 1, ease: "power2.out" }
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: "power2.out" }
         );
         tl.fromTo(".decryption-hud",
             { scale: 0.8, opacity: 0, filter: "brightness(2)" },
