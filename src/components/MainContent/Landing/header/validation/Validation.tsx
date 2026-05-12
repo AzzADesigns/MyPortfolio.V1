@@ -6,14 +6,14 @@ import { STATS, SOCIAL_LINKS } from './constants/validationData';
 export default function Validation() {
     return (
         <div className="flex flex-col gap-10 lg:gap-16 2xl:gap-28 mt-[-100px] md:mt-0 lg:mt-0 2xl:mt-25 items-center lg:items-end flex-shrink-0 z-20 w-full lg:w-auto pb-32 lg:pb-0">
-            <div className="flex flex-row lg:flex-col gap-4 md:gap-20 lg:gap-12 2xl:gap-40 w-full justify-center lg:justify-end px-2">
+            <div className="flex flex-row lg:flex-col gap-4 md:gap-20 lg:gap-12 xl:gap-40 2xl:gap-30 3xl:gap-40 w-full justify-center lg:justify-end px-2">
                 {STATS.map((stat, index) => (
                     <div key={index} className="text-center lg:text-right gsap-hero-stat flex-1 lg:flex-auto">
                         <p className="font-bold flex items-baseline justify-center lg:justify-end gap-1 md:gap-2">
-                           <span className={`${stat.valueColor} text-4xl md:text-5xl lg:text-3xl xl:text-4xl 2xl:text-[55px]`}>{stat.value}</span>
-                           <span className="text-xl md:text-5xl lg:text-3xl xl:text-4xl 2xl:text-[55px] text-white">{stat.label}</span>
+                           <span className={`${stat.valueColor} text-4xl md:text-5xl lg:text-3xl xl:text-4xl 3xl:text-[55px]`}>{stat.value}</span>
+                           <span className="text-xl md:text-5xl lg:text-3xl xl:text-4xl 3xl:text-[55px] text-white">{stat.label}</span>
                         </p>
-                        <p className="text-gray-400 text-[11px] md:text-base lg:text-xs xl:text-sm 2xl:text-[25px] mt-1 leading-tight">{stat.subLabel}</p>
+                        <p className="text-gray-400 text-[11px] md:text-base lg:text-xs xl:text-sm 2xl:text-lg 3xl:text-[25px] mt-1 leading-tight">{stat.subLabel}</p>
                     </div>
                 ))}
             </div>

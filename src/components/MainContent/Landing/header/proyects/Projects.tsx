@@ -4,7 +4,7 @@ import { PROJECT_IMAGES } from './constants/projectData';
 
 export default function Projects() {
     return (
-        <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] 2xl:h-auto flex items-center justify-center mt-[-120px] md:mt-0 2xl:mt-20 xl:ml-15 mb-10 lg:my-0 z-10 gsap-projects-container">
+        <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] xl:h-auto flex items-center justify-center mt-[-120px] md:mt-0 2xl:mt-20 xl:ml-15 2xl:-ml-10 3xl:ml-15 mb-10 lg:my-0 z-10 gsap-projects-container">
             {PROJECT_IMAGES.map((img, index) => (
                 <div key={index} className={`absolute ${img.animateClass} gsap-hero-image`} style={{ zIndex: img.zIndex }}>
                     <div className={img.containerClass}>
@@ -23,7 +23,7 @@ export default function Projects() {
 
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ zIndex: 0 }}>
                 <div
-                    className="absolute border-[3px] border-[#89EA2B]/90 rounded-full gsap-hero-bg w-[240px] h-[240px] translate-y-12 md:translate-y-0 md:w-[450px] md:h-[450px] lg:w-[320px] lg:h-[320px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] lg:top-1/2 lg:left-[56%] lg:-translate-x-[72%] lg:-translate-y-[40%]"
+                    className="absolute border-[3px] border-[#89EA2B]/90 rounded-full gsap-hero-bg w-[240px] h-[240px] translate-y-12 md:translate-y-0 md:w-[450px] md:h-[450px] lg:w-[320px] lg:h-[320px] xl:w-[450px] xl:h-[450px] 2xl:w-[500px] 3xl:w-[550px] 2xl:h-[500px] 3xl:h-[550px] lg:top-1/2 lg:left-[56%] lg:-translate-x-[72%] lg:-translate-y-[40%] 3xl:-translate-x-[72%] 3xl:-translate-y-[40%] 2xl:-translate-x-[70%] 2xl:-translate-y-[45%]"
                 >
                     <svg
                         className="absolute -bottom-[5px] md:-bottom-[5px] left-1/2 -translate-x-1/2 animate-bounce"

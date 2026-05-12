@@ -46,7 +46,7 @@ export default function Navbar() {
                         alt="AzzADesigns Logo"
                         width={60}
                         height={60}
-                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]"
+                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]  2xl:w-[40px]  3xl:w-[60px] 2xl:h-[40px]  3xl:h-[60px] "
                     />
                     <p
                         className={`text-[1.6rem] md:text-[1.8rem] lg:text-[2.2rem] transition-colors duration-300 ${isLight ? 'text-[#001720]' : 'text-white'}`}
