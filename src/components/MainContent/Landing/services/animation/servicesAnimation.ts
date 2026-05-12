@@ -31,9 +31,9 @@ export const setupServicesScene = (container: HTMLDivElement): ServicesScene | n
         willChange: 'transform, opacity',
     });
     gsap.set(cards, {
-        opacity: 0,
+        autoAlpha: 0,
         x: -50,
-        willChange: 'transform, opacity',
+        willChange: 'transform, opacity, visibility',
     });
 
     return { bg, titleWords, subtitle, cards };
@@ -49,12 +49,12 @@ export const animateServicesHeader = (
     tl.to(bg, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' })
         .to(
             titleWords,
-            { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.08, ease: 'back.out(1.2)', force3D: true },
+            { autoAlpha: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.08, ease: 'back.out(1.2)', force3D: true },
             '-=0.2'
         )
         .to(
             subtitle,
-            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', force3D: true },
+            { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', force3D: true },
             '-=0.4'
         );
 };
@@ -64,7 +64,7 @@ export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Eleme
     tl.to(
         cards,
         {
-            opacity: 1,
+            autoAlpha: 1,
             x: 0,
             duration: 1.0,
             stagger: 0.3, // Retraso estilo proyector de izquierda a derecha

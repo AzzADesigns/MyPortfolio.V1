@@ -30,7 +30,7 @@ export const ServiceCard = ({
 }: ServiceCardProps) => {
     return (
         <div className={wrapperClassName}>
-            <div className={`service-card h-auto lg:h-full ${cardBg} border border-[#07F8F2]/30 p-8 lg:p-6 xl:p-8 2xl:p-12 rounded-[1.5rem] flex flex-col gap-6 lg:gap-3 xl:gap-6 2xl:gap-8 relative overflow-hidden ${hoverBg} transition-all duration-500 shadow-2xl group hover:border-[#07F8F2]/60 hover:shadow-[0_0_60px_rgba(7,248,242,0.1)] will-change-transform`}>
+            <div className={`service-card h-auto lg:h-full ${cardBg} border border-[#07F8F2]/30 p-8 lg:p-6 xl:p-8 2xl:p-12 rounded-[1.5rem] flex flex-col gap-6 lg:gap-3 xl:gap-6 2xl:gap-8 relative overflow-hidden ${hoverBg} transition-[background-color,border-color,box-shadow] duration-500 shadow-2xl group hover:border-[#07F8F2]/60 hover:shadow-[0_0_60px_rgba(7,248,242,0.1)] will-change-transform`}>
                 
                 {/* Decoraciones HUD: Patrón de Rejilla Técnica */}
                 <div className="absolute inset-0 opacity-[0.1] pointer-events-none group-hover:opacity-[0.15] transition-opacity duration-700" 

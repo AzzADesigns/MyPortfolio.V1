@@ -47,7 +47,7 @@ export const useServicesAnimations = ({
                 scroller: scroller,
                 start: "top 90%",
                 onEnter: () => {
-                    if (isProcessModeRef.current) return; 
+                    if (isProcessModeRef.current) return;
                     gsap.to(scroller, {
                         scrollTo: { y: processSection.offsetTop },
                         duration: 1.2,
@@ -81,31 +81,31 @@ export const useServicesAnimations = ({
             if (servicesHeader) {
                 gsap.to(servicesHeader, {
                     y: -50,
-                    opacity: 0,
+                    autoAlpha: 0,
                     scrollTrigger: {
                         trigger: processSection,
                         scroller: scroller,
                         start: "top bottom",
                         end: "top 40%",
-                        scrub: true,
+                        scrub: 1,
                     }
                 });
             }
 
-            cards.forEach((card, i) => {
-                gsap.to(card, {
+            if (cards.length > 0) {
+                gsap.to(cards, {
                     y: -50,
-                    opacity: 0,
+                    autoAlpha: 0,
                     ease: "power1.inOut",
                     scrollTrigger: {
                         trigger: processSection,
                         scroller: scroller,
                         start: "top bottom",
                         end: "top 10%",
-                        scrub: true,
+                        scrub: 1,
                     }
                 });
-            });
+            }
 
             // Definición de las funciones de entrada y salida del Paso 01
             // Se definen aquí dentro para que tengan acceso a processSection y los elementos
@@ -182,16 +182,16 @@ export const useServicesAnimations = ({
                 }, 0);
 
                 if (titleLineEl) tl.to(titleLineEl, { scaleX: 0, opacity: 0, duration: 0.5, ease: 'expo.inOut' }, 0);
-                if (tLineEl)     tl.to(tLineEl,     { scaleX: 0, opacity: 0, duration: 0.45, ease: 'expo.inOut' }, 0.04);
-                if (rLineEl)     tl.to(rLineEl,     { scaleY: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.1);
-                if (bLineEl)     tl.to(bLineEl,     { scaleX: 0, opacity: 0, duration: 0.5,  ease: 'expo.inOut' }, 0.18);
-                if (vLineEl)     tl.to(vLineEl,     { scaleY: 0, opacity: 0, duration: 0.55, ease: 'expo.inOut' }, 0.26);
+                if (tLineEl) tl.to(tLineEl, { scaleX: 0, opacity: 0, duration: 0.45, ease: 'expo.inOut' }, 0.04);
+                if (rLineEl) tl.to(rLineEl, { scaleY: 0, opacity: 0, duration: 0.5, ease: 'expo.inOut' }, 0.1);
+                if (bLineEl) tl.to(bLineEl, { scaleX: 0, opacity: 0, duration: 0.5, ease: 'expo.inOut' }, 0.18);
+                if (vLineEl) tl.to(vLineEl, { scaleY: 0, opacity: 0, duration: 0.55, ease: 'expo.inOut' }, 0.26);
 
-                if (titleEl)           tl.to(titleEl,           { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, 0.05);
-                if (stepLabelEl)       tl.to(stepLabelEl,       { opacity: 0, duration: 0.5,  ease: 'power2.inOut' }, 0.08);
-                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, duration: 0.5,  ease: 'power2.inOut' }, 0.12);
-                if (pillEl)            tl.to(pillEl,            { opacity: 0, duration: 0.48, ease: 'power2.inOut' }, 0.15);
-                if (descriptionEl)     tl.to(descriptionEl,     { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, 0.2);
+                if (titleEl) tl.to(titleEl, { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, 0.05);
+                if (stepLabelEl) tl.to(stepLabelEl, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, 0.08);
+                if (subtitleContainer) tl.to(subtitleContainer, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, 0.12);
+                if (pillEl) tl.to(pillEl, { opacity: 0, duration: 0.48, ease: 'power2.inOut' }, 0.15);
+                if (descriptionEl) tl.to(descriptionEl, { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, 0.2);
 
                 const exitListItems = Array.from(processSection.querySelectorAll('ul li'));
                 if (exitListItems.length) tl.to(exitListItems, {
@@ -223,7 +223,7 @@ export const useServicesAnimations = ({
                             trigger: processSection,
                             scroller: scroller,
                             start: "top top",
-                            end: "top -50%", 
+                            end: "top -50%",
                             scrub: 0.3,
                             onLeave: () => {
                                 isProcessModeRef.current = true;
@@ -264,8 +264,7 @@ export const useServicesAnimations = ({
                             ease: 'power4.inOut',
                             overwrite: 'auto',
                             onComplete: () => {
-                                if (mainSection) gsap.set(mainSection, { clearProps: 'paddingTop,paddingLeft,paddingRight' });
-                                if (bgContainer) gsap.set(bgContainer, { clearProps: 'borderTopLeftRadius,borderTopRightRadius' });
+                                if (bgContainer) gsap.set(bgContainer, { clearProps: 'scale,y,borderTopLeftRadius,borderTopRightRadius' });
 
                                 isProcessModeRef.current = false;
                                 scroller.style.overflowY = 'hidden';
@@ -314,10 +313,8 @@ export const useServicesAnimations = ({
 
                 isProcessModeRef.current = true;
 
-                const mainSection = document.getElementById('servicios');
-                const bgContainer = mainSection?.querySelector('.services-bg');
-                if (mainSection) gsap.set(mainSection, { paddingTop: 0, paddingLeft: 0, paddingRight: 0 });
-                if (bgContainer) gsap.set(bgContainer, { borderTopLeftRadius: 0, borderTopRightRadius: 0 });
+                const bgContainer = document.getElementById('servicios')?.querySelector('.services-bg');
+                if (bgContainer) gsap.set(bgContainer, { scale: 1, y: 0, borderTopLeftRadius: 0, borderTopRightRadius: 0 });
 
                 scroller.style.overflowY = 'hidden';
                 scroller.scrollTop = processRef.current.offsetTop;
@@ -357,30 +354,31 @@ export const useServicesAnimations = ({
                 });
             };
 
-            // 5. Efecto Acuoso / Expansión del Contenedor
-            const mainSectionLocal = document.getElementById('servicios');
-            const bgContainerLocal = mainSectionLocal?.querySelector('.services-bg');
-            if (mainSectionLocal && bgContainerLocal) {
-                gsap.to(mainSectionLocal, {
-                    paddingTop: 0, paddingLeft: 0, paddingRight: 0,
-                    ease: "power2.inOut",
-                    scrollTrigger: {
-                        trigger: processSection,
-                        scroller: scroller,
-                        start: "top 95%",
-                        end: "top 10%",
-                        scrub: true,
-                    }
+            // 5. Efecto Acuoso / Expansión del Contenedor (Automático vía GPU Transform Scale)
+            const bgContainerLocal = document.getElementById('servicios')?.querySelector('.services-bg');
+            if (bgContainerLocal) {
+                // Seteamos el estado inicial simulando los márgenes visuales (Aumentado para mayor espacio arriba)
+                gsap.set(bgContainerLocal, {
+                    scaleX: 0.96,
+                    scaleY: 0.94,
+                    y: '6vh',
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30
                 });
+
                 gsap.to(bgContainerLocal, {
-                    borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                    scaleX: 1,
+                    scaleY: 1,
+                    y: 0,
+                    borderTopLeftRadius: 0,
+                    borderTopRightRadius: 0,
                     ease: "power2.inOut",
                     scrollTrigger: {
                         trigger: processSection,
                         scroller: scroller,
                         start: "top 95%",
                         end: "top 10%",
-                        scrub: true,
+                        scrub: 1,
                     }
                 });
             }
