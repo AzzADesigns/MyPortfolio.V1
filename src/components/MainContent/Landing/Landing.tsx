@@ -6,20 +6,18 @@ import { Hero, Projects, Validation, AuroraBackground } from './header';
 import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, useLandingScrollManager, sora, momoSignature } from './shared';
 import { Services, ServicesHandle } from './services';
 import { Signature } from './signature';
+import { BrandIdentity } from './brand';
 
 export const Landing = () => {
-    const { containerRef } = useLandingEntrance();
-    useServicesEntrance(containerRef);
     const servicesRef = useRef<ServicesHandle>(null);
-
+    const { containerRef } = useLandingEntrance();
+    
+    useServicesEntrance(containerRef);
     useServicesScrollDetection(containerRef, servicesRef);
     useLandingScrollManager(containerRef);
 
     return (
-        <div
-            ref={containerRef}
-            className={`min-h-screen lg:h-screen w-full flex flex-col overflow-x-hidden lg:overflow-y-auto lg:snap-y lg:snap-mandatory scroll-smooth landing-container ${momoSignature.variable} ${sora.variable}`}
-        >
+        <div ref={containerRef} className={`min-h-screen lg:h-screen w-full flex flex-col overflow-x-hidden lg:overflow-y-auto lg:snap-y lg:snap-mandatory scroll-smooth landing-container ${momoSignature.variable} ${sora.variable}`}>
             <CustomCursor />
             <Navbar />
 
@@ -33,6 +31,8 @@ export const Landing = () => {
             <Services ref={servicesRef} />
 
             <Signature containerRef={containerRef} />
+
+            <BrandIdentity containerRef={containerRef} />
         </div>
     );
 };
