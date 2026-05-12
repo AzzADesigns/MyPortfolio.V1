@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
-import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, sora, momoSignature } from './shared';
+import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, useLandingScrollManager, sora, momoSignature } from './shared';
 import { Services, ServicesHandle } from './services';
 import { Signature } from './signature';
 
@@ -13,6 +13,7 @@ export const Landing = () => {
     const servicesRef = useRef<ServicesHandle>(null);
 
     useServicesScrollDetection(containerRef, servicesRef);
+    useLandingScrollManager(containerRef);
 
     return (
         <div
@@ -22,7 +23,7 @@ export const Landing = () => {
             <CustomCursor />
             <Navbar />
 
-            <section className="flex-none flex flex-col md:gap-20 lg:flex-row items-center relative mt-0 lg:mt-0 justify-center lg:justify-between px-6 md:px-16 lg:px-8 xl:px-16 py-10 md:py-32 lg:py-0 min-h-[85svh] lg:min-h-screen lg:h-screen overflow-hidden lg:overflow-visible lg:snap-start">
+            <section className="flex-none flex flex-col md:gap-20 lg:flex-row items-center relative mt-0 lg:mt-0 justify-center lg:justify-between px-6 md:px-16 lg:px-8 xl:px-16 py-10 md:py-32 lg:py-0 min-h-[85svh] lg:min-h-screen lg:h-screen overflow-hidden lg:overflow-visible lg:snap-start lg:snap-always">
                 <AuroraBackground />
                 <Hero />
                 <Projects />
