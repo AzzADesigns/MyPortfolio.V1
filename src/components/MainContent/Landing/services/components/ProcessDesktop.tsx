@@ -26,7 +26,7 @@ export const ProcessDesktop: React.FC<ProcessDesktopProps> = ({
                                 El proceso
                             </h3>
                             <div
-                                className="process-title-line ml-3 h-[3px] flex-1 origin-left bg-[#001720]"
+                                className="process-title-line hidden 3xl:block ml-3 h-[3px] flex-1 origin-left bg-[#001720]"
                                 style={{ transform: 'scaleX(0)' }}
                             />
                         </div>
@@ -81,10 +81,10 @@ export const ProcessDesktop: React.FC<ProcessDesktopProps> = ({
                     {/* Columna 2: Texto y Detalles */}
                     <div className="lg:col-span-7 flex flex-col justify-center lg:pt-12 2xl:pt-24 pl-10 lg:pl-12 2xl:pl-16 lg:pr-24 xl:pr-36 2xl:pr-16 pb-16 relative">
                         {/* Líneas decorativas */}
-                        <div className="process-v-line absolute left-0 top-[29px] bottom-0 w-[3px] bg-[#001720] origin-top" style={{ transform: 'scaleY(0)' }} />
-                        <div className="process-b-line absolute bottom-0 left-0 -right-10 h-[3px] bg-[#001720] origin-left" style={{ transform: 'scaleX(0)' }} />
-                        <div className="process-r-line absolute bottom-0 -right-10 top-[29px] w-[3px] bg-[#001720] origin-bottom" style={{ transform: 'scaleY(0)' }} />
-                        <div className="process-t-line absolute top-[29px] -right-10 w-24 h-[3px] bg-[#001720] origin-right" style={{ transform: 'scaleX(0)' }} />
+                        <div className="process-v-line hidden 3xl:block absolute left-0 top-[29px] bottom-0 w-[3px] bg-[#001720] origin-top" style={{ transform: 'scaleY(0)' }} />
+                        <div className="process-b-line hidden 3xl:block absolute bottom-0 left-0 -right-10 h-[3px] bg-[#001720] origin-left" style={{ transform: 'scaleX(0)' }} />
+                        <div className="process-r-line hidden 3xl:block absolute bottom-0 -right-10 top-[29px] w-[3px] bg-[#001720] origin-bottom" style={{ transform: 'scaleY(0)' }} />
+                        <div className="process-t-line hidden 3xl:block absolute top-[29px] -right-10 w-24 h-[3px] bg-[#001720] origin-right" style={{ transform: 'scaleX(0)' }} />
 
                         {/* Pregunta / Pill */}
                         <div className="step-content-pill mb-8 lg:mb-6 2xl:mb-8 self-start flex items-center gap-3">

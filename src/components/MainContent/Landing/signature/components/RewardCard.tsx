@@ -35,7 +35,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
             <div
                 ref={cardRef}
                 style={cardStyle}
-                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl bg-[#001720]/95 border border-[#07F8F2]/30 p-5 md:p-16 lg:p-20 2xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto`}
+                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 3xl:max-w-7xl bg-[#001720]/95 border border-[#07F8F2]/30 p-5 md:p-16 lg:p-20 3xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto`}
             >
                 {/* Decoraciones de Esquina HUD */}
                 <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#07F8F2]/60 rounded-tl-xl"></div>
@@ -65,7 +65,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                     style={contentStyle}
                 >
                     <div className="flex flex-col items-center gap-4">
-                        <div className="flex items-center gap-1.5 md:gap-3 text-[#89EA2B] font-syne text-[9px] xs:text-xs md:text-base 2xl:text-xl tracking-widest md:tracking-[0.4em] animate-pulse font-bold uppercase">
+                        <div className="flex items-center gap-1.5 md:gap-3 text-[#89EA2B] font-syne text-[9px] xs:text-xs md:text-base 3xl:text-xl tracking-widest md:tracking-[0.4em] animate-pulse font-bold uppercase">
                             <span className="w-1.5 md:w-2.5 h-1.5 md:h-2.5 rounded-full bg-[#89EA2B] shadow-[0_0_15px_#89EA2B]"></span>
                             {REWARD_CARD_LABELS.tagline}
                         </div>
@@ -74,10 +74,10 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
 
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-12 xl:gap-24 2xl:gap-32 w-full">
                         {/* Bloque de Matriz Binaria Cibernética (Estática) */}
-                        <div className="flex flex-col items-center lg:items-end order-2 lg:order-1 relative group w-full lg:w-auto h-[150px] md:h-[300px] 2xl:h-[400px]">
+                        <div className="flex flex-col items-center lg:items-end order-2 lg:order-1 relative group w-full lg:w-auto h-[150px] md:h-[300px] 3xl:h-[400px]">
                             <div className="absolute -top-8 lg:-right-4 text-[#07F8F2]/30 font-outfit text-[10px] tracking-[0.5em] z-20">{REWARD_CARD_LABELS.dataStreamLabel}</div>
 
-                            <div className="relative w-full lg:w-[320px] xl:w-[450px] 2xl:w-[600px] h-full overflow-hidden">
+                            <div className="relative w-full lg:w-[320px] xl:w-[450px] 3xl:w-[600px] h-full overflow-hidden">
                                 <BinaryMatrix />
                                 <div className="absolute inset-0 bg-gradient-to-b from-[#001720] via-transparent to-[#001720] z-10 pointer-events-none opacity-90"></div>
                             </div>
@@ -87,7 +87,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
 
                         <div className="flex flex-col items-center gap-6 order-1 lg:order-2">
                             <div className="flex flex-col items-center gap-2">
-                                <p className="text-[#07F8F2]/50 font-syne text-[10px] xl:text-xs 2xl:text-base tracking-[0.15em] xl:tracking-[0.2em] mb-1 text-center">{REWARD_CARD_LABELS.subtitle}</p>
+                                <p className="text-[#07F8F2]/50 font-syne text-[10px] xl:text-xs 3xl:text-base tracking-[0.15em] xl:tracking-[0.2em] mb-1 text-center">{REWARD_CARD_LABELS.subtitle}</p>
                                 <div className="w-12 h-[2px] bg-[#89EA2B]/40"></div>
                             </div>
                             <CTAButton

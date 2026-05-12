@@ -103,7 +103,7 @@ export const HoverWord = ({
 
                     <span
                         ref={tooltipRef}
-                        className={`fixed w-max max-w-[260px] md:max-w-[480px] 2xl:max-w-[500px] whitespace-normal text-left px-4 md:px-8 py-3 md:py-6 bg-[#001720]/95 backdrop-blur-2xl border border-[#07F8F2]/30 text-[#07F8F2] font-mono pointer-events-none z-[9999] uppercase rounded-md
+                        className={`fixed w-max max-w-[260px] md:max-w-[480px] 3xl:max-w-[500px] whitespace-normal text-left px-4 md:px-8 py-3 md:py-6 bg-[#001720]/95 backdrop-blur-2xl border border-[#07F8F2]/30 text-[#07F8F2] font-mono pointer-events-none z-[9999] uppercase rounded-md
                         shadow-[0_0_50px_rgba(7,248,242,0.2),inset_0_0_20px_rgba(7,248,242,0.05)]
                         ${window.innerWidth >= 1024 ? 'top-0 left-0 opacity-0' : ''}
                     `}
@@ -117,8 +117,8 @@ export const HoverWord = ({
                             transformOrigin: 'center bottom',
                         } : { transformOrigin: '0 0' }}
                     >
-                        {/* Láser conector - Solo en 2XL */}
-                        <svg className="absolute top-0 left-0 w-full h-full overflow-visible transition-opacity duration-300 opacity-0 2xl:opacity-100">
+                        {/* Láser conector - Solo en 3XL */}
+                        <svg className="absolute top-0 left-0 w-full h-full overflow-visible transition-opacity duration-300 opacity-0 3xl:opacity-100">
                             <line x1="-40" y1="-40" x2="0" y2="0" stroke="#07F8F2" strokeWidth="1" opacity="0.4" strokeDasharray="4 4" />
                             <circle cx="-40" cy="-40" r="3" fill="#07F8F2" className="animate-pulse" />
                             <circle cx="0" cy="0" r="2" fill="#89EA2B" />
@@ -145,7 +145,7 @@ export const HoverWord = ({
                         )}
 
                         {/* Texto Typewriter */}
-                        <span className="block text-xs md:text-xl lg:text-[1.3rem] xl:text-[1.5rem] 2xl:text-[1.2rem] font-semibold leading-snug tracking-tight min-h-[1.2em] md:min-h-[1.5em]">
+                        <span className="block text-xs md:text-xl lg:text-base xl:text-base 3xl:text-[1.2rem] font-semibold leading-snug tracking-tight min-h-[1.2em] md:min-h-[1.5em]">
                             {displayedText}
                             <span className="animate-pulse inline-block ml-1 md:ml-2 bg-[#07F8F2] w-1.5 md:w-2.5 h-3 md:h-6 translate-y-0.5 md:translate-y-1.5"></span>
                         </span>

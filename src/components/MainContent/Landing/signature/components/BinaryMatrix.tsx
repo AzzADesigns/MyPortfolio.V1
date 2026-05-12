@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BINARY_MATRIX_COLUMNS, BINARY_MATRIX_ROWS, BINARY_FLICKER_MIN_INTERVAL, BINARY_FLICKER_RANGE } from '../constants/signatureData';
+import { BINARY_MATRIX_COLUMNS, BINARY_MATRIX_ROWS } from '../constants/signatureData';
 
 // --- Sub-componente BinaryColumn estático animado por CSS ---
 const BinaryColumn = ({ length, delayIndex }: { length: number, delayIndex: number }) => {
@@ -41,7 +41,7 @@ export const BinaryMatrix = () => {
     return (
         <div className="flex justify-between w-full h-full px-4 md:px-10 opacity-30">
             {Array.from({ length: BINARY_MATRIX_COLUMNS }).map((_, i) => (
-                <div key={i} className="flex flex-col gap-1 font-mono text-[10px] md:text-xs 2xl:text-xl text-[#07F8F2]/60">
+                <div key={i} className="flex flex-col gap-1 font-mono text-[10px] md:text-xs 3xl:text-xl text-[#07F8F2]/60">
                     <BinaryColumn length={BINARY_MATRIX_ROWS} delayIndex={i} />
                 </div>
             ))}

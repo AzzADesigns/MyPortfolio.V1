@@ -44,19 +44,19 @@ export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scan
     };
 
     return (
-        <div className="relative z-10 flex flex-col items-center max-w-6xl 2xl:max-w-screen-2xl mx-auto px-6 text-center -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
+        <div className="relative z-10 flex flex-col items-center max-w-6xl 3xl:max-w-screen-2xl mx-auto px-6 text-center -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
             
             <div className="flex flex-col gap-6 md:gap-10 xl:gap-8 items-center justify-center mb-8 md:mb-16 lg:mb-20 xl:mb-4 perspective-[1000px] w-full">
-                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.4rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 3xl:gap-12 text-[1.4rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
                     {renderHeadlineLine(MANIFESTO_HEADLINES.line1)}
                 </div>
-                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 2xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 2xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 3xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
                     {renderHeadlineLine(MANIFESTO_HEADLINES.line2)}
                 </div>
             </div>
 
             {/* Texto secundario unificado con leading-relaxed para mejor espaciado vertical */}
-            <div className="flex flex-col gap-6 md:gap-10 xl:gap-10 2xl:gap-14 text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.6rem] 2xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 2xl:max-w-7xl perspective-[1000px] leading-[1.8] sm:leading-[2] md:leading-[2.2] xl:leading-[1.8] 2xl:leading-[2.1]">
+            <div className="flex flex-col gap-6 md:gap-10 xl:gap-10 3xl:gap-14 text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.6rem] 3xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 3xl:max-w-7xl perspective-[1000px] leading-[1.8] sm:leading-[2] md:leading-[2.2] xl:leading-[1.8] 3xl:leading-[2.1]">
                 <p className="manifesto-text-line will-change-transform opacity-0">
                     <span className={`transition-all duration-500 ${hoveredWord ? 'opacity-20' : ''}`}>AzzADesigns busca </span>
                     <HoverWord id={HOVER_WORDS[0].id} baseText={HOVER_WORDS[0].baseText} completionText={HOVER_WORDS[0].completionText} hoveredWord={hoveredWord} setHoveredWord={setHoveredWord} onScan={handleScan} />

@@ -14,8 +14,8 @@ export default function CTAButton({ text = "Empezar mi proyecto hoy", className 
             className={`
                 relative group/btn overflow-hidden cursor-pointer 
                 ${fullWidth ? 'w-full' : 'w-fit'} 
-                px-8 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5 2xl:px-14 2xl:py-6
-                text-[10px] md:text-[12px] lg:text-base 2xl:text-xl 
+                px-8 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5 2xl:px-14 3xl:py-6
+                text-[10px] md:text-[12px] lg:text-base 2xl:text-sm 3xl:text-xl 
                 font-bold tracking-tight text-[#001720]
                 rounded-lg md:rounded-xl 2xl:rounded-[1rem]
                 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
