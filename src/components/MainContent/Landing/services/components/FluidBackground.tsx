@@ -168,8 +168,20 @@ export const FluidBackground = () => {
             resizeObserver.observe(canvas.parentElement);
         }
 
-        const animate = () => {
+        const fps = 30;
+        const interval = 1000 / fps;
+        let lastTime = 0;
+
+        const animate = (currentTime: number) => {
             if (!canvas || !ctx) return;
+            animationRef.current = requestAnimationFrame(animate);
+
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime < interval) return;
+
+            // Ajustamos lastTime restando el remanente para mantener la consistencia del timing
+            lastTime = currentTime - (deltaTime % interval);
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // Localizamos TODOS los fragmentos del cursor (brackets) para encontrar el centro exacto
@@ -231,11 +243,9 @@ export const FluidBackground = () => {
                 p.update(relativeMouseX, relativeMouseY, cursorState.current.velocity);
                 p.draw(ctx, cursorState.current.rotation);
             });
-
-            animationRef.current = requestAnimationFrame(animate);
         };
 
-        animate();
+        animationRef.current = requestAnimationFrame(animate);
 
         const handleMouseMove = (e: MouseEvent) => {
             // Guardamos las coordenadas físicas de la pantalla (viewport)
