@@ -64,7 +64,8 @@ body {
 }
 
 .services-internal-scroll::-webkit-scrollbar-thumb {
-    background-color: #001720; /* Negro total */
+    background-color: #001720;
+    /* Negro total */
     border-radius: 10px;
 }
 
@@ -237,13 +238,51 @@ body {
 
 /* Animación para el degradado en hover de redes sociales */
 @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
 }
+
 .animate-gradient-move {
     background-size: 200% auto;
     animation: gradientMove 3s linear infinite;
 }
+
+.animate-reveal {
+    opacity: 0;
+    animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes sound-wave {
+    0%, 100% { border-radius: 50%; transform: rotate(0deg) scale(1); }
+    33% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(2deg) scale(1.02); }
+    66% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(-2deg) scale(0.98); }
+}
+
+@keyframes morph-shape {
+    0%, 100% { border-radius: 50%; transform: scale(1) rotate(0deg); }
+    33% { border-radius: 12%; transform: scale(1.05) rotate(90deg); } /* Cuadrado Perfecto */
+    66% { border-radius: 100% 100% 20% 100%; transform: scale(1.1) rotate(45deg); } /* Triángulo */
+}
+
+@keyframes resonance-ripple {
+    0% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: scale(1.5) rotate(10deg); opacity: 0; }
+}
+
+@keyframes master-branding {
+    0%, 100% { border-radius: 50%; transform: scale(1); filter: brightness(1); }
+    50% { border-radius: 45% 55% 50% 50%; transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.animate-wave { animation: sound-wave 3s ease-in-out infinite; }
+.animate-morph { animation: morph-shape 5s ease-in-out infinite; }
+.animate-master { animation: master-branding 6s ease-in-out infinite; }
 
 /* globals.css */
 @theme {

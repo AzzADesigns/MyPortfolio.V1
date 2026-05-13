@@ -98,7 +98,6 @@ export default function OceanAuroraBackground() {
             <canvas
                 ref={canvasRef}
                 className="w-full h-full opacity-80"
-                style={{ filter: 'blur(60px)' }}
             />
         </div>
     );

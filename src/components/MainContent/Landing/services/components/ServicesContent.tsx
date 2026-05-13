@@ -29,16 +29,16 @@ export const ServicesContent = () => {
                 </p>
             </div>
 
-            <div className="grid 2xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-10 2xl:gap-[7%] w-full max-w-8xl ">
+            <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-20 3xl:gap-[7%] w-full max-w-8xl ">
                 {SERVICES_CARDS.map((card, index) => (
                     <ServiceCard
                         key={card.titleAccent}
                         {...card}
                         decoration={decorationMap[card.decorationType as keyof typeof decorationMap]}
                         wrapperClassName={`
-                            ${index === 0 ? "2xl:-translate-y-12" : ""}
-                            ${index === 1 ? "2xl:translate-y-4" : ""}
-                            ${index === 2 ? "2xl:translate-y-20 lg:col-span-1" : ""}
+                            ${index === 0 ? "3xl:-translate-y-12" : ""}
+                            ${index === 1 ? "3xl:translate-y-4" : ""}
+                            ${index === 2 ? "3xl:translate-y-20 lg:col-span-1" : ""}
                         `.trim()}
                     />
                 ))}

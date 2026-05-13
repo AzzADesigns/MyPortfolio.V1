@@ -134,29 +134,7 @@ export const FluidBackground = () => {
             particles.current = newParticles;
         };
 
-        const getCompositeRotation = () => {
-            const bracket = document.querySelector('.is-bracket');
-            if (!bracket) return 0;
-            
-            let totalRotation = 0;
-            const refLayer = bracket.parentElement;
-            const wrapperLayer = refLayer?.parentElement;
-            
-            [refLayer, wrapperLayer].forEach(el => {
-                if (el) {
-                    const style = window.getComputedStyle(el);
-                    const transform = style.getPropertyValue('transform');
-                    if (transform && transform !== 'none' && transform.includes('matrix')) {
-                        const values = transform.split('(')[1].split(')')[0].split(',');
-                        const a = parseFloat(values[0]);
-                        const b = parseFloat(values[1]);
-                        totalRotation += Math.atan2(b, a);
-                    }
-                }
-            });
-            
-            return totalRotation;
-        };
+
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -169,20 +147,19 @@ export const FluidBackground = () => {
                 const newWidth = parent.clientWidth;
                 const newHeight = parent.clientHeight;
                 
-                // Solo reasignar si cambió de verdad para evitar lag
                 if (canvas.width !== newWidth || canvas.height !== newHeight) {
                     canvas.width = newWidth;
                     canvas.height = newHeight;
-                    // Solo iniciamos partículas si no hay, para no resetear el enjambre mientras cambia el padding
-                    if (particles.current.length === 0) {
+                    
+                    // Re-inicializamos partículas si el área creció o si no había
+                    // para asegurar cobertura total tras animaciones de expansión (GSAP)
+                    if (particles.current.length === 0 || newWidth > canvas.width || newHeight > canvas.height) {
                         initParticles(newWidth, newHeight);
                     }
                 }
             }
         };
 
-        // ResizeObserver es crucial porque GSAP cambia el tamaño del contenedor al animar el padding,
-        // y el evento 'resize' de window no se dispara, lo que causa que el canvas se estire y pierda la alineación.
         const resizeObserver = new ResizeObserver(() => {
             handleResize();
         });
@@ -191,12 +168,62 @@ export const FluidBackground = () => {
             resizeObserver.observe(canvas.parentElement);
         }
 
-        const animate = () => {
+        const fps = 30;
+        const interval = 1000 / fps;
+        let lastTime = 0;
+
+        const animate = (currentTime: number) => {
+            if (!canvas || !ctx) return;
+            animationRef.current = requestAnimationFrame(animate);
+
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime < interval) return;
+
+            // Ajustamos lastTime restando el remanente para mantener la consistencia del timing
+            lastTime = currentTime - (deltaTime % interval);
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const currentRotation = getCompositeRotation();
+            // Localizamos TODOS los fragmentos del cursor (brackets) para encontrar el centro exacto
+            const brackets = document.querySelectorAll('.is-bracket');
+            let targetViewportX = mouse.current.x;
+            let targetViewportY = mouse.current.y;
+            let currentRotation = 0;
+
+            if (brackets.length > 0) {
+                // Promediamos la posición de todos los corchetes para hallar el centro geométrico del cursor
+                let sumX = 0;
+                let sumY = 0;
+                brackets.forEach(b => {
+                    const bRect = b.getBoundingClientRect();
+                    sumX += bRect.left + bRect.width / 2;
+                    sumY += bRect.top + bRect.height / 2;
+                });
+                targetViewportX = sumX / brackets.length;
+                targetViewportY = sumY / brackets.length;
+                
+                // Usamos el primer corchete para la rotación (asumiendo que giran juntos)
+                const bracket = brackets[0];
+                let totalRotation = 0;
+                const refLayer = bracket.parentElement;
+                const wrapperLayer = refLayer?.parentElement;
+                
+                [refLayer, wrapperLayer].forEach(el => {
+                    if (el) {
+                        const style = window.getComputedStyle(el);
+                        const transform = style.getPropertyValue('transform');
+                        if (transform && transform !== 'none' && transform.includes('matrix')) {
+                            const values = transform.split('(')[1].split(')')[0].split(',');
+                            const a = parseFloat(values[0]);
+                            const b = parseFloat(values[1]);
+                            totalRotation += Math.atan2(b, a);
+                        }
+                    }
+                });
+                currentRotation = totalRotation;
+            }
+
             let deltaRotation = currentRotation - cursorState.current.prevRotation;
-            
             if (deltaRotation > Math.PI) deltaRotation -= Math.PI * 2;
             if (deltaRotation < -Math.PI) deltaRotation += Math.PI * 2;
             
@@ -204,20 +231,21 @@ export const FluidBackground = () => {
             cursorState.current.rotation = currentRotation;
             cursorState.current.prevRotation = currentRotation;
             
-            // Calculamos la posición relativa en cada frame por si el canvas se mueve (ej. animaciones GSAP)
             const rect = canvas.getBoundingClientRect();
-            const relativeMouseX = mouse.current.x - rect.left;
-            const relativeMouseY = mouse.current.y - rect.top;
+            // Evitamos división por cero y aseguramos precisión en el escalado
+            const scaleX = rect.width > 0 ? canvas.width / rect.width : 1;
+            const scaleY = rect.height > 0 ? canvas.height / rect.height : 1;
+
+            const relativeMouseX = (targetViewportX - rect.left) * scaleX;
+            const relativeMouseY = (targetViewportY - rect.top) * scaleY;
 
             particles.current.forEach(p => {
                 p.update(relativeMouseX, relativeMouseY, cursorState.current.velocity);
                 p.draw(ctx, cursorState.current.rotation);
             });
-
-            animationRef.current = requestAnimationFrame(animate);
         };
 
-        animate();
+        animationRef.current = requestAnimationFrame(animate);
 
         const handleMouseMove = (e: MouseEvent) => {
             // Guardamos las coordenadas físicas de la pantalla (viewport)

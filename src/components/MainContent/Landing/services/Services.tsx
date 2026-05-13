@@ -42,8 +42,8 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
     }), [state.enterFromBottomFnRef]);
 
     return (
-        <section id="servicios" className="flex-none w-full h-auto lg:h-screen px-0 lg:px-6 pt-0 lg:pt-27 relative z-10 lg:snap-start">
-            <div className="services-bg relative w-full h-auto lg:h-full bg-gradient-to-b from-white to-[#ababab] rounded-t-[16px] lg:rounded-t-[23px] shadow-[0_-20px_50px_rgba(255,255,255,0.1)] overflow-hidden">
+        <section id="servicios" className="flex-none w-full h-auto lg:h-screen relative z-10 lg:snap-start lg:snap-always">
+            <div className="services-bg relative w-full h-auto lg:h-full bg-gradient-to-b from-white to-[#ababab] rounded-t-[16px] lg:rounded-t-[30px] shadow-[0_-20px_50px_rgba(255,255,255,0.1)] overflow-hidden" style={{ transformOrigin: 'bottom center' }}>
                 <FluidBackground />
                 <ScrollIndicator />
 
@@ -63,11 +63,11 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
                         id="proceso-section"
                         className="w-full relative h-auto lg:min-h-[400vh]"
                     >
-                        <ProcessDesktop 
-                            activeStep={state.activeStep} 
-                            currentStep={state.currentStep} 
-                            isAnimating={state.isAnimating} 
-                            handleStepChange={handleStepChange} 
+                        <ProcessDesktop
+                            activeStep={state.activeStep}
+                            currentStep={state.currentStep}
+                            isAnimating={state.isAnimating}
+                            handleStepChange={handleStepChange}
                         />
                         <ProcessMobile />
                     </div>

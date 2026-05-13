@@ -38,7 +38,7 @@ export default function Navbar() {
         <>
             <nav 
                 ref={navRef}
-                className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none pointer-events-none"
+                className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none pointer-events-none backdrop-blur-md bg-black/10 lg:backdrop-blur-none lg:bg-transparent"
             >
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav pointer-events-auto">
                     <Image
@@ -46,7 +46,7 @@ export default function Navbar() {
                         alt="AzzADesigns Logo"
                         width={60}
                         height={60}
-                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]"
+                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]  2xl:w-[40px]  3xl:w-[60px] 2xl:h-[40px]  3xl:h-[60px] "
                     />
                     <p
                         className={`text-[1.6rem] md:text-[1.8rem] lg:text-[2.2rem] transition-colors duration-300 ${isLight ? 'text-[#001720]' : 'text-white'}`}
@@ -110,7 +110,7 @@ export default function Navbar() {
             <div className="lg:hidden">
                 <div
                     ref={overlayRef}
-                    className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] opacity-0 invisible"
+                    className="fixed inset-0 z-40 bg-black/60 opacity-0 invisible"
                     onClick={() => setIsMenuOpen(false)}
                 />
 
@@ -118,7 +118,7 @@ export default function Navbar() {
                     ref={menuContentRef}
                     className="fixed inset-x-4 bottom-[85px] md:bottom-[95px] z-50 opacity-0 invisible translate-y-[50px]"
                 >
-                    <div className="bg-brand-dark/90 backdrop-blur-xl border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
+                    <div className="bg-[#001720]/95 border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {NAV_LINKS.map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";
