@@ -14,8 +14,8 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
     return (
         <>
             {/* Texto de Fondo Masivo con Marca y Desenfoque Sutil */}
-            <div className={`absolute bottom-[-5%] left-1/2 -translate-x-1/2 w-full flex justify-center items-end select-none pointer-events-none whitespace-nowrap opacity-10 lg:opacity-100 transition-all duration-700 ease-out
-                ${hoveredNumber !== null ? 'blur-[8px] opacity-10' : 'blur-0 opacity-10'}`}>
+            <div className={`absolute bottom-32 lg:bottom-[-5%] left-1/2 -translate-x-1/2 w-full flex justify-center items-end select-none pointer-events-none whitespace-nowrap transition-all duration-700 ease-out
+                ${hoveredNumber !== null ? 'blur-[8px] opacity-10' : 'blur-0 opacity-100'}`}>
                 <span className="text-[12vw]  text-[#1A2E35] leading-none tracking-tighter uppercase">Experiencia</span>
                 <span className={`text-[16vw] text-[#89EA2B] leading-none ml-[-1vw]  ${momoSignature.className}`}>AD</span>
             </div>
