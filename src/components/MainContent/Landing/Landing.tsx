@@ -7,9 +7,11 @@ import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServi
 import { Services, ServicesHandle } from './services';
 import { Signature } from './signature';
 import { BrandIdentity } from './brand';
+import { Experience } from './experience';
 
 export const Landing = () => {
     const servicesRef = useRef<ServicesHandle>(null);
+
     const { containerRef } = useLandingEntrance();
     
     useServicesEntrance(containerRef);
@@ -33,6 +35,8 @@ export const Landing = () => {
             <Signature containerRef={containerRef} />
 
             <BrandIdentity containerRef={containerRef} />
+
+            <Experience containerRef={containerRef} />
         </div>
     );
 };

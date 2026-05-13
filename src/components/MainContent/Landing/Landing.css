@@ -196,3 +196,37 @@ html::-webkit-scrollbar-thumb:hover {
     animation: none;
     opacity: 0;
 }
+
+.text-hollow-gradient {
+    background: linear-gradient(to bottom, #07F8F2, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    filter: drop-shadow(0 0 15px rgba(7, 248, 242, 0.2));
+}
+
+/* Scrollbar Gris para el Detalle de Proyecto */
+.custom-scrollbar {
+    scrollbar-width: thin !important;
+    scrollbar-color: #888888 #e0e0e0 !important;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #e0e0e0 !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888888 !important;
+    border-radius: 10px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #666666 !important;
+}
