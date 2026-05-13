@@ -116,7 +116,10 @@ export const FluidBackground = () => {
     const cursorState = useRef({ rotation: 0, prevRotation: 0, velocity: 0 });
     const animationRef = useRef<number>(0);
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
     useEffect(() => {
+        if (isMobile) return;
         const SPACING = 48; 
         const brandColors = ['#001720']; // Azul Oscuro Profundo
 
@@ -261,6 +264,8 @@ export const FluidBackground = () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
+
+    if (isMobile) return null;
 
     return (
         <div className="absolute inset-0 pointer-events-none z-0">

@@ -78,17 +78,20 @@ export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Eleme
 
 export const animateServicesCardsMobile = (cards: Element[]) => {
     cards.forEach((card) => {
-        gsap.to(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 95%',
-                end: 'center center',
-                scrub: true,
-            },
-            opacity: 1,
-            x: 0,
-            ease: 'none',
-            force3D: true,
-        });
+        gsap.fromTo(card, 
+            { autoAlpha: 0, y: 15, x: 0 },
+            {
+                autoAlpha: 1,
+                y: 0,
+                x: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 92%',
+                    toggleActions: 'play none none reverse',
+                }
+            }
+        );
     });
 };

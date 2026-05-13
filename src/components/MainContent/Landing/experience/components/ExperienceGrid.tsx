@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import { momoSignature } from '../../shared';
 import { PROJECTS } from '../constants/projects';
@@ -11,6 +12,29 @@ interface ExperienceGridProps {
 }
 
 export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedProject }: ExperienceGridProps) => {
+    const mobileTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const handleProjectClick = (num: number) => {
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+            // Si el número ya estaba "hovered" (segundo tap), abre de inmediato
+            if (hoveredNumber === num) {
+                if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+                setSelectedProject(num);
+                return;
+            }
+
+            // Primer tap en móvil: muestra preview y setea timeout de 2s
+            setHoveredNumber(num);
+            if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+            
+            mobileTimeoutRef.current = setTimeout(() => {
+                setSelectedProject(num);
+            }, 1000);
+        } else {
+            // En desktop abre directo porque el hover ya hizo su trabajo
+            setSelectedProject(num);
+        }
+    };
     return (
         <>
             {/* Texto de Fondo Masivo con Marca y Desenfoque Sutil */}
@@ -28,14 +52,14 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
                         className="relative flex justify-center items-center group cursor-pointer"
                         onMouseEnter={() => setHoveredNumber(num)}
                         onMouseLeave={() => setHoveredNumber(null)}
-                        onClick={() => setSelectedProject(num)}
+                        onClick={() => handleProjectClick(num)}
                     >
                         {/* Imagen de Preview Centrada (Aparece en Hover) */}
                         <div 
                             className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none transition-all duration-700 ease-out z-0
                                 ${hoveredNumber === num ? 'opacity-100 scale-100' : 'opacity-0 scale-95 blur-md'}`}
                         >
-                            <div className="w-[260px] sm:w-[300px] md:w-[340px] lg:w-[380px] aspect-[9/18]">
+                            <div className="w-[180px] sm:w-[220px] md:w-[250px] lg:w-[280px] xl:w-[320px] aspect-[9/18]">
                                 <Image 
                                     src={img} 
                                     alt={title} 

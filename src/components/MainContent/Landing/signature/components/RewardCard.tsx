@@ -91,13 +91,33 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                             </div>
                             <CTAButton
                                 text={REWARD_CARD_LABELS.ctaText}
+                                onClick={() => {
+                                    onClose();
+                                    setTimeout(() => {
+                                        const nextSection = document.getElementById('brand-identity');
+                                        if (nextSection) {
+                                            nextSection.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }, 350);
+                                }}
                                 className="!px-14 md:!px-20 !py-6 md:!py-8 shadow-[0_0_50px_rgba(137,234,43,0.2)] hover:shadow-[0_0_80px_rgba(7,248,242,0.4)]"
                             />
                         </div>
                     </div>
 
                     {/* Botón de Scroll Automático Maqueteado */}
-                    <div onClick={onClose} className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer">
+                    <div 
+                        onClick={() => {
+                            onClose();
+                            setTimeout(() => {
+                                const nextSection = document.getElementById('brand-identity');
+                                if (nextSection) {
+                                    nextSection.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }, 350);
+                        }} 
+                        className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer"
+                    >
                         <span className="text-[#07F8F2]/40 text-[10px] tracking-[0.4em] group-hover/scroll:text-[#07F8F2] transition-colors">{REWARD_CARD_LABELS.scrollLabel}</span>
                         <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-[#07F8F2]/20 bg-[#07F8F2]/5 backdrop-blur-sm group-hover/scroll:border-[#07F8F2]/60 group-hover/scroll:bg-[#07F8F2]/10 transition-all duration-500">
                             <FiChevronDown size={24} className="text-[#07F8F2] animate-bounce" />

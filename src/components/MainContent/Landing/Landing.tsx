@@ -40,7 +40,6 @@ export const Landing = () => {
 
             <Experience containerRef={containerRef} />
 
-            {/* SECCIÓN FINAL: CONTACTO + FOOTER */}
             <Contact />
         </div>
     );

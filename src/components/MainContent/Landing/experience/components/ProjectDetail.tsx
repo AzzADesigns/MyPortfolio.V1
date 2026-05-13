@@ -14,7 +14,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
 
     return (
         <div 
-            className={`absolute inset-0 z-50 transition-all duration-1000 ease-in-out flex items-center justify-center
+            className={`fixed inset-0 z-[100] transition-all duration-1000 ease-in-out flex items-center justify-center
                 ${selectedProject !== null ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none translate-y-full'}`}
             style={{ background: 'radial-gradient(circle at center, #ffffff 0%, #d1d5db 100%)' }}
         >
@@ -139,7 +139,10 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                         {/* CTA Final */}
                         <div className="flex flex-col items-center text-center space-y-8 pt-10 pb-10">
                             <p className="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-xl">¿Te gustaría tener un proyecto con este nivel de detalle y calidad?</p>
-                            <CTAButton text="Contrátame" />
+                            <CTAButton 
+                                text="Contrátame" 
+                                className="!w-full md:!w-fit !py-6 md:!py-4 !text-lg md:!text-[12px] lg:!text-base"
+                            />
                         </div>
                     </div>
                 </div>

@@ -20,11 +20,11 @@ const CodeExplorerComponent = () => {
         gsap.set([levels, contents, lines], { opacity: 0 });
         gsap.set(lines, { height: 0 });
         gsap.set(chevrons, { rotation: 0 });
-        gsap.set(wrapper, { y: 250, x: 180 }); 
+        gsap.set(wrapper, { y: 250, x: 180 });
 
         levels.forEach((level, i) => {
             tl.to(level, { opacity: 1, duration: 0.3 });
-            
+
             if (chevrons[i]) {
                 tl.to(chevrons[i], { rotation: 90, duration: 0.2 });
             }
@@ -34,11 +34,11 @@ const CodeExplorerComponent = () => {
                 tl.to(contents[i], { opacity: 1, y: 0, duration: 0.4 }, "-=0.3");
             }
 
-            tl.to(wrapper, { 
-                y: `-=${42}`, 
-                x: `-=${12}`, 
-                duration: 0.6, 
-                ease: "power2.out" 
+            tl.to(wrapper, {
+                y: `-=${42}`,
+                x: `-=${12}`,
+                duration: 0.6,
+                ease: "power2.out"
             }, "-=0.4");
         });
 
@@ -58,7 +58,7 @@ const CodeExplorerComponent = () => {
                     <FiChevronRight size={14} className="chevron-icon transition-transform" />
                     <FiFolder size={22} />
                 </div>
-                
+
                 <div className="level-content relative ml-5 mt-2 opacity-0 translate-y-2">
                     <div className="tree-line absolute -left-3 top-[-10px] w-[1px]" style={{ backgroundColor: color }} />
                     <div className="absolute -left-3 top-2 w-3 h-[1px]" style={{ backgroundColor: `${color}4D` }} />
