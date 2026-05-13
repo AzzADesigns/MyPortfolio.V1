@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
 import { Navbar, CustomCursor, CTAButton, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, useLandingScrollManager, sora, momoSignature } from './shared';

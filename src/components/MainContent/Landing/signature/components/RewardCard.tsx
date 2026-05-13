@@ -14,7 +14,6 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
         contentRef,
         sessionId,
         mounted,
-        isMobileRender,
         cardStyle,
         contentStyle,
     } = useRewardCard(isClosing);

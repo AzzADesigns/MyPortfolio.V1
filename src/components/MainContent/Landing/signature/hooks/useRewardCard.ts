@@ -24,14 +24,6 @@ export const useRewardCard = (isClosing: boolean) => {
         return () => { clearTimeout(t1); clearTimeout(t2); };
     }, []);
 
-    const isMobileRender = typeof window !== 'undefined' && window.innerWidth < 1024;
-
-    const exitStyle = isClosing ? {
-        opacity: 0,
-        transform: 'scale(0.93)',
-        transition: 'opacity 0.3s ease-in, transform 0.3s ease-in',
-    } : {};
-
     const cardStyle = {
         opacity: isClosing ? 0 : (isVisible ? 1 : 0),
         transform: isClosing ? 'scale(0.95)' : (isVisible ? 'scale(1)' : 'scale(0.95)'),
@@ -54,7 +46,6 @@ export const useRewardCard = (isClosing: boolean) => {
         contentRef,
         sessionId,
         mounted,
-        isMobileRender,
         cardStyle,
         contentStyle,
     };
