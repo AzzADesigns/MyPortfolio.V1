@@ -34,19 +34,43 @@ export default function Navbar() {
         };
     }, [isMenuOpen]);
 
+    const scrollToTop = () => {
+        const container = document.querySelector('.landing-container');
+        if (container && window.innerWidth >= 1024) {
+            container.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            setIsMenuOpen(false);
+        }
+    };
+
     return (
         <>
             <nav 
                 ref={navRef}
                 className="flex items-center justify-between fixed z-50 bottom-4 inset-x-4 lg:inset-x-0 lg:top-0 lg:bottom-auto lg:w-full px-4 md:px-8 lg:px-16 py-2 md:py-3 lg:py-6 transition-all duration-500 rounded-2xl lg:rounded-none border border-white/10 lg:border-none shadow-lg shadow-black/20 lg:shadow-none pointer-events-none backdrop-blur-md bg-black/10 lg:backdrop-blur-none lg:bg-transparent"
             >
-                <div className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav pointer-events-auto">
+                <div 
+                    onClick={scrollToTop}
+                    className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav pointer-events-auto cursor-pointer group"
+                >
                     <Image
                         src="/branding/AzzADesigns.svg"
                         alt="AzzADesigns Logo"
                         width={60}
                         height={60}
-                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]  2xl:w-[40px]  3xl:w-[60px] 2xl:h-[40px]  3xl:h-[60px] "
+                        className="object-contain w-[40px] h-[40px] md:w-[48px] md:h-[48px] lg:w-[60px] lg:h-[60px]  2xl:w-[40px]  3xl:w-[60px] 2xl:h-[40px]  3xl:h-[60px] group-hover:scale-110 transition-transform duration-300"
                     />
                     <p
                         className={`text-[1.6rem] md:text-[1.8rem] lg:text-[2.2rem] transition-colors duration-300 ${isLight ? 'text-[#001720]' : 'text-white'}`}
@@ -74,6 +98,7 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
+                            onClick={(e) => handleLinkClick(e, link.href)}
                             className={`
                                 active:scale-90 transition-all duration-300 inline-block
                                 hover:bg-gradient-to-r hover:from-brand-green hover:to-brand-cyan hover:bg-clip-text hover:text-transparent hover:animate-gradient-move
@@ -130,7 +155,7 @@ export default function Navbar() {
                                 return (
                                     <Link
                                         key={link.href}
-                                        onClick={() => setIsMenuOpen(false)}
+                                        onClick={(e) => handleLinkClick(e, link.href)}
                                         href={link.href}
                                         className={`mobile-link flex flex-col items-center justify-center bg-white/5 border border-white/5 rounded-2xl py-6 text-white transition-all duration-200 group ${isGreen ? 'hover:bg-brand-green/20 hover:border-brand-green/50 active:bg-brand-green/30' : 'hover:bg-brand-cyan/20 hover:border-brand-cyan/50 active:bg-brand-cyan/30'} active:scale-90`}
                                     >

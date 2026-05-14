@@ -55,11 +55,11 @@ export const ServicesContent = () => {
                     <div
                         key={card.titleAccent}
                         className={`sr-service-card-wrapper ${
-                            index === 0 ? "3xl:-translate-y-12" : ""
+                            index === 0 ? "3xl:-translate-y-15" : ""
                         } ${
-                            index === 1 ? "3xl:translate-y-4" : ""
+                            index === 1 ? "3xl:-translate-y-10" : ""
                         } ${
-                            index === 2 ? "3xl:translate-y-20 lg:col-span-1" : ""
+                            index === 2 ? "3xl:translate-y-1 lg:col-span-1" : ""
                         }`.trim()}
                     >
                         <ServiceCard

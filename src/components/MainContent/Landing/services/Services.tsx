@@ -42,7 +42,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
     }), [state.enterFromBottomFnRef]);
 
     return (
-        <section id="servicios" className="flex-none w-full h-auto lg:h-screen relative z-10 lg:snap-start lg:snap-always">
+        <section className="flex-none w-full h-auto lg:h-screen relative z-10 lg:snap-start lg:snap-always overflow-hidden">
             <div className="services-bg relative w-full h-auto lg:h-full bg-gradient-to-b from-white to-[#ababab] rounded-t-[16px] lg:rounded-t-[30px] shadow-[0_-20px_50px_rgba(255,255,255,0.1)] overflow-hidden" style={{ transformOrigin: 'bottom center' }}>
                 <FluidBackground />
                 <ScrollIndicator />
