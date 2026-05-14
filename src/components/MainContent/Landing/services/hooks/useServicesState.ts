@@ -28,6 +28,16 @@ export const useServicesState = () => {
         isAnimatingRef.current = isAnimating;
     }, [isAnimating]);
 
+    const resetToStart = () => {
+        setActiveStep(0);
+        setIsAnimating(false);
+        scrollTargetStepRef.current = 0;
+        isProcessModeRef.current = false;
+        if (scrollRef.current) {
+            scrollRef.current.scrollTo(0, 0);
+        }
+    };
+
     return {
         activeStep, setActiveStep,
         isAnimating, setIsAnimating,
@@ -38,6 +48,7 @@ export const useServicesState = () => {
         scrollTargetStepRef,
         carouselObserverRef,
         enterFromBottomFnRef,
-        isProcessModeRef
+        isProcessModeRef,
+        resetToStart
     };
 };

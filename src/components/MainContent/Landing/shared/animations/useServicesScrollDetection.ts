@@ -3,7 +3,8 @@ import { ServicesHandle } from '../../services';
 
 export const useServicesScrollDetection = (
     containerRef: React.RefObject<HTMLDivElement | null>,
-    servicesRef: React.RefObject<ServicesHandle | null>
+    servicesRef: React.RefObject<ServicesHandle | null>,
+    isNavigatingRef: React.RefObject<boolean>
 ) => {
     useEffect(() => {
         const container = containerRef.current;
@@ -19,7 +20,7 @@ export const useServicesScrollDetection = (
         };
 
         const onScrollEnd = () => {
-            if (scrollDir !== 'up') return;
+            if (isNavigatingRef.current || scrollDir !== 'up') return;
             const servicesEl = document.getElementById('servicios');
             if (!servicesEl) return;
             // Comprobamos que el snap aterrizó en la sección de Servicios

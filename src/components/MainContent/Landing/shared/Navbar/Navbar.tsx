@@ -5,8 +5,14 @@ import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
 import { animateMobileMenu, initNavbarScroll, initBackgroundDetection } from './animation/navbarAnimation';
+import { ServicesHandle } from '../../services/Services';
 
-export default function Navbar() {
+interface NavbarProps {
+    servicesRef?: React.RefObject<ServicesHandle | null>;
+    isNavigatingRef?: React.MutableRefObject<boolean>;
+}
+
+export default function Navbar({ servicesRef, isNavigatingRef }: NavbarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLight, setIsLight] = useState(false);
     const menuContentRef = useRef<HTMLDivElement>(null);
@@ -46,12 +52,22 @@ export default function Navbar() {
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
             e.preventDefault();
+            if (isNavigatingRef) isNavigatingRef.current = true;
+            
             const targetId = href.substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
+                if (href === '#servicios') {
+                    servicesRef?.current?.resetToStart();
+                }
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
             setIsMenuOpen(false);
+
+            // Liberamos la bandera después de que el scroll suave haya terminado (aprox 1.5s)
+            setTimeout(() => {
+                if (isNavigatingRef) isNavigatingRef.current = false;
+            }, 1500);
         }
     };
 

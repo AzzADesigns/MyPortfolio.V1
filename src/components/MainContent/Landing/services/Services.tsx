@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
 export interface ServicesHandle {
     enterFromBottom: () => void;
+    resetToStart: () => void;
 }
 
 export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
@@ -38,6 +39,9 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
     useImperativeHandle(ref, () => ({
         enterFromBottom: () => {
             state.enterFromBottomFnRef.current?.();
+        },
+        resetToStart: () => {
+            state.resetToStart();
         }
     }), [state.enterFromBottomFnRef]);
 
