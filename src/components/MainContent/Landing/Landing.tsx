@@ -3,12 +3,11 @@
 import { useRef } from 'react';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
-import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, useLandingScrollManager, sora, momoSignature } from './shared';
+import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useServicesScrollDetection, useLandingScrollManager, sora, momoSignature, LazySection } from './shared';
 import { Services, ServicesHandle } from './services';
 import { Signature } from './signature';
 import { BrandIdentity } from './brand';
 import { Experience } from './experience';
-
 import { Contact } from './contact';
 
 export const Landing = () => {
@@ -25,6 +24,7 @@ export const Landing = () => {
             <CustomCursor />
             <Navbar />
 
+            {/* Hero: siempre montado, es la primera pantalla */}
             <section className="flex-none flex flex-col md:gap-20 lg:flex-row items-center relative mt-0 lg:mt-0 justify-center lg:justify-between px-6 md:px-16 lg:px-8 xl:px-16 py-10 md:py-32 lg:py-0 min-h-[85svh] lg:min-h-screen lg:h-screen overflow-hidden lg:overflow-visible lg:snap-start lg:snap-always">
                 <AuroraBackground />
                 <Hero />
@@ -32,15 +32,45 @@ export const Landing = () => {
                 <Validation />
             </section>
 
-            <Services ref={servicesRef} />
+            {/* Services: pre-carga con margen amplio porque tiene mucha lógica GSAP */}
+            <LazySection
+                rootMargin="500px 0px"
+                placeholderClassName="flex-none w-full lg:h-screen lg:snap-start lg:snap-always"
+            >
+                <Services ref={servicesRef} />
+            </LazySection>
 
-            <Signature containerRef={containerRef} />
+            {/* Signature */}
+            <LazySection
+                rootMargin="300px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:h-screen lg:snap-start"
+            >
+                <Signature containerRef={containerRef} />
+            </LazySection>
 
-            <BrandIdentity containerRef={containerRef} />
+            {/* Brand Identity */}
+            <LazySection
+                rootMargin="300px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
+            >
+                <BrandIdentity containerRef={containerRef} />
+            </LazySection>
 
-            <Experience containerRef={containerRef} />
+            {/* Experience */}
+            <LazySection
+                rootMargin="300px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
+            >
+                <Experience containerRef={containerRef} />
+            </LazySection>
 
-            <Contact />
+            {/* Contact */}
+            <LazySection
+                rootMargin="200px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
+            >
+                <Contact />
+            </LazySection>
         </div>
     );
 };

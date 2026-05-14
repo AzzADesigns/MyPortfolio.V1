@@ -1,104 +1,76 @@
 'use client';
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 
 export default function OceanAuroraBackground() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        let animationFrameId: number;
-        let time = 0;
-
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        const drawGlow = (
-            ctx: CanvasRenderingContext2D, 
-            t: number, 
-            x: number, 
-            y: number, 
-            baseRadius: number, 
-            primaryColor: string, 
-            secondaryColor: string,
-            baseOpacity: number,
-            speed: number,
-            phase: number
-        ) => {
-            ctx.save();
-            
-            // Movimiento mucho más amplio para que se vea el "baile" y la mezcla
-            const dx = Math.sin(t * speed + phase) * 250;
-            const dy = Math.cos(t * speed * 0.7 + phase) * 200;
-            const pulse = Math.sin(t * 0.4 + phase) * (baseRadius * 0.1);
-            const currentRadius = baseRadius + pulse;
-            
-            const gradient = ctx.createRadialGradient(
-                x + dx, y + dy, 0,
-                x + dx, y + dy, currentRadius
-            );
-            
-            // Colores más definidos para que la mezcla sea obvia
-            gradient.addColorStop(0, primaryColor + '77'); 
-            gradient.addColorStop(0.5, secondaryColor + '33'); 
-            gradient.addColorStop(1, 'transparent');
-
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'screen';
-            ctx.globalAlpha = baseOpacity;
-            
-            ctx.beginPath();
-            ctx.arc(x + dx, y + dy, currentRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.restore();
-        };
-
-        const render = () => {
-            time += 0.005; 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Fondo base oscuro
-            ctx.fillStyle = '#001720';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            const w = canvas.width;
-            
-            // Capas movidas a la ESQUINA SUPERIOR IZQUIERDA
-            // Capa 1: Cian
-            drawGlow(ctx, time, w * 0.05, 0, w * 0.5, '#07F8F2', '#89EA2B', 0.35, 0.6, 0);
-            
-            // Capa 2: Verde
-            drawGlow(ctx, time, 0, 100, w * 0.45, '#89EA2B', '#07F8F2', 0.3, 0.5, Math.PI);
-            
-            // Capa 3: Mezcla rápida central
-            drawGlow(ctx, time * 1.5, w * 0.05, -50, w * 0.35, '#07F8F2', '#ffffff', 0.15, 0.8, 1);
-
-            animationFrameId = requestAnimationFrame(render);
-        };
-
-        render();
-
-        return () => {
-            cancelAnimationFrame(animationFrameId);
-            window.removeEventListener('resize', resize);
-        };
-    }, []);
-
     return (
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-            <canvas
-                ref={canvasRef}
-                className="w-full h-full opacity-80"
+        <div className="absolute inset-0 bg-[#001720] overflow-hidden pointer-events-none z-0">
+            <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes float-1 {
+                    0%, 100% { transform: translate(-15%, -15%) scale(1.1); }
+                    33% { transform: translate(10%, 10%) scale(1); }
+                    66% { transform: translate(-5%, 15%) scale(1.05); }
+                }
+                @keyframes float-2 {
+                    0%, 100% { transform: translate(10%, 10%) scale(1); }
+                    33% { transform: translate(-15%, -5%) scale(1.1); }
+                    66% { transform: translate(5%, -10%) scale(0.95); }
+                }
+                @keyframes float-3 {
+                    0%, 100% { transform: translate(0%, 0%) scale(1.05); }
+                    50% { transform: translate(-10%, 10%) scale(1); }
+                }
+                .aurora-blob {
+                    position: absolute;
+                    width: 100vw;
+                    height: 100vw;
+                    border-radius: 50%;
+                    filter: blur(120px);
+                    opacity: 0.12;
+                    mix-blend-mode: screen;
+                    will-change: transform;
+                }
+                
+                /* OPTIMIZACIÓN CRÍTICA PARA MÓVILES */
+                @media (max-width: 1024px) {
+                    .aurora-blob {
+                        display: none !important; /* Eliminamos las capas pesadas */
+                    }
+                    .mobile-optimized-bg {
+                        display: block !important;
+                        background: radial-gradient(circle at 20% 20%, #00605a 0%, transparent 70%),
+                                    radial-gradient(circle at 80% 10%, #244005 0%, transparent 60%);
+                        opacity: 0.15;
+                        filter: blur(60px); /* Desenfoque mucho más ligero para una sola capa */
+                    }
+                }
+            `}} />
+
+            {/* Capa estática súper ligera para móviles */}
+            <div className="mobile-optimized-bg absolute inset-0 hidden" />
+
+            {/* Capas animadas solo para Desktop */}
+            <div className="aurora-blob bg-[#00605a]" 
+                style={{ 
+                    top: '-30%', 
+                    left: '-20%', 
+                    animation: 'float-1 40s ease-in-out infinite' 
+                }} 
             />
+
+            <div className="aurora-blob bg-[#244005]" 
+                style={{ 
+                    top: '-20%', 
+                    left: '20%', 
+                    animation: 'float-2 50s ease-in-out infinite',
+                    animationDelay: '-7s'
+                }} 
+            />
+
         </div>
     );
 }
+
+
+
+
+

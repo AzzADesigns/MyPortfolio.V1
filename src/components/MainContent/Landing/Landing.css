@@ -155,17 +155,14 @@ html::-webkit-scrollbar-thumb:hover {
     0% { 
         transform: scale(0.95);
         opacity: 0;
-        filter: blur(8px);
     }
     50% { 
         transform: scale(1.2);
-        opacity: 0.5;
-        filter: blur(12px);
+        opacity: 0.45;
     }
     100% { 
         transform: scale(1.5);
         opacity: 0;
-        filter: blur(20px);
     }
 }
 

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import '../scrollReveal.css';
 import { SERVICES_TEXTS, SERVICES_CARDS } from '../constants/servicesData';
 import { ServiceCard } from './ServiceCard';
 import { FloatingShapes } from './FloatingShapes';
 import { CodeExplorer } from './CodeExplorer';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const decorationMap = {
     design: <FloatingShapes type="design" />,
@@ -11,10 +13,29 @@ const decorationMap = {
 };
 
 export const ServicesContent = () => {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    // Reveal del header (título + subtítulo) → fade-up escalonado
+    useScrollReveal(sectionRef, {
+        selector: '.sr-services-header-item',
+        variant: 'fade-up',
+        staggerMs: 100,
+        rootMargin: '-5% 0px',
+    });
+
+    // Reveal de las cards → fade-left en cascada
+    useScrollReveal(sectionRef, {
+        selector: '.sr-service-card-wrapper',
+        variant: 'fade-left',
+        staggerMs: 130,
+        rootMargin: '-2% 0px',
+    });
+
     return (
-        <div className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 z-10">
+        <div ref={sectionRef} className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 z-10">
             <div className="text-center space-y-1 px-4">
-                <h2 className="text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
+                {/* En mobile, el h2 completo es una unidad de reveal */}
+                <h2 className="sr-services-header-item text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
                     {SERVICES_TEXTS.title.words.map((word) => (
                         <React.Fragment key={word}>
                             <span className="title-word inline-block">{word}</span>{' '}
@@ -24,25 +45,31 @@ export const ServicesContent = () => {
                         {SERVICES_TEXTS.title.highlight}
                     </span>
                 </h2>
-                <p className="services-subtitle text-gray-600 text-lg mt-8 lg:text-xl xl:text-2xl font-medium">
+                <p className="sr-services-header-item services-subtitle text-gray-600 text-lg mt-8 lg:text-xl xl:text-2xl font-medium">
                     {SERVICES_TEXTS.subtitle}
                 </p>
             </div>
 
             <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-20 3xl:gap-[7%] w-full max-w-8xl ">
                 {SERVICES_CARDS.map((card, index) => (
-                    <ServiceCard
+                    <div
                         key={card.titleAccent}
-                        {...card}
-                        decoration={decorationMap[card.decorationType as keyof typeof decorationMap]}
-                        wrapperClassName={`
-                            ${index === 0 ? "3xl:-translate-y-12" : ""}
-                            ${index === 1 ? "3xl:translate-y-4" : ""}
-                            ${index === 2 ? "3xl:translate-y-20 lg:col-span-1" : ""}
-                        `.trim()}
-                    />
+                        className={`sr-service-card-wrapper ${
+                            index === 0 ? "3xl:-translate-y-12" : ""
+                        } ${
+                            index === 1 ? "3xl:translate-y-4" : ""
+                        } ${
+                            index === 2 ? "3xl:translate-y-20 lg:col-span-1" : ""
+                        }`.trim()}
+                    >
+                        <ServiceCard
+                            {...card}
+                            decoration={decorationMap[card.decorationType as keyof typeof decorationMap]}
+                        />
+                    </div>
                 ))}
             </div>
         </div>
     );
 };
+

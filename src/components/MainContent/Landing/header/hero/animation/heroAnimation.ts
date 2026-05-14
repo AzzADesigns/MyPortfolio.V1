@@ -27,24 +27,21 @@ export const animateHero = (tl: gsap.core.Timeline) => {
 export const animateHeroMobile = () => {
     gsap.fromTo('.gsap-hero-text', 
         { 
-            y: 40, 
-            autoAlpha: 0,
-            scale: 0.95,
-            filter: 'blur(5px)'
+            y: 20, 
+            autoAlpha: 0
         }, 
         { 
             scrollTrigger: { 
                 trigger: '.gsap-hero-text', 
-                start: "top 90%",
+                start: "top 95%",
                 toggleActions: "play none none none"
             }, 
             y: 0, 
             autoAlpha: 1, 
-            scale: 1,
-            filter: 'blur(0px)',
-            duration: 1.2, 
-            stagger: 0.15, 
-            ease: 'power3.out' 
+            duration: 1, 
+            stagger: 0.1, 
+            ease: 'power2.out',
+            force3D: true
         }
     );
 };

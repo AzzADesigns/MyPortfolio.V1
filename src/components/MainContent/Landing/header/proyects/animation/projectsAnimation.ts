@@ -10,8 +10,8 @@ export const animateProjectsMobile = () => {
     const images = gsap.utils.toArray<HTMLElement>('.gsap-hero-image');
     if (!images || images.length < 3) return;
 
-    gsap.set(images[0], { x: 0, y: 0, scale: 0.5, autoAlpha: 1, filter: "blur(4px) brightness(0.7)", force3D: true });
-    gsap.set(images[1], { x: 0, y: 0, scale: 0.5, autoAlpha: 1, filter: "blur(10px) brightness(0.5)", force3D: true });
+    gsap.set(images[0], { x: 0, y: 0, scale: 0.5, autoAlpha: 1, brightness: 0.8, force3D: true });
+    gsap.set(images[1], { x: 0, y: 0, scale: 0.5, autoAlpha: 1, brightness: 0.6, force3D: true });
     gsap.set('.gsap-hero-bg', { scale: 0.1, autoAlpha: 0 });
 
     gsap.fromTo(images[2], 
@@ -43,7 +43,7 @@ export const animateProjectsMobile = () => {
         x: -120,
         y: -45,
         scale: 1.4,
-        filter: "blur(0px) brightness(1)",
+        brightness: 1,
         duration: 0.8,
         ease: 'power1.inOut'
     }, 0.1);
@@ -52,7 +52,7 @@ export const animateProjectsMobile = () => {
         x: 100,
         y: -75,
         scale: 1.4,
-        filter: "blur(0px) brightness(1)",
+        brightness: 1,
         duration: 0.8,
         ease: 'power1.inOut'
     }, 0.4);

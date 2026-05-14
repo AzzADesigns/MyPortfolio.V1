@@ -28,10 +28,8 @@ export const useBrandEntrance = (
 
                 mm.add({
                     isDesktop: '(min-width: 1024px)',
-                    isMobile: '(max-width: 1023px)',
                 }, (context) => {
-                    const { isDesktop } = context.conditions as { isDesktop: boolean };
-                    const scroller = isDesktop ? container : undefined;
+                    const scroller = container;
 
                     const tl = gsap.timeline({
                         scrollTrigger: {
@@ -42,20 +40,18 @@ export const useBrandEntrance = (
                         }
                     });
 
-                    // Fase 1: Enfoque Líquido y Expansión
+                    // Fase 1: Enfoque Líquido y Expansión (Sin blur para mejor rendimiento)
                     tl.fromTo(q('.brand-reveal'), 
                         { 
                             y: 30, 
                             x: 15, 
                             opacity: 0, 
-                            filter: 'blur(10px)', 
                             scale: 1.05 
                         }, 
                         { 
                             y: 0, 
                             x: 0, 
                             opacity: 1, 
-                            filter: 'blur(0px)', 
                             scale: 1, 
                             duration: 1.2, 
                             ease: "power3.out", 
