@@ -94,7 +94,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                                 onClick={() => {
                                     onClose();
                                     setTimeout(() => {
-                                        const nextSection = document.getElementById('brand-identity');
+                                        const nextSection = document.getElementById('contacto');
                                         if (nextSection) {
                                             nextSection.scrollIntoView({ behavior: 'smooth' });
                                         }
@@ -110,7 +110,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                         onClick={() => {
                             onClose();
                             setTimeout(() => {
-                                const nextSection = document.getElementById('brand-identity');
+                                const nextSection = document.getElementById('contacto');
                                 if (nextSection) {
                                     nextSection.scrollIntoView({ behavior: 'smooth' });
                                 }

@@ -139,7 +139,10 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                         {/* CTA Final */}
                         <div className="flex flex-col items-center text-center space-y-8 pt-10 pb-10">
                             <p className="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-xl">¿Te gustaría tener un proyecto con este nivel de detalle y calidad?</p>
-                            <CTAButton text="Contrátame" />
+                            <CTAButton 
+                                text="Contrátame" 
+                                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                            />
                         </div>
                     </div>
                 </div>

@@ -32,28 +32,27 @@ export const Landing = () => {
                 <Validation />
             </section>
 
-            {/* Services */}
-            <div id="servicios" className="flex-none w-full lg:h-screen lg:snap-start lg:snap-always">
-                <LazySection
-                    rootMargin="500px 0px"
-                    placeholderClassName="w-full h-full"
-                >
-                    <Services ref={servicesRef} />
-                </LazySection>
-            </div>
+            {/* Services: pre-carga con margen amplio porque tiene mucha lógica GSAP */}
+            <LazySection
+                id="servicios"
+                rootMargin="500px 0px"
+                placeholderClassName="flex-none w-full lg:h-screen lg:snap-start lg:snap-always"
+            >
+                <Services ref={servicesRef} />
+            </LazySection>
 
             {/* Signature */}
-            <div id="firma" className="flex-none w-full min-h-screen lg:h-screen lg:snap-start">
-                <LazySection
-                    rootMargin="300px 0px"
-                    placeholderClassName="w-full h-full"
-                >
-                    <Signature containerRef={containerRef} />
-                </LazySection>
-            </div>
+            <LazySection
+                id="firma"
+                rootMargin="300px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:h-screen lg:snap-start"
+            >
+                <Signature containerRef={containerRef} />
+            </LazySection>
 
             {/* Brand Identity */}
             <LazySection
+                id="brand-identity"
                 rootMargin="300px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >
@@ -61,17 +60,17 @@ export const Landing = () => {
             </LazySection>
 
             {/* Experience */}
-            <div id="destacados" className="flex-none w-full min-h-screen lg:snap-start">
-                <LazySection
-                    rootMargin="300px 0px"
-                    placeholderClassName="w-full h-full"
-                >
-                    <Experience containerRef={containerRef} />
-                </LazySection>
-            </div>
+            <LazySection
+                id="destacados"
+                rootMargin="300px 0px"
+                placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
+            >
+                <Experience containerRef={containerRef} />
+            </LazySection>
 
             {/* Contact */}
             <LazySection
+                id="contacto"
                 rootMargin="200px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >

@@ -7,7 +7,7 @@ import { FooterBar } from './components/FooterBar';
 
 export const Contact = () => {
     return (
-        <section className="flex-none relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden flex flex-col justify-between px-6 md:px-16 lg:px-8 xl:px-16 md:pt-16 pb-6 lg:pt-20 lg:pb-8">
+        <section id="contacto" className="flex-none relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden flex flex-col justify-between px-6 md:px-16 lg:px-8 xl:px-16 md:pt-16 pb-6 lg:pt-20 lg:pb-8">
             
             {/* Imagen de fondo (handshake) */}
             <div className="absolute inset-0 z-0 pointer-events-none">

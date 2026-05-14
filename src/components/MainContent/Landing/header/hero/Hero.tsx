@@ -29,7 +29,7 @@ export default function Hero() {
             </p>
 
             <div className="gsap-hero-text w-fit mt-2 lg:mt-0">
-                <CTAButton />
+                <CTAButton onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })} />
             </div>
         </div>
     );

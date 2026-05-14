@@ -51,7 +51,11 @@ export const ServiceCard = ({
                     <p className="text-gray-100 text-base lg:text-[16px] 3xl:text-xl leading-relaxed flex-1 font-medium">
                         {description}
                     </p>
-                    <CTAButton fullWidth text={ctaText} />
+                    <CTAButton 
+                        fullWidth 
+                        text={ctaText} 
+                        onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                    />
                 </div>
 
                 {/* Decoración Original (Iconos - Colores Originales) */}

@@ -5,11 +5,22 @@ interface CTAButtonProps {
     className?: string;
     onClick?: () => void;
     fullWidth?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
 }
 
-export default function CTAButton({ text = "Empezar mi proyecto hoy", className = "", onClick, fullWidth = false }: CTAButtonProps) {
+export default function CTAButton({ 
+    text = "Empezar mi proyecto hoy", 
+    className = "", 
+    onClick, 
+    fullWidth = false,
+    type = 'button',
+    disabled = false
+}: CTAButtonProps) {
     return (
         <button
+            type={type}
+            disabled={disabled}
             onClick={onClick}
             className={`
                 relative group/btn overflow-hidden cursor-pointer 
@@ -20,6 +31,7 @@ export default function CTAButton({ text = "Empezar mi proyecto hoy", className 
                 rounded-lg md:rounded-xl 2xl:rounded-[1rem]
                 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
                 active:scale-[0.96]
+                ${disabled ? 'opacity-50 cursor-not-allowed grayscale' : ''}
                 ${className}
             `}
         >

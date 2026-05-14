@@ -33,7 +33,7 @@ export const Signature = ({ containerRef }: SignatureProps) => {
     } = useSignatureState();
 
     return (
-        <section ref={manifestoRef} className="flex-none flex flex-col items-center justify-center relative w-full min-h-screen lg:h-screen lg:snap-start overflow-hidden bg-[#001720] py-20 lg:py-0">
+        <section ref={manifestoRef} id="firma" className="flex-none flex flex-col items-center justify-center relative w-full min-h-screen lg:h-screen lg:snap-start overflow-hidden bg-[#001720] py-20 lg:py-0">
             {/* Fondo animado reutilizado del header */}
             <AuroraBackground />
 
