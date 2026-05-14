@@ -43,7 +43,7 @@ export const Services = React.forwardRef<ServicesHandle>((_, ref) => {
         resetToStart: () => {
             state.resetToStart();
         }
-    }), [state.enterFromBottomFnRef]);
+    }), [state]);
 
     return (
         <section id="servicios" className="flex-none w-full h-auto lg:h-screen relative z-10 lg:snap-start lg:snap-always overflow-hidden">

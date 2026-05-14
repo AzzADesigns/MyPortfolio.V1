@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -33,6 +33,9 @@ export const useServicesAnimations = ({
     enterFromBottomFnRef
 }: UseServicesAnimationsProps) => {
 
+    // Flag para bloquear onEnterBack del bigNumber durante salida controlada al top
+    const isExitingToTopRef = useRef(false);
+
     useGSAP(() => {
         if (!scrollRef.current || !processRef.current) return;
         const scroller = scrollRef.current;
@@ -48,11 +51,24 @@ export const useServicesAnimations = ({
                 start: "top 90%",
                 onEnter: () => {
                     if (isProcessModeRef.current) return;
+                    // Scrolleamos hasta el final del rango del scrub del bigNumber (top -50%)
+                    // para que la animación scale:15→scale:1 se reproduzca completa.
+                    const snapTarget = processSection.offsetTop + scroller.clientHeight * 0.55;
                     gsap.to(scroller, {
-                        scrollTo: { y: processSection.offsetTop },
-                        duration: 1.2,
+                        scrollTo: { y: snapTarget },
+                        duration: 1.8,
                         ease: "power4.inOut",
-                        overwrite: true
+                        overwrite: true,
+                        onComplete: () => {
+                            // Activamos el proceso mode directamente al terminar el auto-snap.
+                            // Esto es determinístico en primera entrada y en TODAS las re-entradas.
+                            if (isExitingToTopRef.current || isProcessModeRef.current) return;
+                            isProcessModeRef.current = true;
+                            scroller.style.overflowY = 'hidden';
+                            gsap.set(bigNumber, { scale: 1, opacity: 1, x: 0, y: 0 });
+                            if (carouselObserver) carouselObserver.enable();
+                            playPaso01Entrance();
+                        }
                     });
                 }
             });
@@ -204,20 +220,12 @@ export const useServicesAnimations = ({
                 if (buttonsEl) tl.to(buttonsEl, { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 0.32);
             };
 
-            // 3. Animación de "01" Gigante (Integrada con el Lock)
+            // 3. Animación de "01" Gigante — solo visual, sin efectos secundarios de estado
             if (bigNumber) {
                 gsap.fromTo(bigNumber,
+                    { scale: 15, opacity: 0, x: 330, y: -110 },
                     {
-                        scale: 15,
-                        opacity: 0,
-                        x: 330,
-                        y: -110
-                    },
-                    {
-                        scale: 1,
-                        opacity: 1,
-                        x: 0,
-                        y: 0,
+                        scale: 1, opacity: 1, x: 0, y: 0,
                         ease: "none",
                         scrollTrigger: {
                             trigger: processSection,
@@ -225,22 +233,12 @@ export const useServicesAnimations = ({
                             start: "top top",
                             end: "top -50%",
                             scrub: 0.3,
-                            onLeave: () => {
-                                isProcessModeRef.current = true;
-                                scroller.style.overflowY = 'hidden';
-                                gsap.set(bigNumber, { scale: 1, opacity: 1, x: 0, y: 0 });
-                                if (carouselObserver) carouselObserver.enable();
-                                playPaso01Entrance();
-                            },
-                            onEnterBack: () => {
-                                if (isProcessModeRef.current) return;
-                                scroller.style.overflowY = 'auto';
-                                if (carouselObserver) carouselObserver.disable();
-                                gsap.to(allElements, { opacity: 0, y: 40, duration: 0.3, overwrite: true });
-                            }
                         }
                     }
                 );
+
+                // El proceso mode se activa desde el onComplete del auto-snap (Trigger #1).
+                // No se necesita un trigger separado aquí.
             }
 
             // 4. Sistema de Bloqueo y Navegación por Pasos (Observer + Scroll Lock)
@@ -252,6 +250,8 @@ export const useServicesAnimations = ({
                     if (activeStepRef.current > 0) {
                         handleStepChangeRef.current(activeStepRef.current - 1);
                     } else {
+                        // Marcamos que estamos en una salida controlada al top
+                        isExitingToTopRef.current = true;
                         playPaso01Exit(true);
 
                         const mainSection = document.getElementById('servicios');
@@ -266,17 +266,25 @@ export const useServicesAnimations = ({
                             onComplete: () => {
                                 if (bgContainer) gsap.set(bgContainer, { clearProps: 'scale,y,borderTopLeftRadius,borderTopRightRadius' });
 
-                                isProcessModeRef.current = false;
-                                scroller.style.overflowY = 'hidden';
-                                requestAnimationFrame(() => {
-                                    scroller.style.overflowY = 'auto';
-                                });
+                                // El scrub del bigNumber lo rebobina solo a scale:15 conforme
+                                // GSAP lleva scrollTop a 0 — NO matar su tween (rompería el scrub en reentrada)
+                                // Solo reseteamos el estado visual de los elementos de contenido
+                                gsap.set(allElements, { opacity: 0, y: 40, overwrite: true });
+
                                 carouselObserver.disable();
                                 setActiveStep(0);
                                 activeStepRef.current = 0;
                                 scrollTargetStepRef.current = 0;
+                                isProcessModeRef.current = false;
                                 setIsAnimating(false);
                                 isAnimatingRef.current = false;
+
+                                // Restauramos el overflow y liberamos el flag de salida
+                                scroller.style.overflowY = 'hidden';
+                                requestAnimationFrame(() => {
+                                    scroller.style.overflowY = 'auto';
+                                    isExitingToTopRef.current = false;
+                                });
                             }
                         });
                     }
@@ -290,13 +298,21 @@ export const useServicesAnimations = ({
                         carouselObserver.disable();
 
                         const outerEl = scrollRef.current?.closest('.landing-container') as HTMLElement | null;
-                        const contactEl = document.getElementById('contacto');
-                        if (outerEl && contactEl) {
+                        const nextSection = document.getElementById('firma');
+                        if (outerEl && nextSection) {
+                            const targetY = outerEl.scrollTop + nextSection.getBoundingClientRect().top - outerEl.getBoundingClientRect().top;
                             gsap.to(outerEl, {
-                                scrollTo: { y: contactEl.offsetTop },
+                                scrollTo: { y: targetY },
                                 duration: 1.2,
                                 ease: 'power4.inOut',
-                                overwrite: true
+                                overwrite: true,
+                                onComplete: () => {
+                                    scroller.scrollTop = 0;
+                                    scroller.style.overflowY = 'auto';
+                                    setActiveStep(0);
+                                    activeStepRef.current = 0;
+                                    scrollTargetStepRef.current = 0;
+                                }
                             });
                         }
                     }

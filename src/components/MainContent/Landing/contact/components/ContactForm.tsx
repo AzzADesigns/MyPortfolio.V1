@@ -5,7 +5,6 @@ import { CTAButton } from '../../shared';
 import { sendEmail } from '@/app/actions/sendEmail';
 
 export const ContactForm = () => {
-    // @ts-ignore
     const [state, action, isPending] = useActionState(sendEmail, null);
     const formRef = useRef<HTMLFormElement>(null);
     const [errors, setErrors] = useState<Record<string, string>>({});

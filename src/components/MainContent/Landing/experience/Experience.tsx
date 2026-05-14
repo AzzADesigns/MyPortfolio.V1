@@ -25,26 +25,36 @@ export const Experience = ({ containerRef }: ExperienceProps) => {
 
         const q = gsap.utils.selector(el);
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: el,
-                scroller: container,
-                start: "top 75%",
-                toggleActions: 'play reverse play reverse',
-            }
-        });
+        const mm = gsap.matchMedia();
 
-        // Título de fondo: Solo opacidad
-        tl.fromTo(q(".exp-bg-text"), 
-            { opacity: 0 }, 
-            { opacity: 1, duration: 1.2, ease: "power3.out" }
-        )
-        // Números: Aparecen en secuencia
-        .fromTo(q(".exp-num-item"), 
-            { opacity: 0 }, 
-            { opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" },
-            "-=0.8"
-        );
+        mm.add({
+            isDesktop: "(min-width: 1024px)",
+            isMobile: "(max-width: 1023px)"
+        }, (context) => {
+            const { isDesktop } = context.conditions as { isDesktop: boolean };
+            const scroller = isDesktop ? container : undefined;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: el,
+                    scroller: scroller,
+                    start: isDesktop ? "top 75%" : "top 90%",
+                    toggleActions: 'play reverse play reverse',
+                }
+            });
+
+            // Título de fondo: Solo opacidad
+            tl.fromTo(q(".exp-bg-text"), 
+                { opacity: 0 }, 
+                { opacity: 1, duration: 1.2, ease: "power3.out" }
+            )
+            // Números: Aparecen en secuencia
+            .fromTo(q(".exp-num-item"), 
+                { opacity: 0 }, 
+                { opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" },
+                "-=0.8"
+            );
+        });
 
     }, { scope: sectionRef });
 

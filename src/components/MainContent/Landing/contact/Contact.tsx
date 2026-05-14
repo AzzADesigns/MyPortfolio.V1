@@ -25,38 +25,48 @@ export const Contact = ({ containerRef }: ContactProps) => {
 
         const q = gsap.utils.selector(el);
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: el,
-                scroller: container,
-                start: "top 75%",
-                toggleActions: 'play reverse play reverse',
-            }
-        });
+        const mm = gsap.matchMedia();
 
-        // 1. Fondo (Fade suave)
-        tl.fromTo(q(".contact-bg-fade"), { opacity: 0 }, { opacity: 1, duration: 1.5 })
-          
-          // 2. Inputs del Formulario (Staggered con desplazamiento sutil)
-          .fromTo(q(".contact-input-reveal"), 
-              { opacity: 0, y: 15 }, 
-              { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }, 
-              "-=1"
-          )
-          
-          // 3. Botón de envío (Efecto sutil de escalado)
-          .fromTo(q(".contact-button-reveal"), 
-              { opacity: 0, scale: 0.95 }, 
-              { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 
-              "-=0.4"
-          )
-          
-          // 4. Iconos Sociales (Aparición rítmica)
-          .fromTo(q(".contact-social-reveal"), 
-              { opacity: 0, scale: 0.5 }, 
-              { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: "back.out(2)" }, 
-              "-=0.6"
-          );
+        mm.add({
+            isDesktop: "(min-width: 1024px)",
+            isMobile: "(max-width: 1023px)"
+        }, (context) => {
+            const { isDesktop } = context.conditions as { isDesktop: boolean };
+            const scroller = isDesktop ? container : undefined;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: el,
+                    scroller: scroller,
+                    start: isDesktop ? "top 75%" : "top 90%",
+                    toggleActions: 'play reverse play reverse',
+                }
+            });
+
+            // 1. Fondo (Fade suave)
+            tl.fromTo(q(".contact-bg-fade"), { opacity: 0 }, { opacity: 1, duration: 1.5 })
+              
+              // 2. Inputs del Formulario (Staggered con desplazamiento sutil)
+              .fromTo(q(".contact-input-reveal"), 
+                  { opacity: 0, y: 15 }, 
+                  { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }, 
+                  "-=1"
+              )
+              
+              // 3. Botón de envío (Efecto sutil de escalado)
+              .fromTo(q(".contact-button-reveal"), 
+                  { opacity: 0, scale: 0.95 }, 
+                  { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 
+                  "-=0.4"
+              )
+              
+              // 4. Iconos Sociales (Aparición rítmica)
+              .fromTo(q(".contact-social-reveal"), 
+                  { opacity: 0, scale: 0.5 }, 
+                  { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: "back.out(2)" }, 
+                  "-=0.6"
+              );
+        });
 
     }, { scope: sectionRef });
 

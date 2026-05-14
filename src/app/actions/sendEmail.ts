@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function sendEmail(prevState: any, formData: FormData) {
+export async function sendEmail(_prevState: unknown, formData: FormData) {
   // 1. Verificación de Honeypot (Seguridad Anti-Bots)
   const honeypot = formData.get('_honeypot') as string;
   if (honeypot) {
@@ -45,7 +45,7 @@ export async function sendEmail(prevState: any, formData: FormData) {
     });
 
     return { success: true, data };
-  } catch (error) {
+  } catch {
     return { error: 'Error al enviar el email' };
   }
 }

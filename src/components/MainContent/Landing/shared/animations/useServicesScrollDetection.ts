@@ -35,5 +35,5 @@ export const useServicesScrollDetection = (
             container.removeEventListener('scroll', onScroll);
             container.removeEventListener('scrollend', onScrollEnd);
         };
-    }, [containerRef, servicesRef]);
+    }, [containerRef, servicesRef, isNavigatingRef]);
 };

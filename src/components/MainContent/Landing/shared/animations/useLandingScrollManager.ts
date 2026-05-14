@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollToPlugin);
  * que causaba saltos inversos hacia el header.
  */
 export const useLandingScrollManager = (containerRef: React.RefObject<HTMLDivElement | null>) => {
-    const isTransitioning = useRef(false);
 
     useEffect(() => {
         const container = containerRef.current;
