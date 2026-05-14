@@ -97,7 +97,7 @@ export const ContactForm = () => {
                     { placeholder: "Proyecto", label: "Proyecto", name: "proyecto" as const, max: 150 },
                     { placeholder: "Mail", label: "Email", name: "email" as const, max: 150 },
                 ].map((field) => (
-                    <div key={field.label} className="group flex flex-col">
+                    <div key={field.label} className="group flex flex-col contact-input-reveal">
                         <input 
                             name={field.name}
                             maxLength={field.max}
@@ -114,7 +114,7 @@ export const ContactForm = () => {
                         )}
                     </div>
                 ))}
-                <div className="group flex flex-col">
+                <div className="group flex flex-col contact-input-reveal">
                     <textarea 
                         name="mensaje"
                         maxLength={3000}
@@ -140,7 +140,7 @@ export const ContactForm = () => {
                 <p className="text-red-400 text-sm">{state.error}</p>
             )}
 
-            <div className="pt-8">
+            <div className="pt-8 contact-button-reveal">
                 <CTAButton 
                     type="submit"
                     disabled={isPending}

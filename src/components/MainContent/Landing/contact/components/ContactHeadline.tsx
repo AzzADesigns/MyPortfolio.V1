@@ -15,13 +15,13 @@ export const ContactHeadline = () => {
 
             {/* Redes Sociales Desktop (xl+) */}
             <div className="hidden xl:flex items-center justify-center gap-12 w-full pt-4">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300 contact-social-reveal">
                     <Image src="/branding/in.svg" alt="LinkedIn" width={64} height={64} />
                 </a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300">
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300 contact-social-reveal">
                     <Image src="/branding/ticktok.svg" alt="TikTok" width={64} height={64} />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:scale-110 transition-all duration-300 contact-social-reveal">
                     <Image src="/branding/instagram.svg" alt="Instagram" width={64} height={64} />
                 </a>
             </div>

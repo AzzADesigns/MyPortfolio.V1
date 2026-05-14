@@ -1,8 +1,13 @@
 'use client';
 
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect, RefObject, useRef } from 'react';
 import { ExperienceGrid } from './components/ExperienceGrid';
 import { ProjectDetail } from './components/ProjectDetail';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ExperienceProps {
     containerRef: RefObject<HTMLDivElement | null>;
@@ -11,6 +16,37 @@ interface ExperienceProps {
 export const Experience = ({ containerRef }: ExperienceProps) => {
     const [hoveredNumber, setHoveredNumber] = useState<number | null>(null);
     const [selectedProject, setSelectedProject] = useState<number | null>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useGSAP(() => {
+        const el = sectionRef.current;
+        const container = containerRef.current;
+        if (!el || !container) return;
+
+        const q = gsap.utils.selector(el);
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: el,
+                scroller: container,
+                start: "top 75%",
+                toggleActions: 'play reverse play reverse',
+            }
+        });
+
+        // Título de fondo: Solo opacidad
+        tl.fromTo(q(".exp-bg-text"), 
+            { opacity: 0 }, 
+            { opacity: 1, duration: 1.2, ease: "power3.out" }
+        )
+        // Números: Aparecen en secuencia
+        .fromTo(q(".exp-num-item"), 
+            { opacity: 0 }, 
+            { opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" },
+            "-=0.8"
+        );
+
+    }, { scope: sectionRef });
 
     // Bloquear scroll principal cuando hay un proyecto seleccionado
     useEffect(() => {
@@ -32,7 +68,7 @@ export const Experience = ({ containerRef }: ExperienceProps) => {
     }, [selectedProject, containerRef]);
 
     return (
-        <section id="destacados" className="flex-none flex flex-col items-center justify-center relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden px-6 md:px-12 py-20 lg:py-0">
+        <section ref={sectionRef} id="destacados" className="flex-none flex flex-col items-center justify-center relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden px-6 md:px-12 py-20 lg:py-0">
             <ExperienceGrid 
                 hoveredNumber={hoveredNumber}
                 setHoveredNumber={setHoveredNumber}

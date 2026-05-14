@@ -34,7 +34,6 @@ export const Landing = () => {
 
             {/* Services: pre-carga con margen amplio porque tiene mucha lógica GSAP */}
             <LazySection
-                id="servicios"
                 rootMargin="500px 0px"
                 placeholderClassName="flex-none w-full lg:h-screen lg:snap-start lg:snap-always"
             >
@@ -43,7 +42,6 @@ export const Landing = () => {
 
             {/* Signature */}
             <LazySection
-                id="firma"
                 rootMargin="300px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:h-screen lg:snap-start"
             >
@@ -52,7 +50,6 @@ export const Landing = () => {
 
             {/* Brand Identity */}
             <LazySection
-                id="brand-identity"
                 rootMargin="300px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >
@@ -61,7 +58,6 @@ export const Landing = () => {
 
             {/* Experience */}
             <LazySection
-                id="destacados"
                 rootMargin="300px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >
@@ -70,11 +66,10 @@ export const Landing = () => {
 
             {/* Contact */}
             <LazySection
-                id="contacto"
                 rootMargin="200px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >
-                <Contact />
+                <Contact containerRef={containerRef} />
             </LazySection>
         </div>
     );
