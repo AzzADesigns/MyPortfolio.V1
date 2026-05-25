@@ -71,14 +71,3 @@
     will-change: auto;
 }
 
-/* Solo aplica en mobile (no interferir con desktop GSAP) */
-@media (min-width: 1024px) {
-    .sr-hidden,
-    [class*="sr-reveal-"] {
-        opacity: unset !important;
-        transform: unset !important;
-        animation: none !important;
-        clip-path: unset !important;
-        will-change: auto !important;
-    }
-}

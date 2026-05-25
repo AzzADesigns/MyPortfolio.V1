@@ -252,6 +252,107 @@ body {
     animation: gradientMove 3s linear infinite;
 }
 
+@keyframes lavaVertical {
+    0% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+    100% { background-position: 50% 0%; }
+}
+
+.animate-lava-vertical {
+    background-size: 100% 300%;
+    animation: lavaVertical 4s ease-in-out infinite;
+}
+
+/* --- ANIMACIONES DISRUPTIVAS PARA PROCESO --- */
+/* 1. Glitch — múltiples twitches cromáticos */
+@keyframes glitchOut {
+    0%   { transform: skewX(0)             translateX(0);    opacity: 1;   filter: none; }
+    15%  { transform: skewX(-12deg)        translateX(8px);  opacity: 1;   filter: drop-shadow(-8px 0 0 #07F8F2) drop-shadow(8px 0 0 #89EA2B) brightness(1.4); }
+    30%  { transform: skewX(18deg)         translateX(-15px); opacity: 0.9; filter: drop-shadow(12px 0 0 #07F8F2) drop-shadow(-12px 0 0 #89EA2B) hue-rotate(90deg); }
+    50%  { transform: skewX(-25deg) scaleX(1.1) translateX(25px); opacity: 0.6; filter: blur(2px) drop-shadow(-6px 0 0 #07F8F2); }
+    70%  { transform: skewX(35deg)         translateX(-40px); opacity: 0.3; filter: blur(5px) hue-rotate(180deg); }
+    100% { transform: skewX(-40deg) scaleX(0.3) translateX(80px); opacity: 0;   filter: blur(15px); }
+}
+@keyframes glitchIn {
+    0%   { transform: skewX(40deg) scaleX(0.3) translateX(-80px); opacity: 0;   filter: blur(15px) hue-rotate(180deg); }
+    20%  { transform: skewX(-20deg)        translateX(30px);  opacity: 0.4; filter: blur(6px) drop-shadow(10px 0 0 #07F8F2) drop-shadow(-10px 0 0 #89EA2B); }
+    40%  { transform: skewX(14deg)         translateX(-12px); opacity: 0.7; filter: drop-shadow(-8px 0 0 #07F8F2) drop-shadow(8px 0 0 #89EA2B) brightness(1.5); }
+    60%  { transform: skewX(-6deg)         translateX(5px);   opacity: 0.9; filter: drop-shadow(-3px 0 0 #07F8F2); }
+    80%  { transform: skewX(2deg)          translateX(-2px);  opacity: 1;   filter: drop-shadow(-1px 0 0 #07F8F2); }
+    100% { transform: skewX(0)             translateX(0);    opacity: 1;   filter: none; }
+}
+.anim-glitch-out { animation: glitchOut 0.38s steps(6, end) forwards; }
+.anim-glitch-in  { animation: glitchIn  0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+/* 2. Cyber Drop — caída gravitacional con rebote real */
+@keyframes cyberDropOut {
+    0%   { transform: translateY(0)    scale(1)    rotateX(0);     opacity: 1; filter: none; }
+    20%  { transform: translateY(-15px) scale(1.04) rotateX(-5deg); opacity: 1; filter: brightness(1.2); }
+    100% { transform: translateY(200px) scale(0.6)  rotateX(-80deg); opacity: 0; filter: blur(10px) brightness(0.5); }
+}
+@keyframes cyberDropIn {
+    0%   { transform: translateY(-300px) scale(1.5)  rotateX(70deg);  opacity: 0; filter: blur(20px) brightness(2); }
+    50%  { transform: translateY(35px)  scale(0.92) rotateX(-15deg); opacity: 1; filter: blur(1px) brightness(1.2); }
+    68%  { transform: translateY(-18px) scale(1.04) rotateX(8deg);   filter: none; }
+    82%  { transform: translateY(8px)   scale(0.98) rotateX(-3deg); }
+    92%  { transform: translateY(-4px)  scale(1.01); }
+    100% { transform: translateY(0)    scale(1)    rotateX(0);     opacity: 1; filter: none; }
+}
+.anim-drop-out { animation: cyberDropOut 0.38s cubic-bezier(0.55, 0, 1, 0.45) forwards; }
+.anim-drop-in  { animation: cyberDropIn  0.65s cubic-bezier(0.34, 1.4, 0.64, 1) forwards; }
+
+/* 3. CONSTRUCCIÓN — Elastic Data Slide (Rápido, elástico, sin filtros pesados) */
+@keyframes elasticOut {
+    0%   { transform: translateX(0) scale(1); opacity: 1; }
+    100% { transform: translateX(-100px) scale(0.9); opacity: 0; }
+}
+@keyframes elasticIn {
+    0%   { transform: translateX(100px) scale(0.9); opacity: 0; }
+    60%  { transform: translateX(-10px) scale(1.02); opacity: 1; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+.anim-flip-out { animation: elasticOut 0.38s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
+.anim-flip-in  { animation: elasticIn  0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+/* 4. VALIDACIÓN — Holo Reveal (Rotación 3D limpia sin desenfoques bruscos) */
+@keyframes holoOut {
+    0%   { transform: perspective(1000px) rotateY(0deg) scale(1); opacity: 1; }
+    100% { transform: perspective(1000px) rotateY(-60deg) scale(0.8); opacity: 0; }
+}
+@keyframes holoIn {
+    0%   { transform: perspective(1000px) rotateY(60deg) scale(0.8); opacity: 0; }
+    60%  { transform: perspective(1000px) rotateY(-10deg) scale(1.02); opacity: 1; }
+    100% { transform: perspective(1000px) rotateY(0deg) scale(1); opacity: 1; }
+}
+.anim-warp-out { animation: holoOut 0.38s ease-in forwards; }
+.anim-warp-in  { animation: holoIn  0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+/* 5. PRODUCCIÓN — Digital Materialize (Expansión vertical elástica, ideal para "despliegue") */
+@keyframes materializeOut {
+    0%   { transform: scaleY(1); opacity: 1; transform-origin: top; }
+    100% { transform: scaleY(0); opacity: 0; transform-origin: top; }
+}
+@keyframes materializeIn {
+    0%   { transform: scaleY(0); opacity: 0; transform-origin: top; }
+    60%  { transform: scaleY(1.05); opacity: 1; transform-origin: top; }
+    100% { transform: scaleY(1); opacity: 1; transform-origin: top; }
+}
+.anim-crt-out { animation: materializeOut 0.38s ease-in forwards; }
+.anim-crt-in  { animation: materializeIn  0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* 6. Background Number Smooth Fade */
+@keyframes bgNumOut {
+    0%   { transform: translateY(0) scale(1); opacity: 0.2; filter: none; }
+    100% { transform: translateY(30px) scale(0.9); opacity: 0; filter: blur(10px); }
+}
+@keyframes bgNumIn {
+    0%   { transform: translateY(-30px) scale(1.1); opacity: 0; filter: blur(10px); }
+    100% { transform: translateY(0) scale(1); opacity: 0.2; filter: none; }
+}
+.anim-bg-num-out { animation: bgNumOut 0.38s ease-in forwards; }
+.anim-bg-num-in  { animation: bgNumIn  0.6s ease-out forwards; }
+
+
 .animate-reveal {
     opacity: 0;
     animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -283,6 +384,48 @@ body {
 .animate-wave { animation: sound-wave 3s ease-in-out infinite; }
 .animate-morph { animation: morph-shape 5s ease-in-out infinite; }
 .animate-master { animation: master-branding 6s ease-in-out infinite; }
+
+/* ── Experience Section Entrance Animations ─────────────────── */
+
+.exp-bg-text:not(.exp-animated) {
+    opacity: 0;
+}
+.exp-num-item:not(.exp-animated) {
+    opacity: 0;
+}
+
+@keyframes expBgReveal {
+    from {
+        opacity: 0;
+        transform: translate3d(-50%, 60px, 0) scale(0.95);
+    }
+}
+
+@keyframes expNumReveal {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100px, 0) scale(0.6) rotate(-5deg);
+    }
+    55% {
+        opacity: 1;
+        transform: translate3d(0, -12px, 0) scale(1.05) rotate(2deg);
+    }
+    75% {
+        transform: translate3d(0, 4px, 0) scale(0.98) rotate(-1deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    }
+}
+
+.exp-animated.exp-bg-text {
+    animation: expBgReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.exp-animated.exp-num-item {
+    animation: expNumReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
 
 /* globals.css */
 @theme {

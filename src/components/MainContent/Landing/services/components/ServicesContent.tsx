@@ -21,6 +21,7 @@ export const ServicesContent = () => {
         variant: 'fade-up',
         staggerMs: 100,
         rootMargin: '-5% 0px',
+        mobileOnly: false,
     });
 
     // Reveal de las cards → fade-left en cascada
@@ -29,10 +30,11 @@ export const ServicesContent = () => {
         variant: 'fade-left',
         staggerMs: 130,
         rootMargin: '-2% 0px',
+        mobileOnly: false,
     });
 
     return (
-        <div ref={sectionRef} className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-6 lg:pt-10 pb-20 z-10">
+        <div ref={sectionRef} className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-20 lg:pt-28 pb-20 z-10">
             <div className="text-center space-y-1 px-4">
                 {/* En mobile, el h2 completo es una unidad de reveal */}
                 <h2 className="sr-services-header-item text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
@@ -50,17 +52,11 @@ export const ServicesContent = () => {
                 </p>
             </div>
 
-            <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-20 3xl:gap-[7%] w-full max-w-8xl ">
-                {SERVICES_CARDS.map((card, index) => (
+            <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-20 3xl:gap-[7%] w-full max-w-8xl items-stretch">
+                {SERVICES_CARDS.map((card) => (
                     <div
                         key={card.titleAccent}
-                        className={`sr-service-card-wrapper ${
-                            index === 0 ? "3xl:-translate-y-15" : ""
-                        } ${
-                            index === 1 ? "3xl:-translate-y-10" : ""
-                        } ${
-                            index === 2 ? "3xl:translate-y-1 lg:col-span-1" : ""
-                        }`.trim()}
+                        className="sr-service-card-wrapper h-full"
                     >
                         <ServiceCard
                             {...card}

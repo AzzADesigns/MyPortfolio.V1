@@ -5,14 +5,11 @@ import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
 import { animateMobileMenu, initNavbarScroll, initBackgroundDetection } from './animation/navbarAnimation';
-import { ServicesHandle } from '../../services/Services';
-
 interface NavbarProps {
-    servicesRef?: React.RefObject<ServicesHandle | null>;
     isNavigatingRef?: React.MutableRefObject<boolean>;
 }
 
-export default function Navbar({ servicesRef, isNavigatingRef }: NavbarProps) {
+export default function Navbar({ isNavigatingRef }: NavbarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLight, setIsLight] = useState(false);
     const menuContentRef = useRef<HTMLDivElement>(null);
@@ -57,9 +54,6 @@ export default function Navbar({ servicesRef, isNavigatingRef }: NavbarProps) {
             const targetId = href.substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                if (href === '#servicios') {
-                    servicesRef?.current?.resetToStart();
-                }
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
             setIsMenuOpen(false);

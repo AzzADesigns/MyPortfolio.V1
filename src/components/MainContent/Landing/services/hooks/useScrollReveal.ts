@@ -56,17 +56,22 @@ export const useScrollReveal = (
         observerRef.current = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
                     const el = entry.target as HTMLElement;
+                    
+                    if (!entry.isIntersecting) {
+                        // Resetear estado al salir de la pantalla para que pueda volver a animarse
+                        el.classList.add('sr-hidden');
+                        el.classList.remove(`sr-reveal-${variant}`);
+                        el.style.animationDelay = '';
+                        return;
+                    }
+                    
                     const index = elements.indexOf(el);
 
                     // Stagger via delay CSS inline (no JS timer)
                     el.style.animationDelay = `${index * staggerMs}ms`;
                     el.classList.remove('sr-hidden');
                     el.classList.add(`sr-reveal-${variant}`);
-
-                    // Una vez revelado, dejamos de observarlo
-                    observerRef.current?.unobserve(el);
                 });
             },
             { rootMargin, threshold: 0.05 }
