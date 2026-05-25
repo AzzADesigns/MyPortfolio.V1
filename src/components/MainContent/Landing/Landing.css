@@ -1,0 +1,273 @@
+.landing-container,
+.landing-container * {
+    cursor: none !important;
+}
+
+.landing-container {
+    background-color: #001720;
+    font-family: var(--font-sora), sans-serif;
+    user-select: none;
+}
+
+.gsap-nav,
+.gsap-hero-text,
+.gsap-hero-image,
+.gsap-hero-bg,
+.gsap-hero-stat {
+    visibility: hidden;
+    opacity: 0;
+}
+
+a,
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Barra de progreso para el último tooltip en mobile */
+@keyframes fillBar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+
+html::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+html::-webkit-scrollbar-button {
+    display: none !important;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #89EA2B 0%, #22d3ee 100%) !important;
+    border-radius: 10px !important;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a3f256 0%, #4ce4f7 100%) !important;
+}
+
+
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: #89EA2B transparent !important;
+}
+
+/* Animación para el botón CTA */
+@keyframes aurora-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-aurora-flow {
+    background-size: 200% 200%;
+    animation: aurora-flow 6s ease infinite;
+}
+
+/* Ocultar el scrollbar interno de Servicios para limpieza visual */
+.services-internal-scroll {
+    -ms-overflow-style: none !important;
+    /* IE y Edge */
+    scrollbar-width: none !important;
+    /* Firefox */
+}
+
+.services-internal-scroll::-webkit-scrollbar {
+    display: none !important;
+    /* Chrome, Safari y Opera */
+}
+
+@keyframes scroll-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(100%);
+    }
+
+    /* Se desplaza su propia altura hacia abajo */
+}
+
+.animate-scroll-bounce {
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.services-internal-scroll::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb {
+    background: #000000 !important;
+    /* Negro puro */
+    border-radius: 10px !important;
+}
+
+.services-internal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #1a1a1a !important;
+}
+
+/* Efectos HUD Interactivos: Lenguaje no hablado */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-150%) skewX(-25deg);
+    }
+
+    100% {
+        transform: translateX(150%) skewX(-25deg);
+    }
+}
+
+.hud-shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.hud-shimmer-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.15),
+            rgba(255, 255, 255, 0.08),
+            transparent);
+    animation: shimmer 4s infinite ease-in-out;
+}
+
+@keyframes bracket-glow {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        filter: brightness(1);
+    }
+
+    50% {
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+}
+
+.animate-bracket-glow {
+    animation: bracket-glow 3s ease-in-out infinite;
+}
+
+/* Hint para palabras interactivas (Lenguaje no hablado) */
+@keyframes text-breathing {
+
+    0%,
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 0px rgba(7, 248, 242, 0);
+    }
+
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 10px rgba(7, 248, 242, 0.3);
+        color: #07F8F2;
+    }
+}
+
+@keyframes pulse-aura {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.45;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.hover-word-hint {
+    position: relative;
+    animation: text-breathing 4s ease-in-out infinite;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.hover-word-hint::before {
+    content: "";
+    position: absolute;
+    inset: -5px -10px;
+    background: radial-gradient(ellipse at center, rgba(7, 248, 242, 0.4) 0%, transparent 80%);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: pulse-aura 3s ease-out infinite;
+}
+
+.hover-word-hint:hover {
+    animation: none;
+    opacity: 1;
+}
+
+.hover-word-hint:hover::before {
+    animation: none;
+    opacity: 0;
+}
+
+.text-hollow-gradient {
+    background: linear-gradient(to bottom, #07F8F2, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    filter: drop-shadow(0 0 15px rgba(7, 248, 242, 0.2));
+}
+
+/* Scrollbar Gris para el Detalle de Proyecto */
+.custom-scrollbar {
+    scrollbar-width: thin !important;
+    scrollbar-color: #888888 #e0e0e0 !important;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #e0e0e0 !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888888 !important;
+    border-radius: 10px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #666666 !important;
+}
