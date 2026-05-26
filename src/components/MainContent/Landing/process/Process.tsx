@@ -131,7 +131,7 @@ export const Process = () => {
                     {/* Badge tecnológico con watermark */}
                     <div className="relative mb-2 lg:mb-4 flex items-center">
                         {/* Watermark hollow en el fondo */}
-                        <div className="absolute -top-12 lg:-top-16 -left-2 lg:-left-6 text-[50px] lg:text-[80px] font-black text-transparent [-webkit-text-stroke:1px_rgba(7,248,242,0.15)] uppercase tracking-widest select-none pointer-events-none opacity-80 z-0">
+                        <div className="absolute -top-8 md:-top-12 lg:-top-16 -left-2 lg:-left-6 text-[32px] xs:text-[38px] md:text-[50px] lg:text-[80px] font-black text-transparent [-webkit-text-stroke:1px_rgba(7,248,242,0.15)] uppercase tracking-widest select-none pointer-events-none opacity-80 z-0">
                             {activeStep.title}
                         </div>
 
@@ -144,7 +144,7 @@ export const Process = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-white text-2xl lg:text-3xl font-medium tracking-wide relative z-10">
+                    <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-medium tracking-wide relative z-10">
                         Todo comienza con . <span className="text-brand-green font-semibold">&quot;{activeStep.question}&quot;</span>
                     </h2>
 

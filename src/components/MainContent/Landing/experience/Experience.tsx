@@ -53,7 +53,7 @@ export const Experience = ({ containerRef }: ExperienceProps) => {
     }, [selectedProject, containerRef]);
 
     return (
-        <section ref={sectionRef} id="destacados" className="flex-none flex flex-col items-center justify-center relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden px-6 md:px-12 py-20 lg:py-0">
+        <section ref={sectionRef} id="destacados" className="flex-none flex flex-col items-center justify-start lg:justify-center relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden px-6 md:px-12 pt-6 pb-12 md:pt-12 md:pb-16 lg:py-0">
             <ExperienceGrid
                 hoveredNumber={hoveredNumber}
                 setHoveredNumber={setHoveredNumber}

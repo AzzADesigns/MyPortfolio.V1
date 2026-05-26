@@ -14,7 +14,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
 
     return (
         <div
-            className={`absolute inset-0 z-50 transition-all duration-1000 ease-in-out flex items-center justify-center
+            className={`fixed inset-0 z-[100] transition-all duration-1000 ease-in-out flex items-center justify-center
                 ${selectedProject !== null ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none translate-y-full'}`}
             style={{ background: 'radial-gradient(circle at center, #ffffff 0%, #d1d5db 100%)' }}
         >

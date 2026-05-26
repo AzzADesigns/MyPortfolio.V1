@@ -13,7 +13,7 @@ interface ManifestoContentProps {
 }
 
 export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scannedWords, handleAllScannedClose }: ManifestoContentProps) => {
-    
+
     // Helper para renderizar los títulos basados en el array de la constante
     const renderHeadlineLine = (items: typeof MANIFESTO_HEADLINES[keyof typeof MANIFESTO_HEADLINES]) => {
         return items.map((item, idx) => {
@@ -23,7 +23,7 @@ export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scan
                 return (
                     <div key={idx} className={`relative inline-block will-change-transform group ${item.animClass}`}>
                         <div className={`relative bg-[#001720]/80 border px-5 py-2.5 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-2xl overflow-hidden`}
-                            style={{ 
+                            style={{
                                 borderColor: `${item.color}66`, // 40% opacity hex approximation
                                 boxShadow: `0 0 40px ${item.color}26` // 15% opacity hex approximation
                             }}
@@ -44,9 +44,9 @@ export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scan
     };
 
     return (
-        <div className="relative z-10 flex flex-col items-center max-w-6xl 3xl:max-w-screen-2xl mx-auto px-6 text-center -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
-            
-            <div className="flex flex-col gap-6 md:gap-10 xl:gap-8 items-center justify-center mb-8 md:mb-16 lg:mb-20 xl:mb-4 perspective-[1000px] w-full">
+        <div className="relative z-10 flex flex-col items-center max-w-6xl 3xl:max-w-screen-2xl mx-auto px-6 text-center pt-40 xs:pt-44 pb-8 md:pt-0 md:pb-0 -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
+
+            <div className="flex flex-col gap-6 md:gap-10 xl:gap-8 items-center justify-center mb-10 xs:mb-14 md:mb-16 lg:mb-20 xl:mb-4 perspective-[1000px] w-full">
                 <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 3xl:gap-12 text-[1.4rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
                     {renderHeadlineLine(MANIFESTO_HEADLINES.line1)}
                 </div>
@@ -56,13 +56,13 @@ export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scan
             </div>
 
             {/* Texto secundario unificado con leading-relaxed para mejor espaciado vertical */}
-            <div className="flex flex-col gap-6 md:gap-10 xl:gap-10 3xl:gap-14 text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.6rem] 3xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 3xl:max-w-7xl perspective-[1000px] leading-[1.8] sm:leading-[2] md:leading-[2.2] xl:leading-[1.8] 3xl:leading-[2.1]">
+            <div className="flex flex-col gap-10 xs:gap-12 lg:gap-10 xl:gap-10 3xl:gap-14 text-lg xs:text-[1.3rem] sm:text-2xl md:text-2xl lg:text-[1.6rem] 3xl:text-[2.1rem] text-gray-400 font-light max-w-5xl 3xl:max-w-7xl perspective-[1000px] leading-[2.2] xs:leading-[2.4] sm:leading-[2.4] md:leading-[2.2] xl:leading-[1.8] 3xl:leading-[2.1]">
                 <p className="manifesto-text-line will-change-transform opacity-0">
                     <span className={`transition-all duration-500 ${hoveredWord ? 'opacity-20' : ''}`}>AzzADesigns busca </span>
                     <HoverWord id={HOVER_WORDS[0].id} baseText={HOVER_WORDS[0].baseText} completionText={HOVER_WORDS[0].completionText} hoveredWord={hoveredWord} setHoveredWord={setHoveredWord} onScan={handleScan} />
                     <span className={`transition-all duration-500 ${hoveredWord ? 'opacity-20' : ''}`}> la web moderna.</span>
                 </p>
-                
+
                 <p className="manifesto-text-line will-change-transform opacity-0">
                     <span className={`transition-all duration-500 ${hoveredWord ? 'opacity-20' : ''}`}>Buscando </span>
                     <HoverWord id={HOVER_WORDS[1].id} baseText={HOVER_WORDS[1].baseText} completionText={HOVER_WORDS[1].completionText} hoveredWord={hoveredWord} setHoveredWord={setHoveredWord} onScan={handleScan} />
