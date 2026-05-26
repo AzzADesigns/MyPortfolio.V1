@@ -155,7 +155,7 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
                 >
                     <div className="bg-[#001720]/95 border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {NAV_LINKS.map((link) => {
+                            {NAV_LINKS.filter(link => link.label !== 'Portfolio').map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";
                                 const Icon = link.label === "Servicios" ? HiOutlineLightningBolt :
                                     link.label === "Metodología" ? HiOutlineCog :

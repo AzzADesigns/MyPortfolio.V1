@@ -76,6 +76,7 @@ export const Landing = () => {
 
             {/* Contact */}
             <LazySection
+                id="contacto"
                 rootMargin="200px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >

@@ -71,7 +71,10 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
 
             {/* Botón de Acción */}
             <div className="flex justify-center w-full pt-6 md:pt-0 brand-reveal">
-                <CTAButton text="Empezar mi proyecto hoy" />
+                <CTAButton 
+                    text="Empezar mi proyecto hoy" 
+                    onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                />
             </div>
         </div>
     );

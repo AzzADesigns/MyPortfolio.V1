@@ -58,13 +58,7 @@ export const useScrollReveal = (
                 entries.forEach((entry) => {
                     const el = entry.target as HTMLElement;
                     
-                    if (!entry.isIntersecting) {
-                        // Resetear estado al salir de la pantalla para que pueda volver a animarse
-                        el.classList.add('sr-hidden');
-                        el.classList.remove(`sr-reveal-${variant}`);
-                        el.style.animationDelay = '';
-                        return;
-                    }
+                    if (!entry.isIntersecting) return;
                     
                     const index = elements.indexOf(el);
 
@@ -72,6 +66,9 @@ export const useScrollReveal = (
                     el.style.animationDelay = `${index * staggerMs}ms`;
                     el.classList.remove('sr-hidden');
                     el.classList.add(`sr-reveal-${variant}`);
+                    
+                    // Unobserve to prevent looping
+                    observerRef.current?.unobserve(el);
                 });
             },
             { rootMargin, threshold: 0.05 }

@@ -71,7 +71,7 @@ export const Contact = ({ containerRef }: ContactProps) => {
     }, { scope: sectionRef });
 
     return (
-        <section ref={sectionRef} className="flex-none relative w-full min-h-screen bg-[#001720] lg:snap-start overflow-hidden flex flex-col justify-between px-6 md:px-16 lg:px-8 xl:px-16 md:pt-16 pb-6 lg:pt-20 lg:pb-8">
+        <section ref={sectionRef} className="flex-none relative w-full pb-25 md:pb-6 min-h-screen bg-[#001720] lg:snap-start overflow-hidden flex flex-col justify-between px-6 md:px-16 lg:px-8 xl:px-16 md:pt-16 lg:pt-20 lg:pb-8">
             <div id="contacto" className="absolute top-0 left-0 w-full h-0 pointer-events-none" aria-hidden="true" />
             
             {/* Imagen de fondo (handshake) */}
