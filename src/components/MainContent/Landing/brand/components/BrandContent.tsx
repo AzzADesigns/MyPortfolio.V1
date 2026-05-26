@@ -10,7 +10,7 @@ interface BrandContentProps {
 
 const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
     return (
-        <div className="relative z-10 w-full max-w-[1400px] xl:max-w-[1600px] 3xl:max-w-[2000px] mx-auto flex flex-col h-full py-10 3xl:max-h-auto justify-between">
+        <div className="relative z-10 w-full xl:mt-3 3xl:mt-0 max-w-[1400px] xl:max-w-[1600px] 3xl:max-w-[2000px] mx-auto flex flex-col h-full py-10 3xl:max-h-auto justify-between">
             {/* Cabecera de Sección */}
             <div className="flex flex-col items-center lg:items-start max-w-4xl 3xl:max-w-6xl brand-reveal text-center lg:text-left">
                 <p className="text-[#07F8F2]/60 font-outfit text-xs sm:text-sm md:text-sm xl:text-base 3xl:text-xl tracking-[0.2em] mb-4 md:mb-6 uppercase font-medium">
@@ -24,7 +24,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
             {/* Palabras Interactivas y Titular Principal */}
             <div className="relative flex-1 w-full my-8 lg:my-0 flex flex-col lg:block">
                 <div 
-                    className="lg:absolute lg:top-[5%] lg:left-[10%] xl:left-[15%] 3xl:left-[40%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
+                    className="lg:absolute lg:top-[5%] lg:left-[10%] xl:left-[28%] 3xl:left-[40%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
                     onMouseEnter={() => setHoveredWord('vivas')}
                     onMouseLeave={() => setHoveredWord(null)}
                 >
@@ -33,7 +33,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
                 </div>
 
                 <div 
-                    className="lg:absolute lg:top-[45%] lg:-translate-y-1/2 lg:left-0 3xl:left-[10%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
+                    className="lg:absolute lg:top-[45%] lg:-translate-y-1/2 lg:left-0 xl:left-[8%] 3xl:left-[10%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
                     onMouseEnter={() => setHoveredWord('personalizados')}
                     onMouseLeave={() => setHoveredWord(null)}
                 >

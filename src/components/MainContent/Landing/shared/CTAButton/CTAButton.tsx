@@ -25,7 +25,7 @@ export default function CTAButton({
             className={`
                 relative group/btn overflow-hidden cursor-pointer 
                 ${fullWidth ? 'w-full' : 'w-fit'} 
-                px-8 py-4 md:px-10 md:py-4 lg:px-12 lg:py-5 2xl:px-14 3xl:py-6
+                px-8 py-4 md:px-10 md:py-4 lg:px-12 lg:py-5 xl:px-14 3xl:py-6
                 text-base md:text-[12px] lg:text-base 2xl:text-sm 3xl:text-xl 
                 font-bold tracking-tight text-[#001720]
                 rounded-lg md:rounded-xl 2xl:rounded-[1rem]

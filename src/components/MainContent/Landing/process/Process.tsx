@@ -126,17 +126,17 @@ export const Process = () => {
             <div className="container mx-auto px-6 md:px-16 lg:px-24 h-full relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-0">
 
                 {/* Columna izquierda: Contenido — recibe la clase de animación directamente */}
-                <div ref={contentRef} className="w-full lg:w-1/2 flex flex-col gap-6 lg:gap-8 mt-4 lg:mt-0 relative">
+                <div ref={contentRef} className="w-full lg:w-1/2 flex flex-col gap-6 xl:mt-20 lg:gap-8 mt-4 lg:mt-0 relative">
 
                     {/* Badge tecnológico con watermark */}
                     <div className="relative mb-2 lg:mb-4 flex items-center">
                         {/* Watermark hollow en el fondo */}
-                        <div className="absolute -top-8 md:-top-12 lg:-top-16 -left-2 lg:-left-6 text-[32px] xs:text-[38px] md:text-[50px] lg:text-[80px] font-black text-transparent [-webkit-text-stroke:1px_rgba(7,248,242,0.15)] uppercase tracking-widest select-none pointer-events-none opacity-80 z-0">
+                        <div className="absolute -top-8  md:-top-12 lg:-top-16 xl:-top-6 3xl:-top-16 -left-2 lg:-left-6 text-[32px] xs:text-[38px] md:text-[50px] 3xl:text-[80px] font-black text-transparent [-webkit-text-stroke:1px_rgba(7,248,242,0.15)] uppercase tracking-widest select-none pointer-events-none opacity-80 z-0">
                             {activeStep.title}
                         </div>
 
                         {/* Badge principal */}
-                        <div className="relative z-10 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#07F8F2]/30 bg-[#07F8F2]/5 backdrop-blur-md shadow-[0_0_15px_rgba(7,248,242,0.1)]">
+                        <div className="relative z-10 inline-flex items-center gap-3 px-4 py-2 rounded-full border xl:mt-5 3xl:mt-0 border-[#07F8F2]/30 bg-[#07F8F2]/5 backdrop-blur-md shadow-[0_0_15px_rgba(7,248,242,0.1)]">
                             <span className="w-2 h-2 rounded-full bg-[#07F8F2] shadow-[0_0_8px_#07F8F2] animate-pulse" />
                             <span className="text-[#07F8F2] font-mono text-xs lg:text-sm tracking-[0.3em] uppercase font-bold">
                                 Fase {activeStep.id} <span className="opacity-50 mx-1">/</span> {activeStep.title}
@@ -144,11 +144,11 @@ export const Process = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-medium tracking-wide relative z-10">
+                    <h2 className="text-white text-xl md:text-2xl lg:text-3xl xl:text-2xl 2xl:text-3xl font-medium tracking-wide relative z-10">
                         Todo comienza con . <span className="text-brand-green font-semibold">&quot;{activeStep.question}&quot;</span>
                     </h2>
 
-                    <p className="text-gray-300 text-base lg:text-lg xl:text-xl font-medium leading-relaxed max-w-2xl">
+                    <p className="text-gray-300 text-base lg:text-lg 3xl:text-xl font-medium leading-relaxed max-w-2xl">
                         {activeStep.description}
                     </p>
 
@@ -156,7 +156,7 @@ export const Process = () => {
                         {activeStep.points.map((point, index) => (
                             <div key={index} className="flex items-start gap-4">
                                 <div className="mt-2.5 w-1.5 h-1.5 bg-gray-400 shrink-0" />
-                                <p className="text-gray-300 text-base lg:text-lg leading-relaxed">
+                                <p className="text-gray-300 text-base lg:text-lg xl:text-base 3xl:text-lg leading-relaxed">
                                     <span className="font-bold text-gray-200">{point.label}:</span> {point.text}
                                 </p>
                             </div>
@@ -165,7 +165,7 @@ export const Process = () => {
                 </div>
 
                 {/* Columna derecha: Pasos / Timeline */}
-                <div className="w-full lg:w-5/12 flex relative lg:pl-12 justify-center lg:justify-start">
+                <div className="w-full lg:w-5/12 flex relative  xl:mt-20 lg:pl-12 justify-center lg:justify-start">
                     {/* Línea con degradado animado (lava) */}
                     <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-brand-green via-brand-cyan to-brand-green animate-lava-vertical" />
 
