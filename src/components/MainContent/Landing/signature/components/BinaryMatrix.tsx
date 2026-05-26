@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react';
 import { BINARY_MATRIX_COLUMNS, BINARY_MATRIX_ROWS } from '../constants/signatureData';
 
+const MOBILE_MAX_WIDTH = 768;
+const MOBILE_COLS = 8;
+const MOBILE_ROWS = 14;
+
 // --- Sub-componente BinaryColumn estático animado por CSS ---
 const BinaryColumn = ({ length, delayIndex }: { length: number, delayIndex: number }) => {
     // Generamos el array una sola vez y no lo guardamos en estado
@@ -34,15 +38,30 @@ const BinaryColumn = ({ length, delayIndex }: { length: number, delayIndex: numb
 // --- Sub-componente BinaryMatrix para el efecto de lluvia de datos (Sin interacción) ---
 export const BinaryMatrix = () => {
     const [mounted, setMounted] = useState(false);
+    const [cols, setCols] = useState(BINARY_MATRIX_COLUMNS);
+    const [rows, setRows] = useState(BINARY_MATRIX_ROWS);
+
     useEffect(() => setMounted(true), []);
-    
+
+    useEffect(() => {
+        if (!mounted) return;
+        const apply = () => {
+            const narrow = window.innerWidth < MOBILE_MAX_WIDTH;
+            setCols(narrow ? MOBILE_COLS : BINARY_MATRIX_COLUMNS);
+            setRows(narrow ? MOBILE_ROWS : BINARY_MATRIX_ROWS);
+        };
+        apply();
+        window.addEventListener('resize', apply, { passive: true });
+        return () => window.removeEventListener('resize', apply);
+    }, [mounted]);
+
     if (!mounted) return null;
 
     return (
         <div className="flex justify-between w-full h-full px-4 md:px-10 opacity-30">
-            {Array.from({ length: BINARY_MATRIX_COLUMNS }).map((_, i) => (
+            {Array.from({ length: cols }).map((_, i) => (
                 <div key={i} className="flex flex-col gap-1 font-mono text-[10px] md:text-xs 3xl:text-xl text-[#07F8F2]/60">
-                    <BinaryColumn length={BINARY_MATRIX_ROWS} delayIndex={i} />
+                    <BinaryColumn length={rows} delayIndex={i} />
                 </div>
             ))}
         </div>

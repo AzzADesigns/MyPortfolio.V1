@@ -115,6 +115,9 @@ export const FluidBackground = () => {
     const mouse = useRef({ x: -2000, y: -2000 });
     const cursorState = useRef({ rotation: 0, prevRotation: 0, velocity: 0 });
     const animationRef = useRef<number>(0);
+    const isVisibleRef = useRef(true);
+    const bracketElementsRef = useRef<NodeListOf<Element> | null>(null);
+    const lastBracketRefreshRef = useRef(0);
 
     const [isDesktop, setIsDesktop] = useState(false);
 
@@ -157,14 +160,16 @@ export const FluidBackground = () => {
             if (parent) {
                 const newWidth = parent.clientWidth;
                 const newHeight = parent.clientHeight;
-                
+
                 if (canvas.width !== newWidth || canvas.height !== newHeight) {
+                    const prevWidth = canvas.width;
+                    const prevHeight = canvas.height;
                     canvas.width = newWidth;
                     canvas.height = newHeight;
                     
                     // Re-inicializamos partículas si el área creció o si no había
                     // para asegurar cobertura total tras animaciones de expansión (GSAP)
-                    if (particles.current.length === 0 || newWidth > canvas.width || newHeight > canvas.height) {
+                    if (particles.current.length === 0 || newWidth > prevWidth || newHeight > prevHeight) {
                         initParticles(newWidth, newHeight);
                     }
                 }
@@ -178,6 +183,7 @@ export const FluidBackground = () => {
         if (canvas.parentElement) {
             resizeObserver.observe(canvas.parentElement);
         }
+        handleResize();
 
         const fps = 30;
         const interval = 1000 / fps;
@@ -192,11 +198,16 @@ export const FluidBackground = () => {
 
             // Ajustamos lastTime restando el remanente para mantener la consistencia del timing
             lastTime = currentTime - (deltaTime % interval);
+            if (!isVisibleRef.current || document.hidden) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // Localizamos TODOS los fragmentos del cursor (brackets) para encontrar el centro exacto
-            const brackets = document.querySelectorAll('.is-bracket');
+            if (!bracketElementsRef.current || currentTime - lastBracketRefreshRef.current > 1000) {
+                bracketElementsRef.current = document.querySelectorAll('.is-bracket');
+                lastBracketRefreshRef.current = currentTime;
+            }
+            const brackets = bracketElementsRef.current;
             let targetViewportX = mouse.current.x;
             let targetViewportY = mouse.current.y;
             let currentRotation = 0;
@@ -264,11 +275,20 @@ export const FluidBackground = () => {
             mouse.current.y = e.clientY;
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        const visibilityObserver = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+            },
+            { threshold: 0 }
+        );
+        visibilityObserver.observe(canvas);
+
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current);
             resizeObserver.disconnect();
+            visibilityObserver.disconnect();
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, [isDesktop]);

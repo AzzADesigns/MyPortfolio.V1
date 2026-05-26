@@ -12,6 +12,9 @@ export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeC
     if (typeof window === 'undefined' || !navElement) return () => {};
 
     let currentIsLight = false;
+    /** Evita ejecutar ~60 chequeos pesados DOM/seg: el ticker de GSAP es por frame */
+    let lastHeavyCheckMs = 0;
+    const HEAVY_CHECK_INTERVAL_MS = 180;
 
     const checkBackground = () => {
         // Bloqueo total para móviles: si la pantalla es menor a 1024, forzar modo oscuro y salir
@@ -22,6 +25,10 @@ export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeC
             }
             return;
         }
+
+        const now = performance.now();
+        if (now - lastHeavyCheckMs < HEAVY_CHECK_INTERVAL_MS) return;
+        lastHeavyCheckMs = now;
 
         const rect = navElement.getBoundingClientRect();
         const points = [

@@ -58,6 +58,10 @@ export default function CustomCursor() {
 
         const xSetCursor = gsap.quickSetter(cursor, "x", "px");
         const ySetCursor = gsap.quickSetter(cursor, "y", "px");
+        const followerXTo = gsap.quickTo(follower, "x", { duration: 0.4, ease: 'power2.out' });
+        const followerYTo = gsap.quickTo(follower, "y", { duration: 0.4, ease: 'power2.out' });
+        const bracketsXTo = gsap.quickTo(bracketsPos, "x", { duration: 0.8, ease: 'power3.out' });
+        const bracketsYTo = gsap.quickTo(bracketsPos, "y", { duration: 0.8, ease: 'power3.out' });
 
         // Aplicamos color globalmente basándonos en si el target está dentro de una sección de luz
         const applyElementColors = (isLight: boolean, isButton: boolean, isCard: boolean) => {
@@ -157,21 +161,10 @@ export default function CustomCursor() {
             xSetCursor(cursorX);
             ySetCursor(cursorY);
 
-            gsap.to(follower, {
-                x: cursorX,
-                y: cursorY,
-                duration: 0.4,
-                ease: 'power2.out',
-                overwrite: 'auto'
-            });
-
-            gsap.to(bracketsPos, {
-                x: cursorX,
-                y: cursorY,
-                duration: 0.8,
-                ease: 'power3.out',
-                overwrite: 'auto'
-            });
+            followerXTo(cursorX);
+            followerYTo(cursorY);
+            bracketsXTo(cursorX);
+            bracketsYTo(cursorY);
         };
 
         const triggerLoadingEffect = () => {

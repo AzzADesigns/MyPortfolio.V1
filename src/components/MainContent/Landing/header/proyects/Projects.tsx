@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { PROJECT_IMAGES } from './constants/projectData';
 
 export default function Projects() {
+    const [isMobile, setIsMobile] = useState(false);
+    const [deferSecondary, setDeferSecondary] = useState(true);
+    const criticalImageIndex = isMobile ? 1 : 2;
+
+    useEffect(() => {
+        const compute = () => setIsMobile(window.innerWidth < 768);
+        compute();
+        window.addEventListener('resize', compute, { passive: true });
+        return () => window.removeEventListener('resize', compute);
+    }, []);
+
+    // En mobile, diferimos 2 imágenes no-críticas para mejorar LCP/TBT.
+    useEffect(() => {
+        if (!isMobile) {
+            setDeferSecondary(false);
+            return;
+        }
+
+        const w = window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number; cancelIdleCallback?: (id: number) => void; };
+        let idleId: number | null = null;
+        const timeoutId = window.setTimeout(() => setDeferSecondary(false), 1600);
+
+        if (typeof w.requestIdleCallback === 'function') {
+            idleId = w.requestIdleCallback(() => setDeferSecondary(false), { timeout: 2000 });
+        }
+
+        return () => {
+            window.clearTimeout(timeoutId);
+            if (idleId !== null && typeof w.cancelIdleCallback === 'function') w.cancelIdleCallback(idleId);
+        };
+    }, [isMobile]);
+
     return (
         <div className="relative w-full lg:flex-1 h-[600px] md:h-[500px] lg:h-[400px] xl:h-auto flex items-center justify-center mt-[-120px] md:mt-0 2xl:mt-20 xl:ml-15 2xl:-ml-10 3xl:ml-15 mb-10 lg:my-0 z-10 gsap-projects-container">
             {PROJECT_IMAGES.map((img, index) => (
+                // Mantener 1 imagen crítica para LCP; diferir las otras 2 solo en mobile.
+                (index === criticalImageIndex || !isMobile || !deferSecondary) ? (
                 <div key={index} className={`absolute ${img.animateClass} gsap-hero-image`} style={{ zIndex: img.zIndex }}>
                     <div className={img.containerClass}>
                         <Image
@@ -13,12 +47,16 @@ export default function Projects() {
                             alt={img.alt}
                             width={735}
                             height={400}
-                            className="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 will-change-transform will-change-[filter]"
-                            priority={index === 2}
-                            loading={index === 2 ? "eager" : "lazy"}
+                            className="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 will-change-transform"
+                            priority={index === criticalImageIndex}
+                            fetchPriority={index === criticalImageIndex ? 'high' : 'auto'}
+                            loading={index === criticalImageIndex ? "eager" : "lazy"}
+                            sizes="(max-width: 768px) 92vw, (max-width: 1024px) 70vw, 735px"
+                            quality={75}
                         />
                     </div>
                 </div>
+                ) : null
             ))}
 
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ zIndex: 0 }}>
