@@ -48,11 +48,10 @@ export default function Projects() {
                             width={735}
                             height={400}
                             className="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 will-change-transform"
-                            priority={index === criticalImageIndex}
                             fetchPriority={index === criticalImageIndex ? 'high' : 'auto'}
                             loading={index === criticalImageIndex ? "eager" : "lazy"}
-                            sizes="(max-width: 768px) 92vw, (max-width: 1024px) 70vw, 735px"
-                            quality={75}
+                            sizes="(max-width: 768px) 320px, (max-width: 1024px) 450px, 735px"
+                            quality={60}
                         />
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { setCursorPosition } from '../cursorState';
 
 // Ya no necesitamos BRACKET_SIZE ni funciones globales pesadas como isPointOverWhite.
 // Todo se maneja de forma reactiva y rápida vía DOM closest().
@@ -30,6 +31,7 @@ export default function CustomCursor() {
     // Estado consolidado para evitar repintados innecesarios
     const activeStates = useRef({ isCard: false, isButton: false, isLight: false });
     const lastMagneticButton = useRef<HTMLElement | null>(null);
+    const magneticRect = useRef({ left: 0, top: 0, width: 0, height: 0 });
 
     const DARK_BLUE = '#001720';
     const BRAND_GRAD = 'linear-gradient(90deg, #89EA2B, #07F8F2, #89EA2B)';
@@ -132,12 +134,16 @@ export default function CustomCursor() {
                 applyElementColors(isLight, isButton, isCard);
             }
 
+            setCursorPosition(e.clientX, e.clientY);
+
             // Sincronizar el efecto visual del botón físico
             if (isButton && button) {
                 if (lastMagneticButton.current !== button) {
                     if (lastMagneticButton.current) lastMagneticButton.current.removeAttribute('data-hover');
                     button.setAttribute('data-hover', 'true');
                     lastMagneticButton.current = button;
+                    const r = button.getBoundingClientRect();
+                    magneticRect.current = { left: r.left, top: r.top, width: r.width, height: r.height };
                 }
             } else if (lastMagneticButton.current) {
                 lastMagneticButton.current.removeAttribute('data-hover');
@@ -149,9 +155,9 @@ export default function CustomCursor() {
             let cursorY = e.clientY;
 
             if (isButton && button) {
-                const rect = button.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
+                const { left, top, width, height } = magneticRect.current;
+                const centerX = left + width / 2;
+                const centerY = top + height / 2;
                 const pullFactor = 0.65; 
 
                 cursorX = e.clientX - ((e.clientX - centerX) * pullFactor);
