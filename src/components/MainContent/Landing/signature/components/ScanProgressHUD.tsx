@@ -21,7 +21,7 @@ export const ScanProgressHUD = ({ scannedWords, allScanned, showRewardCard, isOp
             <div className="flex justify-between items-center w-full">
                 <span className="flex items-center gap-1.5 md:gap-3">
                     <span className={`w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full ${allScanned ? 'bg-[#89EA2B] shadow-[0_0_15px_#89EA2B]' : 'bg-[#07F8F2] animate-pulse shadow-[0_0_10px_#07F8F2]'}`}></span>
-                    <span className="xl:text-base xl:font-bold">
+                    <span className="text-[6px] md:text-[10px] xl:text-sm xl:font-bold">
                         {showRewardCard || allScanned ? HUD_LABELS.missionComplete : HUD_LABELS.cursorExperience}
                     </span>
                 </span>

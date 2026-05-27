@@ -13,7 +13,7 @@ export const TOTAL_SCAN_WORDS = 7;
 
 export const HUD_LABELS = {
     missionComplete: 'misión_cumplida',
-    cursorExperience: 'experiencia_cursor',
+    cursorExperience: 'toca las palabras marcadas',
     manifestoUnlocked: 'manifiesto_desbloqueado',
     decrypting: 'desencriptando_manifiesto...',
     waitingExploration: 'esperando_exploración...',
