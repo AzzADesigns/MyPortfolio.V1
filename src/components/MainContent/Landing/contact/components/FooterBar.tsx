@@ -17,7 +17,7 @@ export const FooterBar = () => {
                         rel="noopener noreferrer"
                         className={`relative group hover:scale-110 active:scale-75 ${link.activeClass} transition-all duration-300 block w-[32px] h-[32px]`}
                     >
-                        <Image src={link.icon} alt={link.name} fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
+                        <Image src={link.icon} alt={link.name} fill sizes="32px" className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
                         <div
                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                             style={{
@@ -39,7 +39,7 @@ export const FooterBar = () => {
             {/* Powered By */}
             <div className="flex items-center gap-3 opacity-60 xl:ml-auto">
                 <span className="text-white/50 text-sm tracking-widest uppercase font-light">Powered By</span>
-                <Image src="/branding/AzzADesigns.svg" alt="AzzADesigns" width={140} height={40} className="opacity-80" />
+                <Image src="/branding/AzzADesigns_logo.png" alt="AzzADesigns" width={140} height={40} className="opacity-80" />
             </div>
         </div>
     );

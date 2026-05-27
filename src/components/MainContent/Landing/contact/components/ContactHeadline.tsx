@@ -25,7 +25,7 @@ export const ContactHeadline = () => {
                         rel="noopener noreferrer"
                         className={`relative group hover:scale-110 active:scale-75 ${link.activeClass} transition-all duration-300 block contact-social-reveal w-[64px] h-[64px]`}
                     >
-                        <Image src={link.icon} alt={link.name} fill className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
+                        <Image src={link.icon} alt={link.name} fill sizes="64px" className="object-contain group-hover:opacity-0 transition-opacity duration-300" />
                         <div
                             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-move"
                             style={{

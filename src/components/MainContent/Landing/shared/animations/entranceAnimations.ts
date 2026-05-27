@@ -1,60 +1,62 @@
-import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { animateNavbar, animateNavbarMobile } from '../Navbar/animation/navbarAnimation';
-import { animateHero, animateHeroMobile } from '../../header/hero/animation/heroAnimation';
-import { animateProjects, animateProjectsMobile } from '../../header/proyects/animation/projectsAnimation';
-import { animateValidation, animateValidationMobile } from '../../header/validation/animation/validationAnimation';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-export const setupGSAPDefaults = () => {
-    gsap.defaults({
-        ease: "power3.out",
-        duration: 0.8
-    });
-};
-
-export const createMainTimeline = (container: HTMLDivElement | null) => {
-    return gsap.timeline({
-        scrollTrigger: {
-            trigger: container ? container.querySelector("section:first-of-type") : null,
-            scroller: container,
-            start: "top 50%",
-            toggleActions: "play reset play reset"
-        }
-    });
-};
+import { useRef, useEffect } from 'react';
 
 export const useLandingEntrance = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        setupGSAPDefaults();
-        const mm = gsap.matchMedia();
+    useEffect(() => {
+        let mm: ReturnType<typeof import('gsap').default['matchMedia']> | null = null;
+        let cancelled = false;
 
-        mm.add("(min-width: 768px)", () => {
+        async function init() {
+            const [{ default: gsap }, { ScrollTrigger }, navbarAnim, heroAnim, projectsAnim, validationAnim] = await Promise.all([
+                import('gsap'),
+                import('gsap/ScrollTrigger'),
+                import('../Navbar/animation/navbarAnimation'),
+                import('../../header/hero/animation/heroAnimation'),
+                import('../../header/proyects/animation/projectsAnimation'),
+                import('../../header/validation/animation/validationAnimation'),
+            ]);
 
-            const navTl = gsap.timeline({ delay: 0.2 });
-            animateNavbar(navTl);
+            if (cancelled) return;
 
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.defaults({ ease: "power3.out", duration: 0.8 });
 
-            const tl = createMainTimeline(containerRef.current);
-            animateHero(tl);
-            animateProjects(tl);
-            animateValidation(tl);
-        });
+            mm = gsap.matchMedia();
 
-        mm.add("(max-width: 767px)", () => {
-            animateNavbarMobile();
-            animateHeroMobile();
-            animateProjectsMobile();
-            animateValidationMobile();
-        });
+            mm.add("(min-width: 768px)", () => {
+                const navTl = gsap.timeline({ delay: 0.2 });
+                navbarAnim.animateNavbar(navTl);
 
-        return () => mm.revert();
-    }, { scope: containerRef });
+                const container = containerRef.current;
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: container ? container.querySelector("section:first-of-type") : null,
+                        scroller: container,
+                        start: "top 50%",
+                        toggleActions: "play reset play reset",
+                    },
+                });
+                heroAnim.animateHero(tl);
+                projectsAnim.animateProjects(tl);
+                validationAnim.animateValidation(tl);
+            });
+
+            mm.add("(max-width: 767px)", () => {
+                navbarAnim.animateNavbarMobile(gsap);
+                heroAnim.animateHeroMobile(gsap);
+                projectsAnim.animateProjectsMobile(gsap);
+                validationAnim.animateValidationMobile(gsap);
+            });
+        }
+
+        init();
+
+        return () => {
+            cancelled = true;
+            if (mm) mm.revert();
+        };
+    }, []);
 
     return { containerRef };
 };

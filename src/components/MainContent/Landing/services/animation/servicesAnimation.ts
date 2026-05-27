@@ -1,7 +1,4 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface ServicesScene {
     bg: Element;
@@ -10,12 +7,11 @@ interface ServicesScene {
     cards: Element[];
 }
 
-
-export const setupServicesScene = (container: HTMLDivElement): ServicesScene | null => {
+export const setupServicesScene = (gsap: any, container: HTMLDivElement): ServicesScene | null => {
     const bg = container.querySelector('.services-bg');
     const titleWords = container.querySelectorAll('.title-word');
     const subtitle = container.querySelector('.services-subtitle');
-    const cards = gsap.utils.toArray<Element>('.service-card', container);
+    const cards = gsap.utils.toArray('.service-card', container) as Element[];
 
     if (!bg || cards.length === 0) return null;
 
@@ -41,9 +37,8 @@ export const setupServicesScene = (container: HTMLDivElement): ServicesScene | n
     return { bg, titleWords, subtitle, cards };
 };
 
-
 export const animateServicesHeader = (
-    tl: gsap.core.Timeline,
+    tl: any,
     bg: Element,
     titleWords: NodeListOf<Element>,
     subtitle: Element | null
@@ -61,15 +56,14 @@ export const animateServicesHeader = (
         );
 };
 
-
-export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Element[]) => {
+export const animateServicesCardsDesktop = (tl: any, cards: Element[]) => {
     tl.to(
         cards,
         {
             autoAlpha: 1,
             x: 0,
             duration: 1.0,
-            stagger: 0.3, // Retraso estilo proyector de izquierda a derecha
+            stagger: 0.3,
             ease: 'power3.out',
             force3D: true,
         },
@@ -77,8 +71,7 @@ export const animateServicesCardsDesktop = (tl: gsap.core.Timeline, cards: Eleme
     );
 };
 
-
-export const animateServicesCardsMobile = (cards: Element[]) => {
+export const animateServicesCardsMobile = (gsap: any, cards: Element[]) => {
     cards.forEach((card) => {
         gsap.fromTo(card, 
             { autoAlpha: 0, y: 15, x: 0 },

@@ -80,6 +80,7 @@ export const Contact = ({ containerRef }: ContactProps) => {
                     src="/branding/contact-me.png" 
                     alt="" 
                     fill 
+                    sizes="100vw"
                     className="object-cover object-right opacity-20 lg:opacity-30"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#001720] via-[#001720]/80 to-transparent"></div>
