@@ -3,6 +3,7 @@
 import { useRef, RefObject, useMemo } from 'react';
 import { BrandHUD } from './components/BrandHUD';
 import { BrandContent } from './components/BrandContent';
+import { BrandExploreHint } from './components/BrandExploreHint';
 import { useBrandState } from './hooks/useBrandState';
 import { useBrandEntrance } from './animation/useBrandEntrance';
 import { useScrollReveal } from '../services/hooks/useScrollReveal';
@@ -37,6 +38,7 @@ export const BrandIdentity = ({ containerRef }: BrandIdentityProps) => {
         >
             <BrandHUD hoveredWord={hoveredWord} />
             {memoizedBrandContent}
+            <BrandExploreHint />
         </section>
     );
 };

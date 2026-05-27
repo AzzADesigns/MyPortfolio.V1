@@ -11,11 +11,14 @@
 
 .gsap-nav,
 .gsap-hero-text,
-.gsap-hero-image,
 .gsap-hero-bg,
 .gsap-hero-stat {
     visibility: hidden;
     opacity: 0;
+}
+
+.gsap-hero-image {
+    transform: scale(0.8);
 }
 
 a,
@@ -23,16 +26,7 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Barra de progreso para el último tooltip en mobile */
-@keyframes fillBar {
-    from {
-        width: 0%;
-    }
 
-    to {
-        width: 100%;
-    }
-}
 
 
 html::-webkit-scrollbar {

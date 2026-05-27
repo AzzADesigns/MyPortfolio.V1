@@ -27,13 +27,12 @@ export const HoverWord = ({
 }) => {
     const {
         tooltipRef,
-        scanRef,
         wordContentRef,
         mounted,
         isHovered,
         isOtherHovered,
         isScanned,
-        displayedText,
+        completionText: finalText,
         tooltipVisible,
         tooltipPos,
         tooltipLabels,
@@ -66,8 +65,7 @@ export const HoverWord = ({
         >
             <span
                 ref={wordContentRef}
-                className={`inline-block relative z-10 transition-all duration-500 ${!isScanned ? 'hover-word-hint' : ''
-                    } ${isScanned
+                className={`inline-block relative z-10 transition-all duration-500 ${isScanned
                         ? (id === 'premium'
                             ? 'bg-gradient-to-r from-[#07F8F2] to-[#89EA2B] bg-clip-text text-transparent font-bold'
                             : 'text-[#07F8F2]')
@@ -77,20 +75,9 @@ export const HoverWord = ({
                 {baseText}
             </span>
 
-            {/* Láser de Escaneo Holo-óptico */}
-            <span
-                ref={scanRef}
-                className="absolute top-0 left-0 w-1 md:w-[6px] h-full bg-[#07F8F2] opacity-0 pointer-events-none z-30"
-                style={{
-                    boxShadow: '0 0 15px 3px rgba(7,248,242,0.8), 0 0 30px 8px rgba(137,234,43,0.4)',
-                    borderRadius: '4px'
-                }}
-            ></span>
-
             {/* Panel HUD proyectado al Root */}
             {mounted && createPortal(
                 <>
-                    {/* Backdrop para cerrar al tocar fuera en Mobile */}
                     {isHovered && window.innerWidth < 1024 && (
                         <div
                             className="fixed inset-0 z-[9998]"
@@ -117,40 +104,25 @@ export const HoverWord = ({
                             transformOrigin: 'center bottom',
                         } : { transformOrigin: '0 0' }}
                     >
-                        {/* Láser conector - Solo en 3XL */}
                         <svg className="absolute top-0 left-0 w-full h-full overflow-visible transition-opacity duration-300 opacity-0 3xl:opacity-100">
                             <line x1="-40" y1="-40" x2="0" y2="0" stroke="#07F8F2" strokeWidth="1" opacity="0.4" strokeDasharray="4 4" />
-                            <circle cx="-40" cy="-40" r="3" fill="#07F8F2" className="animate-pulse" />
+                            <circle cx="-40" cy="-40" r="3" fill="#07F8F2" />
                             <circle cx="0" cy="0" r="2" fill="#89EA2B" />
                         </svg>
 
-                        {/* Header HUD */}
                         <span className="flex items-center gap-1.5 md:gap-2 text-[8px] md:text-xs mb-2 md:mb-3 opacity-90 tracking-[0.15em] md:tracking-[0.2em] font-sans font-bold"
                             style={{ color: isLastScan ? '#07F8F2' : '#89EA2B' }}
                         >
-                            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-sm animate-pulse"
+                            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-sm"
                                 style={{ backgroundColor: isLastScan ? '#07F8F2' : '#89EA2B' }}
                             ></span>
                             {isLastScan ? tooltipLabels.lastScanHeader : tooltipLabels.normalHeader}
                         </span>
 
-                        {/* Barra de progreso solo en el último escaneo en móvil */}
-                        {isLastScan && window.innerWidth < 1024 && (
-                            <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden mb-2">
-                                <div
-                                    className="h-full bg-[#07F8F2] rounded-full"
-                                    style={{ animation: 'fillBar 2.3s linear forwards' }}
-                                />
-                            </div>
-                        )}
-
-                        {/* Texto Typewriter */}
-                        <span className="block text-xs md:text-xl lg:text-base xl:text-base 3xl:text-[1.2rem] font-semibold leading-snug tracking-tight min-h-[1.2em] md:min-h-[1.5em]">
-                            {displayedText}
-                            <span className="animate-pulse inline-block ml-1 md:ml-2 bg-[#07F8F2] w-1.5 md:w-2.5 h-3 md:h-6 translate-y-0.5 md:translate-y-1.5"></span>
+                        <span className="block text-xs md:text-xl lg:text-base xl:text-base 3xl:text-[1.2rem] font-semibold leading-snug tracking-tight">
+                            {finalText}
                         </span>
 
-                        {/* Esquinas HUD */}
                         <span className="absolute top-0 right-0 w-4 md:w-6 h-4 md:h-6 border-t-2 border-r-2 border-[#89EA2B]/50"></span>
                         <span className="absolute bottom-0 left-0 w-4 md:w-6 h-4 md:h-6 border-b-2 border-l-2 border-[#89EA2B]/50"></span>
                         <span className="absolute bottom-0 right-0 w-4 md:w-6 h-4 md:h-6 border-b-2 border-r-2 border-[#89EA2B]/50"></span>

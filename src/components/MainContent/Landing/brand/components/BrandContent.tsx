@@ -24,6 +24,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
             {/* Palabras Interactivas y Titular Principal */}
             <div className="relative flex-1 w-full my-8 lg:my-0 flex flex-col lg:block">
                 <div
+                    data-word="vivas"
                     className="lg:absolute lg:top-[5%] lg:left-[10%] xl:left-[28%] 3xl:left-[40%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
                     onMouseEnter={() => setHoveredWord('vivas')}
                     onMouseLeave={() => setHoveredWord(null)}
@@ -33,6 +34,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
                 </div>
 
                 <div
+                    data-word="personalizados"
                     className="lg:absolute lg:top-[45%] lg:-translate-y-1/2 lg:left-0 xl:left-[8%] 3xl:left-[10%] flex flex-col items-center mb-12 lg:mb-0 brand-reveal cursor-pointer group"
                     onMouseEnter={() => setHoveredWord('personalizados')}
                     onMouseLeave={() => setHoveredWord(null)}
@@ -42,6 +44,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
                 </div>
 
                 <div
+                    data-word="fluidas"
                     className="lg:absolute lg:bottom-[5%] lg:left-[5%] 3xl:left-0 flex flex-col items-center mb-16 lg:mb-0 brand-reveal cursor-pointer group"
                     onMouseEnter={() => setHoveredWord('fluidas')}
                     onMouseLeave={() => setHoveredWord(null)}
@@ -55,6 +58,7 @@ const BrandContentBase = ({ setHoveredWord }: BrandContentProps) => {
                     <h3 className="text-white text-xl sm:text-3xl md:text-2xl xl:text-3xl 3xl:text-5xl font-medium leading-tight">
                         Introduciendo el concepto de <br className="hidden lg:block" />
                         <span
+                            data-word="marca"
                             className="bg-gradient-to-r from-[#07F8F2] via-[#89EA2B] to-[#07F8F2] bg-[length:200%_auto] animate-gradient-move bg-clip-text text-transparent text-4xl sm:text-5xl md:text-5xl xl:text-5xl 3xl:text-7xl font-bold drop-shadow-[0_0_20px_rgba(137,234,43,0.2)] cursor-pointer"
                             onMouseEnter={() => setHoveredWord('marca')}
                             onMouseLeave={() => setHoveredWord(null)}
