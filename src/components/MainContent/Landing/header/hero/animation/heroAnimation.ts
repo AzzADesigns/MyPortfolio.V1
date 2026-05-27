@@ -1,6 +1,7 @@
-import gsap from 'gsap';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const animateHero = (tl: gsap.core.Timeline) => {
+export const animateHero = (tl: any) => {
+    if (!tl) return;
     tl.fromTo('.gsap-hero-text', 
         { 
             y: 60, 
@@ -24,24 +25,20 @@ export const animateHero = (tl: gsap.core.Timeline) => {
     );
 };
 
-export const animateHeroMobile = () => {
+export const animateHeroMobile = (gsap: any) => {
     gsap.fromTo('.gsap-hero-text', 
         { 
             y: 20, 
-            autoAlpha: 0
+            autoAlpha: 0,
+            filter: 'blur(6px)'
         }, 
         { 
-            scrollTrigger: { 
-                trigger: '.gsap-hero-text', 
-                start: "top 95%",
-                toggleActions: "play none none none"
-            }, 
             y: 0, 
-            autoAlpha: 1, 
+            autoAlpha: 1,
+            filter: 'blur(0px)',
             duration: 1, 
-            stagger: 0.1, 
-            ease: 'power2.out',
-            force3D: true
+            stagger: 0.15,
+            ease: 'power3.out'
         }
     );
 };

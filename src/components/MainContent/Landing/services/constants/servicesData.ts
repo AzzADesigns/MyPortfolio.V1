@@ -26,7 +26,7 @@ export const SERVICES_CARDS: ServiceCardData[] = [
         titleAccentColor: 'text-brand-green',
         description:
             'Diseño interfaces claras, modernas y alineadas a una identidad de marca sólida. Ideal para productos que necesitan mejorar su imagen o construir una experiencia desde cero.',
-        ctaText: 'Crea mi diseño perfecto',
+        ctaText: 'Crea mi diseño',
         decorationType: 'design',
     },
     {
@@ -36,7 +36,7 @@ export const SERVICES_CARDS: ServiceCardData[] = [
         titleLineBreak: true,
         description:
             'Analizo tu idea y la convierto en una estructura clara: funcionalidades, flujos, experiencia de usuario y enfoque del producto orientado a ventas.',
-        ctaText: 'Quiero mi producto ideal',
+        ctaText: 'Quiero mi producto',
         decorationType: 'product',
     },
     {

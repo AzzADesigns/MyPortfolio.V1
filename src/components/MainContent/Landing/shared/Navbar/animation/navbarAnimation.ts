@@ -1,20 +1,16 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export const initNavbarScroll = () => {
-    // El efecto de achicar la navbar al scrollear ha sido desactivado
-    // para mantenerla completamente fija (solo queda la animación de aparición inicial).
 };
 
-export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeChange: (isLight: boolean) => void) => {
+export const initBackgroundDetection = (gsap: any, navElement: HTMLElement | null, onThemeChange: (isLight: boolean) => void) => {
     if (typeof window === 'undefined' || !navElement) return () => {};
 
     let currentIsLight = false;
+    let lastHeavyCheckMs = 0;
+    const HEAVY_CHECK_INTERVAL_MS = 180;
 
     const checkBackground = () => {
-        // Bloqueo total para móviles: si la pantalla es menor a 1024, forzar modo oscuro y salir
         if (window.innerWidth < 1024) {
             if (currentIsLight) {
                 currentIsLight = false;
@@ -22,6 +18,10 @@ export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeC
             }
             return;
         }
+
+        const now = performance.now();
+        if (now - lastHeavyCheckMs < HEAVY_CHECK_INTERVAL_MS) return;
+        lastHeavyCheckMs = now;
 
         const rect = navElement.getBoundingClientRect();
         const points = [
@@ -75,7 +75,7 @@ export const initBackgroundDetection = (navElement: HTMLElement | null, onThemeC
     return () => gsap.ticker.remove(checkBackground);
 };
 
-export const animateNavbar = (tl: gsap.core.Timeline) => {
+export const animateNavbar = (tl: any) => {
     tl.fromTo('.gsap-nav', 
         { 
             y: -80, 
@@ -98,7 +98,7 @@ export const animateNavbar = (tl: gsap.core.Timeline) => {
     );
 };
 
-export const animateNavbarMobile = () => {
+export const animateNavbarMobile = (gsap: any) => {
     gsap.fromTo('.gsap-nav', 
         { 
             y: -50, 
@@ -119,11 +119,7 @@ export const animateNavbarMobile = () => {
     );
 };
 
-export const animateMobileMenu = (
-    isOpen: boolean,
-    overlay: HTMLDivElement | null,
-    content: HTMLDivElement | null
-) => {
+export const animateMobileMenu = (gsap: any, isOpen: boolean, overlay: HTMLDivElement | null, content: HTMLDivElement | null) => {
     if (isOpen) {
         gsap.to(overlay, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' });
         gsap.to(content, { y: 0, autoAlpha: 1, duration: 0.5, ease: 'back.out(1.2)' });

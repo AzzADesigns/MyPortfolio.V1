@@ -12,9 +12,11 @@ import { useGSAP } from '@gsap/react';
 export const useDecryptionOverlay = () => {
     const overlayRef = useRef<HTMLDivElement>(null);
     const [progress, setProgress] = useState(0);
+    const lastProgressRef = useRef(-1);
 
     useGSAP(() => {
         if (!overlayRef.current) return;
+        lastProgressRef.current = -1;
         const tl = gsap.timeline();
         tl.fromTo(".decryption-bg",
             { opacity: 0 },
@@ -30,7 +32,18 @@ export const useDecryptionOverlay = () => {
         const progressObj = { value: 0 };
         gsap.to(progressObj, {
             value: 100, duration: 2, ease: "none",
-            onUpdate: () => setProgress(Math.floor(progressObj.value))
+            onUpdate: () => {
+                const v = Math.floor(progressObj.value);
+                // Evita decenas de setState por segundo (mejora TBT cuando el overlay está activo)
+                if (v !== lastProgressRef.current && (v % 4 === 0 || v >= 99)) {
+                    lastProgressRef.current = v;
+                    setProgress(v);
+                }
+            },
+            onComplete: () => {
+                setProgress(100);
+                lastProgressRef.current = 100;
+            },
         });
     }, { scope: overlayRef });
 

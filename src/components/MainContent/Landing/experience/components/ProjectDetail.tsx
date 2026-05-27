@@ -14,7 +14,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
 
     return (
         <div
-            className={`absolute inset-0 z-50 transition-all duration-1000 ease-in-out flex items-center justify-center
+            className={`fixed inset-0 z-[100] transition-all duration-1000 ease-in-out flex items-center justify-center
                 ${selectedProject !== null ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none translate-y-full'}`}
             style={{ background: 'radial-gradient(circle at center, #ffffff 0%, #d1d5db 100%)' }}
         >
@@ -61,7 +61,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                 <div className="lg:col-span-7 relative aspect-[16/9] bg-gray-100 rounded-xl overflow-hidden order-1 lg:order-2 group">
                                     <Image
                                         src={`/${project?.imgPrefix}1.${project?.imgExt}`}
-                                        alt="Challenge View" fill className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                                        alt="Challenge View" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/10 mix-blend-multiply transition-opacity group-hover:opacity-0"></div>
                                 </div>
@@ -72,7 +72,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                 <div className="lg:col-span-8 relative aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden shadow-2xl group">
                                     <Image
                                         src={`/${project?.imgPrefix}2.${project?.imgExt}`}
-                                        alt="Solution View" fill className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                                        alt="Solution View" fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                     />
                                 </div>
                                 <div className="lg:col-span-4 lg:-ml-20 z-10 bg-white p-8 md:p-12 shadow-xl border-l-4 border-[#89EA2B]">
@@ -96,7 +96,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                     <div className="lg:col-span-8 relative aspect-video bg-gray-50 rounded-xl overflow-hidden shadow-2xl group border border-gray-100">
                                         <Image
                                             src={`/${project?.imgPrefix}3.${project?.imgExt}`}
-                                            alt="Main Showcase" fill className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                                            alt="Main Showcase" fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                         />
                                         <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-2 text-[10px] uppercase tracking-[0.3em] font-bold text-black border-l-4 border-[#89EA2B]">
                                             Vista Principal de la Interfaz
@@ -109,7 +109,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                             <div key={idx} className="relative flex-1 aspect-video lg:aspect-auto bg-gray-50 rounded-xl overflow-hidden shadow-xl group border border-gray-100">
                                                 <Image
                                                     src={`/${project?.imgPrefix}${idx}.${project?.imgExt}`}
-                                                    alt="Detail View" fill className="object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110"
+                                                    alt="Detail View" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
                                                     <span className="text-white text-[10px] uppercase tracking-widest font-medium">Detalle 0{idx - 2}</span>
@@ -143,7 +143,10 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                     <p className="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-xl">¿Te gustaría tener un proyecto con este nivel de detalle y calidad?</p>
                                     <CTAButton
                                         text="Contrátame"
-                                        onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                                        onClick={() => {
+                                            document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+                                            setSelectedProject(null);
+                                        }}
                                     />
                                 </div>
                             </div>

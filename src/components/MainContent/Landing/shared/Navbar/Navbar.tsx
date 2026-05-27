@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useGSAP } from '@gsap/react';
 import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
-import { animateMobileMenu, initNavbarScroll, initBackgroundDetection } from './animation/navbarAnimation';
+
 interface NavbarProps {
     isNavigatingRef?: React.MutableRefObject<boolean>;
 }
@@ -15,16 +14,42 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
     const menuContentRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
     const navRef = useRef<HTMLElement>(null);
+    const gsapLoadedRef = useRef(false);
 
-    useGSAP(() => {
-        initNavbarScroll();
-        const cleanupDetection = initBackgroundDetection(navRef.current, setIsLight);
-        return cleanupDetection;
+    useEffect(() => {
+        let cleanupDetection: (() => void) | undefined;
+        let cancelled = false;
+
+        import('gsap').then(({ default: gsap }) => {
+            if (cancelled) return;
+            import('./animation/navbarAnimation').then(({ initNavbarScroll, initBackgroundDetection }) => {
+                if (cancelled) return;
+                gsapLoadedRef.current = true;
+
+                initNavbarScroll();
+                cleanupDetection = initBackgroundDetection(gsap, navRef.current, setIsLight);
+            });
+        });
+
+        return () => {
+            cancelled = true;
+            if (cleanupDetection) cleanupDetection();
+        };
     }, []);
 
-    useGSAP(() => {
-        animateMobileMenu(isMenuOpen, overlayRef.current, menuContentRef.current);
-    }, { dependencies: [isMenuOpen] });
+    useEffect(() => {
+        let cancelled = false;
+
+        import('gsap').then(({ default: gsap }) => {
+            if (cancelled) return;
+            import('./animation/navbarAnimation').then(({ animateMobileMenu }) => {
+                if (cancelled) return;
+                animateMobileMenu(gsap, isMenuOpen, overlayRef.current, menuContentRef.current);
+            });
+        });
+
+        return () => { cancelled = true; };
+    }, [isMenuOpen]);
 
     useEffect(() => {
         if (isMenuOpen) {
@@ -58,7 +83,6 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
             }
             setIsMenuOpen(false);
 
-            // Liberamos la bandera después de que el scroll suave haya terminado (aprox 1.5s)
             setTimeout(() => {
                 if (isNavigatingRef) isNavigatingRef.current = false;
             }, 1500);
@@ -76,7 +100,7 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
                     className="flex items-center gap-2 md:gap-3 lg:gap-4 gsap-nav pointer-events-auto cursor-pointer group"
                 >
                     <Image
-                        src="/branding/AzzADesigns.svg"
+                        src="/branding/AzzADesigns_logo.png"
                         alt="AzzADesigns Logo"
                         width={60}
                         height={60}
@@ -155,7 +179,7 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
                 >
                     <div className="bg-[#001720]/95 border border-white/10 p-4 rounded-[2rem] shadow-2xl flex flex-col gap-3">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {NAV_LINKS.map((link) => {
+                            {NAV_LINKS.filter(link => link.label !== 'Portfolio').map((link) => {
                                 const isGreen = link.label === "Servicios" || link.label === "Metodología";
                                 const Icon = link.label === "Servicios" ? HiOutlineLightningBolt :
                                     link.label === "Metodología" ? HiOutlineCog :

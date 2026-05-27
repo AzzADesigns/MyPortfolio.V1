@@ -55,6 +55,7 @@ export const ServiceCard = ({
                         fullWidth 
                         text={ctaText} 
                         onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                        className='!px-0'
                     />
                 </div>
 

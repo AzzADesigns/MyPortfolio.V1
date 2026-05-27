@@ -39,7 +39,7 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
     return (
         <>
             {/* Texto de Fondo Masivo con Marca y Desenfoque Sutil */}
-            <div className={`exp-bg-text absolute bottom-32 lg:bottom-[-5%] left-1/2 -translate-x-1/2 w-full flex justify-center items-end select-none pointer-events-none whitespace-nowrap transition-all duration-700 ease-out
+            <div className={`exp-bg-text relative lg:absolute lg:top-auto lg:bottom-[-5%] lg:left-1/2 lg:-translate-x-1/2 w-full flex justify-center items-end select-none pointer-events-none whitespace-nowrap transition-all duration-700 ease-out mb-4 lg:mb-0
                 ${isAnimated ? 'exp-animated' : ''}
                 ${hoveredNumber !== null ? 'blur-[8px] opacity-10' : 'blur-0 opacity-100'}`}>
                 <span className="text-[12vw]  text-[#1A2E35] leading-none tracking-tighter uppercase">Experiencia</span>
@@ -47,7 +47,7 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
             </div>
 
             {/* Grid de Números Refinado con Preview Centrada */}
-            <div className="relative z-10 w-full max-w-[1200px] xl:max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 lg:gap-24">
+            <div className="relative z-10 w-full max-w-[1200px] mt-18 md:mt-0 xl:max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-4 gap-y-[18vh] xs:gap-y-[20vh] md:gap-y-[22vh] lg:gap-24 justify-items-center">
                 {PROJECTS.map(({ num, title, img }, index) => (
                     <div
                         key={num}
@@ -81,7 +81,7 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
                             style={{ animationDelay: `${0.05 + index * 0.13}s` }}
                         >
                             <svg
-                                className="w-[10rem] h-[10rem] sm:w-[12rem] sm:h-[12rem] md:w-[15rem] md:h-[15rem] lg:w-[18rem] lg:h-[18rem] xl:w-[20rem] xl:h-[20rem]"
+                                className="w-[24vw] h-[24vw] xs:w-[26vw] xs:h-[26vw] sm:w-[12rem] sm:h-[12rem] md:w-[15rem] md:h-[15rem] lg:w-[18rem] lg:h-[18rem] xl:w-[20rem] xl:h-[20rem]"
                                 viewBox="0 0 100 100"
                             >
                                 <defs>

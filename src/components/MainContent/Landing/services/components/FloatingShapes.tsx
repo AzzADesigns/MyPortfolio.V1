@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState, useEffect } from 'react';
 import { FiCircle, FiSquare, FiTriangle, FiBell, FiShoppingCart, FiMessageCircle } from 'react-icons/fi';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -10,6 +10,11 @@ interface FloatingShapesProps {
 
 const FloatingShapesComponent = ({ type = 'design' }: FloatingShapesProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 1024);
+    }, []);
 
     const config = {
         design: {
@@ -25,7 +30,7 @@ const FloatingShapesComponent = ({ type = 'design' }: FloatingShapesProps) => {
     }[type];
 
     useGSAP(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || isMobile) return;
         const shapes = containerRef.current.querySelectorAll('.floating-shape');
 
         shapes.forEach((shape) => {

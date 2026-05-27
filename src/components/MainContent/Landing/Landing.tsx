@@ -1,15 +1,39 @@
 'use client';
 
 import { useRef } from 'react';
+import dynamic from 'next/dynamic';
 import './Landing.css';
 import { Hero, Projects, Validation, AuroraBackground } from './header';
-import { Navbar, CustomCursor, useLandingEntrance, useServicesEntrance, useLandingScrollManager, sora, momoSignature, LazySection } from './shared';
-import { Services } from './services';
-import { Process } from './process';
-import { Signature } from './signature';
-import { BrandIdentity } from './brand';
-import { Experience } from './experience';
-import { Contact } from './contact';
+import { Navbar, useLandingEntrance, useServicesEntrance, useLandingScrollManager, sora, momoSignature, LazySection } from './shared';
+
+const CustomCursor = dynamic(
+    () => import('./shared/CustomCursor/CustomCursor'),
+    { ssr: false }
+);
+
+const Services = dynamic(
+    () => import('./services').then((m) => m.Services)
+);
+
+const Process = dynamic(
+    () => import('./process').then((m) => m.Process)
+);
+
+const Signature = dynamic(
+    () => import('./signature').then((m) => m.Signature)
+);
+
+const BrandIdentity = dynamic(
+    () => import('./brand').then((m) => m.BrandIdentity)
+);
+
+const Experience = dynamic(
+    () => import('./experience').then((m) => m.Experience)
+);
+
+const Contact = dynamic(
+    () => import('./contact').then((m) => m.Contact)
+);
 
 export const Landing = () => {
     const { containerRef } = useLandingEntrance();
@@ -76,6 +100,7 @@ export const Landing = () => {
 
             {/* Contact */}
             <LazySection
+                id="contacto"
                 rootMargin="200px 0px"
                 placeholderClassName="flex-none w-full min-h-screen lg:snap-start"
             >

@@ -1,14 +1,19 @@
 'use client';
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState, useEffect } from 'react';
 import { FiFolder, FiFileText, FiChevronRight } from 'react-icons/fi';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 const CodeExplorerComponent = () => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 1024);
+    }, []);
 
     useGSAP(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || isMobile) return;
 
         const tl = gsap.timeline({ repeat: -1 });
         const wrapper = containerRef.current.querySelector('.explorer-wrapper');
