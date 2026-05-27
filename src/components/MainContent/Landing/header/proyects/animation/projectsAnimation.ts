@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export const animateProjects = (tl: any) => {
-    tl.fromTo('.gsap-hero-image', { scale: 0.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1, stagger: 0.2, ease: 'back.out(1.5)' }, "-=0.4");
+    tl.fromTo('.gsap-hero-image', { scale: 0.8 }, { scale: 1, duration: 1, stagger: 0.2, ease: 'back.out(1.5)' }, "-=0.4");
     tl.fromTo('.gsap-hero-bg', { scale: 0.5, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.2, ease: 'power2.out' }, "-=0.8");
 };
 
@@ -14,8 +14,8 @@ export const animateProjectsMobile = (gsap: any) => {
     gsap.set('.gsap-hero-bg', { scale: 0.1, autoAlpha: 0 });
 
     gsap.fromTo(images[2], 
-        { x: 0, y: -100, scale: 0.5, autoAlpha: 0 }, 
-        { x: 0, y: -160, scale: 2.8, autoAlpha: 1, duration: 1.2, ease: 'back.out(1.2)', force3D: true }
+        { x: 0, y: -100, scale: 0.5 }, 
+        { x: 0, y: -160, scale: 2.8, duration: 1.2, ease: 'back.out(1.2)', force3D: true }
     );
 
     const scrollTl = gsap.timeline({
