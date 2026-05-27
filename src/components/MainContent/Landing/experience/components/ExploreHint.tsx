@@ -5,29 +5,50 @@ import { useState, useEffect, useRef } from 'react';
 export const ExploreHint = () => {
     const [visible, setVisible] = useState(true);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const startedRef = useRef(false);
+    const cleanupRef = useRef<(() => void) | null>(null);
 
     useEffect(() => {
-        const hide = () => {
-            setVisible(false);
-            if (timerRef.current) clearTimeout(timerRef.current);
-        };
+        const section = document.getElementById('destacados');
+        if (!section) return;
 
-        timerRef.current = setTimeout(hide, 10000);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting || startedRef.current) return;
+                startedRef.current = true;
+                observer.disconnect();
 
-        const handler = (e: Event) => {
-            const target = e.target as HTMLElement;
-            if (target.closest('.exp-num-item') || target.closest('[class*="exp-num"]') || target.closest('.group')) {
-                hide();
-            }
-        };
+                const hide = () => {
+                    setVisible(false);
+                    if (timerRef.current) clearTimeout(timerRef.current);
+                };
 
-        document.addEventListener('mouseover', handler);
-        document.addEventListener('click', handler, true);
+                timerRef.current = setTimeout(hide, 10000);
+
+                const handler = (e: Event) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest('.exp-num-item') || target.closest('[class*="exp-num"]') || target.closest('.group')) {
+                        hide();
+                    }
+                };
+
+                document.addEventListener('mouseover', handler);
+                document.addEventListener('click', handler, true);
+
+                cleanupRef.current = () => {
+                    document.removeEventListener('mouseover', handler);
+                    document.removeEventListener('click', handler, true);
+                    if (timerRef.current) clearTimeout(timerRef.current);
+                };
+            },
+            { threshold: 0.3 }
+        );
+
+        observer.observe(section);
 
         return () => {
-            document.removeEventListener('mouseover', handler);
-            document.removeEventListener('click', handler, true);
-            if (timerRef.current) clearTimeout(timerRef.current);
+            observer.disconnect();
+            cleanupRef.current?.();
         };
     }, []);
 

@@ -197,13 +197,13 @@ export default function CustomCursor() {
         };
 
         const onMouseDown = () => {
-            gsap.to([follower, brackets], { scale: 0.6, duration: 0.1, overwrite: true, ease: "power2.out" });
-            gsap.to(cursor, { scale: 2.5, duration: 0.1, overwrite: true, ease: "power2.out" });
+            gsap.to([follower, brackets], { scale: 0.6, duration: 0.1, overwrite: 'auto', ease: "power2.out" });
+            gsap.to(cursor, { scale: 2.5, duration: 0.1, overwrite: 'auto', ease: "power2.out" });
         };
 
         const onMouseUp = () => {
-            gsap.to([follower, brackets], { scale: 1, duration: 0.3, overwrite: true, ease: "back.out(3)" });
-            gsap.to(cursor, { scale: 1, duration: 0.3, overwrite: true, ease: "back.out(3)" });
+            gsap.to([follower, brackets], { scale: 1, duration: 0.3, overwrite: 'auto', ease: "back.out(3)" });
+            gsap.to(cursor, { scale: 1, duration: 0.3, overwrite: 'auto', ease: "back.out(3)" });
         };
 
         const applyStates = (isCard: boolean, isButton: boolean) => {
