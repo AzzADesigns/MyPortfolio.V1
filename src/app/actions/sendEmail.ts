@@ -2,7 +2,7 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.resend_api_key);
 
 export async function sendEmail(_prevState: unknown, formData: FormData) {
   // 1. Verificación de Honeypot (Seguridad Anti-Bots)
@@ -30,7 +30,7 @@ export async function sendEmail(_prevState: unknown, formData: FormData) {
 
   try {
     const data = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
+      from: 'Web Azzadesigns <no-reply@azzadesigns.dev>',
       to: ['walter.azariel.moreno@gmail.com'], // El usuario deberá cambiar esto o usar una variable de entorno
       subject: `Nuevo mensaje de contacto: ${nombre}`,
       replyTo: email,
