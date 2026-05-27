@@ -1,0 +1,73 @@
+/* ============================================================
+   Scroll Reveal — Mobile Only
+   Estrategia de rendimiento:
+   - Solo transform + opacity (compositable en GPU).
+   - Sin filter, sin layout properties.
+   - will-change solo en el estado oculto (se libera al revelar).
+   ============================================================ */
+
+/* --- Estado inicial: oculto --- */
+.sr-hidden {
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* Estado oculto por variante */
+.sr-hidden[data-reveal-variant="fade-up"]    { transform: translateY(32px); }
+.sr-hidden[data-reveal-variant="fade-left"]  { transform: translateX(-28px); }
+.sr-hidden[data-reveal-variant="fade-right"] { transform: translateX(28px); }
+.sr-hidden[data-reveal-variant="scale-up"]   { transform: scale(0.92); }
+.sr-hidden[data-reveal-variant="clip-in"]    { transform: translateY(20px); clip-path: inset(0 0 100% 0); }
+
+/* --- Keyframes --- */
+@keyframes sr-fade-up {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sr-fade-left {
+    from { opacity: 0; transform: translateX(-28px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes sr-fade-right {
+    from { opacity: 0; transform: translateX(28px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes sr-scale-up {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sr-clip-in {
+    from { opacity: 0; transform: translateY(20px); clip-path: inset(0 0 100% 0); }
+    to   { opacity: 1; transform: translateY(0);    clip-path: inset(0 0 0% 0); }
+}
+
+/* --- Clases de animación activa --- */
+.sr-reveal-fade-up {
+    animation: sr-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: auto; /* Liberar después de animar */
+}
+
+.sr-reveal-fade-left {
+    animation: sr-fade-left 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: auto;
+}
+
+.sr-reveal-fade-right {
+    animation: sr-fade-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: auto;
+}
+
+.sr-reveal-scale-up {
+    animation: sr-scale-up 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    will-change: auto;
+}
+
+.sr-reveal-clip-in {
+    animation: sr-clip-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: auto;
+}
+
