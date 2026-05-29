@@ -32,7 +32,7 @@ export const SOCIAL_LINKS = [
     },
     {
         name: "Instagram",
-        href: "https://www.instagram.com/azzadesigns",
+        href: "https://www.instagram.com/azzadesignswebs/",
         icon: "/branding/instagram.svg",
         activeClass: "active:-rotate-12",
         width: "w-[50px] md:w-[60px] lg:w-[40px] xl:w-[50px] 3xl:w-[80px]",
