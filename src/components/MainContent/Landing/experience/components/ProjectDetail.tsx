@@ -16,7 +16,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
         <div
             className={`fixed inset-0 z-[100] transition-all duration-1000 ease-in-out flex items-center justify-center
                 ${selectedProject !== null ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none translate-y-full'}`}
-            style={{ background: 'radial-gradient(circle at center, #ffffff 0%, #d1d5db 100%)' }}
+            style={{ background: 'radial-gradient(circle at center, #c0c6cf 0%, #a8afb9 100%)' }}
         >
             {project && (
                 <>
