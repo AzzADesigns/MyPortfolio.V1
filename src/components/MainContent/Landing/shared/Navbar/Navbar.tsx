@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar } from 'react-icons/hi';
+import { HiMenu, HiX, HiOutlineLightningBolt, HiOutlineCog, HiOutlinePencil, HiOutlineStar, HiOutlineCalendar, HiOutlineBriefcase } from 'react-icons/hi';
 import { NAV_LINKS } from './constants/navLinks';
 
 interface NavbarProps {
@@ -75,17 +75,29 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
         if (href.startsWith('#')) {
             e.preventDefault();
             if (isNavigatingRef) isNavigatingRef.current = true;
-            
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
             setIsMenuOpen(false);
+            document.body.style.overflow = 'unset';
 
-            setTimeout(() => {
-                if (isNavigatingRef) isNavigatingRef.current = false;
-            }, 1500);
+            const targetId = href.substring(1);
+
+            // Primer scroll instantáneo al placeholder (dispara mount del LazySection)
+            const el = document.getElementById(targetId);
+            if (el) el.scrollIntoView({ behavior: 'instant' });
+
+            // Polling con rAF: espera a que el elemento NO sea un placeholder
+            // (el placeholder tiene aria-hidden="true", la sección real no)
+            const waitForReal = () => {
+                const current = document.getElementById(targetId);
+                if (current && !current.hasAttribute('aria-hidden')) {
+                    current.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                        if (isNavigatingRef) isNavigatingRef.current = false;
+                    }, 1500);
+                } else {
+                    requestAnimationFrame(waitForReal);
+                }
+            };
+            requestAnimationFrame(waitForReal);
         }
     };
 
@@ -199,9 +211,16 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
                                 );
                             })}
                         </div>
-                        <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link mobile-cta mt-2 w-full flex items-center justify-center bg-gradient-to-r from-brand-green to-brand-cyan rounded-2xl py-4 text-brand-dark text-lg font-extrabold shadow-[0_0_20px_rgba(137,234,43,0.2)] hover:shadow-[0_0_30px_rgba(137,234,43,0.5)] active:scale-95 active:shadow-none active:opacity-20 transition-all duration-200">
-                            Explorar Portfolio
-                        </Link>
+                        <div className="grid grid-cols-2 gap-3 mt-2">
+                            <a onClick={(e) => handleLinkClick(e, '#contacto')} href="#contacto" className="mobile-link mobile-cta flex flex-col items-center justify-center bg-gradient-to-r from-brand-green to-brand-cyan rounded-2xl py-6 text-brand-dark text-lg font-extrabold shadow-[0_0_20px_rgba(137,234,43,0.2)] hover:shadow-[0_0_30px_rgba(137,234,43,0.5)] active:scale-95 active:shadow-none active:opacity-20 transition-all duration-200">
+                                <HiOutlineCalendar className="text-3xl mb-2" />
+                                <span className="text-sm font-bold">Agendar Meet</span>
+                            </a>
+                            <Link onClick={() => setIsMenuOpen(false)} href="/portfolio" className="mobile-link flex flex-col items-center justify-center bg-white/5 border border-white/5 rounded-2xl py-6 text-white transition-all duration-200 group hover:bg-brand-cyan/20 hover:border-brand-cyan/50 active:bg-brand-cyan/30 active:scale-90">
+                                <HiOutlineBriefcase className="text-brand-cyan text-3xl mb-2 group-hover:scale-110 transition-transform" />
+                                <span className="text-sm font-bold">Portafolio</span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

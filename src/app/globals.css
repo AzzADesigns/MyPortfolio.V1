@@ -6,10 +6,10 @@
 /* 🌞 Modo claro */
 :root {
     --background: #f4f2ee;
-    --foreground: #fbfbfb;
+    --foreground: #ffffff;
     --textColor: #191919;
-    --buttonColor: #0a66c2;
-    --buttonText: #f4f2ee;
+    --buttonColor: #001720;
+    --buttonText: #ffffff;
 
     --font-geist-sans: "Geist Sans", sans-serif;
     --font-geist-mono: "Geist Mono", monospace;
@@ -17,11 +17,11 @@
 
 /* 🌙 Modo oscuro (activado por clase .dark con next-themes) */
 .dark {
-    --background: #1a1a1a;
-    --foreground: #2c2c2c;
-    --textColor: #f5f5f5;
-    --buttonColor: #3b82f6;
-    --buttonText: #f4f2ee;
+    --background: #001720;
+    --foreground: #0a2530;
+    --textColor: #c0c6cf;
+    --buttonColor: #89EA2B;
+    --buttonText: #001720;
 }
 
 /* ✅ Exponer variables para Tailwind */

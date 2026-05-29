@@ -145,7 +145,7 @@ export const Process = () => {
                     </div>
 
                     <h2 className="text-white text-xl md:text-2xl lg:text-3xl xl:text-2xl 2xl:text-3xl font-medium tracking-wide relative z-10">
-                        Todo comienza con . <span className="text-brand-green font-semibold">&quot;{activeStep.question}&quot;</span>
+                        {activeStep.questionPrefix} <span className="text-brand-green font-semibold">&quot;{activeStep.question}&quot;</span>
                     </h2>
 
                     <p className="text-gray-300 text-base lg:text-lg 3xl:text-xl font-medium leading-relaxed max-w-2xl">
