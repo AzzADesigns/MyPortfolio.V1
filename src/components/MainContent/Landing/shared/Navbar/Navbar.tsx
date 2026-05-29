@@ -80,19 +80,24 @@ export default function Navbar({ isNavigatingRef }: NavbarProps) {
 
             const targetId = href.substring(1);
 
-            // Primer scroll instantáneo al placeholder (dispara el mount del LazySection)
+            // Primer scroll instantáneo al placeholder (dispara mount del LazySection)
             const el = document.getElementById(targetId);
             if (el) el.scrollIntoView({ behavior: 'instant' });
 
-            // Segundo scroll smooth tras el mount de la sección real
-            setTimeout(() => {
-                const realEl = document.getElementById(targetId);
-                if (realEl) realEl.scrollIntoView({ behavior: 'smooth' });
-            }, 500);
-
-            setTimeout(() => {
-                if (isNavigatingRef) isNavigatingRef.current = false;
-            }, 1500);
+            // Polling con rAF: espera a que el elemento NO sea un placeholder
+            // (el placeholder tiene aria-hidden="true", la sección real no)
+            const waitForReal = () => {
+                const current = document.getElementById(targetId);
+                if (current && !current.hasAttribute('aria-hidden')) {
+                    current.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                        if (isNavigatingRef) isNavigatingRef.current = false;
+                    }, 1500);
+                } else {
+                    requestAnimationFrame(waitForReal);
+                }
+            };
+            requestAnimationFrame(waitForReal);
         }
     };
 

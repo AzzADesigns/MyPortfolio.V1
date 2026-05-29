@@ -35,10 +35,10 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                 <span className="text-[20vw] font-bold text-black leading-none">0{selectedProject}</span>
                             </div>
 
-                            <h2 className="text-black text-7xl md:text-[10vw] font-extrabold tracking-tighter uppercase leading-[0.8] text-center z-10">
+                            <h2 className="text-black text-4xl md:text-5xl lg:text-7xl xl:text-[10vw] font-extrabold tracking-tighter uppercase leading-[0.8] text-left md:text-center z-10 self-start md:self-center">
                                 {project?.fullTitle}
                             </h2>
-                            <p className="text-gray-400 text-xl md:text-2xl mt-8 tracking-[0.5em] uppercase font-light">Caso de Estudio & Desarrollo</p>
+                            <p className="text-gray-400 text-xl md:text-2xl mt-8 tracking-[0.5em] uppercase font-light text-left md:text-center self-start md:self-center">Caso de Estudio & Desarrollo</p>
 
                             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
                                 <div className="w-[1px] h-20 bg-black/20 relative">
@@ -54,13 +54,15 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                             <div className="grid lg:grid-cols-12 gap-10 items-center">
                                 <div className="lg:col-span-5 space-y-8 order-2 lg:order-1">
                                     <h3 className="text-black text-5xl md:text-7xl font-bold tracking-tighter uppercase italic">El Desafío</h3>
-                                    <p className="text-gray-600 text-lg md:text-2xl leading-relaxed font-light">
-                                        {project?.challenge}
-                                    </p>
+                                    {project?.challenge.split('\n\n').map((paragraph, i) => (
+                                        <p key={i} className="text-gray-500 text-base md:text-lg leading-loose font-light">
+                                            {paragraph}
+                                        </p>
+                                    ))}
                                 </div>
                                 <div className="lg:col-span-7 relative aspect-[16/9] bg-gray-100 rounded-xl overflow-hidden order-1 lg:order-2 group">
                                     <Image
-                                        src={`/${project?.imgPrefix}1.${project?.imgExt}`}
+                                        src={project?.challengeImg ?? `/${project?.imgPrefix}1.${project?.imgExt}`}
                                         alt="Challenge View" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/10 mix-blend-multiply transition-opacity group-hover:opacity-0"></div>
@@ -71,15 +73,17 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                             <div className="grid lg:grid-cols-12 gap-10 items-center">
                                 <div className="lg:col-span-8 relative aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden shadow-2xl group">
                                     <Image
-                                        src={`/${project?.imgPrefix}2.${project?.imgExt}`}
+                                        src={project?.architectureImg ?? `/${project?.imgPrefix}2.${project?.imgExt}`}
                                         alt="Solution View" fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                     />
                                 </div>
-                                <div className="lg:col-span-4 lg:-ml-20 z-10 bg-white p-8 md:p-12 shadow-xl border-l-4 border-[#89EA2B]">
+                                <div className="lg:col-span-4 lg:-ml-20 z-10 bg-white p-8 md:p-12 shadow-xl border-l-4 border-[#89EA2B] space-y-4">
                                     <h3 className="text-black text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-6">Arquitectura</h3>
-                                    <p className="text-gray-600 text-lg md:text-xl leading-relaxed font-light italic">
-                                        {project?.architecture}
-                                    </p>
+                                    {project?.architecture.split('\n\n').map((paragraph, i) => (
+                                        <p key={i} className="text-gray-500 text-base md:text-lg leading-loose font-light">
+                                            {paragraph}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
 
@@ -87,15 +91,17 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                             <div className="space-y-16">
                                 <div className="text-center max-w-4xl mx-auto space-y-6">
                                     <h3 className="text-black text-6xl md:text-8xl font-black tracking-tighter uppercase">Impacto Real</h3>
-                                    <p className="text-gray-500 text-xl md:text-3xl font-light leading-snug">
-                                        {project?.impact}
-                                    </p>
+                                    {project?.impact.split('\n\n').map((paragraph, i) => (
+                                        <p key={i} className="text-gray-500 text-xl md:text-3xl font-light leading-snug">
+                                            {paragraph}
+                                        </p>
+                                    ))}
                                 </div>
                                 <div className="grid lg:grid-cols-12 gap-8 items-stretch">
                                     {/* Imagen Principal */}
                                     <div className="lg:col-span-8 relative aspect-video bg-gray-50 rounded-xl overflow-hidden shadow-2xl group border border-gray-100">
                                         <Image
-                                            src={`/${project?.imgPrefix}3.${project?.imgExt}`}
+                                            src={project?.impactImg ?? `/${project?.imgPrefix}3.${project?.imgExt}`}
                                             alt="Main Showcase" fill sizes="(max-width: 1024px) 100vw, 65vw" className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                         />
                                         <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-2 text-[10px] uppercase tracking-[0.3em] font-bold text-black border-l-4 border-[#89EA2B]">
@@ -108,7 +114,7 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                         {[4, 5].map((idx) => (
                                             <div key={idx} className="relative flex-1 aspect-video lg:aspect-auto bg-gray-50 rounded-xl overflow-hidden shadow-xl group border border-gray-100">
                                                 <Image
-                                                    src={`/${project?.imgPrefix}${idx}.${project?.imgExt}`}
+                                                    src={project?.detailImgs?.[idx - 4] ?? `/${project?.imgPrefix}${idx}.${project?.imgExt}`}
                                                     alt="Detail View" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
