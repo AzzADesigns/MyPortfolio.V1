@@ -1,6 +1,7 @@
 import React from 'react';
 import { HERO_TEXTS } from './constants/heroTexts';
 import CTAButton from '../../shared/CTAButton/CTAButton';
+import { scrollToSection } from '../../shared/scrollToSection';
 
 export default function Hero() {
     return (
@@ -29,7 +30,7 @@ export default function Hero() {
             </p>
 
             <div className="gsap-hero-text w-fit mt-2 lg:mt-0">
-                <CTAButton onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })} />
+                <CTAButton onClick={() => scrollToSection('contacto')} />
             </div>
         </div>
     );

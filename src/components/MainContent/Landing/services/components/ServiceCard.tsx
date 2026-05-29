@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CTAButton from '../../shared/CTAButton/CTAButton';
+import { scrollToSection } from '../../shared/scrollToSection';
 
 interface ServiceCardProps {
     titleBase: string;
@@ -54,7 +55,7 @@ export const ServiceCard = ({
                     <CTAButton 
                         fullWidth 
                         text={ctaText} 
-                        onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                        onClick={() => scrollToSection('contacto')}
                         className='!px-0'
                     />
                 </div>

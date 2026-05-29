@@ -6,6 +6,7 @@ import { BinaryMatrix } from './BinaryMatrix';
 import { CTAButton } from '../../shared';
 import { useRewardCard } from '../hooks/useRewardCard';
 import { REWARD_CARD_LABELS, REWARD_CARD_META } from '../constants/signatureData';
+import { scrollToSection } from '../../shared/scrollToSection';
 
 // --- Sub-componente RewardCard para manejo de animaciones complejas ---
 export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void, isClosing?: boolean }) => {
@@ -93,12 +94,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                                 text={REWARD_CARD_LABELS.ctaText}
                                 onClick={() => {
                                     onClose();
-                                    setTimeout(() => {
-                                        const nextSection = document.getElementById('brand-identity');
-                                        if (nextSection) {
-                                            nextSection.scrollIntoView({ behavior: 'smooth' });
-                                        }
-                                    }, 350);
+                                    setTimeout(() => scrollToSection('brand-identity'), 350);
                                 }}
                                 className="!px-14 md:!px-20 !py-6 md:!py-8 shadow-[0_0_50px_rgba(137,234,43,0.2)] hover:shadow-[0_0_80px_rgba(7,248,242,0.4)]"
                             />
@@ -109,12 +105,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                     <div 
                         onClick={() => {
                             onClose();
-                            setTimeout(() => {
-                                const nextSection = document.getElementById('brand-identity');
-                                if (nextSection) {
-                                    nextSection.scrollIntoView({ behavior: 'smooth' });
-                                }
-                            }, 350);
+                            setTimeout(() => scrollToSection('brand-identity'), 350);
                         }} 
                         className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer"
                     >
