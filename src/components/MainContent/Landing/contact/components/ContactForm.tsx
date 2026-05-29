@@ -28,31 +28,47 @@ export const ContactForm = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormValues(prev => ({ ...prev, [name]: value }));
-        // Limpiar error del campo mientras el usuario escribe
-        if (errors[name]) {
-            setErrors(prev => {
-                const newErrs = { ...prev };
-                delete newErrs[name];
-                return newErrs;
-            });
+
+        const error = validateField(name, value);
+        setErrors(prev => {
+            if (error) {
+                return { ...prev, [name]: error };
+            }
+            const newErrs = { ...prev };
+            delete newErrs[name];
+            return newErrs;
+        });
+    };
+
+    const validateField = (name: string, value: string): string | null => {
+        if (!value.trim()) {
+            switch (name) {
+                case 'nombre': return "Por favor, indícame tu nombre";
+                case 'proyecto': return "Cuéntame un poco sobre tu proyecto";
+                case 'mensaje': return "Déjame un mensaje con tu idea";
+                case 'email': return "Necesito un correo para contactarte";
+                default: return null;
+            }
         }
+        if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            return "Este formato de correo no es válido";
+        }
+        return null;
     };
 
     const handleFormAction = (formData: FormData) => {
         const newErrors: Record<string, string> = {};
-        
-        const email = formData.get('email') as string;
-        const nombre = formData.get('nombre') as string;
-        const proyecto = formData.get('proyecto') as string;
-        const mensaje = formData.get('mensaje') as string;
 
-        if (!nombre) newErrors.nombre = "Por favor, indícame tu nombre";
-        if (!proyecto) newErrors.proyecto = "Cuéntame un poco sobre tu proyecto";
-        if (!mensaje) newErrors.mensaje = "Déjame un mensaje con tu idea";
-        if (!email) {
-            newErrors.email = "Necesito un correo para contactarte";
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            newErrors.email = "Este formato de correo no es válido";
+        const fields = [
+            { name: 'nombre', value: formData.get('nombre') as string },
+            { name: 'proyecto', value: formData.get('proyecto') as string },
+            { name: 'email', value: formData.get('email') as string },
+            { name: 'mensaje', value: formData.get('mensaje') as string },
+        ];
+
+        for (const field of fields) {
+            const error = validateField(field.name, field.value);
+            if (error) newErrors[field.name] = error;
         }
 
         if (Object.keys(newErrors).length > 0) {
