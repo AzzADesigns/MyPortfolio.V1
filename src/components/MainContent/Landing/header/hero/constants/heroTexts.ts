@@ -7,5 +7,5 @@ export const HERO_TEXTS = {
         word3: "el",
         highlight2: "producto"
     },
-    description: "Construyo productos digitales de alto rendimiento. Desde la optimización inicial y el diseño UX/UI, hasta la escalabilidad y el mantenimiento constante para que tu idea nunca deje de avanzar"
+    description: "AzzADesigns construye productos digitales de alto rendimiento. Desde la optimización inicial y el diseño UX/UI, hasta la escalabilidad y el mantenimiento constante para que tu idea nunca deje de avanzar"
 };

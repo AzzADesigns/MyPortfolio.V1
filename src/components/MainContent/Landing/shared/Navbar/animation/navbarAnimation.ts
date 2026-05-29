@@ -38,7 +38,7 @@ export const initBackgroundDetection = (gsap: any, navElement: HTMLElement | nul
             if (!el) return;
 
             if (el.closest('.service-card, .project-card, [data-card], .bg-brand-dark, .dark-bg')) return;
-            if (el.closest('.services-bg, .bg-white, .bg-gray-50, .bg-gray-100, .light-bg')) {
+            if (el.closest('[data-theme="light"], .services-bg, .bg-white, .bg-gray-50, .bg-gray-100, .light-bg')) {
                 lightPoints++;
                 return;
             }
@@ -54,7 +54,7 @@ export const initBackgroundDetection = (gsap: any, navElement: HTMLElement | nul
                     const b = parseInt(match[3]);
                     const a = match[4] ? parseFloat(match[4]) : 1;
                     if (a > 0.3) {
-                        if (r > 200 && g > 200 && b > 200) lightPoints++;
+                        if (r > 180 && g > 180 && b > 180) lightPoints++;
                         return;
                     }
                 }

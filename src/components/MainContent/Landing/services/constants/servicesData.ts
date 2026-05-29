@@ -25,7 +25,7 @@ export const SERVICES_CARDS: ServiceCardData[] = [
         titleAccent: 'UX / UI',
         titleAccentColor: 'text-brand-green',
         description:
-            'Diseño interfaces claras, modernas y alineadas a una identidad de marca sólida. Ideal para productos que necesitan mejorar su imagen o construir una experiencia desde cero.',
+            'Diseño de interfaces claras, disruptivas y alineadas a una identidad de marca sólida. Estructuro tu producto mediante sistemas de componentes reutilizables y guías de branding listo para pasar a codigo.',
         ctaText: 'Crea mi diseño',
         decorationType: 'design',
     },
@@ -45,7 +45,7 @@ export const SERVICES_CARDS: ServiceCardData[] = [
         titleAccentColor: 'text-brand-green',
         titleLineBreak: true,
         description:
-            'Desarrollo productos funcionales, optimizados y escalables. Podés llegar con una idea, un diseño previo o una planificación ya definida.',
+            'Desarrollo de productos funcionales para insertarlos fuertemente en tu mercado objetivo, haciendo incapie en la convertibilidad y la experiencia de usuario.',
         ctaText: 'Mi web en línea ya',
         decorationType: 'code',
     },
