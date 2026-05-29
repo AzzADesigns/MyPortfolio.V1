@@ -1,6 +1,6 @@
 export const HERO_TEXTS = {
     title: {
-        line1: "El puente entre",
+        line1: "El puente entre ",
         word1: "la",
         highlight1: "idea",
         word2: "y",
