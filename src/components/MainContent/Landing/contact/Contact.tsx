@@ -39,7 +39,7 @@ export const Contact = ({ containerRef }: ContactProps) => {
                     trigger: el,
                     scroller: scroller,
                     start: isDesktop ? "top 75%" : "top 90%",
-                    toggleActions: 'play reverse play reverse',
+                    toggleActions: 'play none none none',
                 }
             });
 
