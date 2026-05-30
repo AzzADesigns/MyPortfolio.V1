@@ -13,19 +13,19 @@
         "textExp3": "OpenLabs",
         "textAbout": "Acerca de",
         "textMoreProjects": "Más Proyectos",
-        "textAboutme": "Con 1 año de experiencia y mas de 3 años de formación soy un desarrollador Full-Stack especializado en transformar diseños UX/UI en interfaces pixel-perfect, respetando sistemas de diseño, tipografías, espaciados y patrones definidos en Figma. Trabajo con React, Tailwind y Next.js en el Front-End, y NestJS con PostgreSQL en el Back-End. Implemento gestión eficiente de estado, consumo optimizado de REST APIs, lazy loading, diseño responsivo y automatización de procesos.",
+        "textAboutme": "Con 1 año de experiencia y más de 3 años de formación soy un desarrollador Full-Stack especializado en transformar diseños UX/UI en interfaces pixel-perfect, respetando sistemas de diseño, tipografías, espaciados y patrones definidos en Figma. Trabajo con React, Tailwind y Next.js en el Front-End, y NestJS con PostgreSQL en el Back-End. Implemento gestión eficiente de estado, consumo optimizado de REST APIs, lazy loading, diseño responsivo y automatización de procesos.",
         "textMyLikendin": "Mi Linkedin",
         "textMyGithub": "Mi Github",
         "textRepo": "Repositorio de Mi Portfolio",
         "textCopied": "¡Correo copiado!",
         "textActualProject": "Proyectos actuales",
-        "textbuttonviewMore":"Ver Mas",
+        "textbuttonviewMore":"Ver Más",
         "textSwipe":"Desliza para ver más"
     },
     "actualProjects": [
         {
             "title": "Soy-Luky",
-            "description": "Actualmente, en OpenLabs , estoy desarrollando Soy-Luky, Producto que integra pagos de renta con tarjeta de crédito mediante Mercado Pago y cobro de propiedades en un solo lugar.",
+            "description": "Actualmente, en OpenLabs, estoy desarrollando Soy-Luky, producto que integra pagos de renta con tarjeta de crédito mediante Mercado Pago y cobro de propiedades en un solo lugar.",
             "href": "https://www.linkedin.com/posts/azariel-moreno-4267ba254_en-estas-%C3%BAltimas-dos-semanas-trabajando-activity-7377502359607869440-li5W?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAD7EVN4BIWRQcIxDibviq_PCJ02FWRbuJ64"
         }
     ],
@@ -146,7 +146,7 @@
             "title": "ShareIt",
             "description": [
                 "En el sitio web oficial de la comunidad ShareIt, participé en la refactorización y escalado de la plataforma.",
-                " Mejoré la visibilidad del acceso principal, automatizé el proceso de registro en grupos e implementé validaciones de ingreso con un flujo de acceso en 2 pasos.",
+                " Mejoré la visibilidad del acceso principal, automaticé el proceso de registro en grupos e implementé validaciones de ingreso con un flujo de acceso en 2 pasos.",
                 " Además, optimicé la interfaz de usuario y contribuí al sistema de notificaciones."
             ],
             "technologies": [
