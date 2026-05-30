@@ -57,7 +57,7 @@ export interface HoverWordData {
 }
 
 export const HOVER_WORDS: HoverWordData[] = [
-    { id: 'liderar', baseText: 'liderar', completionText: 'el mercado digital produciendo experiencias unicas' },
+    { id: 'liderar', baseText: 'liderar', completionText: 'el mercado digital produciendo experiencias únicas' },
     { id: 'elevar', baseText: 'elevar el estándar', completionText: 'con ideas altamente disruptivas' },
     { id: 'redefiniendo', baseText: 'redefiniendo', completionText: 'el concepto de identidad de marca' },
     { id: 'premium', baseText: 'premium', completionText: 'en cada sensación de tu producto', colorClass: 'text-[#89EA2B]' },

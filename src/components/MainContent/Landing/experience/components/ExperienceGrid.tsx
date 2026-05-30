@@ -71,6 +71,9 @@ export const ExperienceGrid = ({ hoveredNumber, setHoveredNumber, setSelectedPro
                                         className="object-contain brightness-[0.4] grayscale-[0.2] contrast-[1.1] transition-all duration-700"
                                         priority={num === 1}
                                     />
+                                    <span className="absolute bottom-1/4 left-1/2 -translate-x-1/2 text-brand-cyan text-xs sm:text-sm md:text-base tracking-widest uppercase whitespace-nowrap font-semibold drop-shadow-[0_0_8px_rgba(7,248,242,0.5)]">
+                                        click para ver
+                                    </span>
                                 </div>
                             </div>
 
