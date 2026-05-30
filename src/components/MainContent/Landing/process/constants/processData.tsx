@@ -19,7 +19,7 @@ export interface ProcessStep {
 export const PROCESS_STEPS: ProcessStep[] = [
     {
         id: '01',
-        title: 'Planeacion',
+        title: 'Planeación',
         questionPrefix: 'Todo comienza con .',
         question: '¿Cuál es el objetivo de la web?',
         description: 'Transformo una idea abstracta en una hoja de ruta técnica y comercial. Resuelvo preguntas estratégicas para definir con precisión la estructura, las funcionalidades y las características clave de tu producto digital.',
@@ -63,7 +63,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     },
     {
         id: '03',
-        title: 'Construccion',
+        title: 'Construcción',
         questionPrefix: '',
         question: '¿Qué tecnologías usaremos?',
         description: 'Del prototipo estático al código interactivo. Es el momento de materializar el diseño. Transformo los planos de Figma en una aplicación web real, limpia y ultraoptimizada, inyectando la lógica, el movimiento y la fluidez que un modelo estático no puede mostrar.',
@@ -85,7 +85,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     },
     {
         id: '04',
-        title: 'Validacion',
+        title: 'Validación',
         questionPrefix: '',
         question: '¿Todo funciona perfecto?',
         description: 'Asegurando la excelencia técnica y visual. Se implementa un proceso de validación colaborativo y transparente, donde cada avance se evalúa con rigor para garantizar la máxima fidelidad respecto a la estrategia inicial.',
@@ -107,7 +107,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     },
     {
         id: '05',
-        title: 'Produccion',
+        title: 'Producción',
         questionPrefix: '',
         question: '¿Listos para el despegue?',
         description: 'Despliegue definitivo y salida al mercado. El lanzamiento se ejecuta mediante protocolos estrictos que aseguran una transición hacia el entorno real de forma impecable, segura y bajo una supervisión técnica continua.',
