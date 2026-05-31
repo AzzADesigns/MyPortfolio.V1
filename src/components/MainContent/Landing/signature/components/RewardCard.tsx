@@ -94,7 +94,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                                 text={REWARD_CARD_LABELS.ctaText}
                                 onClick={() => {
                                     onClose();
-                                    setTimeout(() => scrollToSection('brand-identity'), 350);
+                                    setTimeout(() => scrollToSection('contacto'), 350);
                                 }}
                                 className="!px-14 md:!px-20 !py-6 md:!py-8 shadow-[0_0_50px_rgba(137,234,43,0.2)] hover:shadow-[0_0_80px_rgba(7,248,242,0.4)]"
                             />
@@ -105,7 +105,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                     <div 
                         onClick={() => {
                             onClose();
-                            setTimeout(() => scrollToSection('brand-identity'), 350);
+                            setTimeout(() => scrollToSection('contacto'), 350);
                         }} 
                         className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer"
                     >

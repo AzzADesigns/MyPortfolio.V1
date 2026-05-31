@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { CTAButton } from '../../shared';
+import { scrollToSection } from '../../shared/scrollToSection';
 import { PROJECTS } from '../constants/projects';
 
 interface ProjectDetailProps {
@@ -150,8 +151,8 @@ export const ProjectDetail = ({ selectedProject, setSelectedProject }: ProjectDe
                                     <CTAButton
                                         text="Contrátame"
                                         onClick={() => {
-                                            document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
                                             setSelectedProject(null);
+                                            setTimeout(() => scrollToSection('contacto'), 150);
                                         }}
                                     />
                                 </div>
