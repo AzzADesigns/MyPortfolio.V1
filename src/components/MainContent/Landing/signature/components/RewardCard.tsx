@@ -35,7 +35,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
             <div
                 ref={cardRef}
                 style={cardStyle}
-                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 3xl:max-w-7xl bg-[#001720]/95 border border-[#07F8F2]/30 p-5 md:p-16 lg:p-20 3xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto`}
+                className={`relative z-10 w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 3xl:max-w-7xl bg-[#001720]/95 border border-[#07F8F2]/30 p-5 md:p-12 lg:p-10 xl:p-12 3xl:p-24 rounded-xl shadow-[0_0_120px_rgba(7,248,242,0.15)] overflow-hidden pointer-events-auto`}
             >
                 {/* Decoraciones de Esquina HUD */}
                 <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#07F8F2]/60 rounded-tl-xl"></div>
@@ -61,7 +61,7 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
 
                 <div
                     ref={contentRef}
-                    className="relative z-10 flex flex-col items-center text-center gap-6 md:gap-20 pt-10 md:pt-0"
+                    className="relative z-10 flex flex-col items-center text-center gap-6 md:gap-10 xl:gap-12 3xl:gap-20 pt-10 md:pt-0"
                     style={contentStyle}
                 >
                     <div className="flex flex-col items-center gap-4">
@@ -72,12 +72,12 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                         <div className="h-[1px] w-48 md:w-64 bg-gradient-to-r from-transparent via-[#07F8F2]/40 to-transparent"></div>
                     </div>
 
-                    <div className="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-12 xl:gap-24 2xl:gap-32 w-full">
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-10 lg:gap-8 xl:gap-12 2xl:gap-16 3xl:gap-32 w-full">
                         {/* Bloque de Matriz Binaria Cibernética (Estática) */}
-                        <div className="flex flex-col items-center lg:items-end order-2 lg:order-1 relative group w-full lg:w-auto h-[150px] md:h-[300px] 3xl:h-[400px]">
+                        <div className="flex flex-col items-center lg:items-end order-2 lg:order-1 relative group w-full lg:w-auto h-[150px] md:h-[220px] xl:h-[260px] 3xl:h-[400px]">
                             <div className="absolute -top-8 lg:-right-4 text-[#07F8F2]/30 font-outfit text-[10px] tracking-[0.5em] z-20">{REWARD_CARD_LABELS.dataStreamLabel}</div>
 
-                            <div className="relative w-full lg:w-[320px] xl:w-[450px] 3xl:w-[600px] h-full overflow-hidden">
+                            <div className="relative w-full lg:w-[280px] xl:w-[380px] 3xl:w-[600px] h-full overflow-hidden">
                                 <BinaryMatrix />
                                 <div className="absolute inset-0 bg-gradient-to-b from-[#001720] via-transparent to-[#001720] z-10 pointer-events-none opacity-90"></div>
                             </div>
@@ -105,9 +105,9 @@ export const RewardCard = ({ onClose, isClosing = false }: { onClose: () => void
                     <div 
                         onClick={() => {
                             onClose();
-                            setTimeout(() => scrollToSection('contacto'), 350);
+                            setTimeout(() => scrollToSection('brand-identity'), 350);
                         }} 
-                        className="mt-12 flex flex-col items-center gap-3 group/scroll cursor-pointer"
+                        className="mt-6 xl:mt-8 3xl:mt-12 flex flex-col items-center gap-2 xl:gap-3 group/scroll cursor-pointer"
                     >
                         <span className="text-[#07F8F2]/40 text-[10px] tracking-[0.4em] group-hover/scroll:text-[#07F8F2] transition-colors">{REWARD_CARD_LABELS.scrollLabel}</span>
                         <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-[#07F8F2]/20 bg-[#07F8F2]/5 backdrop-blur-sm group-hover/scroll:border-[#07F8F2]/60 group-hover/scroll:bg-[#07F8F2]/10 transition-all duration-500">

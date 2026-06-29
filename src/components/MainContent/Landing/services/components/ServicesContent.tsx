@@ -34,7 +34,7 @@ export const ServicesContent = () => {
     });
 
     return (
-        <div ref={sectionRef} className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-8 lg:gap-6 xl:gap-12 px-6 md:px-16 lg:px-24 pt-20 lg:pt-28 pb-20 z-10">
+        <div ref={sectionRef} className="relative w-full flex flex-col lg:absolute lg:inset-0 h-auto lg:h-full items-center justify-start gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-12 px-6 md:px-16 lg:px-24 pt-20 lg:pt-20 xl:pt-20 2xl:pt-24 3xl:pt-28 pb-8 lg:pb-8 xl:pb-12 3xl:pb-20 z-10">
             <div className="text-center space-y-1 px-4">
                 {/* En mobile, el h2 completo es una unidad de reveal */}
                 <h2 className="sr-services-header-item text-[#001720] text-3xl md:text-[50px] font-bold tracking-tight">
@@ -47,12 +47,12 @@ export const ServicesContent = () => {
                         {SERVICES_TEXTS.title.highlight}
                     </span>
                 </h2>
-                <p className="sr-services-header-item services-subtitle text-gray-600 text-lg mt-8 lg:text-xl xl:text-2xl font-medium">
+                <p className="sr-services-header-item services-subtitle text-gray-600 text-lg mt-2 lg:mt-3 xl:mt-4 3xl:mt-8 lg:text-xl xl:text-2xl font-medium">
                     {SERVICES_TEXTS.subtitle}
                 </p>
             </div>
 
-            <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-5 xl:gap-20 3xl:gap-[7%] w-full max-w-8xl items-stretch">
+            <div className="grid 3xl:mt-15 grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-4 xl:gap-10 2xl:gap-12 3xl:gap-[7%] w-full max-w-8xl items-stretch">
                 {SERVICES_CARDS.map((card) => (
                     <div
                         key={card.titleAccent}
