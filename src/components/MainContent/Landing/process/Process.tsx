@@ -116,9 +116,9 @@ export const Process = () => {
             {/* Número gigante de fondo — tiene su propio flip independiente */}
             <div
                 ref={bgNumberRef}
-                className="absolute left-[-15%] lg:left-[-10%] bottom-[-5%] lg:bottom-[-10%] select-none pointer-events-none opacity-20"
+                className="absolute left-[-15%] lg:left-[-10%] bottom-[-5%] lg:bottom-[-10%] select-none pointer-events-none opacity-20 lg:opacity-[0.08] 3xl:opacity-20"
             >
-                <span className="text-[250px] lg:text-[400px] xl:text-[500px] font-black text-gray-400 leading-none tracking-tighter">
+                <span className="text-[180px] lg:text-[230px] xl:text-[260px] 2xl:text-[320px] 3xl:text-[500px] font-black text-gray-400 leading-none tracking-tighter">
                     {activeStep.id}
                 </span>
             </div>
@@ -126,17 +126,12 @@ export const Process = () => {
             <div className="container mx-auto px-6 md:px-16 lg:px-24 h-full relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-0">
 
                 {/* Columna izquierda: Contenido — recibe la clase de animación directamente */}
-                <div ref={contentRef} className="w-full lg:w-1/2 flex flex-col gap-6 xl:mt-20 lg:gap-8 mt-4 lg:mt-0 relative">
+                <div ref={contentRef} className="w-full lg:w-[56%] xl:w-[60%] 2xl:w-[62%] 3xl:w-1/2 flex flex-col gap-4 lg:gap-6 3xl:gap-8 mt-4 lg:mt-2 xl:mt-6 3xl:mt-20 relative">
 
-                    {/* Badge tecnológico con watermark */}
+                    {/* Badge tecnológico */}
                     <div className="relative mb-2 lg:mb-4 flex items-center">
-                        {/* Watermark hollow en el fondo */}
-                        <div className="absolute -top-8  md:-top-12 lg:-top-16 xl:-top-6 3xl:-top-16 -left-2 lg:-left-6 text-[32px] xs:text-[38px] md:text-[50px] 3xl:text-[80px] font-black text-transparent [-webkit-text-stroke:1px_rgba(7,248,242,0.15)] uppercase tracking-widest select-none pointer-events-none opacity-80 z-0">
-                            {activeStep.title}
-                        </div>
-
                         {/* Badge principal */}
-                        <div className="relative z-10 inline-flex items-center gap-3 px-4 py-2 rounded-full border xl:mt-5 3xl:mt-0 border-[#07F8F2]/30 bg-[#07F8F2]/5 backdrop-blur-md shadow-[0_0_15px_rgba(7,248,242,0.1)]">
+                        <div className="relative z-10 inline-flex items-center gap-3 px-4 py-2 rounded-full border xl:mt-2 3xl:mt-0 border-[#07F8F2]/30 bg-[#07F8F2]/5 backdrop-blur-md shadow-[0_0_15px_rgba(7,248,242,0.15)]">
                             <span className="w-2 h-2 rounded-full bg-[#07F8F2] shadow-[0_0_8px_#07F8F2] animate-pulse" />
                             <span className="text-[#07F8F2] font-mono text-xs lg:text-sm tracking-[0.3em] uppercase font-bold">
                                 Fase {activeStep.id} <span className="opacity-50 mx-1">/</span> {activeStep.title}
@@ -148,15 +143,15 @@ export const Process = () => {
                         {activeStep.questionPrefix} <span className="text-brand-green font-semibold">&quot;{activeStep.question}&quot;</span>
                     </h2>
 
-                    <p className="text-gray-300 text-base lg:text-lg 3xl:text-xl font-medium leading-relaxed max-w-2xl">
+                    <p className="text-gray-300 text-base lg:text-base xl:text-base 2xl:text-lg 3xl:text-xl font-medium leading-relaxed max-w-2xl lg:max-w-3xl xl:max-w-none 3xl:max-w-2xl">
                         {activeStep.description}
                     </p>
 
-                    <div className="flex flex-col gap-6 mt-4 max-w-2xl">
+                    <div className="flex flex-col gap-3 xl:gap-4 3xl:gap-6 mt-2 xl:mt-3 3xl:mt-4 max-w-2xl lg:max-w-3xl xl:max-w-none 3xl:max-w-2xl">
                         {activeStep.points.map((point, index) => (
                             <div key={index} className="flex items-start gap-4">
                                 <div className="mt-2.5 w-1.5 h-1.5 bg-gray-400 shrink-0" />
-                                <p className="text-gray-300 text-base lg:text-lg xl:text-base 3xl:text-lg leading-relaxed">
+                                <p className="text-gray-300 text-sm lg:text-sm xl:text-sm 2xl:text-base 3xl:text-lg leading-relaxed">
                                     <span className="font-bold text-gray-200">{point.label}:</span> {point.text}
                                 </p>
                             </div>
@@ -165,11 +160,11 @@ export const Process = () => {
                 </div>
 
                 {/* Columna derecha: Pasos / Timeline */}
-                <div className="w-full lg:w-5/12 flex relative  xl:mt-20 lg:pl-12 justify-center lg:justify-start">
+                <div className="w-full lg:w-[38%] xl:w-[34%] 2xl:w-[32%] 3xl:w-5/12 flex relative lg:mt-2 xl:mt-6 3xl:mt-20 lg:pl-12 justify-center lg:justify-start">
                     {/* Línea con degradado animado (lava) */}
                     <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-brand-green via-brand-cyan to-brand-green animate-lava-vertical" />
 
-                    <div className="flex flex-row lg:flex-col gap-3 sm:gap-6 lg:gap-10 w-full lg:ml-12 justify-center lg:justify-start">
+                    <div className="flex flex-row lg:flex-col gap-3 sm:gap-6 lg:gap-6 xl:gap-8 3xl:gap-10 w-full lg:ml-12 justify-center lg:justify-start">
                         {PROCESS_STEPS.map((step, index) => {
                             const isActive = index === activeIndex;
                             return (

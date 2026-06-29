@@ -23,7 +23,7 @@ export const HUD_LABELS = {
 
 export const SOCIAL_LINKS = [
     { href: 'https://linkedin.com', label: 'LinkedIn', icon: 'linkedin' },
-    { href: 'https://github.com', label: 'GitHub', icon: 'github' },
+    { href: 'https://github.com/AzzADesigns', label: 'GitHub', icon: 'github' },
     { href: 'https://www.instagram.com/azzadesignswebs/', label: 'Instagram', icon: 'instagram' },
 ] as const;
 
