@@ -726,3 +726,31 @@ body {
     --color-brand-cyan: #07F8F2;
     --color-brand-dark: #001720;
 }
+
+/* Custom Case Studies Aesthetics */
+.dot-grid-bg {
+    background-color: #f8f9fa;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px), radial-gradient(rgba(0, 0, 0, 0.05) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+}
+
+/* anaglyph-text: reserved for future use */
+.anaglyph-text {
+    position: relative;
+    color: #000;
+}
+
+@keyframes glowFloat {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(40px, -40px) scale(1.15);
+    }
+}
+.glow-blob {
+    filter: blur(130px);
+    opacity: 0.15;
+    animation: glowFloat 12s ease-in-out infinite alternate;
+}
