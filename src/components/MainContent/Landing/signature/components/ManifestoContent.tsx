@@ -44,13 +44,13 @@ export const ManifestoContent = ({ hoveredWord, setHoveredWord, handleScan, scan
     };
 
     return (
-        <div className="relative z-10 flex flex-col items-center max-w-6xl 3xl:max-w-screen-2xl mx-auto px-6 text-center pt-40 xs:pt-44 pb-8 md:pt-0 md:pb-0 -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
+        <div className="relative z-10 flex flex-col items-center max-w-6xl 3xl:max-w-screen-2xl mx-auto px-6 text-center pt-8 xs:pt-10 pb-8 md:pt-0 md:pb-0 -translate-y-2 md:translate-y-4 lg:translate-y-12 xl:-translate-y-6">
 
             <div className="flex flex-col gap-6 md:gap-10 xl:gap-8 items-center justify-center mb-10 xs:mb-14 md:mb-16 lg:mb-20 xl:mb-4 perspective-[1000px] w-full">
-                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 3xl:gap-12 text-[1.4rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-x-3 gap-y-4 md:gap-8 3xl:gap-12 text-[1.4rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-normal md:whitespace-nowrap">
                     {renderHeadlineLine(MANIFESTO_HEADLINES.line1)}
                 </div>
-                <div className="flex flex-nowrap items-center justify-center gap-3 md:gap-8 3xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-nowrap">
+                <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-x-3 gap-y-4 md:gap-8 3xl:gap-12 text-[1.2rem] xs:text-[1.5rem] sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-4xl 3xl:text-[5.5rem] leading-none font-medium tracking-tight whitespace-normal md:whitespace-nowrap">
                     {renderHeadlineLine(MANIFESTO_HEADLINES.line2)}
                 </div>
             </div>

@@ -15,7 +15,7 @@ export const ScanProgressHUD = ({ scannedWords, allScanned, showRewardCard, isOp
     return (
         <div 
             onClick={allScanned ? onShowReward : undefined}
-            className={`absolute top-24 left-1/2 -translate-x-1/2 md:top-36 md:left-12 md:translate-x-0 xl:top-auto xl:bottom-12 xl:left-1/2 xl:-translate-x-1/2 z-20 flex flex-col xl:flex-col-reverse gap-3 xl:gap-0.5 font-outfit text-[#07F8F2] text-[8px] md:text-xs tracking-[0.2em] w-[85%] md:w-auto xl:w-[420px] xl:bg-[#001720]/40 xl:backdrop-blur-md xl:px-5 xl:py-2 xl:rounded-2xl xl:border xl:border-[#07F8F2]/20 xl:shadow-[0_0_50px_rgba(7,248,242,0.05)] transition-all duration-700 
+            className={`relative mt-6 md:mt-10 lg:mt-12 mx-auto xl:absolute xl:top-auto xl:bottom-12 xl:left-1/2 xl:-translate-x-1/2 xl:mt-0 z-20 flex flex-col xl:flex-col-reverse gap-3 xl:gap-0.5 font-outfit text-[#07F8F2] text-[8px] md:text-xs tracking-[0.2em] w-[85%] md:w-auto xl:w-[420px] xl:bg-[#001720]/40 xl:backdrop-blur-md xl:px-5 xl:py-2 xl:rounded-2xl xl:border xl:border-[#07F8F2]/20 xl:shadow-[0_0_50px_rgba(7,248,242,0.05)] transition-all duration-700 
             ${allScanned ? 'cursor-pointer hover:border-[#07F8F2]/50 hover:bg-[#001720]/60 active:scale-95 group/hud' : ''}`}
         >
             <div className="flex justify-between items-center w-full">
